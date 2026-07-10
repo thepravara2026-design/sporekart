@@ -1,0 +1,9 @@
+com\sporekart\order\infrastructure\persistence\InMemoryOrderRepository.class
+com\sporekart\order\OrderServiceApplication.class
+com\sporekart\order\domain\repository\OrderRepositoryPort.class
+com\sporekart\order\domain\model\Order.class
+com\sporekart\order\application\service\OrderService.class
+com\sporekart\order\interfaces\rest\OrderController.class
+com\sporekart\order\domain\model\OrderStatus.class
+com\sporekart\order\interfaces\rest\OrderController$CreateOrderRequest.class
+com\sporekart\order\domain\model\OrderItem.class

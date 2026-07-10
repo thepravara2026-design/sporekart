@@ -1,0 +1,12 @@
+com\sporekart\admin\domain\model\SupportTicket.class
+com\sporekart\admin\application\service\AdminOperationsService.class
+com\sporekart\admin\infrastructure\security\SecurityConfig.class
+com\sporekart\admin\domain\model\ApprovalRequest.class
+com\sporekart\admin\infrastructure\persistence\InMemoryAdminRepository.class
+com\sporekart\admin\interfaces\rest\AdminController$CreateApprovalRequest.class
+com\sporekart\admin\domain\model\SupportTicketStatus.class
+com\sporekart\admin\domain\model\ApprovalStatus.class
+com\sporekart\admin\interfaces\rest\AdminController$CreateSupportTicketRequest.class
+com\sporekart\admin\interfaces\rest\AdminController.class
+com\sporekart\admin\AdminServiceApplication.class
+com\sporekart\admin\domain\repository\AdminRepositoryPort.class

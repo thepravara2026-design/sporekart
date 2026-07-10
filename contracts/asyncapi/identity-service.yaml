@@ -1,0 +1,107 @@
+asyncapi: 2.6.0
+info:
+  title: SporeKart Identity Service Events
+  version: 1.0.0
+  description: >-
+    AsyncAPI contract for identity domain events emitted by the Identity Service.
+defaultContentType: application/json
+servers:
+  production:
+    url: kafka://kafka.sporekart.internal:9092
+    protocol: kafka
+    description: Production Kafka cluster
+channels:
+  sporekart.identity.customer-registered:
+    description: Raised when a new customer account is successfully created.
+    subscribe:
+      operationId: consumeCustomerRegistered
+      summary: Consume customer registration events.
+      message:
+        $ref: '#/components/messages/CustomerRegistered'
+  sporekart.identity.customer-profile-updated:
+    description: Raised when a customer updates profile data.
+    subscribe:
+      operationId: consumeCustomerProfileUpdated
+      summary: Consume customer profile updates.
+      message:
+        $ref: '#/components/messages/CustomerProfileUpdated'
+components:
+  messages:
+    CustomerRegistered:
+      name: CustomerRegistered
+      title: CustomerRegistered
+      summary: New customer account created.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerRegisteredEvent'
+    CustomerProfileUpdated:
+      name: CustomerProfileUpdated
+      title: CustomerProfileUpdated
+      summary: Customer profile changed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerProfileUpdatedEvent'
+  schemas:
+    BaseEvent:
+      type: object
+      required:
+        - eventId
+        - eventType
+        - eventVersion
+        - occurredAt
+        - correlationId
+        - causationId
+        - producerService
+        - schemaVersion
+      properties:
+        eventId:
+          type: string
+          format: uuid
+        eventType:
+          type: string
+        eventVersion:
+          type: integer
+          minimum: 1
+        occurredAt:
+          type: string
+          format: date-time
+        correlationId:
+          type: string
+        causationId:
+          type: string
+        producerService:
+          type: string
+        schemaVersion:
+          type: string
+    CustomerRegisteredEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+      required:
+        - customerId
+        - email
+      properties:
+        customerId:
+          type: string
+        email:
+          type: string
+          format: email
+        fullName:
+          type: string
+    CustomerProfileUpdatedEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseEvent'
+      required:
+        - customerId
+        - changedFields
+      properties:
+        customerId:
+          type: string
+        changedFields:
+          type: array
+          items:
+            type: string
+        updatedAt:
+          type: string
+          format: date-time

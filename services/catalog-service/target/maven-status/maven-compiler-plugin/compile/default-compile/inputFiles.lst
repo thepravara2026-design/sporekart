@@ -1,0 +1,11 @@
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\application\dto\CreateProductRequest.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\application\service\ProductService.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\CatalogServiceApplication.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\common\exception\CatalogException.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\common\exception\DuplicateSkuException.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\common\exception\DuplicateSlugException.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\domain\model\Product.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\domain\model\ProductStatus.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\domain\repository\ProductRepositoryPort.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\infrastructure\persistence\InMemoryProductRepository.java
+F:\The Pravara\clients\sporekart\sporekart\services\catalog-service\src\main\java\com\sporekart\catalog\interfaces\rest\ProductController.java

@@ -1,0 +1,300 @@
+openapi: 3.1.0
+info:
+  title: SporeKart Identity Service API
+  version: 1.0.0
+  description: >-
+    REST contract for authentication, session validation, and customer profile
+    operations owned by the Identity Service.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+servers:
+  - url: https://api.sporekart.example
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example
+    description: Staging API gateway
+security:
+  - bearerAuth: []
+paths:
+  /v1/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate a user
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authentication succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/auth/otp/request:
+    post:
+      tags:
+        - Authentication
+      summary: Request an OTP challenge
+      operationId: requestOtp
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpRequest'
+      responses:
+        '200':
+          description: OTP challenge accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh an access token
+      operationId: refreshToken
+      security:
+        - refreshTokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Refreshed access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/auth/session/validate:
+    get:
+      tags:
+        - Authentication
+      summary: Validate the current session
+      operationId: validateSession
+      responses:
+        '200':
+          description: Session is valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionValidationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/customers/me:
+    get:
+      tags:
+        - Customers
+      summary: Get the current customer profile
+      operationId: getCurrentCustomerProfile
+      responses:
+        '200':
+          description: Profile returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerProfile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      tags:
+        - Customers
+      summary: Update the current customer profile
+      operationId: updateCurrentCustomerProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    refreshTokenAuth:
+      type: apiKey
+      in: header
+      name: X-Refresh-Token
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 128
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 256
+    LoginResponse:
+      type: object
+      required:
+        - accessToken
+        - refreshToken
+        - expiresIn
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          format: int32
+          minimum: 1
+    OtpRequest:
+      type: object
+      required:
+        - channel
+        - identifier
+      properties:
+        channel:
+          type: string
+          enum:
+            - sms
+            - email
+        identifier:
+          type: string
+          minLength: 3
+          maxLength: 320
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+    SuccessResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    SessionValidationResponse:
+      type: object
+      required:
+        - valid
+        - subject
+      properties:
+        valid:
+          type: boolean
+        subject:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    CustomerProfile:
+      type: object
+      required:
+        - customerId
+        - email
+        - status
+      properties:
+        customerId:
+          type: string
+        email:
+          type: string
+          format: email
+        fullName:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - pending
+            - suspended
+    UpdateProfileRequest:
+      type: object
+      properties:
+        fullName:
+          type: string
+          maxLength: 120
+        phone:
+          type: string
+          maxLength: 32
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference

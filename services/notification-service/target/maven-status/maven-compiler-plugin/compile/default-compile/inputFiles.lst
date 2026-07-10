@@ -1,0 +1,9 @@
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\application\service\NotificationService.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\domain\model\NotificationChannel.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\domain\model\NotificationMessage.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\domain\model\NotificationStatus.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\domain\repository\NotificationRepositoryPort.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\infrastructure\persistence\InMemoryNotificationRepository.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\infrastructure\security\SecurityConfig.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\interfaces\rest\NotificationController.java
+F:\The Pravara\clients\sporekart\sporekart\services\notification-service\src\main\java\com\sporekart\notification\NotificationServiceApplication.java

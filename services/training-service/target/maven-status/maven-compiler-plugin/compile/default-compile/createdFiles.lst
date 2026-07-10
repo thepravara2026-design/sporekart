@@ -1,0 +1,9 @@
+com\sporekart\training\domain\model\GrowerProfile.class
+com\sporekart\training\domain\model\TrainingProgram.class
+com\sporekart\training\application\service\TrainingService.class
+com\sporekart\training\domain\repository\TrainingRepositoryPort.class
+com\sporekart\training\TrainingServiceApplication.class
+com\sporekart\training\infrastructure\persistence\InMemoryTrainingRepository.class
+com\sporekart\training\interfaces\rest\TrainingController$CreateTrainingRequest.class
+com\sporekart\training\domain\model\TrainingStatus.class
+com\sporekart\training\interfaces\rest\TrainingController.class

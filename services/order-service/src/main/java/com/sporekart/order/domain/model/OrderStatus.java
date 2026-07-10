@@ -1,0 +1,18 @@
+package com.sporekart.order.domain.model;
+
+public enum OrderStatus {
+    PENDING_PAYMENT,
+    PAYMENT_PROCESSING,
+    PAYMENT_SUCCESS,
+    PAYMENT_FAILED,
+    ORDER_CONFIRMED,
+    READY_FOR_SHIPPING,
+    SHIPPED,
+    OUT_FOR_DELIVERY,
+    DELIVERED,
+    CANCELLED,
+    RETURN_REQUESTED,
+    RETURN_APPROVED,
+    RETURN_REJECTED,
+    REFUNDED
+}

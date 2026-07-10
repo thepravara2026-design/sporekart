@@ -1,0 +1,9 @@
+com\sporekart\fulfillment\domain\model\ShipmentStatus.class
+com\sporekart\fulfillment\infrastructure\persistence\InMemoryShipmentRepository.class
+com\sporekart\fulfillment\domain\model\Shipment.class
+com\sporekart\fulfillment\FulfillmentServiceApplication.class
+com\sporekart\fulfillment\interfaces\rest\ShipmentController$CreateShipmentRequest.class
+com\sporekart\fulfillment\interfaces\rest\ShipmentController.class
+com\sporekart\fulfillment\application\service\ShipmentService.class
+com\sporekart\fulfillment\domain\model\ShipmentItem.class
+com\sporekart\fulfillment\domain\repository\ShipmentRepositoryPort.class

@@ -1,0 +1,7 @@
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\application\service\PaymentService.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\domain\model\Payment.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\domain\model\PaymentStatus.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\domain\repository\PaymentRepositoryPort.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\infrastructure\persistence\InMemoryPaymentRepository.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\interfaces\rest\PaymentController.java
+F:\The Pravara\clients\sporekart\sporekart\services\payment-service\src\main\java\com\sporekart\payment\PaymentServiceApplication.java

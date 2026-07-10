@@ -1,0 +1,14 @@
+com\sporekart\analytics\interfaces\rest\ReportController$CreateReportRequest.class
+com\sporekart\analytics\interfaces\rest\AnalyticsController.class
+com\sporekart\analytics\interfaces\rest\SeoController.class
+com\sporekart\analytics\interfaces\rest\AnalyticsController$CreateWidgetRequest.class
+com\sporekart\analytics\application\service\AnalyticsService.class
+com\sporekart\analytics\domain\model\SeoMetadata.class
+com\sporekart\analytics\domain\model\DashboardWidget.class
+com\sporekart\analytics\AnalyticsServiceApplication.class
+com\sporekart\analytics\infrastructure\persistence\InMemoryAnalyticsRepository.class
+com\sporekart\analytics\domain\repository\AnalyticsRepositoryPort.class
+com\sporekart\analytics\infrastructure\security\SecurityConfig.class
+com\sporekart\analytics\domain\model\ReportRequest.class
+com\sporekart\analytics\interfaces\rest\ReportController.class
+com\sporekart\analytics\interfaces\rest\SeoController$CreateMetadataRequest.class
