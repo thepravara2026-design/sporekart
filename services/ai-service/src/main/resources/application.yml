@@ -24,6 +24,85 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
 
+sporekart:
+  ai:
+    enabled: true
+    default-provider: MOCK
+    max-retries: 3
+    request-timeout: 30s
+    max-prompt-length: 32000
+    features:
+      platform-enabled: true
+      gateway-enabled: true
+      chat-enabled: true
+      rag-enabled: true
+      search-enabled: true
+      content-enabled: true
+      workflow-enabled: true
+      monitoring-enabled: true
+      provider-gemini: true
+      provider-openai: true
+      provider-claude: true
+      provider-azure-openai: true
+      provider-bedrock: false
+      provider-ollama: false
+      provider-mistral: false
+      provider-local-llm: false
+      prompt-enabled: true
+      prompt-caching: true
+      prompt-audit: true
+      knowledge-enabled: true
+      knowledge-caching: true
+      knowledge-audit: true
+      request-logging: true
+      rate-limiting: true
+      metrics: true
+    modules:
+      core:
+        enabled: true
+      gateway:
+        enabled: true
+        rate-limit: 100
+      provider:
+        enabled: true
+      prompt:
+        enabled: true
+      rag:
+        enabled: true
+      search:
+        enabled: true
+      chat:
+        enabled: true
+        rate-limit: 50
+      content:
+        enabled: true
+      workflow:
+        enabled: true
+      monitoring:
+        enabled: true
+      knowledge:
+        enabled: true
+    provider:
+      providers:
+        GEMINI:
+          enabled: true
+          endpoint: https://generativelanguage.googleapis.com
+          model: gemini-pro
+          max-tokens: 2048
+          temperature: 0.7
+        OPENAI:
+          enabled: true
+          endpoint: https://api.openai.com
+          model: gpt-4
+          max-tokens: 2048
+          temperature: 0.7
+        CLAUDE:
+          enabled: true
+          endpoint: https://api.anthropic.com
+          model: claude-3-sonnet
+          max-tokens: 2048
+          temperature: 0.7
+
 management:
   endpoints:
     web:

@@ -20,7 +20,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/health", "/actuator/info",
-                                "/v3/api-docs/**", "/swagger-ui/**")
+                                "/v3/api-docs/**", "/swagger-ui/**",
+                                "/api/v1/ai/health", "/api/v1/ai/status", "/api/v1/ai/features",
+                                "/api/v1/ai/providers", "/api/v1/ai/providers/**",
+                                "/api/v1/ai/providers/capabilities", "/api/v1/ai/providers/health",
+                                "/api/v1/ai/prompts", "/api/v1/ai/prompts/**",
+                                "/api/v1/ai/prompts/categories", "/api/v1/ai/prompts/render",
+                                "/api/v1/ai/prompts/history", "/api/v1/ai/prompts/export",
+                                "/api/v1/ai/prompts/import",
+                                "/api/v1/knowledge/**")
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/warehouses/**")
                         .hasAnyRole("WAREHOUSE_MANAGER", "OPERATIONS_MANAGER", "ADMINISTRATOR")

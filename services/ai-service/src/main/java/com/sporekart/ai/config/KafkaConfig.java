@@ -9,6 +9,14 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaConfig {
 
     @Bean
+    public NewTopic aiGatewayEventsTopic() {
+        return TopicBuilder.name("ai-gateway-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
     public NewTopic warehouseEventsTopic() {
         return TopicBuilder.name("warehouse-events")
                 .partitions(3)
@@ -59,6 +67,30 @@ public class KafkaConfig {
     @Bean
     public NewTopic gstEventsTopic() {
         return TopicBuilder.name("gst-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic aiProviderEventsTopic() {
+        return TopicBuilder.name("ai-provider-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic knowledgeEventsTopic() {
+        return TopicBuilder.name("knowledge-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic aiPromptEventsTopic() {
+        return TopicBuilder.name("ai-prompt-events")
                 .partitions(3)
                 .replicas(1)
                 .build();
