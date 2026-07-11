@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,6 +24,10 @@ public class IdentityService {
     public IdentityService(UserRepositoryPort userRepositoryPort, PasswordEncoder passwordEncoder) {
         this.userRepositoryPort = userRepositoryPort;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public Optional<UserAccount> getById(String id) {
+        return userRepositoryPort.findById(id);
     }
 
     public UserAccount register(RegisterRequest request) {
@@ -53,6 +58,6 @@ public class IdentityService {
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new BusinessException("Invalid credentials");
         }
-        return new AuthResponse("access-token", "refresh-token", "Bearer", 900L);
+        return new AuthResponse("placeholder-access-token", "placeholder-refresh-token", "Bearer", 900L);
     }
 }

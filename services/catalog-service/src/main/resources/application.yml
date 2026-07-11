@@ -2,9 +2,9 @@ spring:
   application:
     name: catalog-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sporekart}
-    username: ${SPRING_DATASOURCE_USERNAME:sporekart}
-    password: ${SPRING_DATASOURCE_PASSWORD:sporekart}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/CHANGE-ME}
+    username: ${SPRING_DATASOURCE_USERNAME:CHANGE-ME}
+    password: ${SPRING_DATASOURCE_PASSWORD:CHANGE-ME}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

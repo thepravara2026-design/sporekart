@@ -1,4 +1,0 @@
-﻿# src
-
-Application source placeholder.
-

@@ -1,8 +1,0 @@
-com\sporekart\payment\PaymentServiceApplication.class
-com\sporekart\payment\interfaces\rest\PaymentController$CreatePaymentRequest.class
-com\sporekart\payment\domain\model\PaymentStatus.class
-com\sporekart\payment\domain\repository\PaymentRepositoryPort.class
-com\sporekart\payment\interfaces\rest\PaymentController.class
-com\sporekart\payment\domain\model\Payment.class
-com\sporekart\payment\application\service\PaymentService.class
-com\sporekart\payment\infrastructure\persistence\InMemoryPaymentRepository.class

@@ -1,0 +1,43 @@
+{
+  "name": "@sporekart/admin-companion",
+  "version": "1.0.0",
+  "description": "SporeKart Admin Mobile Companion Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "build": "expo build:android && expo build:ios"
+  },
+  "dependencies": {
+    "@sporekart/mobile-core": "^1.0.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "@react-navigation/stack": "^6.3.0",
+    "expo": "^50.0.0",
+    "expo-notifications": "^0.26.0",
+    "expo-charts": "^1.0.0",
+    "react": "^18.2.0",
+    "react-native": "0.73.0",
+    "react-native-gesture-handler": "^2.14.0",
+    "react-native-safe-area-context": "^4.7.0",
+    "react-native-screens": "^3.25.0",
+    "react-native-paper": "^5.10.0",
+    "react-native-chart-kit": "^6.12.0",
+    "zustand": "^4.4.0",
+    "react-query": "^3.39.3",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.73.0",
+    "@types/jest": "^29.5.0",
+    "typescript": "^5.3.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0"
+  }
+}

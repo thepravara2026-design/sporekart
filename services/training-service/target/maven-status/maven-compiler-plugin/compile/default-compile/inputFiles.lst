@@ -1,8 +1,0 @@
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\application\service\TrainingService.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\domain\model\GrowerProfile.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\domain\model\TrainingProgram.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\domain\model\TrainingStatus.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\domain\repository\TrainingRepositoryPort.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\infrastructure\persistence\InMemoryTrainingRepository.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\interfaces\rest\TrainingController.java
-F:\The Pravara\clients\sporekart\sporekart\services\training-service\src\main\java\com\sporekart\training\TrainingServiceApplication.java

@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "SporeKart Grower",
+    "slug": "sporekart-grower",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTabletMode": true,
+      "bundleIdentifier": "com.sporekart.grower"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.sporekart.grower"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#2ecc71"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow SporeKart to access your camera for field notes"
+        }
+      ]
+    ]
+  }
+}

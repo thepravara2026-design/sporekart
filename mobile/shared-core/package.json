@@ -1,0 +1,43 @@
+{
+  "name": "@sporekart/mobile-core",
+  "version": "1.0.0",
+  "description": "Shared core libraries for SporeKart mobile applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.20.0",
+    "@react-native-community/hooks": "^1.0.0",
+    "axios": "^1.6.0",
+    "zustand": "^4.4.0",
+    "react-query": "^3.39.3",
+    "mmkv-react-native": "^1.5.0",
+    "react-native-sqlite-storage": "^6.0.0",
+    "expo": "^50.0.0",
+    "react": "^18.2.0",
+    "react-native": "0.73.0",
+    "react-native-device-info": "^10.11.0",
+    "react-native-encryption": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.73.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.3.0",
+    "ts-jest": "^29.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.73.0"
+  }
+}

@@ -1,4 +1,0 @@
-com\sporekart\inventory\interfaces\rest\InventoryController.class
-com\sporekart\inventory\domain\model\InventoryItem.class
-com\sporekart\inventory\InventoryServiceApplication.class
-com\sporekart\inventory\application\service\InventoryService.class

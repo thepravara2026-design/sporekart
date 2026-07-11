@@ -1,8 +1,0 @@
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\application\service\ShipmentService.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\domain\model\Shipment.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\domain\model\ShipmentItem.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\domain\model\ShipmentStatus.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\domain\repository\ShipmentRepositoryPort.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\FulfillmentServiceApplication.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\infrastructure\persistence\InMemoryShipmentRepository.java
-F:\The Pravara\clients\sporekart\sporekart\services\fulfillment-service\src\main\java\com\sporekart\fulfillment\interfaces\rest\ShipmentController.java

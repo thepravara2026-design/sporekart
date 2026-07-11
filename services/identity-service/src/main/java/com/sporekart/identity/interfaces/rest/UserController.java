@@ -1,5 +1,7 @@
 package com.sporekart.identity.interfaces.rest;
 
+import com.sporekart.identity.application.service.IdentityService;
+import com.sporekart.identity.domain.model.UserAccount;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    public UserController() {
+    private final IdentityService identityService;
+
+    public UserController(IdentityService identityService) {
+        this.identityService = identityService;
     }
 
     @GetMapping("/me")
@@ -18,7 +23,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> byId(@PathVariable String id) {
-        return ResponseEntity.ok(id);
+    public ResponseEntity<UserAccount> byId(@PathVariable String id) {
+        return identityService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

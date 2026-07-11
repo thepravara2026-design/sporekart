@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "java.project.sourcePaths": [
+      "services/admin-service/src/main/java",
+      "services/ai-service/src/main/java",
+      "services/analytics-service/src/main/java",
+      "services/catalog-service/src/main/java",
+      "services/fulfillment-service/src/main/java",
+      "services/identity-service/src/main/java",
+      "services/inventory-service/src/main/java",
+      "services/notification-service/src/main/java",
+      "services/order-service/src/main/java",
+      "services/payment-service/src/main/java",
+      "services/training-service/src/main/java"
+    ],
+    "java.format.settings.url": "./.vscode/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle"
+  }
+}

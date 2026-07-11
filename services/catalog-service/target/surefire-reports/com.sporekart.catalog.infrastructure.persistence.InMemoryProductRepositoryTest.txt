@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.sporekart.catalog.infrastructure.persistence.InMemoryProductRepositoryTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in com.sporekart.catalog.infrastructure.persistence.InMemoryProductRepositoryTest

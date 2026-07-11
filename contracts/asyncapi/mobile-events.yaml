@@ -1,0 +1,215 @@
+asyncapi: 3.0.0
+info:
+  title: SporeKart Mobile Platform - Async Events
+  version: 1.0.0
+  description: Kafka events for mobile platform operations
+
+servers:
+  production:
+    host: kafka.sporekart.com:9092
+    protocol: kafka
+    description: Production Kafka cluster
+
+channels:
+  DeviceRegistered:
+    address: device-registered
+    messages:
+      DeviceRegisteredEvent:
+        payload:
+          type: object
+          properties:
+            deviceId:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            deviceName:
+              type: string
+            deviceType:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+
+  OfflineSyncStarted:
+    address: offline-sync-started
+    messages:
+      OfflineSyncStartedEvent:
+        payload:
+          type: object
+          properties:
+            syncId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            timestamp:
+              type: string
+              format: date-time
+
+  OfflineSyncCompleted:
+    address: offline-sync-completed
+    messages:
+      OfflineSyncCompletedEvent:
+        payload:
+          type: object
+          properties:
+            syncId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            status:
+              type: string
+              enum: [SUCCESS, FAILED]
+            recordsSync:
+              type: integer
+            bytesSync:
+              type: integer
+            duration:
+              type: integer
+              description: Duration in milliseconds
+            timestamp:
+              type: string
+              format: date-time
+
+  PushNotificationSent:
+    address: push-notification-sent
+    messages:
+      PushNotificationSentEvent:
+        payload:
+          type: object
+          properties:
+            notificationId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            title:
+              type: string
+            body:
+              type: string
+            type:
+              type: string
+              enum: [ORDER, TRAINING, ALERT, APPROVAL, SYSTEM]
+            timestamp:
+              type: string
+              format: date-time
+
+  PushNotificationOpened:
+    address: push-notification-opened
+    messages:
+      PushNotificationOpenedEvent:
+        payload:
+          type: object
+          properties:
+            notificationId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            openedAt:
+              type: string
+              format: date-time
+            timestamp:
+              type: string
+              format: date-time
+
+  CertificateDownloaded:
+    address: certificate-downloaded
+    messages:
+      CertificateDownloadedEvent:
+        payload:
+          type: object
+          properties:
+            certificateId:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            certificateName:
+              type: string
+            timestamp:
+              type: string
+              format: date-time
+
+  TrainingViewed:
+    address: training-viewed
+    messages:
+      TrainingViewedEvent:
+        payload:
+          type: object
+          properties:
+            courseId:
+              type: string
+              format: uuid
+            userId:
+              type: string
+              format: uuid
+            deviceId:
+              type: string
+              format: uuid
+            viewDuration:
+              type: integer
+              description: Duration in seconds
+            timestamp:
+              type: string
+              format: date-time
+
+operations:
+  OnDeviceRegistered:
+    action: receive
+    channel:
+      $ref: "#/channels/DeviceRegistered"
+    description: Triggered when a device is registered
+
+  OnOfflineSyncStarted:
+    action: receive
+    channel:
+      $ref: "#/channels/OfflineSyncStarted"
+    description: Triggered when offline sync begins
+
+  OnOfflineSyncCompleted:
+    action: receive
+    channel:
+      $ref: "#/channels/OfflineSyncCompleted"
+    description: Triggered when offline sync completes
+
+  OnPushNotificationSent:
+    action: receive
+    channel:
+      $ref: "#/channels/PushNotificationSent"
+    description: Triggered when push notification is sent
+
+  OnPushNotificationOpened:
+    action: receive
+    channel:
+      $ref: "#/channels/PushNotificationOpened"
+    description: Triggered when push notification is opened by user
+
+  OnCertificateDownloaded:
+    action: receive
+    channel:
+      $ref: "#/channels/CertificateDownloaded"
+    description: Triggered when certificate is downloaded
+
+  OnTrainingViewed:
+    action: receive
+    channel:
+      $ref: "#/channels/TrainingViewed"
+    description: Triggered when training content is viewed

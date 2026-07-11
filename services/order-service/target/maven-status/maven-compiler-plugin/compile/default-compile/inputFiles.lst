@@ -1,8 +1,0 @@
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\application\service\OrderService.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\domain\model\Order.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\domain\model\OrderItem.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\domain\model\OrderStatus.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\domain\repository\OrderRepositoryPort.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\infrastructure\persistence\InMemoryOrderRepository.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\interfaces\rest\OrderController.java
-F:\The Pravara\clients\sporekart\sporekart\services\order-service\src\main\java\com\sporekart\order\OrderServiceApplication.java
