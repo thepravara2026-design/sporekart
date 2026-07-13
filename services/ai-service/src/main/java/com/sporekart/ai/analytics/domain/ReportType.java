@@ -1,0 +1,18 @@
+package com.sporekart.ai.analytics.domain;
+
+public enum ReportType {
+    EXECUTIVE_SUMMARY,
+    GOVERNANCE_HEALTH,
+    POLICY_REPORT,
+    DECISION_REPORT,
+    APPROVAL_REPORT,
+    COMPLIANCE_REPORT,
+    RISK_REPORT,
+    TRUST_REPORT,
+    OPERATIONAL_REPORT,
+    AUDIT_SUMMARY,
+    DAILY_REPORT,
+    WEEKLY_REPORT,
+    MONTHLY_REPORT,
+    CUSTOM
+}

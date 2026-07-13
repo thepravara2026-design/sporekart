@@ -1,0 +1,34 @@
+{
+  "icon": {
+    "xs": { "value": "16px", "type": "sizing" },
+    "sm": { "value": "20px", "type": "sizing" },
+    "md": { "value": "24px", "type": "sizing", "description": "Default icon size" },
+    "lg": { "value": "28px", "type": "sizing" },
+    "xl": { "value": "32px", "type": "sizing" },
+    "2xl": { "value": "40px", "type": "sizing" },
+    "3xl": { "value": "48px", "type": "sizing" }
+  },
+  "illustration": {
+    "xs": { "value": "64px", "type": "sizing" },
+    "sm": { "value": "80px", "type": "sizing" },
+    "md": { "value": "120px", "type": "sizing", "description": "Standard empty state" },
+    "lg": { "value": "160px", "type": "sizing", "description": "First-time empty state" },
+    "xl": { "value": "240px", "type": "sizing", "description": "Onboarding hero" }
+  },
+  "component": {
+    "btnHeight": {
+      "sm": { "value": "36px", "type": "sizing" },
+      "md": { "value": "40px", "type": "sizing", "description": "Default button height" },
+      "lg": { "value": "48px", "type": "sizing" }
+    },
+    "inputHeight": {
+      "sm": { "value": "36px", "type": "sizing" },
+      "md": { "value": "40px", "type": "sizing", "description": "Default input height" },
+      "lg": { "value": "48px", "type": "sizing" }
+    },
+    "tableRowHeight": {
+      "compact": { "value": "36px", "type": "sizing" },
+      "comfortable": { "value": "48px", "type": "sizing", "description": "Default table row" }
+    }
+  }
+}

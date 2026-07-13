@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Sizing Primitives",
+  "sizing": {
+    "icon": {
+      "xs": { "value": "16px", "type": "dimension", "description": "Caption, table actions" },
+      "sm": { "value": "20px", "type": "dimension", "description": "Button inline, breadcrumb" },
+      "md": { "value": "24px", "type": "dimension", "description": "Default icon size" },
+      "lg": { "value": "28px", "type": "dimension", "usage": "Empty state, card media" },
+      "xl": { "value": "32px", "type": "dimension", "usage": "Feature callout, onboarding" },
+      "2xl": { "value": "40px", "type": "dimension", "usage": "Large empty state" },
+      "3xl": { "value": "48px", "type": "dimension", "usage": "Illustration placeholder" }
+    },
+    "illustration": {
+      "xs": { "value": "64px", "type": "dimension", "usage": "Toast, inline" },
+      "sm": { "value": "80px", "type": "dimension", "usage": "Toast, modal icon" },
+      "md": { "value": "120px", "type": "dimension", "usage": "Standard empty state" },
+      "lg": { "value": "160px", "type": "dimension", "usage": "First-time empty, page error" },
+      "xl": { "value": "240px", "type": "dimension", "usage": "Onboarding hero, landing" }
+    },
+    "component": {
+      "btnHeight": {
+        "sm": { "value": "36px", "type": "dimension" },
+        "md": { "value": "40px", "type": "dimension", "description": "Default button height" },
+        "lg": { "value": "48px", "type": "dimension" }
+      },
+      "inputHeight": {
+        "sm": { "value": "36px", "type": "dimension" },
+        "md": { "value": "40px", "type": "dimension", "description": "Default input height" },
+        "lg": { "value": "48px", "type": "dimension" }
+      },
+      "tableRowHeight": {
+        "compact": { "value": "36px", "type": "dimension" },
+        "comfortable": { "value": "48px", "type": "dimension", "description": "Default table row" }
+      }
+    },
+    "container": {
+      "prose": { "value": "720px", "type": "dimension" },
+      "data": { "value": "1200px", "type": "dimension" },
+      "full": { "value": "100%", "type": "dimension" }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+package com.sporekart.ai.policy.domain;
+
+public enum ConflictStrategy {
+    HIGHEST_PRIORITY_WINS, LOWEST_PRIORITY_WINS, MOST_SPECIFIC_WINS, LEAST_SPECIFIC_WINS,
+    DENY_OVERRIDES, ALLOW_OVERRIDES, REQUIRE_ALLOW
+}

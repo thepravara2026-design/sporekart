@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Typography Primitives",
+  "typography": {
+    "fontFamily": {
+      "sans": {
+        "value": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+        "type": "fontFamily",
+        "description": "System UI stack - zero download, perfect hinting, Devanagari support"
+      },
+      "mono": {
+        "value": "ui-monospace, SFMono-Regular, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace",
+        "type": "fontFamily",
+        "description": "System mono stack for data, codes, OTP"
+      },
+      "brand": {
+        "value": "\"Inter\", var(--font-family-sans)",
+        "type": "fontFamily",
+        "description": "Future brand font - self-hosted WOFF2, subset Latin+Devanagari"
+      }
+    },
+    "fontSize": {
+      "display": { "value": "clamp(2.44rem, 2rem + 2vw, 3.05rem)", "type": "fontSize", "description": "Hero, marketing" },
+      "h1": { "value": "clamp(1.95rem, 1.75rem + 1vw, 2.44rem)", "type": "fontSize", "description": "Page title" },
+      "h2": { "value": "clamp(1.56rem, 1.38rem + 0.9vw, 1.95rem)", "type": "fontSize", "description": "Section heading" },
+      "h3": { "value": "clamp(1.25rem, 1.13rem + 0.6vw, 1.56rem)", "type": "fontSize", "description": "Sub-section" },
+      "h4": { "value": "1.25rem", "type": "fontSize", "description": "Card title" },
+      "h5": { "value": "1.125rem", "type": "fontSize", "description": "Minor heading" },
+      "h6": { "value": "1rem", "type": "fontSize", "description": "Tiny heading" },
+      "subtitle": { "value": "1rem", "type": "fontSize", "description": "Page subtitle, meta" },
+      "body-lg": { "value": "1.125rem", "type": "fontSize", "description": "Comfortable reading" },
+      "body": { "value": "1rem", "type": "fontSize", "description": "Default body" },
+      "body-sm": { "value": "0.875rem", "type": "fontSize", "description": "Secondary content" },
+      "caption": { "value": "0.8125rem", "type": "fontSize", "description": "Captions, hints" },
+      "label": { "value": "0.8125rem", "type": "fontSize", "description": "Form labels, buttons" },
+      "button": { "value": "0.875rem", "type": "fontSize", "description": "Button text" },
+      "table": { "value": "0.875rem", "type": "fontSize", "description": "Table cells" },
+      "table-h": { "value": "0.75rem", "type": "fontSize", "description": "Table headers" },
+      "code": { "value": "0.875rem", "type": "fontSize", "description": "Inline code, IDs" },
+      "numeric": { "value": "1rem", "type": "fontSize", "description": "Amounts, quantities" },
+      "otp": { "value": "2rem", "type": "fontSize", "description": "OTP input digits" }
+    },
+    "fontWeight": {
+      "normal": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "semibold": { "value": "600", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
+    },
+    "lineHeight": {
+      "tight": { "value": "1.15", "type": "lineHeight" },
+      "snug": { "value": "1.25", "type": "lineHeight" },
+      "normal": { "value": "1.35", "type": "lineHeight" },
+      "relaxed": { "value": "1.5", "type": "lineHeight" },
+      "loose": { "value": "1.6", "type": "lineHeight" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "-0.02em", "type": "letterSpacing" },
+      "snug": { "value": "-0.01em", "type": "letterSpacing" },
+      "normal": { "value": "0", "type": "letterSpacing" },
+      "wide": { "value": "0.02em", "type": "letterSpacing" },
+      "wider": { "value": "0.05em", "type": "letterSpacing" },
+      "otp": { "value": "0.25em", "type": "letterSpacing" }
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Semantic Color Aliases",
+  "color": {
+    "primitives": {
+      "green": {
+        "50": { "value": "#E8F5E9", "type": "color", "description": "Lightest green - subtle backgrounds" },
+        "100": { "value": "#C8E6C9", "type": "color", "description": "Weak borders, disabled backgrounds" },
+        "200": { "value": "#A5D6A7", "type": "color" },
+        "300": { "value": "#81C784", "type": "color" },
+        "400": { "value": "#66BB6A", "type": "color" },
+        "500": { "value": "#4CAF50", "type": "color", "description": "Secondary actions, illustrations" },
+        "600": { "value": "#2F6F4F", "type": "color", "description": "Primary brand color" },
+        "700": { "value": "#265D3F", "type": "color", "description": "Primary hover" },
+        "800": { "value": "#1E4D33", "type": "color", "description": "Primary pressed" },
+        "900": { "value": "#153A26", "type": "color", "description": "High-emphasis text" },
+        "950": { "value": "#0A2516", "type": "color" }
+      },
+      "neutral": {
+        "50": { "value": "#FAFAFA", "type": "color" },
+        "100": { "value": "#F7F8F7", "type": "color", "description": "Page background" },
+        "200": { "value": "#E3E6E3", "type": "color", "description": "Borders, dividers" },
+        "300": { "value": "#CFCFCF", "type": "color", "description": "Disabled borders" },
+        "400": { "value": "#A8A8A8", "type": "color", "description": "Placeholder icons" },
+        "500": { "value": "#8C8C8C", "type": "color", "description": "Secondary text" },
+        "600": { "value": "#6D6D6D", "type": "color", "description": "Text secondary" },
+        "700": { "value": "#4D4D4D", "type": "color" },
+        "800": { "value": "#2D2D2D", "type": "color" },
+        "900": { "value": "#1D2B22", "type": "color", "description": "Text primary" },
+        "950": { "value": "#0D140E", "type": "color" }
+      },
+      "success": {
+        "50": { "value": "#E8F5E9", "type": "color" },
+        "100": { "value": "#C8E6C9", "type": "color" },
+        "500": { "value": "#4CAF50", "type": "color" },
+        "600": { "value": "#2E7D32", "type": "color", "description": "Success text" },
+        "700": { "value": "#1B5E20", "type": "color" }
+      },
+      "warning": {
+        "50": { "value": "#FFF8E1", "type": "color" },
+        "100": { "value": "#FFECB3", "type": "color" },
+        "500": { "value": "#FFB300", "type": "color" },
+        "600": { "value": "#F57F17", "type": "color", "description": "Warning text" },
+        "700": { "value": "#E65100", "type": "color" }
+      },
+      "danger": {
+        "50": { "value": "#FBE9E7", "type": "color" },
+        "100": { "value": "#FFCCBC", "type": "color" },
+        "500": { "value": "#EF5350", "type": "color" },
+        "600": { "value": "#C62828", "type": "color", "description": "Error text, destructive actions" },
+        "700": { "value": "#B71C1C", "type": "color" }
+      },
+      "info": {
+        "50": { "value": "#E3F2FD", "type": "color" },
+        "100": { "value": "#BBDEFB", "type": "color" },
+        "500": { "value": "#2196F3", "type": "color" },
+        "600": { "value": "#1565C0", "type": "color", "description": "Info text" },
+        "700": { "value": "#0D47A1", "type": "color" }
+      },
+      "dataViz": {
+        "categorical": {
+          "1": { "value": "#2F6F4F", "type": "color", "description": "Primary Green - Series 1" },
+          "2": { "value": "#1565C0", "type": "color", "description": "Info Blue - Series 2" },
+          "3": { "value": "#F57F17", "type": "color", "description": "Warning Amber - Series 3" },
+          "4": { "value": "#C62828", "type": "color", "description": "Danger Red - Series 4" },
+          "5": { "value": "#6A1B9A", "type": "color", "description": "Deep Purple - Series 5" },
+          "6": { "value": "#00838F", "type": "color", "description": "Teal - Series 6" },
+          "7": { "value": "#E65100", "type": "color", "description": "Deep Orange - Series 7" },
+          "8": { "value": "#33691E", "type": "color", "description": "Dark Green - Series 8" }
+        },
+        "sequential": {
+          "start": { "value": "{color.green.50}", "type": "color" },
+          "end": { "value": "{color.green.900}", "type": "color" }
+        },
+        "diverging": {
+          "negative": { "value": "{color.danger.500}", "type": "color" },
+          "neutral": { "value": "{color.neutral.100}", "type": "color" },
+          "positive": { "value": "{color.success.500}", "type": "color" }
+        }
+      }
+    },
+    "semantic": {
+      "bg": {
+        "primary": {
+          "default": { "value": "{color.green.600}", "type": "color" },
+          "hover": { "value": "{color.green.700}", "type": "color" },
+          "pressed": { "value": "{color.green.800}", "type": "color" },
+          "weak": { "value": "{color.green.100}", "type": "color" }
+        },
+        "surface": {
+          "default": { "value": "{color.white}", "type": "color" },
+          "raised": { "value": "{color.white}", "type": "color" },
+          "overlay": { "value": "{color.white}", "type": "color" },
+          "modal": { "value": "{color.white}", "type": "color" }
+        },
+        "background": { "default": "{color.neutral.100}", "type": "color" },
+        "overlay": { "default": "rgba(20, 30, 24, 0.32)", "type": "color" },
+        "skeleton": {
+          "base": { "value": "{color.neutral.200}", "type": "color" },
+          "highlight": { "value": "{color.neutral.100}", "type": "color" }
+        }
+      },
+      "text": {
+        "primary": { "value": "{color.neutral.900}", "type": "color" },
+        "secondary": { "value": "{color.neutral.600}", "type": "color" },
+        "disabled": { "value": "{color.neutral.400}", "type": "color" },
+        "onPrimary": { "value": "{color.white}", "type": "color" },
+        "onSurface": { "value": "{color.neutral.900}", "type": "color" },
+        "success": { "value": "{color.success.600}", "type": "color" },
+        "warning": { "value": "{color.warning.600}", "type": "color" },
+        "danger": { "value": "{color.danger.600}", "type": "color" },
+        "info": { "value": "{color.info.600}", "type": "color" }
+      },
+      "border": {
+        "default": { "value": "{color.neutral.200}", "type": "color" },
+        "strong": { "value": "{color.neutral.300}", "type": "color" },
+        "focus": { "value": "{color.green.600}", "type": "color" },
+        "error": { "value": "{color.danger.600}", "type": "color" },
+        "success": { "value": "{color.success.600}", "type": "color" }
+      },
+      "focus": {
+        "ring": { "value": "{color.green.600}", "type": "color" }
+      },
+      "icon": {
+        "default": { "value": "{color.neutral.600}", "type": "color" },
+        "primary": { "value": "{color.green.600}", "type": "color" },
+        "danger": { "value": "{color.danger.600}", "type": "color" },
+        "success": { "value": "{color.success.600}", "type": "color" },
+        "warning": { "value": "{color.warning.600}", "type": "color" },
+        "info": { "value": "{color.info.600}", "type": "color" }
+      },
+      "skeleton": {
+        "base": { "value": "{color.neutral.200}", "type": "color" },
+        "highlight": { "value": "{color.neutral.100}", "type": "color" }
+      }
+    }
+  }
+}

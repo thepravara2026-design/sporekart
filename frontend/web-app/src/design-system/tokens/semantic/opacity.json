@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Opacity Semantic",
+  "opacity": {
+    "0": { "value": "{opacity.0}", "type": "opacity" },
+    "10": { "value": "{opacity.10}", "type": "opacity" },
+    "20": { "value": "{opacity.20}", "type": "opacity" },
+    "30": { "value": "{opacity.30}", "type": "opacity" },
+    "40": { "value": "{opacity.40}", "type": "opacity" },
+    "50": { "value": "{opacity.50}", "type": "opacity" },
+    "60": { "value": "{opacity.60}", "type": "opacity" },
+    "70": { "value": "{opacity.70}", "type": "opacity" },
+    "80": { "value": "{opacity.80}", "type": "opacity" },
+    "90": { "value": "{opacity.90}", "type": "opacity" },
+    "100": { "value": "{opacity.100}", "type": "opacity" },
+    "disabled": { "value": "{opacity.disabled}", "type": "opacity" },
+    "overlay": { "value": "{opacity.overlay}", "type": "opacity" },
+    "overlayHeavy": { "value": "{opacity.overlayHeavy}", "type": "opacity" }
+  }
+}

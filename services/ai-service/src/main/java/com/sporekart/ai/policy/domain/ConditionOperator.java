@@ -1,0 +1,7 @@
+package com.sporekart.ai.policy.domain;
+
+public enum ConditionOperator {
+    EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS, GREATER_THAN, LESS_THAN,
+    GREATER_EQUALS, LESS_EQUALS, IN, NOT_IN, EXISTS, NOT_EXISTS,
+    MATCHES, STARTS_WITH, ENDS_WITH
+}

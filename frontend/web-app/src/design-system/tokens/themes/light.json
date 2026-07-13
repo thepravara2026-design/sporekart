@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Light Theme (Base)",
+  "color": {
+    "primitives": {
+      "green": {
+        "50": { "value": "#E8F5E9", "type": "color" },
+        "100": { "value": "#C8E6C9", "type": "color" },
+        "500": { "value": "#4CAF50", "type": "color" },
+        "600": { "value": "#2F6F4F", "type": "color" },
+        "700": { "value": "#265D3F", "type": "color" },
+        "800": { "value": "#1E4D33", "type": "color" },
+        "900": { "value": "#153A26", "type": "color" },
+        "950": { "value": "#0A2516", "type": "color" }
+      },
+      "neutral": {
+        "100": { "value": "#F7F8F7", "type": "color" },
+        "200": { "value": "#E3E6E3", "type": "color" },
+        "300": { "value": "#CFCFCF", "type": "color" },
+        "400": { "value": "#A8A8A8", "type": "color" },
+        "500": { "value": "#8C8C8C", "type": "color" },
+        "600": { "value": "#6D6D6D", "type": "color" },
+        "900": { "value": "#1D2B22", "type": "color" },
+        "950": { "value": "#0D140E", "type": "color" }
+      },
+      "success": { "600": { "value": "#2E7D32", "type": "color" } },
+      "warning": { "600": { "value": "#F57F17", "type": "color" } },
+      "danger": { "600": { "value": "#C62828", "type": "color" } },
+      "info": { "600": { "value": "#1565C0", "type": "color" } }
+    },
+    "semantic": {
+      "bg": {
+        "primary": { "default": { "value": "{color.green.600}" }, "hover": { "value": "{color.green.700}" }, "pressed": { "value": "{color.green.800}" }, "weak": { "value": "{color.green.100}" } },
+        "surface": { "default": { "value": "#FFFFFF" }, "raised": { "value": "#FFFFFF" }, "overlay": { "value": "#FFFFFF" }, "modal": { "value": "#FFFFFF" } },
+        "background": { "default": { "value": "{color.neutral.100}" } },
+        "overlay": { "default": "rgba(20, 30, 24, 0.32)" },
+        "skeleton": { "base": { "value": "{color.neutral.200}" }, "highlight": { "value": "{color.neutral.100}" } }
+      },
+      "text": {
+        "primary": { "value": "{color.neutral.900}" },
+        "secondary": { "value": "{color.neutral.600}" },
+        "disabled": { "value": "{color.neutral.400}" },
+        "onPrimary": { "value": "#FFFFFF" },
+        "onSurface": { "value": "{color.neutral.900}" },
+        "success": { "value": "{color.success.600}" },
+        "warning": { "value": "{color.warning.600}" },
+        "danger": { "value": "{color.danger.600}" },
+        "info": { "value": "{color.info.600}" }
+      },
+      "border": { "default": { "value": "{color.neutral.200}" }, "strong": { "value": "{color.neutral.300}" }, "focus": { "value": "{color.green.600}" }, "error": { "value": "{color.danger.600}" }, "success": { "value": "{color.success.600}" } },
+      "focus": { "ring": { "value": "{color.green.600}" } },
+      "icon": { "default": { "value": "{color.neutral.600}" }, "primary": { "value": "{color.green.600}" }, "danger": { "value": "{color.danger.600}" }, "success": { "value": "{color.success.600}" }, "warning": { "value": "{color.warning.600}" }, "info": { "value": "{color.info.600}" } },
+      "skeleton": { "base": { "value": "{color.neutral.200}" }, "highlight": { "value": "{color.neutral.100}" } }
+    }
+  }
+}

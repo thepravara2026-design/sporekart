@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Border Semantic",
+  "border": {
+    "width": {
+      "none": { "value": "{border.width.none}", "type": "dimension" },
+      "thin": { "value": "{border.width.thin}", "type": "dimension" },
+      "thick": { "value": "{border.width.thick}", "type": "dimension" }
+    },
+    "style": {
+      "solid": { "value": "{border.style.solid}", "type": "borderStyle" },
+      "dashed": { "value": "{border.style.dashed}", "type": "borderStyle" },
+      "none": { "value": "{border.style.none}", "type": "borderStyle" }
+    },
+    "color": {
+      "default": { "value": "{border.color.default}", "type": "color" },
+      "strong": { "value": "{border.color.strong}", "type": "color" },
+      "focus": { "value": "{border.color.focus}", "type": "color" },
+      "error": { "value": "{border.color.error}", "type": "color" },
+      "success": { "value": "{border.color.success}", "type": "color" }
+    }
+  }
+}

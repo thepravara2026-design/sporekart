@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Semantic Typography Aliases",
+  "typography": {
+    "fontFamily": {
+      "sans": { "value": "{fontFamily.sans}", "type": "fontFamily" },
+      "mono": { "value": "{fontFamily.mono}", "type": "fontFamily" }
+    },
+    "fontSize": {
+      "display": { "value": "{typography.fontSize.display}", "type": "fontSize" },
+      "h1": { "value": "{typography.fontSize.h1}", "type": "fontSize" },
+      "h2": { "value": "{typography.fontSize.h2}", "type": "fontSize" },
+      "h3": { "value": "{typography.fontSize.h3}", "type": "fontSize" },
+      "h4": { "value": "{typography.fontSize.h4}", "type": "fontSize" },
+      "h5": { "value": "{typography.fontSize.h5}", "type": "fontSize" },
+      "h6": { "value": "{typography.fontSize.h6}", "type": "fontSize" },
+      "subtitle": { "value": "{typography.fontSize.subtitle}", "type": "fontSize" },
+      "bodyLg": { "value": "{typography.fontSize.body-lg}", "type": "fontSize" },
+      "body": { "value": "{typography.fontSize.body}", "type": "fontSize" },
+      "bodySm": { "value": "{typography.fontSize.body-sm}", "type": "fontSize" },
+      "caption": { "value": "{typography.fontSize.caption}", "type": "fontSize" },
+      "label": { "value": "{typography.fontSize.label}", "type": "fontSize" },
+      "button": { "value": "{typography.fontSize.button}", "type": "fontSize" },
+      "table": { "value": "{typography.fontSize.table}", "type": "fontSize" },
+      "tableHeader": { "value": "{typography.fontSize.table-h}", "type": "fontSize" },
+      "code": { "value": "{typography.fontSize.code}", "type": "fontSize" },
+      "numeric": { "value": "{typography.fontSize.numeric}", "type": "fontSize" },
+      "otp": { "value": "{typography.fontSize.otp}", "type": "fontSize" }
+    },
+    "fontWeight": {
+      "normal": { "value": "{typography.fontWeight.normal}", "type": "fontWeight" },
+      "medium": { "value": "{typography.fontWeight.medium}", "type": "fontWeight" },
+      "semibold": { "value": "{typography.fontWeight.semibold}", "type": "fontWeight" },
+      "bold": { "value": "{typography.fontWeight.bold}", "type": "fontWeight" }
+    },
+    "lineHeight": {
+      "tight": { "value": "{typography.lineHeight.tight}", "type": "lineHeight" },
+      "snug": { "value": "{typography.lineHeight.snug}", "type": "lineHeight" },
+      "normal": { "value": "{typography.lineHeight.normal}", "type": "lineHeight" },
+      "relaxed": { "value": "{typography.lineHeight.relaxed}", "type": "lineHeight" },
+      "loose": { "value": "{typography.lineHeight.loose}", "type": "lineHeight" }
+    },
+    "letterSpacing": {
+      "tight": { "value": "{typography.letterSpacing.tight}", "type": "letterSpacing" },
+      "snug": { "value": "{typography.letterSpacing.snug}", "type": "letterSpacing" },
+      "normal": { "value": "{typography.letterSpacing.normal}", "type": "letterSpacing" },
+      "wide": { "value": "{typography.letterSpacing.wide}", "type": "letterSpacing" },
+      "wider": { "value": "{typography.letterSpacing.wider}", "type": "letterSpacing" },
+      "otp": { "value": "{typography.letterSpacing.otp}", "type": "letterSpacing" }
+    }
+  }
+}

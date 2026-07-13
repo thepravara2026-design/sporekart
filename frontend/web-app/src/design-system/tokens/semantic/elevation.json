@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Elevation Semantic",
+  "elevation": {
+    "shadow": {
+      "none": { "value": "{elevation.shadow.none}", "type": "shadow" },
+      "1": { "value": "{elevation.shadow.1}", "type": "shadow" },
+      "2": { "value": "{elevation.shadow.2}", "type": "shadow" },
+      "3": { "value": "{elevation.shadow.3}", "type": "shadow" },
+      "4": { "value": "{elevation.shadow.4}", "type": "shadow" }
+    },
+    "surface": {
+      "0": { "value": "{elevation.surface.0}", "type": "surfaceLevel" },
+      "1": { "value": "{elevation.surface.1}", "type": "surfaceLevel" },
+      "2": { "value": "{elevation.surface.2}", "type": "surfaceLevel" },
+      "3": { "value": "{elevation.surface.3}", "type": "surfaceLevel" },
+      "4": { "value": "{elevation.surface.4}", "type": "surfaceLevel" },
+      "5": { "value": "{elevation.surface.5}", "type": "surfaceLevel" }
+    },
+    "backdrop": {
+      "light": { "value": "{elevation.backdrop.light}", "type": "color" },
+      "heavy": { "value": "{elevation.backdrop.heavy}", "type": "color" }
+    }
+  }
+}

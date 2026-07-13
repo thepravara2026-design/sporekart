@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Border Radius Primitives",
+  "radius": {
+    "base": { "value": "4px", "type": "dimension" },
+    "scale": {
+      "none": { "value": "0", "type": "dimension" },
+      "xs": { "value": "4px", "type": "dimension" },
+      "sm": { "value": "8px", "type": "dimension" },
+      "md": { "value": "12px", "type": "dimension" },
+      "lg": { "value": "16px", "type": "dimension" },
+      "xl": { "value": "24px", "type": "dimension" },
+      "full": { "value": "9999px", "type": "dimension" }
+    },
+    "component": {
+      "btn": { "value": "{radius.scale.md}", "type": "dimension" },
+      "input": { "value": "{radius.scale.md}", "type": "dimension" },
+      "card": { "value": "{radius.scale.lg}", "type": "dimension" },
+      "dialog": { "value": "{radius.scale.xl}", "type": "dimension" },
+      "image": { "value": "{radius.scale.md}", "type": "dimension" },
+      "badge": { "value": "{radius.scale.full}", "type": "dimension" },
+      "tag": { "value": "{radius.scale.sm}", "type": "dimension" },
+      "table": { "value": "{radius.scale.none}", "type": "dimension" },
+      "avatar": { "value": "{radius.scale.full}", "type": "dimension" },
+      "tooltip": { "value": "{radius.scale.sm}", "type": "dimension" },
+      "dropdown": { "value": "{radius.scale.md}", "type": "dimension" }
+    }
+  }
+}

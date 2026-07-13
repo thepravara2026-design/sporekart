@@ -1,0 +1,5 @@
+package com.sporekart.ai.approval.domain;
+
+public enum ApprovalStatus {
+    PENDING, ASSIGNED, UNDER_REVIEW, APPROVED, REJECTED, CHANGES_REQUESTED, DELEGATED, ESCALATED, CANCELLED, EXPIRED, WITHDRAWN, COMPLETED
+}

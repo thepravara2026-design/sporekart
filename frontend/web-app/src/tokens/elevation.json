@@ -1,0 +1,17 @@
+{
+  "shadow": {
+    "none": { "value": "none", "type": "shadow" },
+    "1": { "value": "0 1px 2px rgba(29, 43, 34, 0.04), 0 1px 3px rgba(29, 43, 34, 0.08)", "type": "shadow", "description": "Hover card, subtle lift" },
+    "2": { "value": "0 4px 8px rgba(29, 43, 34, 0.06), 0 2px 4px rgba(29, 43, 34, 0.05)", "type": "shadow", "description": "Dropdown, popover, tooltip" },
+    "3": { "value": "0 8px 24px rgba(29, 43, 34, 0.08), 0 4px 12px rgba(29, 43, 34, 0.05)", "type": "shadow", "description": "Modal, drawer, side sheet" },
+    "4": { "value": "0 16px 48px rgba(29, 43, 34, 0.12), 0 8px 24px rgba(29, 43, 34, 0.08)", "type": "shadow", "description": "Full-screen overlay, loading" }
+  },
+  "surface": {
+    "0": { "value": "0", "type": "surfaceLevel", "description": "Page background" },
+    "1": { "value": "1", "type": "surfaceLevel", "description": "Cards, panels, sidebar" },
+    "2": { "value": "2", "type": "surfaceLevel", "description": "Raised cards, hover" },
+    "3": { "value": "3", "type": "surfaceLevel", "description": "Dropdowns, popovers" },
+    "4": { "value": "4", "type": "surfaceLevel", "description": "Modals, drawers" },
+    "5": { "value": "5", "type": "surfaceLevel", "description": "Full-screen overlay" }
+  }
+}

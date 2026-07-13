@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Animation Semantic",
+  "animation": {
+    "duration": {
+      "instant": { "value": "{animation.duration.instant}", "type": "duration" },
+      "fast": { "value": "{animation.duration.fast}", "type": "duration" },
+      "normal": { "value": "{animation.duration.normal}", "type": "duration" },
+      "slow": { "value": "{animation.duration.slow}", "type": "duration" },
+      "skeleton": { "value": "{animation.duration.skeleton}", "type": "duration" }
+    },
+    "easing": {
+      "standard": { "value": "{animation.easing.standard}", "type": "easing" },
+      "decelerate": { "value": "{animation.easing.decelerate}", "type": "easing" },
+      "accelerate": { "value": "{animation.easing.accelerate}", "type": "easing" },
+      "sharp": { "value": "{animation.easing.sharp}", "type": "easing" }
+    },
+    "motionReduction": {
+      "reduce": { "value": "{animation.motionReduction.reduce}", "type": "duration" }
+    }
+  }
+}

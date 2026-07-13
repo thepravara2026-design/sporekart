@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Dark Theme",
+  "theme": "dark",
+  "extends": "light",
+  "color": {
+    "primitives": {
+      "green": { "400": { "value": "#66BB6A", "type": "color" }, "300": { "value": "#81C784", "type": "color" } },
+      "neutral": { "950": { "value": "#0D140E", "type": "color" }, "900": { "value": "#1D2B22", "type": "color" }, "800": { "value": "#2D3D30", "type": "color" }, "700": { "value": "#4D4D4D", "type": "color" }, "600": { "value": "#6D6D6D", "type": "color" }, "500": { "value": "#8C8C8C", "type": "color" }, "400": { "value": "#A8A8A8", "type": "color" }, "50": { "value": "#FAFAFA", "type": "color" } }
+    },
+    "semantic": {
+      "bg": {
+        "primary": { "default": { "value": "{color.green.400}", "type": "color" }, "hover": { "value": "{color.green.300}", "type": "color" }, "pressed": { "value": "{color.green.500}", "type": "color" }, "weak": { "value": "{color.green.900}", "type": "color" } },
+        "surface": { "default": { "value": "{color.neutral.900}", "type": "color" }, "raised": { "value": "{color.neutral.800}", "type": "color" }, "overlay": { "value": "{color.neutral.900}", "type": "color" }, "modal": { "value": "{color.neutral.900}", "type": "color" } },
+        "background": { "default": { "value": "{color.neutral.950}", "type": "color" } },
+        "overlay": { "default": "rgba(0, 0, 0, 0.48)", "type": "color" },
+        "skeleton": { "base": { "value": "{color.neutral.800}", "type": "color" }, "highlight": { "value": "{color.neutral.700}", "type": "color" } }
+      },
+      "text": {
+        "primary": { "value": "{color.neutral.50}", "type": "color" },
+        "secondary": { "value": "{color.neutral.400}", "type": "color" },
+        "disabled": { "value": "{color.neutral.600}", "type": "color" },
+        "onPrimary": { "value": "{color.neutral.950}", "type": "color" },
+        "onSurface": { "value": "{color.neutral.50}", "type": "color" },
+        "success": { "value": "#81C784", "type": "color" },
+        "warning": { "value": "#FFB300", "type": "color" },
+        "danger": { "value": "#EF5350", "type": "color" },
+        "info": { "value": "#64B5F6", "type": "color" }
+      },
+      "border": { "default": { "value": "{color.neutral.700}", "type": "color" }, "strong": { "value": "{color.neutral.600}", "type": "color" }, "focus": { "value": "{color.green.400}", "type": "color" }, "error": { "value": "#EF5350", "type": "color" }, "success": { "value": "#81C784", "type": "color" } },
+      "focus": { "ring": { "value": "{color.green.400}", "type": "color" } },
+      "icon": { "default": { "value": "{color.neutral.400}", "type": "color" }, "primary": { "value": "{color.green.400}", "type": "color" }, "danger": { "value": "#EF5350", "type": "color" }, "success": { "value": "#81C784", "type": "color" }, "warning": { "value": "#FFB300", "type": "color" }, "info": { "value": "#64B5F6", "type": "color" } },
+      "skeleton": { "base": { "value": "{color.neutral.800}", "type": "color" }, "highlight": { "value": "{color.neutral.700}", "type": "color" } }
+    }
+  }
+}

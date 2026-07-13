@@ -1,0 +1,21 @@
+{
+  "width": {
+    "none": { "value": "0", "type": "borderWidth" },
+    "thin": { "value": "1px", "type": "borderWidth", "description": "Default borders" },
+    "thick": { "value": "2px", "type": "borderWidth", "description": "Focus borders, selected" },
+    "thicker": { "value": "3px", "type": "borderWidth", "description": "Focus ring" }
+  },
+  "style": {
+    "none": { "value": "none", "type": "borderStyle" },
+    "solid": { "value": "solid", "type": "borderStyle", "description": "Default" },
+    "dashed": { "value": "dashed", "type": "borderStyle", "description": "Drop zones" },
+    "dotted": { "value": "dotted", "type": "borderStyle" }
+  },
+  "color": {
+    "default": { "value": "{color.neutral.200}", "type": "color" },
+    "strong": { "value": "{color.neutral.300}", "type": "color" },
+    "focus": { "value": "{color.primary}", "type": "color" },
+    "error": { "value": "{color.danger}", "type": "color" },
+    "success": { "value": "{color.success}", "type": "color" }
+  }
+}

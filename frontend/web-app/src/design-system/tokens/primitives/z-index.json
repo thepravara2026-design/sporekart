@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Z-Index Primitives",
+  "zIndex": {
+    "base": { "value": 0, "type": "zIndex", "description": "Page content" },
+    "sticky": { "value": 10, "type": "zIndex", "description": "Sticky headers in scroll containers" },
+    "header": { "value": 50, "type": "zIndex", "description": "Global header" },
+    "sidebar": { "value": 60, "type": "zIndex", "description": "Desktop sidebar" },
+    "drawer": { "value": 80, "type": "zIndex", "description": "Mobile drawer" },
+    "dropdown": { "value": 100, "type": "zIndex", "description": "Dropdown, popover, autocomplete" },
+    "tooltip": { "value": 110, "type": "zIndex", "description": "Tooltip" },
+    "toast": { "value": 120, "type": "zIndex", "description": "Toast stack" },
+    "modalBackdrop": { "value": 200, "type": "zIndex", "description": "Modal backdrop" },
+    "modal": { "value": 210, "type": "zIndex", "description": "Modal dialog" },
+    "drawerPanel": { "value": 200, "type": "zIndex", "description": "Drawer panel" },
+    "commandPalette": { "value": 300, "type": "zIndex", "description": "Command palette" },
+    "max": { "value": 9999, "type": "zIndex", "description": "Emergency (debug only)" }
+  }
+}

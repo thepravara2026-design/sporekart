@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Sizing Semantic",
+  "sizing": {
+    "icon": {
+      "xs": { "value": "{sizing.icon.xs}", "type": "dimension" },
+      "sm": { "value": "{sizing.icon.sm}", "type": "dimension" },
+      "md": { "value": "{sizing.icon.md}", "type": "dimension" },
+      "lg": { "value": "{sizing.icon.lg}", "type": "dimension" },
+      "xl": { "value": "{sizing.icon.xl}", "type": "dimension" },
+      "2xl": { "value": "{sizing.icon.2xl}", "type": "dimension" },
+      "3xl": { "value": "{sizing.icon.3xl}", "type": "dimension" }
+    },
+    "illustration": {
+      "xs": { "value": "{sizing.illustration.xs}", "type": "dimension" },
+      "sm": { "value": "{sizing.illustration.sm}", "type": "dimension" },
+      "md": { "value": "{sizing.illustration.md}", "type": "dimension" },
+      "lg": { "value": "{sizing.illustration.lg}", "type": "dimension" },
+      "xl": { "value": "{sizing.illustration.xl}", "type": "dimension" }
+    },
+    "container": {
+      "prose": { "value": "{sizing.container.prose}", "type": "dimension" },
+      "data": { "value": "{sizing.container.data}", "type": "dimension" },
+      "full": { "value": "{sizing.container.full}", "type": "dimension" }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "spacing": {
+    "base": { "value": "{spacing.base}", "type": "dimension" },
+    "scale": {
+      "0": { "value": "{spacing.scale.0}", "type": "dimension" },
+      "1": { "value": "{spacing.scale.1}", "type": "dimension" },
+      "2": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "3": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "4": { "value": "{spacing.scale.4}", "type": "dimension" },
+      "5": { "value": "{spacing.scale.5}", "type": "dimension" },
+      "6": { "value": "{spacing.scale.6}", "type": "dimension" },
+      "7": { "value": "{spacing.scale.7}", "type": "dimension" },
+      "8": { "value": "{spacing.scale.8}", "type": "dimension" },
+      "10": { "value": "{spacing.scale.10}", "type": "dimension" },
+      "12": { "value": "{spacing.scale.12}", "type": "dimension" },
+      "16": { "value": "{spacing.scale.16}", "type": "dimension" }
+    },
+    "padding": {
+      "xs": { "value": "{spacing.padding.xs}", "type": "dimension" },
+      "sm": { "value": "{spacing.padding.sm}", "type": "dimension" },
+      "md": { "value": "{spacing.padding.md}", "type": "dimension" },
+      "lg": { "value": "{spacing.padding.lg}", "type": "dimension" },
+      "xl": { "value": "{spacing.padding.xl}", "type": "dimension" }
+    },
+    "margin": {
+      "xs": { "value": "{spacing.margin.xs}", "type": "dimension" },
+      "sm": { "value": "{spacing.margin.sm}", "type": "dimension" },
+      "md": { "value": "{spacing.margin.md}", "type": "dimension" },
+      "lg": { "value": "{spacing.margin.lg}", "type": "dimension" },
+      "xl": { "value": "{spacing.margin.xl}", "type": "dimension" },
+      "auto": { "value": "{spacing.margin.auto}", "type": "dimension" },
+      "neg-sm": { "value": "{spacing.margin.neg-sm}", "type": "dimension" },
+      "neg-md": { "value": "{spacing.margin.neg-md}", "type": "dimension" },
+      "neg-lg": { "value": "{spacing.margin.neg-lg}", "type": "dimension" }
+    },
+    "gap": {
+      "xs": { "value": "{spacing.gap.xs}", "type": "dimension" },
+      "sm": { "value": "{spacing.gap.sm}", "type": "dimension" },
+      "md": { "value": "{spacing.gap.md}", "type": "dimension" },
+      "lg": { "value": "{spacing.gap.lg}", "type": "dimension" },
+      "xl": { "value": "{spacing.gap.xl}", "type": "dimension" }
+    },
+    "pagePaddingX": { "value": "{spacing.layout.pagePaddingX}", "type": "dimension" },
+    "pagePaddingY": { "value": "{spacing.layout.pagePaddingY}", "type": "dimension" },
+    "sectionGap": { "value": "{spacing.layout.sectionGap}", "type": "dimension" },
+    "componentGap": { "value": "{spacing.layout.componentGap}", "type": "dimension" },
+    "groupGap": { "value": "{spacing.layout.groupGap}", "type": "dimension" },
+    "inlineXs": { "value": "{spacing.inline.xs}", "type": "dimension" },
+    "inlineSm": { "value": "{spacing.inline.sm}", "type": "dimension" },
+    "inlineMd": { "value": "{spacing.inline.md}", "type": "dimension" },
+    "stackXs": { "value": "{spacing.stack.xs}", "type": "dimension" },
+    "stackSm": { "value": "{spacing.stack.sm}", "type": "dimension" },
+    "stackMd": { "value": "{spacing.stack.md}", "type": "dimension" },
+    "stackLg": { "value": "{spacing.stack.lg}", "type": "dimension" },
+    "headerHeight": { "value": "{spacing.layout.headerHeight}", "type": "dimension" },
+    "sidebarWidth": { "value": "{spacing.layout.sidebarWidth}", "type": "dimension" },
+    "sidebarIconWidth": { "value": "{spacing.layout.sidebarIconWidth}", "type": "dimension" },
+    "breadcrumbGap": { "value": "{spacing.layout.breadcrumbGap}", "type": "dimension" },
+    "tabGap": { "value": "{spacing.layout.tabGap}", "type": "dimension" }
+  }
+}

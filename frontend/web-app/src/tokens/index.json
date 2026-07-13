@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "sporekart-design-tokens",
+  "version": "1.0.0",
+  "description": "SporeKart Enterprise Design Language Tokens - Light Theme",
+  "source": [
+    "./color.json",
+    "./typography.json",
+    "./spacing.json",
+    "./radius.json",
+    "./elevation.json",
+    "./breakpoints.json",
+    "./misc.json"
+  ],
+  "themes": {
+    "light": "./light.json",
+    "dark": "./dark.json",
+    "high-contrast": "./high-contrast.json"
+  }
+}

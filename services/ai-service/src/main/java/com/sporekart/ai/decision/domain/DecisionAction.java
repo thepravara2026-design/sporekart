@@ -1,0 +1,5 @@
+package com.sporekart.ai.decision.domain;
+
+public enum DecisionAction {
+    ALLOW, DENY, REQUIRE_APPROVAL, LIMIT_RESPONSE, REDACT_CONTENT, ESCALATE_TO_ADMIN, RETRY, FALLBACK_PROVIDER, BLOCK_REQUEST, CUSTOM_EXTENSION
+}

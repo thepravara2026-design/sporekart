@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Elevation Primitives",
+  "elevation": {
+    "shadow": {
+      "none": { "value": "none", "type": "shadow" },
+      "1": { "value": "0 1px 2px rgba(29, 43, 34, 0.04), 0 1px 3px rgba(29, 43, 34, 0.08)", "type": "shadow", "description": "Hover card, subtle lift" },
+      "2": { "value": "0 4px 8px rgba(29, 43, 34, 0.06), 0 2px 4px rgba(29, 43, 34, 0.05)", "type": "shadow", "description": "Dropdown, popover, tooltip" },
+      "3": { "value": "0 8px 24px rgba(29, 43, 34, 0.08), 0 4px 12px rgba(29, 43, 34, 0.05)", "type": "shadow", "description": "Modal, drawer, side sheet" },
+      "4": { "value": "0 16px 48px rgba(29, 43, 34, 0.12), 0 8px 24px rgba(29, 43, 34, 0.08)", "type": "shadow", "description": "Full-screen overlay, loading" }
+    },
+    "surface": {
+      "0": { "value": "1", "type": "surfaceLevel", "description": "Page background" },
+      "1": { "value": "1", "type": "surfaceLevel", "description": "Cards, panels, sidebar" },
+      "2": { "value": "2", "type": "surfaceLevel", "shadow": "elevation.shadow.1", "description": "Raised cards, hover" },
+      "3": { "value": "3", "type": "surfaceLevel", "shadow": "elevation.shadow.2", "description": "Dropdowns, popovers, tooltips" },
+      "4": { "value": "4", "type": "surfaceLevel", "shadow": "elevation.shadow.3", "description": "Modals, drawers, side sheets" },
+      "5": { "value": "5", "type": "surfaceLevel", "shadow": "elevation.shadow.4", "description": "Full-screen overlay, loader" }
+    },
+    "backdrop": {
+      "light": { "value": "rgba(20, 30, 24, 0.32)", "type": "color" },
+      "heavy": { "value": "rgba(20, 30, 24, 0.48)", "type": "color" }
+    }
+  }
+}

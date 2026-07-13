@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Spacing Primitives",
+  "spacing": {
+    "base": { "value": "4px", "type": "dimension", "description": "Base spacing unit" },
+    "scale": {
+      "0": { "value": "0", "type": "dimension" },
+      "1": { "value": "{spacing.base}", "type": "dimension" },
+      "2": { "value": "calc({spacing.base} * 2)", "type": "dimension" },
+      "3": { "value": "calc({spacing.base} * 3)", "type": "dimension" },
+      "4": { "value": "calc({spacing.base} * 4)", "type": "dimension" },
+      "5": { "value": "calc({spacing.base} * 5)", "type": "dimension" },
+      "6": { "value": "calc({spacing.base} * 6)", "type": "dimension" },
+      "7": { "value": "calc({spacing.base} * 7)", "type": "dimension" },
+      "8": { "value": "calc({spacing.base} * 8)", "type": "dimension" },
+      "10": { "value": "calc({spacing.base} * 10)", "type": "dimension" },
+      "12": { "value": "calc({spacing.base} * 12)", "type": "dimension" },
+      "16": { "value": "calc({spacing.base} * 16)", "type": "dimension" }
+    },
+    "padding": {
+      "xs": { "value": "{spacing.scale.1}", "type": "dimension" },
+      "sm": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "md": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "lg": { "value": "{spacing.scale.4}", "type": "dimension" },
+      "xl": { "value": "{spacing.scale.6}", "type": "dimension" }
+    },
+    "margin": {
+      "xs": { "value": "{spacing.scale.1}", "type": "dimension" },
+      "sm": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "md": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "lg": { "value": "{spacing.scale.4}", "type": "dimension" },
+      "xl": { "value": "{spacing.scale.6}", "type": "dimension" },
+      "auto": { "value": "auto", "type": "dimension" },
+      "neg-sm": { "value": "-8px", "type": "dimension" },
+      "neg-md": { "value": "-12px", "type": "dimension" },
+      "neg-lg": { "value": "-16px", "type": "dimension" }
+    },
+    "gap": {
+      "xs": { "value": "{spacing.scale.1}", "type": "dimension" },
+      "sm": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "md": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "lg": { "value": "{spacing.scale.4}", "type": "dimension" },
+      "xl": { "value": "{spacing.scale.6}", "type": "dimension" }
+    },
+    "layout": {
+      "pagePaddingX": { "value": "clamp(1rem, 1rem + 0.5vw, 1.5rem)", "type": "dimension" },
+      "pagePaddingY": { "value": "{spacing.scale.6}", "type": "dimension" },
+      "sectionGap": { "value": "clamp(1.5rem, 1.5rem + 0.5vw, 2rem)", "type": "dimension" },
+      "componentGap": { "value": "clamp(0.75rem, 0.75rem + 0.25vw, 1rem)", "type": "dimension" },
+      "groupGap": { "value": "{spacing.scale.6}", "type": "dimension" },
+      "inlineXs": { "value": "{spacing.scale.1}", "type": "dimension" },
+      "inlineSm": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "inlineMd": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "stackXs": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "stackSm": { "value": "{spacing.scale.3}", "type": "dimension" },
+      "stackMd": { "value": "{spacing.scale.4}", "type": "dimension" },
+      "stackLg": { "value": "{spacing.scale.6}", "type": "dimension" },
+      "headerHeight": { "value": "56px", "type": "dimension" },
+      "sidebarWidth": { "value": "264px", "type": "dimension" },
+      "sidebarIconWidth": { "value": "72px", "type": "dimension" },
+      "breadcrumbGap": { "value": "{spacing.scale.2}", "type": "dimension" },
+      "tabGap": { "value": "{spacing.scale.1}", "type": "dimension" }
+    }
+  }
+}

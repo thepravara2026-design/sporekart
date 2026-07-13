@@ -54,9 +54,63 @@ sporekart:
       knowledge-enabled: true
       knowledge-caching: true
       knowledge-audit: true
+      semantic-enabled: true
+      semantic-caching: true
+      semantic-audit: true
+      semantic-embedding: true
+      semantic-indexing: true
+      semantic-search: true
+      semantic-ranking: true
+      vector-index-enabled: true
+      hybrid-search-enabled: true
+      conversation-enabled: true
+      conversation-caching: true
+      conversation-audit: true
+      conversation-session: true
+      conversation-memory: true
+      conversation-streaming: true
+      conversation-rate-limit: true
+      conversation-monitoring: true
+      assistant-enabled: true
+      assistant-caching: true
+      assistant-monitoring: true
+      assistant-audit: true
+      governance-enabled: true
+      governance-caching: true
+      governance-audit: true
+      governance-monitoring: true
+      policy-enabled: true
+      policy-caching: true
+      policy-audit: true
+      policy-monitoring: true
+      policy-evaluation: true
       request-logging: true
       rate-limiting: true
       metrics: true
+      approval-enabled: true
+      approval-caching: true
+      approval-audit: true
+      approval-monitoring: true
+      compliance-enabled: true
+      compliance-caching: true
+      compliance-audit: true
+      compliance-monitoring: true
+      risk-enabled: true
+      risk-caching: true
+      risk-audit: true
+      risk-monitoring: true
+      analytics-enabled: true
+      analytics-caching: true
+      analytics-audit: true
+      analytics-monitoring: true
+      admin-enabled: true
+      admin-caching: true
+      admin-audit: true
+      admin-monitoring: true
+      automation-enabled: true
+      automation-caching: true
+      automation-audit: true
+      automation-monitoring: true
     modules:
       core:
         enabled: true
@@ -76,11 +130,190 @@ sporekart:
         rate-limit: 50
       content:
         enabled: true
+        generation:
+          max-length: 2000
+          default-tone: neutral
+        cache:
+          ttl-minutes: 15
       workflow:
         enabled: true
+        execution-timeout-ms: 300000
+        max-retries: 3
+        cache-ttl-minutes: 30
+        scheduler-enabled: true
       monitoring:
         enabled: true
       knowledge:
+        enabled: true
+      semantic:
+        enabled: true
+        embedding:
+          default-provider: OPENAI
+          default-model: text-embedding-ada-002
+          dimensions: 1536
+        search:
+          default-threshold: 0.7
+          max-results: 50
+        cache:
+          embedding-ttl: 30
+          search-ttl: 5
+      conversation:
+        enabled: true
+        session-ttl-hours: 24
+        message-limit: 1000
+        context-size: 10
+        streaming-enabled: true
+      assistant:
+        enabled: true
+        session:
+          ttl-hours: 24
+          max-sessions-per-user: 50
+        intent:
+          min-confidence: 0.3
+          multi-intent-enabled: true
+        task:
+          max-retries: 3
+          default-timeout-ms: 30000
+          max-tasks-per-plan: 10
+      governance:
+        enabled: true
+        mode: DEVELOPMENT
+        default-decision: ALLOW
+        cache:
+          config-ttl-seconds: 300
+          registry-ttl-seconds: 300
+          health-ttl-seconds: 60
+          metrics-ttl-seconds: 120
+          validation-ttl-seconds: 180
+        kafka:
+          topic: governance-events
+          partitions: 3
+          replication-factor: 1
+      decision-enabled: true
+      decision-caching: true
+      decision-audit: true
+      decision-monitoring: true
+      decision:
+        enabled: true
+        default-action: ALLOW
+        default-conflict-strategy: DENY_OVERRIDES
+        cache:
+          result-ttl-seconds: 300
+          metadata-ttl-seconds: 300
+          registry-ttl-seconds: 300
+          statistics-ttl-seconds: 120
+          explanation-ttl-seconds: 300
+        kafka:
+          topic: decision-events
+          partitions: 3
+          replication-factor: 1
+      approval:
+        enabled: true
+        default-sla-minutes: 60
+        max-levels: 3
+        cache:
+          pending-ttl-seconds: 60
+          assignment-ttl-seconds: 120
+          config-ttl-seconds: 300
+          workflow-ttl-seconds: 300
+          statistics-ttl-seconds: 120
+        kafka:
+          topic: approval-events
+          partitions: 3
+          replication-factor: 1
+      compliance:
+        enabled: true
+        default-framework: INTERNAL_AI_GOVERNANCE
+        default-evidence-verification: true
+        cache:
+          rules-ttl-seconds: 300
+          frameworks-ttl-seconds: 300
+          validation-ttl-seconds: 180
+          reports-ttl-seconds: 300
+          statistics-ttl-seconds: 120
+        kafka:
+          topic: compliance-events
+          partitions: 3
+          replication-factor: 1
+      risk:
+        enabled: true
+        scoring:
+          default-risk-score: 50.0
+        trust:
+          default-trust-score: 75.0
+        confidence:
+          default-confidence: 70.0
+        cache:
+          scores-ttl-seconds: 300
+          trust-ttl-seconds: 300
+          confidence-ttl-seconds: 300
+          thresholds-ttl-seconds: 600
+          metadata-ttl-seconds: 300
+        kafka:
+          topic: risk-events
+          partitions: 3
+          replication-factor: 1
+      analytics:
+        enabled: true
+        export:
+          supported-formats: JSON,CSV
+          max-file-size: 10485760
+        cache:
+          dashboard-ttl-seconds: 300
+          metrics-ttl-seconds: 120
+          kpis-ttl-seconds: 300
+          reports-ttl-seconds: 300
+          statistics-ttl-seconds: 120
+        kafka:
+          topic: analytics-events
+          partitions: 3
+          replication-factor: 1
+      admin:
+        enabled: true
+        cache:
+          config-ttl-seconds: 300
+          flags-ttl-seconds: 300
+          env-ttl-seconds: 600
+          snapshot-ttl-seconds: 600
+          metadata-ttl-seconds: 300
+        kafka:
+          topic: admin-events
+          partitions: 3
+          replication-factor: 1
+      automation:
+        enabled: true
+        scheduler:
+          enabled: true
+          poll-interval-ms: 60000
+        retry:
+          default-max-retries: 3
+          default-backoff-ms: 1000
+          default-backoff-multiplier: 2.0
+        cache:
+          workflow-ttl-seconds: 300
+          scheduler-ttl-seconds: 300
+          lifecycle-ttl-seconds: 600
+          config-ttl-seconds: 300
+          statistics-ttl-seconds: 120
+        kafka:
+          topic: automation-events
+          partitions: 3
+          replication-factor: 1
+      provider-registry:
+        enabled: true
+      prompt-registry:
+        enabled: true
+      knowledge-registry:
+        enabled: true
+      usage-tracking:
+        enabled: true
+      config-registry:
+        enabled: true
+      event-catalog:
+        enabled: true
+      api-registry:
+        enabled: true
+      capability-discovery:
         enabled: true
     provider:
       providers:

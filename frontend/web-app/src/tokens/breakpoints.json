@@ -1,0 +1,7 @@
+{
+  "xs": { "value": "640px", "type": "breakpoint", "description": "Mobile large / phone landscape" },
+  "sm": { "value": "768px", "type": "breakpoint", "description": "Tablet portrait" },
+  "md": { "value": "1024px", "type": "breakpoint", "description": "Tablet landscape / laptop" },
+  "lg": { "value": "1280px", "type": "breakpoint", "description": "Desktop" },
+  "xl": { "value": "1536px", "type": "breakpoint", "description": "Wide desktop" }
+}

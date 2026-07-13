@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - High Contrast Theme (Forced Colors Mode)",
+  "theme": "high-contrast",
+  "extends": "light",
+  "color": {
+    "semantic": {
+      "bg": {
+        "primary": { "default": { "value": "Highlight" }, "hover": { "value": "Highlight" }, "pressed": { "value": "Highlight" }, "weak": { "value": "Canvas" } },
+        "surface": { "default": { "value": "Canvas" }, "raised": { "value": "Canvas" }, "overlay": { "value": "Canvas" }, "modal": { "value": "Canvas" } },
+        "background": { "default": { "value": "Canvas" } },
+        "overlay": { "default": "transparent" },
+        "skeleton": { "base": { "value": "Canvas" }, "highlight": { "value": "Canvas" } }
+      },
+      "text": {
+        "primary": { "value": "CanvasText" },
+        "secondary": { "value": "CanvasText" },
+        "disabled": { "value": "GrayText" },
+        "onPrimary": { "value": "HighlightText" },
+        "onSurface": { "value": "CanvasText" },
+        "success": { "value": "#00FF00" },
+        "warning": { "value": "#FFFF00" },
+        "danger": { "value": "#FF0000" },
+        "info": { "value": "#00FFFF" }
+      },
+      "border": { "default": { "value": "CanvasText" }, "strong": { "value": "CanvasText" }, "focus": { "value": "Highlight" }, "error": { "value": "#FF0000" }, "success": { "value": "#00FF00" } },
+      "focus": { "ring": { "value": "CanvasText" } },
+      "icon": { "default": { "value": "CanvasText" }, "primary": { "value": "Highlight" }, "danger": { "value": "#FF0000" }, "success": { "value": "#00FF00" }, "warning": { "value": "#FFFF00" }, "info": { "value": "#00FFFF" } },
+      "skeleton": { "base": { "value": "CanvasText" }, "highlight": { "value": "Canvas" } }
+    }
+  }
+}

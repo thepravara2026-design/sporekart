@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Breakpoint Semantic",
+  "breakpoints": {
+    "xs": { "value": "{breakpoints.xs}", "type": "breakpoint", "description": "Mobile landscape / small phone" },
+    "sm": { "value": "{breakpoints.sm}", "type": "breakpoint", "description": "Large mobile" },
+    "md": { "value": "{breakpoints.md}", "type": "breakpoint", "description": "Tablet portrait" },
+    "lg": { "value": "{breakpoints.lg}", "type": "breakpoint", "description": "Laptop" },
+    "xl": { "value": "{breakpoints.xl}", "type": "breakpoint", "description": "Desktop" },
+    "2xl": { "value": "{breakpoints.2xl}", "type": "breakpoint", "description": "Wide desktop" }
+  }
+}

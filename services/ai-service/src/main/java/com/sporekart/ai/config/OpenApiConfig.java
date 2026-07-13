@@ -15,7 +15,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("SporeKart Enterprise AI Platform API")
                         .version("1.0.0")
-                        .description("Enterprise AI Platform — Gateway, Provider, Prompt, RAG, Search, Chat, Content, Workflow, Monitoring")
+                        .description("Enterprise AI Platform — Gateway, Provider, Prompt, RAG, Search, Chat, Content, Workflow, Monitoring, Knowledge, Semantic, Conversation")
                         .contact(new Contact()
                                 .name("SporeKart Platform Team")));
     }

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Z-Index Semantic",
+  "zIndex": {
+    "base": { "value": "{zIndex.base}", "type": "zIndex" },
+    "sticky": { "value": "{zIndex.sticky}", "type": "zIndex" },
+    "header": { "value": "{zIndex.header}", "type": "zIndex" },
+    "sidebar": { "value": "{zIndex.sidebar}", "type": "zIndex" },
+    "drawer": { "value": "{zIndex.drawer}", "type": "zIndex" },
+    "dropdown": { "value": "{zIndex.dropdown}", "type": "zIndex" },
+    "tooltip": { "value": "{zIndex.tooltip}", "type": "zIndex" },
+    "toast": { "value": "{zIndex.toast}", "type": "zIndex" },
+    "modalBackdrop": { "value": "{zIndex.modalBackdrop}", "type": "zIndex" },
+    "modal": { "value": "{zIndex.modal}", "type": "zIndex" },
+    "drawerPanel": { "value": "{zIndex.drawerPanel}", "type": "zIndex" },
+    "commandPalette": { "value": "{zIndex.commandPalette}", "type": "zIndex" },
+    "max": { "value": "{zIndex.max}", "type": "zIndex" }
+  }
+}

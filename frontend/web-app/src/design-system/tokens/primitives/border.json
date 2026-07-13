@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Border Primitives",
+  "border": {
+    "width": {
+      "none": { "value": "0", "type": "dimension" },
+      "thin": { "value": "1px", "type": "dimension", "description": "Default borders" },
+      "thick": { "value": "2px", "type": "dimension", "description": "Focus borders, selected" }
+    },
+    "style": {
+      "solid": { "value": "solid", "type": "borderStyle", "description": "Default" },
+      "dashed": { "value": "dashed", "type": "borderStyle", "description": "Drop zones" },
+      "none": { "value": "none", "type": "borderStyle" }
+    },
+    "color": {
+      "default": { "value": "{color.neutral.200}", "type": "color" },
+      "strong": { "value": "{color.neutral.300}", "type": "color" },
+      "focus": { "value": "{color.primary}", "type": "color" },
+      "error": { "value": "{color.danger}", "type": "color" },
+      "success": { "value": "{color.success}", "type": "color" }
+    }
+  }
+}

@@ -33,6 +33,23 @@ public class AiFeatureFlagProperties {
     private boolean knowledgeEnabled = true;
     private boolean knowledgeCaching = true;
     private boolean knowledgeAudit = true;
+    private boolean semanticEnabled = true;
+    private boolean semanticCaching = true;
+    private boolean semanticAudit = true;
+    private boolean semanticEmbedding = true;
+    private boolean semanticIndexing = true;
+    private boolean semanticSearch = true;
+    private boolean semanticRanking = true;
+    private boolean vectorIndexEnabled = true;
+    private boolean hybridSearchEnabled = true;
+    private boolean conversationEnabled = true;
+    private boolean conversationCaching = true;
+    private boolean conversationAudit = true;
+    private boolean conversationSession = true;
+    private boolean conversationMemory = true;
+    private boolean conversationStreaming = true;
+    private boolean conversationRateLimit = true;
+    private boolean conversationMonitoring = true;
 
     public Map<FeatureFlagName, Boolean> toMap() {
         Map<FeatureFlagName, Boolean> result = new LinkedHashMap<>();
@@ -62,6 +79,23 @@ public class AiFeatureFlagProperties {
         result.put(FeatureFlagName.AI_KNOWLEDGE_ENABLED, knowledgeEnabled);
         result.put(FeatureFlagName.AI_KNOWLEDGE_CACHING, knowledgeCaching);
         result.put(FeatureFlagName.AI_KNOWLEDGE_AUDIT, knowledgeAudit);
+        result.put(FeatureFlagName.AI_SEMANTIC_ENABLED, semanticEnabled);
+        result.put(FeatureFlagName.AI_SEMANTIC_CACHING, semanticCaching);
+        result.put(FeatureFlagName.AI_SEMANTIC_AUDIT, semanticAudit);
+        result.put(FeatureFlagName.AI_SEMANTIC_EMBEDDING, semanticEmbedding);
+        result.put(FeatureFlagName.AI_SEMANTIC_INDEXING, semanticIndexing);
+        result.put(FeatureFlagName.AI_SEMANTIC_SEARCH, semanticSearch);
+        result.put(FeatureFlagName.AI_SEMANTIC_RANKING, semanticRanking);
+        result.put(FeatureFlagName.AI_VECTOR_INDEX_ENABLED, vectorIndexEnabled);
+        result.put(FeatureFlagName.AI_HYBRID_SEARCH_ENABLED, hybridSearchEnabled);
+        result.put(FeatureFlagName.AI_CONVERSATION_ENABLED, conversationEnabled);
+        result.put(FeatureFlagName.AI_CONVERSATION_CACHING, conversationCaching);
+        result.put(FeatureFlagName.AI_CONVERSATION_AUDIT, conversationAudit);
+        result.put(FeatureFlagName.AI_CONVERSATION_SESSION, conversationSession);
+        result.put(FeatureFlagName.AI_CONVERSATION_MEMORY, conversationMemory);
+        result.put(FeatureFlagName.AI_CONVERSATION_STREAMING, conversationStreaming);
+        result.put(FeatureFlagName.AI_CONVERSATION_RATE_LIMIT, conversationRateLimit);
+        result.put(FeatureFlagName.AI_CONVERSATION_MONITORING, conversationMonitoring);
         return result;
     }
 
@@ -115,4 +149,38 @@ public class AiFeatureFlagProperties {
     public void setKnowledgeCaching(boolean knowledgeCaching) { this.knowledgeCaching = knowledgeCaching; }
     public boolean isKnowledgeAudit() { return knowledgeAudit; }
     public void setKnowledgeAudit(boolean knowledgeAudit) { this.knowledgeAudit = knowledgeAudit; }
+    public boolean isSemanticEnabled() { return semanticEnabled; }
+    public void setSemanticEnabled(boolean semanticEnabled) { this.semanticEnabled = semanticEnabled; }
+    public boolean isSemanticCaching() { return semanticCaching; }
+    public void setSemanticCaching(boolean semanticCaching) { this.semanticCaching = semanticCaching; }
+    public boolean isSemanticAudit() { return semanticAudit; }
+    public void setSemanticAudit(boolean semanticAudit) { this.semanticAudit = semanticAudit; }
+    public boolean isSemanticEmbedding() { return semanticEmbedding; }
+    public void setSemanticEmbedding(boolean semanticEmbedding) { this.semanticEmbedding = semanticEmbedding; }
+    public boolean isSemanticIndexing() { return semanticIndexing; }
+    public void setSemanticIndexing(boolean semanticIndexing) { this.semanticIndexing = semanticIndexing; }
+    public boolean isSemanticSearch() { return semanticSearch; }
+    public void setSemanticSearch(boolean semanticSearch) { this.semanticSearch = semanticSearch; }
+    public boolean isSemanticRanking() { return semanticRanking; }
+    public void setSemanticRanking(boolean semanticRanking) { this.semanticRanking = semanticRanking; }
+    public boolean isVectorIndexEnabled() { return vectorIndexEnabled; }
+    public void setVectorIndexEnabled(boolean vectorIndexEnabled) { this.vectorIndexEnabled = vectorIndexEnabled; }
+    public boolean isHybridSearchEnabled() { return hybridSearchEnabled; }
+    public void setHybridSearchEnabled(boolean hybridSearchEnabled) { this.hybridSearchEnabled = hybridSearchEnabled; }
+    public boolean isConversationEnabled() { return conversationEnabled; }
+    public void setConversationEnabled(boolean conversationEnabled) { this.conversationEnabled = conversationEnabled; }
+    public boolean isConversationCaching() { return conversationCaching; }
+    public void setConversationCaching(boolean conversationCaching) { this.conversationCaching = conversationCaching; }
+    public boolean isConversationAudit() { return conversationAudit; }
+    public void setConversationAudit(boolean conversationAudit) { this.conversationAudit = conversationAudit; }
+    public boolean isConversationSession() { return conversationSession; }
+    public void setConversationSession(boolean conversationSession) { this.conversationSession = conversationSession; }
+    public boolean isConversationMemory() { return conversationMemory; }
+    public void setConversationMemory(boolean conversationMemory) { this.conversationMemory = conversationMemory; }
+    public boolean isConversationStreaming() { return conversationStreaming; }
+    public void setConversationStreaming(boolean conversationStreaming) { this.conversationStreaming = conversationStreaming; }
+    public boolean isConversationRateLimit() { return conversationRateLimit; }
+    public void setConversationRateLimit(boolean conversationRateLimit) { this.conversationRateLimit = conversationRateLimit; }
+    public boolean isConversationMonitoring() { return conversationMonitoring; }
+    public void setConversationMonitoring(boolean conversationMonitoring) { this.conversationMonitoring = conversationMonitoring; }
 }

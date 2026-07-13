@@ -1,0 +1,6 @@
+package com.sporekart.ai.admin.domain;
+
+public enum GovernanceModuleType {
+    GOVERNANCE_FOUNDATION, POLICY_ENGINE, DECISION_ENGINE, APPROVAL_PLATFORM,
+    COMPLIANCE_FRAMEWORK, RISK_FRAMEWORK, ANALYTICS_PLATFORM
+}

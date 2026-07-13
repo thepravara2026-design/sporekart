@@ -95,4 +95,180 @@ public class KafkaConfig {
                 .replicas(1)
                 .build();
     }
+
+    @Bean
+    public NewTopic semanticEventsTopic() {
+        return TopicBuilder.name("semantic-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic conversationEventsTopic() {
+        return TopicBuilder.name("conversation-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic workflowEventsTopic() {
+        return TopicBuilder.name("workflow-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic contentEventsTopic() {
+        return TopicBuilder.name("content-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic assistantEventsTopic() {
+        return TopicBuilder.name("assistant-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic governanceEventsTopic() {
+        return TopicBuilder.name("governance-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic policyEventsTopic() {
+        return TopicBuilder.name("policy-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic decisionEventsTopic() {
+        return TopicBuilder.name("decision-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic approvalEventsTopic() {
+        return TopicBuilder.name("approval-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic complianceEventsTopic() {
+        return TopicBuilder.name("compliance-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic riskEventsTopic() {
+        return TopicBuilder.name("risk-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic analyticsEventsTopic() {
+        return TopicBuilder.name("analytics-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic adminEventsTopic() {
+        return TopicBuilder.name("admin-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic automationEventsTopic() {
+        return TopicBuilder.name("automation-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic providerRegistryEventsTopic() {
+        return TopicBuilder.name("provider-registry-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic promptRegistryEventsTopic() {
+        return TopicBuilder.name("prompt-registry-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic knowledgeRegistryEventsTopic() {
+        return TopicBuilder.name("knowledge-registry-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic usageTrackingEventsTopic() {
+        return TopicBuilder.name("usage-tracking-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic configRegistryEventsTopic() {
+        return TopicBuilder.name("config-registry-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic eventCatalogEventsTopic() {
+        return TopicBuilder.name("event-catalog-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic apiRegistryEventsTopic() {
+        return TopicBuilder.name("api-registry-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic capabilityEventsTopic() {
+        return TopicBuilder.name("capability-events")
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
 }

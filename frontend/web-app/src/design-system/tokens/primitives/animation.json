@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SporeKart Design Tokens - Animation Primitives",
+  "animation": {
+    "duration": {
+      "instant": { "value": "0ms", "type": "duration" },
+      "fast": { "value": "150ms", "type": "duration", "description": "Micro-interactions, hover" },
+      "normal": { "value": "200ms", "type": "duration", "description": "Standard transitions" },
+      "slow": { "value": "300ms", "type": "duration", "description": "Modals, drawers, complex" },
+      "slower": { "value": "500ms", "type": "duration", "description": "Page transitions" }
+    },
+    "easing": {
+      "linear": { "value": "linear", "type": "easing" },
+      "easeIn": { "value": "cubic-bezier(0.4, 0, 1, 1)", "type": "easing" },
+      "easeOut": { "value": "cubic-bezier(0, 0, 0.2, 1)", "type": "easing", "description": "Standard exit" },
+      "easeInOut": { "value": "cubic-bezier(0.4, 0, 0.2, 1)", "type": "easing", "description": "Standard enter/exit" },
+      "standard": { "value": "cubic-bezier(0.2, 0, 0.2, 1)", "type": "easing", "description": "Material standard" },
+      "emphasized": { "value": "cubic-bezier(0.4, 0, 0.2, 1)", "type": "easing" }
+    },
+    "motionReduction": {
+      "reduce": { "value": "0ms", "type": "duration", "description": "All transitions disabled" }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+package com.sporekart.ai.automation.domain;
+
+public enum JobType {
+    POLICY_REFRESH, CONFIG_SYNC, HEALTH_CHECK, AUDIT_CLEANUP, 
+    REPORT_GENERATION, APPROVAL_REMINDER, COMPLIANCE_SCAN, RETENTION_PURGE, CUSTOM
+}
