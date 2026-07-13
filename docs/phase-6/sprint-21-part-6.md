@@ -1,6 +1,6 @@
 # Phase 6 — Sprint 21 Part 6: Contact, Support, FAQ & Legal
 
-**Status:** PENDING REVIEW (2026-07-13)
+**Status:** APPROVED (frozen — 2026-07-13)
 **Branch:** `sporetest`
 **Date:** 2026-07-13
 **Depends on:** Sprint 21 Part 5 (Blog & Knowledge Hub) — APPROVED, Sprint 21 Part 4 (Inner Pages) — COMPLETE
