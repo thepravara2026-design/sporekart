@@ -108,10 +108,12 @@ const BlogTagPage = lazy(() => import('./public-website/pages/BlogTagPage'));
 const SearchPage = lazy(() => import('./public-website/pages/SearchPage'));
 const BlogPreview = lazy(() => import('./public-website/preview/BlogPreview').then((m) => ({ default: m.BlogPreview })));
 const ContactPage = lazy(() => import('./public-website/pages/ContactPage'));
+const SupportPage = lazy(() => import('./public-website/pages/SupportPage'));
 const FaqPage = lazy(() => import('./public-website/pages/FaqPage'));
 const CertificationsPage = lazy(() => import('./public-website/pages/CertificationsPage'));
 const LegalPage = lazy(() => import('./public-website/pages/LegalPage'));
 const InnerPagesPreview = lazy(() => import('./public-website/preview/InnerPagesPreview'));
+const ExperiencePreview = lazy(() => import('./public-website/preview/ExperiencePreview'));
 
 const PUBLIC_PREVIEW_ROUTES = [
   { path: '/preview/public-layout', Component: PublicLayoutPreview },
@@ -119,9 +121,13 @@ const PUBLIC_PREVIEW_ROUTES = [
   { path: '/preview/public-footer', Component: PublicFooterPreview },
   { path: '/preview/public-navigation', Component: PublicNavigationPreview },
   { path: '/preview/public-seo', Component: PublicSeoPreview },
-  { path: '/preview/blog', Component: BlogPreview },
+            { path: '/preview/blog', Component: BlogPreview },
   { path: '/preview/blog/article', Component: BlogPreview },
   { path: '/preview/blog/search', Component: BlogPreview },
+  { path: '/preview/contact', Component: ExperiencePreview },
+  { path: '/preview/support', Component: ExperiencePreview },
+  { path: '/preview/faq', Component: ExperiencePreview },
+  { path: '/preview/legal', Component: ExperiencePreview },
 ];
 
 function isNonEnterpriseRoute(pathname: string): boolean {
@@ -170,12 +176,15 @@ export default function App() {
             <Route path="/blog/:slug" element={<ArticlePage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/support" element={<SupportPage />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/certifications" element={<CertificationsPage />} />
             <Route path="/privacy-policy" element={<LegalPage />} />
             <Route path="/terms-and-conditions" element={<LegalPage />} />
             <Route path="/refund-policy" element={<LegalPage />} />
             <Route path="/shipping-policy" element={<LegalPage />} />
+            <Route path="/cookie-policy" element={<LegalPage />} />
+            <Route path="/disclaimer" element={<LegalPage />} />
             <Route path="/auth" element={<PublicRoutePage />} />
             {PUBLIC_PREVIEW_ROUTES.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} />
