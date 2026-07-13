@@ -123,16 +123,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     `;
 
     let borderColor = 'var(--color-border-default)';
-    let outlineColor = 'var(--color-focus-ring)';
     if (error) {
       borderColor = 'var(--color-border-error)';
-      outlineColor = 'var(--color-border-error)';
     } else if (success) {
       borderColor = 'var(--color-border-success)';
-      outlineColor = 'var(--color-border-success)';
     } else if (warning) {
       borderColor = 'var(--color-border-warning)';
-      outlineColor = 'var(--color-border-warning)';
     }
 
     const inputContainerStyles = `
@@ -223,10 +219,21 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       lg: '18px',
     };
 
-    const focusStyles = `
-      outline: none;
-      box-shadow: 0 0 0 3px ${outlineColor};
-      outline-offset: var(--focus-ring-offset);
+    const focusRingCss = `
+      .sk-input-container:focus-within {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline-offset: var(--focus-ring-offset);
+      }
+      .sk-input-container--error:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-error);
+      }
+      .sk-input-container--success:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-success);
+      }
+      .sk-input-container--warning:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-warning);
+      }
     `;
 
     return (
@@ -253,15 +260,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div
           className={`sk-input-container${error ? ' sk-input-container--error' : ''}${success ? ' sk-input-container--success' : ''}${warning ? ' sk-input-container--warning' : ''}${disabled ? ' sk-input-container--disabled' : ''}`}
           style={inputContainerStyles as React.CSSProperties}
-          onFocus={(e) => {
-            const container = e.currentTarget;
-            container.style.cssText += focusStyles;
-          }}
-          onBlur={(e) => {
-            const container = e.currentTarget;
-            container.style.borderColor = borderColor;
-            container.style.boxShadow = 'none';
-          }}
         >
           {prefix && (
             <span style={prefixSuffixStyles as React.CSSProperties}>
@@ -360,7 +358,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        <style>{`@keyframes sk-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+        <style>{`@keyframes sk-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }${focusRingCss}`}</style>
       </div>
     );
   }

@@ -1,5 +1,15 @@
 # Implementation Log
 
+## 2026-07-13 — Phase 6 Sprint 21 Part 4: Public Website Inner Pages
+- Added `PageShell` shared helpers (PageHeader, SectionHeading, Prose, CtaBanner).
+- Built 8 inner pages: About, Products, Training, Blog, Contact (UI-only form), FAQ (reuses FAQ_ITEMS), Certifications, Legal (4 policies).
+- Added `/preview/inner-pages` index; wired `App.tsx` routes to real pages (`/auth` stays placeholder).
+- Reused PublicLayout, Seo, PublicContentContainer, Reveal, MediaPlaceholder, Design System v1.0.0.
+- Docs: inner-pages overview + sprint doc + review-notes + plan; updated changelog/implementation-log.
+- TypeScript: 0 errors; `npm run build`: success.
+
+---
+
 ## 2026-07-13 — Phase 6 Sprint 21 Part 3: Homepage Content, Storytelling & Conversion Optimization
 - Added motion infrastructure: `usePrefersReducedMotion`, `Reveal` (+`MotionStyles`), `AnimatedCounter`, `ScrollProgress`, `MediaPlaceholder`.
 - Added `StoryBand` (brand storytelling) and `RecognitionStrip` (partner/cert chips, placeholders).

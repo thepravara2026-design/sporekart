@@ -133,10 +133,6 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
       ? 'var(--color-border-error)'
       : 'var(--color-border-default)';
 
-    const outlineColor = error
-      ? 'var(--color-border-error)'
-      : 'var(--color-focus-ring)';
-
     const containerStyles = `
       display: flex;
       align-items: center;
@@ -203,10 +199,15 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
       color: var(--color-text-error);
     `;
 
-    const focusStyles = `
-      outline: none;
-      box-shadow: 0 0 0 3px ${outlineColor};
-      outline-offset: var(--focus-ring-offset);
+    const focusRingCss = `
+      .sk-search-container:focus-within {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline-offset: var(--focus-ring-offset);
+      }
+      .sk-search-container--error:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-error);
+      }
     `;
 
     const setRef = useCallback(
@@ -235,15 +236,6 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
         <div
           className={`sk-search-container${error ? ' sk-search-container--error' : ''}${disabled ? ' sk-search-container--disabled' : ''}`}
           style={containerStyles as React.CSSProperties}
-          onFocus={(e) => {
-            const container = e.currentTarget;
-            container.style.cssText += focusStyles;
-          }}
-          onBlur={(e) => {
-            const container = e.currentTarget;
-            container.style.borderColor = borderColor;
-            container.style.boxShadow = 'none';
-          }}
         >
           {loading ? (
             <span
@@ -340,7 +332,7 @@ export const Search = forwardRef<HTMLInputElement, SearchProps>(
           </span>
         )}
 
-        <style>{`@keyframes sk-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+        <style>{`@keyframes sk-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }${focusRingCss}`}</style>
       </div>
     );
   }

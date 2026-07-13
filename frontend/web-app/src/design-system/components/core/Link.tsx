@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useScopedStyle } from '../useScopedStyle';
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: 'inline' | 'navigation' | 'external' | 'text' | 'disabled';
@@ -105,24 +106,33 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       never: 'text-decoration: none;',
     };
 
+    const style = `
+      ${baseStyles}
+      ${variantStyles[resolvedVariant as keyof typeof variantStyles]}
+      ${sizeStyles[size]}
+      ${underlineStyles[underline]}
+    `;
+
+    const { className: scopedClass, styleEl } = useScopedStyle(style);
+
     return (
-      <a
-        ref={ref}
-        className={`sk-link sk-link--${resolvedVariant} sk-link--${size} ${className}`}
-        style={{
-          cssText: `${baseStyles} ${variantStyles[resolvedVariant as keyof typeof variantStyles]} ${sizeStyles[size]} ${underlineStyles[underline]} ${className ? '' : ''}`,
-        } as React.CSSProperties}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        aria-disabled={disabled}
-        tabIndex={disabled ? -1 : 0}
-        {...props}
-      >
+      <>
+        {styleEl}
+        <a
+          ref={ref}
+          className={`sk-link sk-link--${resolvedVariant} sk-link--${size} ${scopedClass} ${className}`.trim()}
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
+          aria-disabled={disabled}
+          tabIndex={disabled ? -1 : 0}
+          {...props}
+        >
         {leftIcon && <span className="sk-link__icon sk-link__icon--left" aria-hidden="true">{leftIcon}</span>}
         <span>{children}</span>
         {rightIcon && <span className="sk-link__icon sk-link__icon--right" aria-hidden="true">{rightIcon}</span>}
         {isExternal && <span className="sk-link__external-icon" aria-hidden="true">↗</span>}
       </a>
+      </>
     );
   }
 );

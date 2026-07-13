@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PublicContentContainer } from '../../PublicContentContainer';
-import { Button } from '../../../design-system/components';
+import { Button } from '../../../design-system/components/core/Button';
 import { Icon } from '../../../design-system/icons/Icon';
 
 const BENEFITS = [

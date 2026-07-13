@@ -1,4 +1,5 @@
 import React from 'react';
+import { useScopedStyle } from '../useScopedStyle';
 
 export interface CardProps {
   children?: React.ReactNode;
@@ -104,8 +105,9 @@ export const Card: React.FC<CardProps> = ({
     ${loadingStyles}
     ${errorStyles}
     ${clickableStyles}
-    ${className}
   `;
+
+  const { className: scopedClass, styleEl } = useScopedStyle(style);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (onClick && !disabled && !loading && (e.key === 'Enter' || e.key === ' ')) {
@@ -117,10 +119,11 @@ export const Card: React.FC<CardProps> = ({
   const showSkeleton = loading && !error;
 
   return (
-    <Component
-      className="sk-card"
-      style={style as React.CSSProperties}
-      onClick={!disabled && !loading ? onClick : undefined}
+    <>
+      {styleEl}
+      <Component
+        className={`sk-card ${scopedClass} ${className}`.trim()}
+        onClick={!disabled && !loading ? onClick : undefined}
       onKeyDown={onClick ? handleKeyDown : undefined}
       tabIndex={onClick ? 0 : undefined}
       role={onClick ? 'button' : undefined}
@@ -172,6 +175,7 @@ export const Card: React.FC<CardProps> = ({
       )}
       {!showSkeleton && children}
     </Component>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import { PublicContentContainer } from '../../PublicContentContainer';
-import { FeatureCard } from '../../../design-system/components';
+import { FeatureCard } from '../../../design-system/components/composite/FeatureCard';
 import { Icon } from '../../../design-system/icons/Icon';
 
 const PILLARS = [

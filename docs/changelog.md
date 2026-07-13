@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 4: Public Website Inner Pages
+### Added
+- Shared page helpers `PageShell` (`PageHeader`, `SectionHeading`, `Prose`, `CtaBanner`).
+- Inner pages: `AboutPage`, `ProductsPage`, `TrainingPage`, `BlogPage`, `ContactPage` (UI-only form), `FaqPage` (reuses `FAQ_ITEMS`), `CertificationsPage`, `LegalPage` (data-driven for 4 policies).
+- `InnerPagesPreview` (`/preview/inner-pages`) index for review.
+- `App.tsx` routes wired to real pages; `/auth` left as placeholder (backend scope).
+- Docs: `docs/public-website/inner-pages.md`, `review-notes/sprint-21-part-4.md`, `docs/phase-6/sprint-21-part-4.md`, `docs/sprints/phase-6/sprint-21-part-4-implementation-plan.md`.
+
+### Changed
+- Replaced `PublicRoutePage` placeholder mapping for `/about`, `/products`, `/training`, `/blog`, `/contact`, `/faq`, `/certifications`, and the four legal routes with real page components.
+
+### Notes
+- No backend/API changes; forms are UI-only; data lists are placeholders.
+- TypeScript: 0 errors; `npm run build`: success.
+
+---
+
 ## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 3: Homepage Content, Storytelling & Conversion Optimization
 ### Added
 - Motion infrastructure: `usePrefersReducedMotion`, `Reveal` (+`MotionStyles`), `AnimatedCounter`, `ScrollProgress`, `MediaPlaceholder` under `src/public-website/home/`.

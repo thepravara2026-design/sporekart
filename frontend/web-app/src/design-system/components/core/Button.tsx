@@ -1,4 +1,5 @@
 import React, { forwardRef, ButtonHTMLAttributes } from 'react';
+import { useScopedStyle } from '../useScopedStyle';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'success' | 'warning' | 'link';
@@ -115,9 +116,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const focusStyles = `
-      outline: none;
-      box-shadow: 0 0 0 3px var(--color-focus-ring);
-      outline-offset: var(--focus-ring-offset);
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline-offset: var(--focus-ring-offset);
+      }
     `;
 
     const iconSize = {
@@ -133,8 +136,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ${disabledStyles}
       ${loadingStyles}
       ${variantStyles[variant]}
-      ${className}
+      ${focusStyles}
     `;
+
+    const { className: scopedClass, styleEl } = useScopedStyle(style);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (disabled || loading) {
@@ -146,20 +151,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     return (
-      <button
-        ref={ref}
-        type={type}
-        disabled={disabled || loading}
-        className="sk-btn"
-        style={style as React.CSSProperties}
-        onClick={handleClick}
-        onMouseDown={props.onMouseDown}
-        onMouseUp={props.onMouseUp}
-        onFocus={(e) => {
-          e.currentTarget.style.cssText += focusStyles;
-          props.onFocus?.(e);
-        }}
-        onBlur={props.onBlur}
+      <>
+        {styleEl}
+        <button
+          ref={ref}
+          type={type}
+          disabled={disabled || loading}
+          className={`sk-btn ${scopedClass} ${className}`.trim()}
+          onClick={handleClick}
+          onMouseDown={props.onMouseDown}
+          onMouseUp={props.onMouseUp}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
         aria-disabled={disabled || loading}
         aria-busy={loading}
         {...props}
@@ -192,6 +195,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         <style>{`@keyframes sk-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
       </button>
+      </>
     )
   }
 );

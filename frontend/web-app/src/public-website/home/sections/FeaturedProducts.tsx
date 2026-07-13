@@ -1,5 +1,5 @@
 import { PublicContentContainer } from '../../PublicContentContainer';
-import { Card } from '../../../design-system/components';
+import { Card } from '../../../design-system/components/composite/Card';
 import { Icon } from '../../../design-system/icons/Icon';
 import { NavButton } from '../NavButton';
 

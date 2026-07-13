@@ -98,27 +98,22 @@ const PublicSeoPreview = lazy(() =>
 const HomePage = lazy(() => import('./public-website/home/HomePage'));
 const HomepagePreview = lazy(() => import('./public-website/preview/HomepagePreview'));
 
+const AboutPage = lazy(() => import('./public-website/pages/AboutPage'));
+const ProductsPage = lazy(() => import('./public-website/pages/ProductsPage'));
+const TrainingPage = lazy(() => import('./public-website/pages/TrainingPage'));
+const BlogPage = lazy(() => import('./public-website/pages/BlogPage'));
+const ContactPage = lazy(() => import('./public-website/pages/ContactPage'));
+const FaqPage = lazy(() => import('./public-website/pages/FaqPage'));
+const CertificationsPage = lazy(() => import('./public-website/pages/CertificationsPage'));
+const LegalPage = lazy(() => import('./public-website/pages/LegalPage'));
+const InnerPagesPreview = lazy(() => import('./public-website/preview/InnerPagesPreview'));
+
 const PUBLIC_PREVIEW_ROUTES = [
   { path: '/preview/public-layout', Component: PublicLayoutPreview },
   { path: '/preview/public-header', Component: PublicHeaderPreview },
   { path: '/preview/public-footer', Component: PublicFooterPreview },
   { path: '/preview/public-navigation', Component: PublicNavigationPreview },
   { path: '/preview/public-seo', Component: PublicSeoPreview },
-];
-
-const PUBLIC_ROUTE_PATHS = [
-  '/about',
-  '/products',
-  '/training',
-  '/blog',
-  '/contact',
-  '/faq',
-  '/certifications',
-  '/privacy-policy',
-  '/terms-and-conditions',
-  '/refund-policy',
-  '/shipping-policy',
-  '/auth',
 ];
 
 function isNonEnterpriseRoute(pathname: string): boolean {
@@ -158,9 +153,18 @@ export default function App() {
         <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            {PUBLIC_ROUTE_PATHS.map((path) => (
-              <Route key={path} path={path} element={<PublicRoutePage />} />
-            ))}
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/training" element={<TrainingPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/certifications" element={<CertificationsPage />} />
+            <Route path="/privacy-policy" element={<LegalPage />} />
+            <Route path="/terms-and-conditions" element={<LegalPage />} />
+            <Route path="/refund-policy" element={<LegalPage />} />
+            <Route path="/shipping-policy" element={<LegalPage />} />
+            <Route path="/auth" element={<PublicRoutePage />} />
             {PUBLIC_PREVIEW_ROUTES.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} />
             ))}
@@ -168,6 +172,7 @@ export default function App() {
             <Route path="/preview/homepage/desktop" element={<HomepagePreview defaultViewport="desktop" />} />
             <Route path="/preview/homepage/tablet" element={<HomepagePreview defaultViewport="tablet" />} />
             <Route path="/preview/homepage/mobile" element={<HomepagePreview defaultViewport="mobile" />} />
+            <Route path="/preview/inner-pages" element={<InnerPagesPreview />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

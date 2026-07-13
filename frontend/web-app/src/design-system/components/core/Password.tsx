@@ -151,16 +151,12 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(
     `;
 
     let borderColor = 'var(--color-border-default)';
-    let outlineColor = 'var(--color-focus-ring)';
     if (error) {
       borderColor = 'var(--color-border-error)';
-      outlineColor = 'var(--color-border-error)';
     } else if (success) {
       borderColor = 'var(--color-border-success)';
-      outlineColor = 'var(--color-border-success)';
     } else if (warning) {
       borderColor = 'var(--color-border-warning)';
-      outlineColor = 'var(--color-border-warning)';
     }
 
     const containerStyles = `
@@ -267,10 +263,21 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(
       white-space: nowrap;
     `;
 
-    const focusStyles = `
-      outline: none;
-      box-shadow: 0 0 0 3px ${outlineColor};
-      outline-offset: var(--focus-ring-offset);
+    const focusRingCss = `
+      .sk-password-container:focus-within {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+        outline-offset: var(--focus-ring-offset);
+      }
+      .sk-password-container--error:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-error);
+      }
+      .sk-password-container--success:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-success);
+      }
+      .sk-password-container--warning:focus-within {
+        box-shadow: 0 0 0 3px var(--color-border-warning);
+      }
     `;
 
     return (
@@ -297,15 +304,6 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(
         <div
           className={`sk-password-container${error ? ' sk-password-container--error' : ''}${success ? ' sk-password-container--success' : ''}${warning ? ' sk-password-container--warning' : ''}${disabled ? ' sk-password-container--disabled' : ''}`}
           style={containerStyles as React.CSSProperties}
-          onFocus={(e) => {
-            const container = e.currentTarget;
-            container.style.cssText += focusStyles;
-          }}
-          onBlur={(e) => {
-            const container = e.currentTarget;
-            container.style.borderColor = borderColor;
-            container.style.boxShadow = 'none';
-          }}
         >
           <input
             ref={ref}
@@ -446,6 +444,7 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(
             </span>
           </div>
         )}
+        <style>{focusRingCss}</style>
       </div>
     );
   }
