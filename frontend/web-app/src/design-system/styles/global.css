@@ -78,6 +78,10 @@
   --color-bg-primary-hover: var(--color-green-700);
   --color-bg-primary-pressed: var(--color-green-800);
   --color-bg-primary-weak: var(--color-green-100);
+  --color-bg-accent: var(--color-green-600);
+  --color-bg-accent-default: var(--color-green-600);
+  --color-bg-accent-subtle: var(--color-green-100);
+  --color-bg-surface-muted: var(--color-neutral-100);
 
   --color-bg-surface-default: #FFFFFF;
   --color-bg-surface-raised: #FFFFFF;
@@ -99,6 +103,8 @@
   --color-text-warning: var(--color-warning-600);
   --color-text-danger: var(--color-danger-600);
   --color-text-info: var(--color-info-600);
+  --color-text-accent: var(--color-green-700);
+  --color-text-muted: var(--color-neutral-500);
 
   /* Border */
   --color-border-default: var(--color-neutral-200);
@@ -154,6 +160,9 @@
   --text-code: 0.875rem;
   --text-numeric: 1rem;
   --text-otp: 2rem;
+  --text-title-md: 1.125rem;
+  --text-body-xs: 0.75rem;
+  --text-body-md: 1rem;
 
   /* Font Weights */
   --weight-normal: 400;

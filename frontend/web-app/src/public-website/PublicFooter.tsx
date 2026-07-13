@@ -25,15 +25,15 @@ export function PublicFooter() {
   ];
 
   const footerStyle: React.CSSProperties = {
-    backgroundColor: 'var(--color-bg-surface-muted, #f8fafc)',
-    borderTop: '1px solid var(--color-border-default, #e5e7eb)',
-    color: 'var(--color-text-secondary, #4b5563)',
+    backgroundColor: 'var(--color-green-900, #153a26)',
+    borderTop: '1px solid rgba(255,255,255,0.14)',
+    color: 'rgba(255,255,255,0.78)',
     padding: 'var(--space-8, 48px) var(--space-5, 24px) var(--space-5, 24px)',
     fontFamily: 'var(--font-family-sans, system-ui)',
   };
 
   const linkStyle: React.CSSProperties = {
-    color: 'var(--color-text-secondary, #4b5563)',
+    color: 'rgba(255,255,255,0.72)',
     textDecoration: 'none',
     fontSize: 'var(--text-body-sm, 14px)',
     display: 'inline-flex',
@@ -53,7 +53,7 @@ export function PublicFooter() {
         }}
       >
         <div style={{ minWidth: 220 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2, 8px)', fontWeight: 700, color: 'var(--color-text-primary, #1f2933)', fontSize: 'var(--text-title-md, 18px)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2, 8px)', fontWeight: 700, color: 'var(--color-text-inverse, #ffffff)', fontSize: 'var(--text-title-md, 18px)' }}>
             <span aria-hidden="true" style={{ display: 'inline-flex', width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--radius-md, 8px)', background: 'var(--color-bg-accent-subtle, #eef2ff)', color: 'var(--color-text-accent, #1d4ed8)' }}>
               ❖
             </span>
@@ -69,7 +69,7 @@ export function PublicFooter() {
 
         {columns.map((column) => (
           <nav key={column.title} aria-label={column.title} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2, 8px)' }}>
-            <h2 style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 700, color: 'var(--color-text-primary, #1f2933)', margin: '0 0 var(--space-2, 8px)' }}>{column.title}</h2>
+            <h2 style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 700, color: 'var(--color-text-inverse, #ffffff)', margin: '0 0 var(--space-2, 8px)' }}>{column.title}</h2>
             {column.items.map((item) => (
               <RouterLink key={item.href} to={item.href} style={linkStyle}>
                 {item.label}
@@ -84,7 +84,7 @@ export function PublicFooter() {
           maxWidth: 'var(--container-xl, 1200px)',
           margin: 'var(--space-6, 32px) auto 0',
           paddingTop: 'var(--space-4, 16px)',
-          borderTop: '1px solid var(--color-border-muted, #eef2f7)',
+          borderTop: '1px solid rgba(255,255,255,0.14)',
           display: 'flex',
           flexWrap: 'wrap',
           gap: 'var(--space-3, 12px)',

@@ -78,6 +78,14 @@
   --color-bg-primary-hover: var(--color-green-700);
   --color-bg-primary-pressed: var(--color-green-800);
   --color-bg-primary-weak: var(--color-green-100);
+  --color-bg-accent: var(--color-green-600);
+  --color-bg-accent-default: var(--color-green-600);
+  --color-bg-accent-subtle: var(--color-green-100);
+  --color-bg-surface-muted: var(--color-neutral-100);
+  --color-bg-canvas: var(--color-bg-background);
+  --color-bg-inverse: var(--color-neutral-900);
+  --color-bg-success-subtle: var(--color-success-100);
+  --color-bg-warning-subtle: var(--color-warning-100);
 
   --color-bg-surface-default: #FFFFFF;
   --color-bg-surface-raised: #FFFFFF;
@@ -99,10 +107,17 @@
   --color-text-warning: var(--color-warning-600);
   --color-text-danger: var(--color-danger-600);
   --color-text-info: var(--color-info-600);
+  --color-text-accent: var(--color-green-700);
+  --color-text-muted: var(--color-neutral-500);
+  --color-text-inverse: #FFFFFF;
+  --color-text-tertiary: var(--color-neutral-500);
 
   /* Border */
   --color-border-default: var(--color-neutral-200);
   --color-border-strong: var(--color-neutral-300);
+  --color-border-muted: var(--color-neutral-200);
+  --color-border-subtle: var(--color-neutral-100);
+  --color-border-inverse: var(--color-neutral-700);
   --color-border-focus: var(--color-green-600);
   --color-primary: var(--color-green-600);
   --color-primary-hover: var(--color-green-700);
@@ -154,6 +169,12 @@
   --text-code: 0.875rem;
   --text-numeric: 1rem;
   --text-otp: 2rem;
+  --text-title-sm: 1rem;
+  --text-title-md: 1.125rem;
+  --text-body-xs: 0.75rem;
+  --text-body-md: 1rem;
+  --text-title-lg: 1.5rem;
+  --text-title-xl: 2rem;
 
   /* Font Weights */
   --weight-normal: 400;
@@ -190,6 +211,7 @@
   --space-6: 24px;
   --space-7: 28px;
   --space-8: 32px;
+  --space-9: 36px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
@@ -210,6 +232,7 @@
 
   /* Layout Dimensions */
   --layout-header-height: 56px;
+  --header-height: var(--layout-header-height);
   --layout-sidebar-width: 264px;
   --layout-sidebar-icon-width: 72px;
   --layout-breadcrumb-gap: 8px;
@@ -227,6 +250,7 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
+  --radius-pill: var(--radius-full);
 
   /* Component Radius Mappings */
   --radius-btn: 12px;
@@ -250,6 +274,8 @@
   --shadow-2: 0 4px 8px rgba(29, 43, 34, 0.06), 0 2px 4px rgba(29, 43, 34, 0.05);
   --shadow-3: 0 8px 24px rgba(29, 43, 34, 0.08), 0 4px 12px rgba(29, 43, 34, 0.05);
   --shadow-4: 0 16px 48px rgba(29, 43, 34, 0.12), 0 8px 24px rgba(29, 43, 34, 0.08);
+  --shadow-sm: var(--shadow-1);
+  --shadow-md: var(--shadow-2);
 
   /* Surface Levels */
   --surface-0: var(--color-bg-background);
@@ -368,6 +394,10 @@
   --container-prose: 720px;
   --container-data: 1200px;
   --container-full: 100%;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
 
   /* Component Sizing */
   --btn-height-sm: 36px;

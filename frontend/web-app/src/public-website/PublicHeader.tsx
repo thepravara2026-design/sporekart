@@ -40,8 +40,8 @@ export function PublicHeader() {
     gap: 'var(--space-4, 16px)',
     height: 'var(--header-height, 64px)',
     padding: '0 var(--space-5, 24px)',
-    backgroundColor: 'var(--color-bg-surface-default, #ffffff)',
-    borderBottom: '1px solid var(--color-border-default, #e5e7eb)',
+    backgroundColor: 'var(--color-green-900, #153a26)',
+    borderBottom: '1px solid rgba(255,255,255,0.14)',
     boxShadow: 'var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05))',
   };
 
@@ -59,7 +59,7 @@ export function PublicHeader() {
           <Icon name="menu" size={22} aria-label="Open navigation menu" />
         </button>
 
-        <RouterLink to="/" className="sk-brand" aria-label="SporeKart home" style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2, 8px)', textDecoration: 'none', color: 'var(--color-text-primary, #1f2933)' }}>
+        <RouterLink to="/" className="sk-brand" aria-label="SporeKart home"           style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2, 8px)', textDecoration: 'none', color: 'var(--color-text-inverse, #ffffff)' }}>
           <span aria-hidden="true" style={{ display: 'inline-flex', width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--radius-md, 8px)', background: 'var(--color-bg-accent-subtle, #eef2ff)', color: 'var(--color-text-accent, #1d4ed8)', fontWeight: 700 }}>
             ❖
           </span>
@@ -68,7 +68,7 @@ export function PublicHeader() {
       </div>
 
       <div className="sk-public-header__nav" style={{ display: 'flex', alignItems: 'center' }}>
-        <PublicNav orientation="horizontal" />
+        <PublicNav orientation="horizontal" theme="dark" />
       </div>
 
       <div className="sk-public-header__actions" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3, 12px)' }}>
@@ -76,7 +76,7 @@ export function PublicHeader() {
           type="button"
           className="sk-icon-btn"
           aria-label="Search"
-          style={{ display: 'inline-flex', border: 'none', background: 'transparent', cursor: 'pointer', padding: 'var(--space-2, 8px)', color: 'var(--color-text-secondary, #4b5563)' }}
+            style={{ display: 'inline-flex', border: 'none', background: 'transparent', cursor: 'pointer', padding: 'var(--space-2, 8px)', color: 'var(--color-text-inverse, #ffffff)' }}
         >
           <Icon name="search" size={20} aria-label="Search" />
         </button>
@@ -93,8 +93,8 @@ export function PublicHeader() {
             textDecoration: 'none',
             padding: 'var(--space-2, 8px) var(--space-4, 16px)',
             borderRadius: 'var(--radius-md, 8px)',
-            backgroundColor: 'var(--color-bg-accent-default, #1d4ed8)',
-            color: 'var(--color-text-inverse, #ffffff)',
+            backgroundColor: 'var(--color-bg-background, #f7f8f7)',
+            color: 'var(--color-green-900, #153a26)',
           }}
         >
           <Icon name="log-in" size={18} aria-label="Sign in" />
