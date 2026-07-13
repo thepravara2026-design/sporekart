@@ -102,6 +102,11 @@ const AboutPage = lazy(() => import('./public-website/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./public-website/pages/ProductsPage'));
 const TrainingPage = lazy(() => import('./public-website/pages/TrainingPage'));
 const BlogPage = lazy(() => import('./public-website/pages/BlogPage'));
+const ArticlePage = lazy(() => import('./public-website/pages/ArticlePage'));
+const BlogCategoryPage = lazy(() => import('./public-website/pages/BlogCategoryPage'));
+const BlogTagPage = lazy(() => import('./public-website/pages/BlogTagPage'));
+const SearchPage = lazy(() => import('./public-website/pages/SearchPage'));
+const BlogPreview = lazy(() => import('./public-website/preview/BlogPreview').then((m) => ({ default: m.BlogPreview })));
 const ContactPage = lazy(() => import('./public-website/pages/ContactPage'));
 const FaqPage = lazy(() => import('./public-website/pages/FaqPage'));
 const CertificationsPage = lazy(() => import('./public-website/pages/CertificationsPage'));
@@ -114,6 +119,9 @@ const PUBLIC_PREVIEW_ROUTES = [
   { path: '/preview/public-footer', Component: PublicFooterPreview },
   { path: '/preview/public-navigation', Component: PublicNavigationPreview },
   { path: '/preview/public-seo', Component: PublicSeoPreview },
+  { path: '/preview/blog', Component: BlogPreview },
+  { path: '/preview/blog/article', Component: BlogPreview },
+  { path: '/preview/blog/search', Component: BlogPreview },
 ];
 
 function isNonEnterpriseRoute(pathname: string): boolean {
@@ -157,6 +165,10 @@ export default function App() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/training" element={<TrainingPage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/category/:slug" element={<BlogCategoryPage />} />
+            <Route path="/blog/tag/:slug" element={<BlogTagPage />} />
+            <Route path="/blog/:slug" element={<ArticlePage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/certifications" element={<CertificationsPage />} />

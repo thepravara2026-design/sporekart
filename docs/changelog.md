@@ -1,5 +1,24 @@
 # Changelog
 
+## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 5: Blog & Knowledge Hub
+### Added
+- Blog & Knowledge Hub: `BlogPage` (landing), `ArticlePage`, `BlogCategoryPage`, `BlogTagPage`, `SearchPage`.
+- Blog data layer `src/public-website/blog/data.ts` (12 categories, 16 tags, 14 placeholder articles, query helpers).
+- Blog components: `ArticleCard`, `FeaturedArticle`, `CategoryCard`/`CategoryGrid`, `TagChip`/`TagCloud`, `SearchBar`, `TableOfContents` (scroll-spy), `ArticleBody` (callout/quote/media blocks), `ShareButtons`, `EmptyState`, `BlogStyles` (token-only, reduced-motion + print).
+- Routes `/blog`, `/blog/:slug`, `/blog/category/:slug`, `/blog/tag/:slug`, `/search`; preview routes `/preview/blog`, `/preview/blog/article`, `/preview/blog/search`.
+- `config.ts`: `isPublicWebsiteRoute` matches `/blog/*` and `/search`; blog routes added to `PUBLIC_WEBSITE_ROUTES`.
+- SEO: Organization/BreadcrumbList/Article JSON-LD; `noindex` on search; OG/Twitter via `Seo`.
+- Docs: `docs/public-website/blog/*` (Architecture, Landing-Page, Article-Page, Search, Categories, Tags, SEO, Accessibility, Review-Notes) + `docs/phase-6/sprint-21-part-5.md`.
+
+### Changed
+- `App.tsx` wiring extended with blog + preview lazy routes; reading progress reuses `ScrollProgress`.
+
+### Notes
+- All article content is placeholder (badged); search is client-side over placeholder data.
+- No backend/API changes. TypeScript: 0 errors; `npm run build`: success.
+
+---
+
 ## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 4: Public Website Inner Pages
 ### Added
 - Shared page helpers `PageShell` (`PageHeader`, `SectionHeading`, `Prose`, `CtaBanner`).

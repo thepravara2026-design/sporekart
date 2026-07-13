@@ -1,5 +1,16 @@
 # Implementation Log
 
+## 2026-07-13 — Phase 6 Sprint 21 Part 5: Blog & Knowledge Hub
+- Built `blog/data.ts` (12 categories, 16 tags, 14 placeholder articles + query helpers). Articles flagged `placeholder: true`.
+- Built reusable components: `ArticleCard`/`ArticleMeta`, `FeaturedArticle`, `CategoryCard`/`CategoryGrid`, `TagChip`/`TagCloud`, `SearchBar`, `TableOfContents` (IntersectionObserver scroll-spy), `ArticleBody` (heading/paragraph/list/callout/quote/image/video), `ShareButtons`, `EmptyState`, and `BlogStyles` (token-only, reduced-motion + print).
+- Built pages: `BlogPage` (hero+search, featured, categories, latest, trending+tags, training/product promos, newsletter), `ArticlePage` (reading progress, hero, sticky TOC, body, share/tags, prev/next, related, promos), `BlogCategoryPage`, `BlogTagPage`, `SearchPage` (URL-param search, empty state, popular searches, tag cloud).
+- Wired routes `/blog`, `/blog/:slug`, `/blog/category/:slug`, `/blog/tag/:slug`, `/search` and previews `/preview/blog`, `/preview/blog/article`, `/preview/blog/search` in `App.tsx`; `config.ts` `isPublicWebsiteRoute` now matches `/blog/*` and `/search`.
+- SEO via `Seo`: Organization/BreadcrumbList/Article JSON-LD; `noindex` on search; OG/Twitter.
+- Docs: `docs/public-website/blog/*` (9 docs) + `docs/phase-6/sprint-21-part-5.md`; updated changelog + implementation-log.
+- TypeScript: 0 errors; `npm run build`: success (per-page code-split chunks).
+
+---
+
 ## 2026-07-13 — Phase 6 Sprint 21 Part 4: Public Website Inner Pages
 - Added `PageShell` shared helpers (PageHeader, SectionHeading, Prose, CtaBanner).
 - Built 8 inner pages: About, Products, Training, Blog, Contact (UI-only form), FAQ (reuses FAQ_ITEMS), Certifications, Legal (4 policies).

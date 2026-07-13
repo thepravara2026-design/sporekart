@@ -20,6 +20,10 @@ export const PUBLIC_WEBSITE_ROUTES: PublicRouteDef[] = [
   { path: '/refund-policy', label: 'Refund Policy', description: 'Refund and cancellation policy.' },
   { path: '/shipping-policy', label: 'Shipping Policy', description: 'Shipping and delivery policy.' },
   { path: '/auth', label: 'Sign In', description: 'Public authentication entry point.' },
+  { path: '/blog/:slug', label: 'Article', description: 'Individual blog article.' },
+  { path: '/blog/category/:slug', label: 'Category', description: 'Articles filtered by category.' },
+  { path: '/blog/tag/:slug', label: 'Tag', description: 'Articles filtered by tag.' },
+  { path: '/search', label: 'Search', description: 'Knowledge hub search experience.' },
 ];
 
 export const PUBLIC_WEBSITE_ROUTE_SET: ReadonlySet<string> = new Set(
@@ -30,7 +34,16 @@ export function isPublicWebsiteRoute(pathname: string): boolean {
   if (PUBLIC_WEBSITE_ROUTE_SET.has(pathname)) {
     return true;
   }
-  return PUBLIC_WEBSITE_ROUTE_SET.has(pathname.replace(/\/$/, ''));
+  if (PUBLIC_WEBSITE_ROUTE_SET.has(pathname.replace(/\/$/, ''))) {
+    return true;
+  }
+  if (pathname.startsWith('/blog/')) {
+    return true;
+  }
+  if (pathname === '/search' || pathname.startsWith('/search?')) {
+    return true;
+  }
+  return false;
 }
 
 export interface PublicNavItem {

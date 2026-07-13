@@ -1,56 +1,182 @@
+import { useNavigate } from 'react-router-dom';
 import { PublicLayout } from '../PublicLayout';
 import { PublicContentContainer } from '../PublicContentContainer';
+import { BlogStyles } from '../blog/BlogStyles';
 import { Icon } from '../../design-system/icons/Icon';
 import { Reveal } from '../home/Reveal';
-import { MediaPlaceholder } from '../home/MediaPlaceholder';
-import { PageHeader, SectionHeading, CtaBanner, sectionPad } from './PageShell';
+import { NewsletterCta } from '../home/sections/NewsletterCta';
+import { SectionHeading, CtaBanner, sectionPad } from './PageShell';
+import { ArticleCard } from '../blog/components/ArticleCard';
+import { FeaturedArticle } from '../blog/components/FeaturedArticle';
+import { CategoryGrid } from '../blog/components/CategoryCard';
+import { TagCloud } from '../blog/components/TagChip';
+import { SearchBar } from '../blog/components/SearchBar';
+import {
+  getFeaturedArticles,
+  getLatestArticles,
+  getTrendingArticles,
+  POPULAR_SEARCHES,
+} from '../blog/data';
 
-const POSTS = [
-  { category: 'Guide', title: 'Oyster mushrooms at home: a 4-week plan', excerpt: 'Everything a first-time grower needs to fruit your first batch.', readTime: '8 min read' },
-  { category: 'Research', title: 'Why substrate moisture matters more than temperature', excerpt: 'A look at the data behind contamination and yield.', readTime: '6 min read' },
-  { category: 'Story', title: 'How a small farm tripled yield in one season', excerpt: 'A cultivator’s journey with SporeKart training.', readTime: '5 min read' },
-  { category: 'Guide', title: 'Choosing the right spawn for your climate', excerpt: 'Matching varieties to local conditions.', readTime: '7 min read' },
-  { category: 'FAQ', title: 'Common contamination causes (and fixes)', excerpt: 'Troubleshoot the most frequent growing problems.', readTime: '4 min read' },
-  { category: 'News', title: 'New training cohorts opening this quarter', excerpt: 'Enrollment, schedules, and what’s new.', readTime: '3 min read' },
-];
+const ORG_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SporeKart',
+  url: 'https://sporekart.example.com',
+  description: 'India’s trusted mushroom knowledge platform — research-driven guides, spawn, and training.',
+};
+const BREADCRUMB_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sporekart.example.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://sporekart.example.com/blog' },
+  ],
+};
 
 export default function BlogPage() {
-  const crumbs = [{ label: 'Home', href: '/' }, { label: 'Blog' }];
+  const navigate = useNavigate();
+  const featured = getFeaturedArticles();
+  const latest = getLatestArticles(6);
+  const trending = getTrendingArticles(3);
+
   return (
     <PublicLayout
-      breadcrumbs={crumbs}
-      seo={{ title: 'Blog — SporeKart', description: 'Guides, research, and stories on mushroom cultivation from the SporeKart team and community.', canonical: 'https://sporekart.example.com/blog' }}
+      breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Blog' }]}
+      seo={{
+        title: 'Blog & Knowledge Hub — SporeKart',
+        description:
+          'Practical mushroom cultivation guides, spawn science, business tips, and research from the SporeKart team. India’s trusted mushroom knowledge platform.',
+        canonical: 'https://sporekart.example.com/blog',
+        type: 'website',
+        structuredData: [ORG_SCHEMA, BREADCRUMB_SCHEMA],
+      }}
     >
-      <PageHeader
-        eyebrow="Knowledge"
-        title="Guides, research, and stories from the farm"
-        intro="Free, practical content to help you grow better — written by our research team and growers."
-      />
+      <BlogStyles />
 
+      {/* Hero */}
+      <section style={{ background: 'linear-gradient(135deg, var(--color-bg-accent-subtle, #e8f1ec), var(--color-bg-surface-default, #ffffff))', borderBottom: '1px solid var(--color-border-subtle, #eef2f7)' }}>
+        <PublicContentContainer maxWidth="lg">
+          <div style={{ padding: 'var(--space-9, 64px) 0 var(--space-7, 48px)', textAlign: 'center' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2, 8px)', padding: 'var(--space-1, 4px) var(--space-3, 12px)', borderRadius: 'var(--radius-pill, 999px)', backgroundColor: 'var(--color-bg-surface-default, #ffffff)', color: 'var(--color-text-accent, #2F6F4F)', fontSize: 'var(--text-body-xs, 12px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', border: '1px solid var(--color-border-subtle, #eef2f7)' }}>
+              <Icon name="book-open" size={14} aria-label="Knowledge Hub" /> Knowledge Hub
+            </span>
+            <h1 style={{ margin: 'var(--space-4, 16px) 0 0', fontSize: 'var(--text-title-xl, 40px)', fontWeight: 800, color: 'var(--color-text-primary, #1f2933)', letterSpacing: '-0.02em' }}>
+              Grow with confidence
+            </h1>
+            <p style={{ margin: 'var(--space-3, 12px) auto 0', maxWidth: 640, fontSize: 'var(--text-body-lg, 18px)', color: 'var(--color-text-secondary, #4b5563)', lineHeight: 1.6 }}>
+              Research-driven guides, spawn science, and business playbooks from the SporeKart team — written for Indian growers.
+            </p>
+            <div style={{ marginTop: 'var(--space-5, 24px)', display: 'flex', justifyContent: 'center' }}>
+              <SearchBar onSubmit={(q) => navigate(q ? `/search?q=${encodeURIComponent(q)}` : '/search')} />
+            </div>
+          </div>
+        </PublicContentContainer>
+      </section>
+
+      {/* Featured */}
+      {featured.length > 0 && (
+        <Reveal>
+          <div style={sectionPad}>
+            <PublicContentContainer maxWidth="xl">
+              <SectionHeading eyebrow="Editor’s pick" title="Featured article" description="Our most useful guide this season." />
+              <div style={{ marginTop: 'var(--space-5, 24px)' }}>
+                <FeaturedArticle article={featured[0]} />
+              </div>
+            </PublicContentContainer>
+          </div>
+        </Reveal>
+      )}
+
+      {/* Categories */}
       <Reveal>
         <div style={sectionPad}>
-          <PublicContentContainer maxWidth="lg">
-            <SectionHeading eyebrow="Latest" title="From the SporeKart library" description="Article content is placeholder pending the CMS." />
-            <div style={{ marginTop: 'var(--space-5, 24px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-4, 16px)' }}>
-              {POSTS.map((post) => (
-                <a key={post.title} href="/blog" style={{ textDecoration: 'none', display: 'block' }} className="sk-pw-card">
-                  <div style={{ height: '100%', border: '1px solid var(--color-border-default, #e5e7eb)', borderRadius: 'var(--radius-lg, 12px)', backgroundColor: 'var(--color-bg-surface-default, #ffffff)', overflow: 'hidden' }}>
-                    <MediaPlaceholder label={post.title} icon="image" aspectRatio="16 / 9" />
-                    <div style={{ padding: 'var(--space-4, 16px)' }}>
-                      <span style={{ fontSize: 'var(--text-body-xs, 12px)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--color-text-accent, #1d4ed8)' }}>{post.category} · {post.readTime}</span>
-                      <h3 style={{ margin: 'var(--space-2, 8px) 0 0', fontSize: 'var(--text-body-lg, 18px)', fontWeight: 700, color: 'var(--color-text-primary, #1f2933)' }}>{post.title}</h3>
-                      <p style={{ margin: 'var(--space-2, 8px) 0 0', fontSize: 'var(--text-body-sm, 14px)', color: 'var(--color-text-secondary, #4b5563)', lineHeight: 1.6 }}>{post.excerpt}</p>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 'var(--space-3, 12px)', fontSize: 'var(--text-body-sm, 14px)', fontWeight: 600, color: 'var(--color-text-accent, #1d4ed8)' }}>Read article <Icon name="arrow-right" size={16} aria-label="Read" /></span>
-                    </div>
-                  </div>
-                </a>
+          <PublicContentContainer maxWidth="xl">
+            <SectionHeading eyebrow="Browse" title="Explore by topic" description="Find guidance in the area you’re growing or building." />
+            <div style={{ marginTop: 'var(--space-5, 24px)' }}>
+              <CategoryGrid />
+            </div>
+          </PublicContentContainer>
+        </div>
+      </Reveal>
+
+      {/* Latest */}
+      <Reveal>
+        <div style={sectionPad}>
+          <PublicContentContainer maxWidth="xl">
+            <SectionHeading eyebrow="Fresh" title="Latest articles" description="New guides and research from the SporeKart library." />
+            <div style={{ marginTop: 'var(--space-5, 24px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 'var(--space-4, 16px)' }}>
+              {latest.map((a) => (
+                <ArticleCard key={a.slug} article={a} />
               ))}
             </div>
           </PublicContentContainer>
         </div>
       </Reveal>
 
-      <CtaBanner title="Get new guides in your inbox" description="Join the community for growing tips and training updates." primaryLabel="Subscribe" primaryTo="/#newsletter" />
+      {/* Trending + Popular tags */}
+      <Reveal>
+        <div style={sectionPad}>
+          <PublicContentContainer maxWidth="xl">
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: 'var(--space-7, 48px)', alignItems: 'start' }}>
+              <div>
+                <SectionHeading eyebrow="Popular now" title="Trending articles" />
+                <div style={{ marginTop: 'var(--space-5, 24px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--space-4, 16px)' }}>
+                  {trending.map((a) => (
+                    <ArticleCard key={a.slug} article={a} />
+                  ))}
+                </div>
+              </div>
+              <aside aria-label="Popular tags">
+                <SectionHeading eyebrow="Discover" title="Popular tags" />
+                <div style={{ marginTop: 'var(--space-4, 16px)' }}>
+                  <TagCloud />
+                </div>
+                <div style={{ marginTop: 'var(--space-6, 40px)', padding: 'var(--space-5, 24px)', borderRadius: 'var(--radius-lg, 12px)', backgroundColor: 'var(--color-bg-surface-muted, #f1f5f9)', border: '1px solid var(--color-border-subtle, #eef2f7)' }}>
+                  <p style={{ margin: 0, fontSize: 'var(--text-body-sm, 14px)', fontWeight: 700, color: 'var(--color-text-muted, #9ca3af)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Popular searches</p>
+                  <div style={{ marginTop: 'var(--space-3, 12px)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2, 8px)' }}>
+                    {POPULAR_SEARCHES.map((s) => (
+                      <button key={s} type="button" onClick={() => navigate(`/search?q=${encodeURIComponent(s)}`)} className="sk-blog-tag" style={{ cursor: 'pointer', border: 'none' }}>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </PublicContentContainer>
+        </div>
+      </Reveal>
+
+      {/* Training promotion */}
+      <Reveal>
+        <div style={sectionPad}>
+          <PublicContentContainer maxWidth="lg">
+            <CtaBanner
+              title="Turn knowledge into yield"
+              description="Join a hands-on SporeKart training cohort and grow with expert mentorship."
+              primaryLabel="Explore training"
+              primaryTo="/training"
+            />
+          </PublicContentContainer>
+        </div>
+      </Reveal>
+
+      {/* Product promotion */}
+      <Reveal>
+        <div style={sectionPad}>
+          <PublicContentContainer maxWidth="lg">
+            <CtaBanner
+              title="Need spawn or fresh mushrooms?"
+              description="Browse certified spawn, substrates, and fresh produce from trusted growers."
+              primaryLabel="Shop products"
+              primaryTo="/products"
+            />
+          </PublicContentContainer>
+        </div>
+      </Reveal>
+
+      <NewsletterCta />
     </PublicLayout>
   );
 }
