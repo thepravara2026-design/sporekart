@@ -1,5 +1,46 @@
 # Changelog
 
+## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 3: Homepage Content, Storytelling & Conversion Optimization
+### Added
+- Motion infrastructure: `usePrefersReducedMotion`, `Reveal` (+`MotionStyles`), `AnimatedCounter`, `ScrollProgress`, `MediaPlaceholder` under `src/public-website/home/`.
+- `StoryBand` brand storytelling section (who we are / why mushrooms / why SporeKart).
+- `RecognitionStrip` partner & certification logo chips (placeholders).
+- TrustStrip upgraded to in-view animated counters with `placeholder` markers.
+- TrainingHighlight uses `MediaPlaceholder` + refined copy; Hero/FeaturedProducts/WhyChoose/CultivationJourney/ResourcesPreview copy refined to production-ready.
+- `FAQ_ITEMS` exported from `FaqPreview` for FAQ schema.
+- Homepage SEO enhanced: Organization, WebSite + SearchAction, BreadcrumbList, FAQPage structured data.
+- Homepage preview modes: Content review, Animation preview, Side-by-side compare, Replay animations.
+- Docs: `docs/public-website/homepage-content-strategy.md`, `homepage-storytelling.md`, `conversion-optimization.md`, `animation-guidelines.md`, `media-strategy.md`, `review-notes/sprint-21-part-3.md`; `docs/phase-6/sprint-21-part-3.md`; `docs/sprints/phase-6/sprint-21-part-3-implementation-plan.md`.
+
+### Changed
+- `src/public-website/home/HomePage.tsx`: composes `MotionStyles`, `ScrollProgress`, `StoryBand`, `RecognitionStrip`; wraps sections in `Reveal`; enhanced structured data.
+- `src/public-website/preview/HomepagePreview.tsx`: added review/animation/compare modes, a11y/responsive/content/motion notes, checklists, approval status.
+
+### Notes
+- No backend/API changes; all metrics/partner/cert logos clearly marked placeholders (no fake statistics).
+- TypeScript: 0 errors; `npm run build`: success.
+
+---
+
+## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 2: Homepage (Hero & Landing Page)
+### Added
+- Homepage (`src/public-website/home/HomePage.tsx`) composing 10 sections inside `PublicLayout`.
+- Sections: Hero, TrustStrip, FeaturedProducts, TrainingHighlight, WhyChoose, SuccessStories, CultivationJourney, ResourcesPreview, FaqPreview, NewsletterCta.
+- `NavButton` helper (design-system `Button` + react-router navigation).
+- Homepage preview routes: `/preview/homepage`, `/preview/homepage/desktop`, `/preview/homepage/tablet`, `/preview/homepage/mobile` (`HomepagePreview` with viewport switcher, a11y/responsive notes, approval status, section checklist).
+- Route `/` now renders the homepage (was a placeholder).
+- Reused Design System v1.0.0: `Card`, `FeatureCard`, `Button`, `Icon`; Part 1 `PublicLayout`/`Seo`/`PublicContentContainer`.
+- Docs: `docs/public-website/homepage.md`, `hero-section.md`, `trust-section.md`, `featured-products-section.md`, `training-highlight.md`, `customer-journey.md`, `homepage-seo.md`, `review-notes/sprint-21-part-2.md`; `docs/phase-6/sprint-21-part-2.md`; `docs/sprints/phase-6/sprint-21-part-2-implementation-plan.md`.
+
+### Changed
+- `src/App.tsx`: added `HomePage` + `HomepagePreview` lazy routes; `/` now maps to `HomePage` (removed from generic placeholder list).
+
+### Notes
+- No backend/API changes; newsletter form is UI-only.
+- TypeScript: 0 errors; `npm run build`: success.
+
+---
+
 ## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 1: Public Website Foundation
 ### Added
 - Public website foundation (`src/public-website/`): `PublicLayout`, `PublicHeader`, `PublicFooter`, `PublicNav`, `PublicContentContainer`, `AnnouncementRegion`, `BreadcrumbFoundation`, `Seo`.

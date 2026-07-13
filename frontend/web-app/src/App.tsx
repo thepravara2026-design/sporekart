@@ -95,6 +95,9 @@ const PublicSeoPreview = lazy(() =>
   import('./public-website/preview/PublicPreviews').then((m) => ({ default: m.PublicSeoPreview })),
 );
 
+const HomePage = lazy(() => import('./public-website/home/HomePage'));
+const HomepagePreview = lazy(() => import('./public-website/preview/HomepagePreview'));
+
 const PUBLIC_PREVIEW_ROUTES = [
   { path: '/preview/public-layout', Component: PublicLayoutPreview },
   { path: '/preview/public-header', Component: PublicHeaderPreview },
@@ -104,7 +107,6 @@ const PUBLIC_PREVIEW_ROUTES = [
 ];
 
 const PUBLIC_ROUTE_PATHS = [
-  '/',
   '/about',
   '/products',
   '/training',
@@ -123,7 +125,7 @@ function isNonEnterpriseRoute(pathname: string): boolean {
   if (isPublicWebsiteRoute(pathname)) {
     return true;
   }
-  if (pathname.startsWith('/preview/public-')) {
+  if (pathname.startsWith('/preview/')) {
     return true;
   }
   return false;
@@ -155,12 +157,17 @@ export default function App() {
         <a href="#main" className="sk-skip">Skip to content</a>
         <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
           <Routes>
+            <Route path="/" element={<HomePage />} />
             {PUBLIC_ROUTE_PATHS.map((path) => (
               <Route key={path} path={path} element={<PublicRoutePage />} />
             ))}
             {PUBLIC_PREVIEW_ROUTES.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} />
             ))}
+            <Route path="/preview/homepage" element={<HomepagePreview defaultViewport="desktop" />} />
+            <Route path="/preview/homepage/desktop" element={<HomepagePreview defaultViewport="desktop" />} />
+            <Route path="/preview/homepage/tablet" element={<HomepagePreview defaultViewport="tablet" />} />
+            <Route path="/preview/homepage/mobile" element={<HomepagePreview defaultViewport="mobile" />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

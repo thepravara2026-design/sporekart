@@ -1,5 +1,39 @@
 # Implementation Log
 
+## 2026-07-13 — Phase 6 Sprint 21 Part 3: Homepage Content, Storytelling & Conversion Optimization
+- Added motion infrastructure: `usePrefersReducedMotion`, `Reveal` (+`MotionStyles`), `AnimatedCounter`, `ScrollProgress`, `MediaPlaceholder`.
+- Added `StoryBand` (brand storytelling) and `RecognitionStrip` (partner/cert chips, placeholders).
+- TrustStrip upgraded to in-view animated counters with `placeholder` markers.
+- TrainingHighlight uses `MediaPlaceholder`; Hero/FeaturedProducts/WhyChoose/CultivationJourney/ResourcesPreview copy refined to production-ready.
+- Exported `FAQ_ITEMS` from `FaqPreview`; HomePage SEO now includes FAQPage + SearchAction.
+- HomePage composes `MotionStyles`, `ScrollProgress`, `StoryBand`, `RecognitionStrip`; wraps sections in `Reveal`.
+- HomepagePreview gains Content review / Animation preview / Side-by-side compare modes + Replay + notes/checklists.
+- Docs: 5 homepage docs + review-notes + sprint doc + implementation plan; updated changelog/implementation-log.
+- TypeScript: 0 errors; `npm run build`: success (HomePage ~88 kB / 19 kB gzip).
+
+---
+
+## 2026-07-13 — Phase 6 Sprint 21 Part 2: Homepage (Hero & Landing Page)
+- Built `HomePage` composing 10 sections inside `PublicLayout` (reusing Part 1 foundation + Design System v1.0.0).
+- Hero: H1, dual CTAs, trust indicators, visual panel, scroll cue.
+- TrustStrip: 6 stat placeholders with icons.
+- FeaturedProducts: 6 reusable `Card`s with hover + CTAs.
+- TrainingHighlight: two-column benefits + training CTA.
+- WhyChoose: 6 `FeatureCard`s (Quality, Research, Support, Delivery, Education, Sustainability).
+- SuccessStories: video placeholder + accessible testimonial carousel (foundation).
+- CultivationJourney: 6-step vertical stepper with connectors.
+- ResourcesPreview: 4 resource `Card`s linking to `/blog`.
+- FaqPreview: accessible accordion (aria-expanded/controls) + link to `/faq`.
+- NewsletterCta: UI-only email form with confirmation state + benefits.
+- `NavButton` helper wraps design-system `Button` with router navigation.
+- Preview routes `/preview/homepage` (+/desktop, /tablet, /mobile) via `HomepagePreview` (viewport switcher, a11y/responsive notes, approval status, checklist).
+- SEO: title, meta, canonical, OG, Twitter, JSON-LD (Organization, WebSite, BreadcrumbList).
+- `App.tsx`: `/` now renders `HomePage`; added lazy routes for homepage + previews.
+- Docs: 8 homepage docs + sprint doc + implementation plan; updated changelog/implementation-log.
+- TypeScript: 0 errors; `npm run build`: success (~2.5s).
+
+---
+
 ## 2026-07-13 — Phase 6 Sprint 21 Part 1: Public Website Foundation Architecture
 - Public website foundation scaffolded under `src/public-website/` (reusing Design System v1.0.0).
 - Built `PublicLayout` shell composing Seo + AnnouncementRegion + PublicHeader + BreadcrumbFoundation + PublicFooter.
