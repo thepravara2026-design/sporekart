@@ -8,3 +8,5 @@ coverage/
 target/
 apache-maven-3.9.9/
 maven-extracted/
+*.tsbuildinfo
+.anchor.md

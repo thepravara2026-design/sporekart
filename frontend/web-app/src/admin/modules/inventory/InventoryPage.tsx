@@ -1,6 +1,12 @@
-import { ModulePage } from '../ModulePage';
-import { MOCK_MODULES } from '../moduleData';
+import { InventoryWorkspaceProvider } from './contexts/InventoryWorkspaceContext';
+import { InventoryWorkspaceLayout } from './layouts/InventoryWorkspaceLayout';
 
 export function InventoryPage() {
-  return <ModulePage module={MOCK_MODULES.inventory} />;
+  return (
+    <InventoryWorkspaceProvider>
+      <InventoryWorkspaceLayout />
+    </InventoryWorkspaceProvider>
+  );
 }
+
+export default InventoryPage;

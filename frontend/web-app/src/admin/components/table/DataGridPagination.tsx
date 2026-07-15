@@ -53,7 +53,7 @@ export const DataGridPagination = memo(function DataGridPagination() {
         background: 'var(--color-surface)',
         gap: 12,
         flexWrap: 'wrap',
-        outline: 'none',
+
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--color-text-secondary)', fontSize: 'var(--text-body)' }}>

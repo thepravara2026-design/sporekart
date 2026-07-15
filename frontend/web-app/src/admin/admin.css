@@ -24,3 +24,37 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* WCAG 2.4.11 Focus Appearance — visible focus indicators */
+:focus-visible {
+  outline: 2px solid var(--color-primary, #4f46e5) !important;
+  outline-offset: 2px !important;
+}
+
+button:focus-visible:not(:active),
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible,
+[role="button"]:focus-visible,
+[role="columnheader"]:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 2px solid var(--color-primary, #4f46e5) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-sm, 2px);
+}
+
+/* Remove explicit outline:none that would override the above */
+[style*="outline: none"]:focus-visible,
+[style*="outline:0"]:focus-visible {
+  outline: 2px solid var(--color-primary, #4f46e5) !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced motion: disable focus animation */
+@media (prefers-reduced-motion: reduce) {
+  :focus-visible {
+    transition: none !important;
+  }
+}

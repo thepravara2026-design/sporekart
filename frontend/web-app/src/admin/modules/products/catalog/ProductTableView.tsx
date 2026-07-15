@@ -217,7 +217,7 @@ export const ProductTableView: React.FC<ProductTableViewProps> = memo(function P
                     key={col.key}
                     style={style}
                     onClick={col.sortable ? () => handleHeaderSort(col) : undefined}
-                    aria-sort={col.sortable && (sort === col.sortAsc || sort === col.sortDesc) ? 'other' : undefined}
+                    aria-sort={col.sortable ? (sort === col.sortAsc ? 'ascending' : sort === col.sortDesc ? 'descending' : undefined) : undefined}
                   >
                     <span style={{ display: 'inline-flex', alignItems: 'center' }}>
                       {col.header}

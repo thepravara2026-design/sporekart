@@ -1,0 +1,13 @@
+export { TransactionsPage } from './TransactionsPage';
+export { MovementsPage } from './MovementsPage';
+export { TransfersPage } from './TransfersPage';
+export { AdjustmentsPage } from './AdjustmentsPage';
+export { GoodsReceiptPage } from './GoodsReceiptPage';
+export { GoodsIssuePage } from './GoodsIssuePage';
+export { HistoryPage } from './HistoryPage';
+export { ValidationPage } from './ValidationPage';
+export { AnalyticsPage } from './AnalyticsPage';
+export { ReportsPage } from './ReportsPage';
+export { AuditPage } from './AuditPage';
+export { SettingsPage } from './SettingsPage';
+export { HelpPage } from './HelpPage';

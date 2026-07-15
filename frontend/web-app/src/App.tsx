@@ -215,6 +215,7 @@ const AdminHelp = lazy(() => import('./admin/pages/AdminHelp'));
 // ---- Enterprise Mock Modules (Phase 8 · Sprint 23 · Part 8) ----
 const AdminProductsPage = lazy(() => import('./admin/modules/products/ProductsPage').then((m) => ({ default: m.ProductsPage })));
 const AdminInventoryPage = lazy(() => import('./admin/modules/inventory/InventoryPage').then((m) => ({ default: m.InventoryPage })));
+const AdminWarehousePage = lazy(() => import('./admin/modules/warehouse/WarehousePage').then((m) => ({ default: m.WarehousePage })));
 const AdminOrdersPage = lazy(() => import('./admin/modules/orders/OrdersPage').then((m) => ({ default: m.OrdersPage })));
 const AdminCustomersPage = lazy(() => import('./admin/modules/customers/CustomersPage').then((m) => ({ default: m.CustomersPage })));
 const AdminCrmPage = lazy(() => import('./admin/modules/crm/CrmPage').then((m) => ({ default: m.CrmPage })));
@@ -245,6 +246,34 @@ const ValidationPreviewApp = lazy(() => import('./admin/modules/products/validat
 
 // ---- Phase 9 · Sprint 24 · Part 11: Enterprise Product Analytics, Intelligence & Catalog Insights ----
 const AnalyticsPreviewApp = lazy(() => import('./admin/modules/products/analytics/preview/AnalyticsPreviewApp').then((m) => ({ default: m.AnalyticsPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 1: Enterprise Inventory & Warehouse Management (foundation) ----
+const InventoryPreviewApp = lazy(() => import('./admin/modules/inventory/preview/InventoryPreviewApp').then((m) => ({ default: m.InventoryPreviewApp })));
+const WarehousePreviewApp = lazy(() => import('./admin/modules/warehouse/preview/WarehousePreviewApp').then((m) => ({ default: m.WarehousePreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 3: Enterprise Inventory Item Management (Product Mapping & SKU Association) ----
+const AdminInventoryItemPage = lazy(() => import('./admin/modules/inventory-items/InventoryItemPage').then((m) => ({ default: m.InventoryItemPage })));
+const InventoryItemPreviewApp = lazy(() => import('./admin/modules/inventory-items/preview/InventoryItemPreviewApp').then((m) => ({ default: m.InventoryItemPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 4: Enterprise Stock Management Engine & Inventory State Management ----
+const AdminStockPage = lazy(() => import('./admin/modules/stock/StockPage').then((m) => ({ default: m.StockPage })));
+const StockPreviewApp = lazy(() => import('./admin/modules/stock/preview/StockPreviewApp').then((m) => ({ default: m.StockPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 5: Enterprise Batch Management, Lot Tracking & Expiry Management Platform ----
+const AdminBatchPage = lazy(() => import('./admin/modules/batch/BatchPage').then((m) => ({ default: m.BatchPage })));
+const BatchPreviewApp = lazy(() => import('./admin/modules/batch/preview/BatchPreviewApp').then((m) => ({ default: m.BatchPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 6: Enterprise Inventory Movements, Transfers & Transaction History ----
+const AdminMovementPage = lazy(() => import('./admin/modules/movement/MovementPage').then((m) => ({ default: m.MovementPage })));
+const MovementPreviewApp = lazy(() => import('./admin/modules/movement/preview/MovementPreviewApp').then((m) => ({ default: m.MovementPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 7: Enterprise Purchase Receiving, Goods Receipt, Quality Inspection & Inbound Operations ----
+const AdminReceivingPage = lazy(() => import('./admin/modules/receiving/ReceivingPage').then((m) => ({ default: m.ReceivingPage })));
+const ReceivingPreviewApp = lazy(() => import('./admin/modules/receiving/preview/ReceivingPreviewApp').then((m) => ({ default: m.ReceivingPreviewApp })));
+
+// ---- Phase 10 · Sprint 25 · Part 8: Enterprise Inventory Intelligence, Forecasting & Analytics ----
+const AdminIntelligencePage = lazy(() => import('./admin/modules/intelligence').then((m) => ({ default: m.IntelligenceWorkspace })));
+const IntelligencePreviewApp = lazy(() => import('./admin/modules/intelligence').then((m) => ({ default: m.IntelligencePreview })));
 
 const AdminLayoutPreview = lazy(() => import('./admin/preview/AdminPreviews').then((m) => ({ default: m.AdminLayoutPreview })));
 const AdminHeaderPreview = lazy(() => import('./admin/preview/AdminPreviews').then((m) => ({ default: m.AdminHeaderPreview })));
@@ -436,6 +465,13 @@ export default function App() {
               <Route path="products" element={<AdminProductsPage />} />
               <Route path="media" element={<AdminMediaPage />} />
               <Route path="inventory" element={<AdminInventoryPage />} />
+              <Route path="warehouse" element={<AdminWarehousePage />} />
+              <Route path="inventory-items" element={<AdminInventoryItemPage />} />
+              <Route path="stock" element={<AdminStockPage />} />
+              <Route path="batch" element={<AdminBatchPage />} />
+              <Route path="movements" element={<AdminMovementPage />} />
+              <Route path="receiving" element={<AdminReceivingPage />} />
+              <Route path="intelligence" element={<AdminIntelligencePage />} />
               <Route path="orders" element={<AdminOrdersPage />} />
               <Route path="customers" element={<AdminCustomersPage />} />
               <Route path="crm" element={<AdminCrmPage />} />
@@ -468,6 +504,29 @@ export default function App() {
             <Route path="/preview/products/seo/*" element={<SeoPreviewApp />} />
             <Route path="/preview/products/validation/*" element={<ValidationPreviewApp />} />
             <Route path="/preview/products/analytics/*" element={<AnalyticsPreviewApp />} />
+        <Route path="/preview/inventory/*" element={<InventoryPreviewApp />} />
+        <Route path="/preview/warehouse/*" element={<WarehousePreviewApp />} />
+        <Route path="/preview/inventory/items/*" element={<InventoryItemPreviewApp />} />
+        <Route path="/preview/stock/*" element={<StockPreviewApp />} />
+        <Route path="/preview/batch/*" element={<BatchPreviewApp />} />
+        <Route path="/preview/inventory/movements/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/inventory/transfers/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/inventory/adjustments/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/inventory/history/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/inventory/transactions/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/inventory/audit/*" element={<MovementPreviewApp />} />
+        <Route path="/preview/receiving/dashboard/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/receiving/registry/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/receiving/workflow/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/receiving/inspection/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/receiving/profile/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/receiving/analytics/*" element={<ReceivingPreviewApp />} />
+        <Route path="/preview/analytics/dashboard/*" element={<IntelligencePreviewApp />} />
+        <Route path="/preview/analytics/kpis/*" element={<IntelligencePreviewApp />} />
+        <Route path="/preview/analytics/warehouse/*" element={<IntelligencePreviewApp />} />
+        <Route path="/preview/analytics/forecast/*" element={<IntelligencePreviewApp />} />
+        <Route path="/preview/analytics/reports/*" element={<IntelligencePreviewApp />} />
+        <Route path="/preview/analytics/insights/*" element={<IntelligencePreviewApp />} />
 
             <Route path="/preview/admin/security" element={<SecurityPreview />} />
             <Route path="/preview/admin/permissions" element={<PermissionsPreview />} />
