@@ -2,10 +2,11 @@ import React from 'react';
 
 export interface GridProps {
   children: React.ReactNode;
-  columns?: number | 'auto-fit' | 'auto-fill';
+  columns?: number | 'auto-fit' | 'auto-fill' | string;
   minColumnWidth?: string;
   gap?: string | number;
   className?: string;
+  style?: React.CSSProperties;
   as?: 'div' | 'section' | 'article';
 }
 
@@ -20,6 +21,7 @@ export const Grid: React.FC<GridProps> = ({
   minColumnWidth = '280px',
   gap,
   className = '',
+  style,
   as: Tag = 'div',
 }) => {
   const templateColumns =
@@ -27,16 +29,19 @@ export const Grid: React.FC<GridProps> = ({
       ? `repeat(${columns}, 1fr)`
       : columns === 'auto-fit'
         ? `repeat(auto-fit, minmax(${minColumnWidth}, 1fr))`
-        : `repeat(auto-fill, minmax(${minColumnWidth}, 1fr))`;
+        : columns === 'auto-fill'
+          ? `repeat(auto-fill, minmax(${minColumnWidth}, 1fr))`
+          : columns;
 
-  const style: React.CSSProperties = {
+  const gridStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: templateColumns,
     gap: toGap(gap, 'var(--space-component-gap)'),
+    ...style,
   };
 
   return (
-    <Tag className={`sk-grid ${className}`.trim()} style={style}>
+    <Tag className={`sk-grid ${className}`.trim()} style={gridStyle}>
       {children}
     </Tag>
   );

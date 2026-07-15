@@ -1,0 +1,10 @@
+import type { ValidationReport } from '../types';
+
+export const MOCK_REPORTS: ValidationReport[] = [
+  { id: 'rpt-001', title: 'Validation Summary — July 2026', type: 'validation_summary', generatedAt: '2026-07-14T12:00:00Z', generatedBy: 'System', productCount: 12, overallScore: 75, summary: 'Overall validation score across all products. 5 products in good standing, 4 need improvement, 3 require immediate attention.' },
+  { id: 'rpt-002', title: 'Compliance Report — Q3 2026', type: 'compliance', generatedAt: '2026-07-13T10:00:00Z', generatedBy: 'Compliance Manager', productCount: 7, overallScore: 73, summary: 'Compliance validation across all active products. 4 products fully compliant, 2 with minor issues, 1 with critical gaps.' },
+  { id: 'rpt-003', title: 'Marketplace Readiness Report', type: 'marketplace', generatedAt: '2026-07-12T14:00:00Z', generatedBy: 'Marketing Manager', productCount: 12, overallScore: 68, summary: 'Marketplace readiness assessment. 5 products ready for all channels, 4 need optimization, 3 not ready for any channel.' },
+  { id: 'rpt-004', title: 'SEO Health Report — Monthly', type: 'seo', generatedAt: '2026-07-11T09:00:00Z', generatedBy: 'SEO Manager', productCount: 12, overallScore: 78, summary: 'SEO health check completed. Average SEO score is 78%. Top performers have structured data and optimized meta. Low performers missing key SEO elements.' },
+  { id: 'rpt-005', title: 'Accessibility Compliance Report', type: 'accessibility', generatedAt: '2026-07-10T11:00:00Z', generatedBy: 'QA Engineer', productCount: 12, overallScore: 72, summary: 'Accessibility validation across product catalog. Alt text compliance at 85%. Heading hierarchy needs improvement in 4 products.' },
+  { id: 'rpt-006', title: 'Executive Summary — Product Health', type: 'executive', generatedAt: '2026-07-14T12:00:00Z', generatedBy: 'System', productCount: 12, overallScore: 76, summary: 'Executive overview of product health, compliance, and marketplace readiness. Overall platform health score: 76%. Key focus areas: marketplace readiness (68%) and AI readiness (70%).' },
+];

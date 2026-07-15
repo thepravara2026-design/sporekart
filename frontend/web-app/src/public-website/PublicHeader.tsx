@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import './PublicHeader.css';
 import { Icon } from '../design-system/icons/Icon';
 import { PublicNav } from './PublicNav';
 import { PUBLIC_PRIMARY_NAV } from './config';

@@ -4,6 +4,7 @@ export interface IconProps {
   size?: number;
   color?: string;
   className?: string;
+  style?: React.CSSProperties;
   'aria-label'?: string;
 }
 
@@ -215,6 +216,11 @@ export const Layers = createIcon(
   'Layers',
   <><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></>
 );
+export const Leaf = createIcon(
+  'Leaf',
+  <><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" /><line x1="11" y1="13" x2="16" y2="8" /></>
+);
+
 export const Layout = createIcon(
   'Layout',
   <><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" /></>
@@ -620,6 +626,16 @@ export const BarChart = createIcon(
   <><line x1="12" y1="20" x2="12" y2="10" /><line x1="18" y1="20" x2="18" y2="4" /><line x1="6" y1="20" x2="6" y2="16" /></>
 );
 
+export const Gift = createIcon(
+  'Gift',
+  <><path d="M20 12v8H4v-8" /><rect x="2" y="7" width="20" height="5" /><line x1="12" y1="22" x2="12" y2="7" /><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" /><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" /></>
+);
+
+export const Sparkles = createIcon(
+  'Sparkles',
+  <><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" /><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z" /></>
+);
+
 export const registry: Map<string, IconComponent> = new Map(Object.entries({
   activity: Activity,
   'alert-circle': AlertCircle,
@@ -660,6 +676,8 @@ export const registry: Map<string, IconComponent> = new Map(Object.entries({
   folder: Folder,
   globe: Globe,
   grid: Grid,
+  gift: Gift,
+  sparkles: Sparkles,
   hash: Hash,
   headphone: Headphone,
   heart: Heart,
@@ -669,6 +687,7 @@ export const registry: Map<string, IconComponent> = new Map(Object.entries({
   info: Info,
   key: Key,
   layers: Layers,
+  leaf: Leaf,
   layout: Layout,
   link: Link,
   list: List,

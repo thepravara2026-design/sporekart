@@ -97,6 +97,9 @@ export function PublicFooter() {
           <Icon name="shield" size={16} aria-label="Secure" /> Secure & compliant
         </span>
       </div>
+      <div style={{ maxWidth: 'var(--container-xl, 1200px)', margin: 'var(--space-3, 12px) auto 0', textAlign: 'center', fontSize: 'var(--text-body-xs, 12px)', opacity: 0.6 }}>
+        Design &amp; Developed by Pravara Media
+      </div>
     </footer>
   );
 }

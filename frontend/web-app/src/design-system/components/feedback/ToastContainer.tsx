@@ -122,7 +122,7 @@ export function ToastContainer({
           <Toast
             key={toast.id}
             {...toast}
-            isClosing={closingIds.has(toast.id)}
+            isClosing={closingIds.has(toast.id ?? '')}
             paused={paused}
             onClose={handleClose}
           />

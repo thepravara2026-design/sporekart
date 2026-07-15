@@ -153,7 +153,7 @@ export function HeroSection() {
         .sk-hero__actions {
           display: flex;
           flex-wrap: wrap;
-          gap: var(--space-3, 12px);
+          gap: var(--space-4, 16px);
           margin-top: var(--space-6, 32px);
         }
         .sk-hero__btn {
@@ -180,19 +180,21 @@ export function HeroSection() {
           box-shadow: 0 10px 30px rgba(0,0,0,0.18);
         }
         .sk-hero__btn--primary:hover {
+          background: var(--color-bg-accent-subtle, #c8e6c9);
+          color: var(--color-green-900, #153a26);
           transform: translateY(-2px);
           box-shadow: 0 16px 40px rgba(0,0,0,0.26);
         }
         .sk-hero__btn--glass {
-          background: rgba(255,255,255,0.12);
-          color: var(--color-text-inverse, #ffffff);
-          border-color: rgba(255,255,255,0.35);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: var(--color-bg-surface-default, #ffffff);
+          color: var(--color-green-900, #153a26);
+          border-color: transparent;
         }
         .sk-hero__btn--glass:hover {
-          background: rgba(255,255,255,0.22);
+          background: var(--color-bg-accent-subtle, #c8e6c9);
+          color: var(--color-green-900, #153a26);
           transform: translateY(-2px);
+          box-shadow: 0 16px 40px rgba(0,0,0,0.26);
         }
         .sk-hero__features {
           list-style: none;
@@ -200,7 +202,7 @@ export function HeroSection() {
           padding: 0;
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: var(--space-3, 12px);
+          gap: var(--space-4, 16px);
           max-width: 880px;
         }
         .sk-hero__feature {
@@ -254,12 +256,13 @@ export function HeroSection() {
           .sk-hero__badge { margin: 0 auto; }
           .sk-hero__title { font-size: clamp(2rem, 1.4rem + 3vw, 2.5rem); }
           .sk-hero__subtitle { margin-left: auto; margin-right: auto; }
-          .sk-hero__actions { justify-content: center; }
-          .sk-hero__btn { width: 100%; }
+          .sk-hero__actions { justify-content: center; gap: var(--space-3, 12px); }
+          .sk-hero__btn { padding: 12px 20px; height: 48px; font-size: 0.9375rem; }
           .sk-hero__features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width: 520px) {
           .sk-hero__features { grid-template-columns: 1fr; }
+          .sk-hero__btn { padding: 10px 16px; height: 44px; font-size: 0.875rem; }
         }
         @media (prefers-reduced-motion: reduce) {
           .sk-hero__btn { transition: none; }

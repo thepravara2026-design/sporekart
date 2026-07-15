@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'loading';
 export type ToastVariant = 'standard' | 'rich';
 
 export interface ToastOptions {
-  type: ToastType;
-  title: string;
+  type?: ToastType;
+  title?: string;
   message?: string;
   duration?: number;
   action?: { label: string; onClick: () => void };
   icon?: React.ReactNode;
   variant?: ToastVariant;
+  tone?: string;
 }
 
 export interface ToastItem extends ToastOptions {
-  id: string;
+  id?: string;
 }
 
 export interface ToastProps extends ToastItem {
@@ -105,16 +106,20 @@ export function Toast({
   action,
   onClose,
   icon,
+  tone,
   variant = 'standard',
   isClosing = false,
   paused = false,
 }: ToastInternalProps) {
+  const resolvedId = id ?? `toast-${Date.now()}`;
+  const resolvedType: ToastType = type ?? (tone as ToastType) ?? 'info';
+  const resolvedTitle = title ?? '';
   const [isVisible, setIsVisible] = useState(false);
   const dismissedRef = useRef(false);
 
   useEffect(() => {
-    if (type === 'loading') injectSpinKeyframes();
-  }, [type]);
+    if (resolvedType === 'loading') injectSpinKeyframes();
+  }, [resolvedType]);
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
@@ -129,19 +134,21 @@ export function Toast({
 
     const timer = setTimeout(() => {
       dismissedRef.current = true;
-      onClose(id);
+      onClose(resolvedId);
     }, duration);
-
     return () => clearTimeout(timer);
-  }, [isVisible, paused, duration, id, onClose]);
+  }, [isVisible, paused, duration, resolvedId, onClose]);
 
-  const handleClose = useCallback(() => {
-    dismissedRef.current = true;
-    onClose(id);
-  }, [id, onClose]);
+  useEffect(() => {
+    if (isClosing && !dismissedRef.current) {
+      dismissedRef.current = true;
+      onClose(resolvedId);
+    }
+  }, [resolvedId, onClose, isClosing]);
 
-  const accentColor = TYPE_ACCENT_MAP[type];
-  const ariaLive = TYPE_LIVE_MAP[type];
+  const handleClose = () => onClose(resolvedId);
+  const accentColor = TYPE_ACCENT_MAP[resolvedType];
+  const ariaLive = TYPE_LIVE_MAP[resolvedType];
   const isRich = variant === 'rich';
 
   const toastStyle: React.CSSProperties = {
@@ -234,13 +241,13 @@ export function Toast({
       role="alert"
       aria-live={ariaLive}
       aria-atomic="true"
-      data-toast-id={id}
+      data-toast-id={resolvedId}
     >
       <div style={iconStyle}>
-        {icon ?? TYPE_ICON_MAP[type]}
+        {icon ?? TYPE_ICON_MAP[resolvedType]}
       </div>
       <div style={contentStyle}>
-        <p style={titleStyle}>{title}</p>
+        <p style={titleStyle}>{resolvedTitle}</p>
         {message && <p style={messageStyle}>{message}</p>}
         {action && (
           <div style={actionsRowStyle}>

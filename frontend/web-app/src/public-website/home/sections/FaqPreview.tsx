@@ -12,13 +12,13 @@ export const FAQ_ITEMS = [
 
 export function FaqPreview() {
   const [open, setOpen] = useState<number | null>(0);
-  const headerStyle: React.CSSProperties = { marginBottom: 'var(--space-6, 32px)', maxWidth: 640 };
+  const headerStyle: React.CSSProperties = { marginBottom: 'var(--space-7, 28px)', maxWidth: 640 };
 
   return (
-    <section className="sk-home-faq" aria-labelledby="sk-home-faq-title" style={{ backgroundColor: 'var(--color-bg-surface-default, #ffffff)' }}>
+    <section className="sk-home-faq" aria-labelledby="sk-home-faq-title" style={{ backgroundColor: 'var(--color-bg-surface-default, #ffffff)', padding: 'var(--space-12, 48px) 0' }}>
       <PublicContentContainer maxWidth="md">
         <div style={headerStyle}>
-          <span style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 600, color: 'var(--color-text-accent, #1d4ed8)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>FAQ</span>
+          <span style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 600, color: 'var(--color-text-accent, #2f6f4f)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>FAQ</span>
           <h2 id="sk-home-faq-title" style={{ margin: 'var(--space-2, 8px) 0 0', fontSize: 'var(--text-title-lg, 26px)', fontWeight: 800, color: 'var(--color-text-primary, #1f2933)' }}>
             Frequently asked questions
           </h2>

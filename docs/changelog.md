@@ -1,5 +1,125 @@
 # Changelog
 
+## [Unreleased] — 2026-07-14 — Phase 7 Completion & Certification: Phase 8 Readiness & Stabilization
+### Added
+- Completed 10 certification documents inside `docs/phase-7/`: `phase-7-summary.md`, `customer-platform-architecture.md`, `customer-journeys.md`, `design-system-compliance.md`, `responsive-certification.md`, `performance-report.md`, `accessibility-report.md`, `security-review.md`, `technical-debt.md`, and `phase-8-readiness.md`.
+
+### Changed
+- Standardized and stabilized navigational linkages and CSS spacing elements across integrated customer modules (Orders, Engagement, Training, Support, Intelligence).
+
+### Notes
+- TypeScript: 0 errors; build compiles cleanly.
+
+---
+
+## [Unreleased] — 2026-07-14 — Phase 7 Sprint 22 Part 7: Enterprise Customer Intelligence • Personalization • Digital Experience
+### Added
+- Customer Intelligence feature module (`src/features/customer/intelligence/`): `mockData.ts`, `PersonalizedHome.tsx`, `CustomerInsights.tsx`, `ActivityFeed.tsx`, `RecommendationHub.tsx`, `AchievementCenter.tsx`, `ProgressCenter.tsx`, `AnalyticsDashboard.tsx`.
+- Preview routes `/preview/dashboard/insights`, `/preview/dashboard/personalized`, `/preview/dashboard/activity`, `/preview/dashboard/analytics`, `/preview/dashboard/mobile`.
+- Dynamic timed greetings and Grower profile headers.
+- Continue study course widget and active order status panel summaries.
+- Digital Assistant floating chat overlay stubs with suggested questions and quick answers.
+- Grower Insights panels with account health and smart AI recommendations list logs.
+- Chronological Activity timelines logging events from all customer modules.
+- Combined Recommendations center displaying cultivars, related courses, and recently viewed.
+- Milestone badges grid and loyalty point redeem stubs.
+- Grower Analytics charts mapping yields targets and autoclave sterility success rates.
+- Documentation: Created `docs/phase-7/sprint-22-part-7.md` and 13 files in `docs/customer-intelligence/` (Architecture, Personalized Dashboard, Activity Feed, Recommendation Engine UI, Insights, Analytics, Achievement Center, Progress Center, Digital Assistant Foundation, Responsive, Accessibility, Design Review, Performance).
+
+### Changed
+- `App.tsx`: updated router config to mount child routes under `/dashboard/personalized`, `/dashboard/insights`, `/dashboard/activity`, `/dashboard/recommendations`, `/dashboard/achievements`, `/dashboard/progress`, and `/dashboard/analytics`.
+
+### Notes
+- Actions (redeeming points, sending chatbot questions, adding recommended items to cart) run locally in component states.
+- TypeScript: 0 errors; build compiles cleanly.
+
+---
+
+## [Unreleased] — 2026-07-14 — Phase 7 Sprint 22 Part 6: Enterprise Customer Support & Help Center Experience
+### Added
+- Customer Support feature module (`src/features/customer/support/`): `mockData.ts`, `SupportDashboard.tsx`, `TicketsPage.tsx`, `KnowledgeBasePage.tsx`, `FaqCenterPage.tsx`, `ContactSupportPage.tsx`, `FeedbackPage.tsx`.
+- Preview routes `/preview/support`, `/preview/support/dashboard`, `/preview/support/tickets`, `/preview/support/help-center`, `/preview/support/mobile`.
+- Searchable Knowledge Base catalogs showing sterile laboratory tips and helpfulness likes rating stubs.
+- Interactive support ticket conversation timeline with message send triggers.
+- Expandable FAQ category lists.
+- Interactive hoverable satisfaction rating star feedback logs.
+- Documentation: Created `docs/phase-7/sprint-22-part-6.md` and 11 files in `docs/support/` (Architecture, Dashboard, Tickets, Knowledge Base, FAQ, Contact, Feedback, Responsive, Accessibility, Performance, Design Review).
+
+### Changed
+- `App.tsx`: updated child routes under `/dashboard/support` to register support and preview routes.
+
+### Notes
+- Actions (replying to tickets, creating tickets, submitting feedback reviews) run locally in component states.
+- TypeScript: 0 errors; build compiles cleanly.
+
+---
+
+## [Unreleased] — 2026-07-13 — Phase 7 Sprint 22 Part 5: Enterprise Learning Experience & Training Platform
+### Added
+- Customer Training feature module (`src/features/customer/training/`): `mockData.ts`, `TrainingDashboard.tsx`, `CourseLibrary.tsx`, `CourseDetails.tsx`, `VideoLearningPage.tsx`, `MyLearningPage.tsx`, `CertificatesPage.tsx`, `TrainingSchedulePage.tsx`.
+- Preview routes `/preview/training`, `/preview/training/dashboard`, `/preview/training/course`, `/preview/training/classroom`, `/preview/training/mobile`.
+- Interactive split-screen video classroom containing progress markers, play trackers, note keeping logs, and download file rosters.
+- Verifiable completions cabinets showing printable PDF actions and QR verification modal overlays.
+- Webinar schedule calendar with live seats calculations and registered RSVP states.
+- Documentation: Created `docs/phase-7/sprint-22-part-5.md` and 11 files in `docs/training/` (Architecture, Dashboard, Course Library, Course Details, My Learning, Certificates, Schedule, Responsive, Accessibility, Performance, Design Review).
+
+### Changed
+- `App.tsx`: updated router config under `/dashboard/training` to load the training catalog.
+
+### Notes
+- No backend/API changes. All actions (marking complete, enrolling, and booking) run locally in component states.
+- TypeScript: 0 errors; build compiles cleanly.
+
+---
+
+## [Unreleased] — 2026-07-13 — Phase 7 Sprint 22 Part 4: Customer Engagement, Wishlist & Personalized Experience
+### Added
+- Customer Engagement feature module (`src/features/customer/engagement/`): `mockData.ts`, `WishlistPage.tsx`, `RecommendationsPage.tsx`, `NotificationsPage.tsx`, `EngagementHubPage.tsx`.
+- Preview routes `/preview/wishlist`, `/preview/recommendations`, `/preview/notifications`, `/preview/engagement`.
+- Interactive Cultivation Setup switchers simulating personalized recommendations.
+- Interactive tabbed layouts on wishlist separating saved carts and search-enabled history records.
+- Points redemption store, referral program copy buttons, and unlocked grower achievements list.
+- Documentation: Created `docs/phase-7/sprint-22-part-4.md` and 9 files in `docs/customer-engagement/` (Architecture, Wishlist, Saved Items, Recommendations, Notifications, Responsive, Accessibility, Performance, Design Review).
+
+### Changed
+- `App.tsx`: updated router config under `/dashboard` to load new page components.
+
+### Notes
+- No backend/API changes. Frontend stubs process all item actions (add to cart, delete, redeem) inside local React state.
+- TypeScript: 0 errors; build compiles cleanly.
+
+---
+
+## [Unreleased] — 2026-07-13 — Phase 7 Sprint 22 Part 3: Enterprise Order Experience & Order Lifecycle
+### Added
+- Customer Orders feature module (`src/features/customer/orders/`): `mockData.ts`, `OrdersDashboard.tsx`, `EnterpriseOrderCard.tsx`, `OrderDetailsPage.tsx`, `OrderTimeline.tsx`, `ShipmentTrackingPage.tsx`, `ReturnsRefundsPage.tsx`.
+- Preview routes `/preview/orders`, `/preview/orders/details`, `/preview/orders/tracking`, `/preview/orders/refunds`, `/preview/orders/mobile`, `/preview/orders/tablet`.
+- Custom SVG India transit route map with pulsing origins/destinations and moving dash offsets representing package flow.
+- Visual step milestones for both order tracking and refund processing.
+- Documentation: Created `docs/phase-7/sprint-22-part-3.md` and 11 files in `docs/orders/` (Architecture, Dashboard, Order Details, Tracking, Timeline, Returns, Refunds, Responsive, Design Review, Accessibility, Performance).
+
+### Changed
+- `App.tsx` nested routing refactor: defined `/dashboard` child routes under `CustomerLayout` shell to support correct sidebar, header, and breadcrumb layout context.
+- Extended `isNonEnterpriseRoute` in `App.tsx` to route `/dashboard/*` through the prototype environment.
+
+### Notes
+- No backend/API logic changes. UI-only stubs for downloading invoices/receipts and requesting returns.
+- TypeScript: 0 errors; build matches production compilation.
+
+---
+
+## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 7: Authentication Experience
+### Added
+- Authentication feature `src/features/auth`: `AuthLayout`, `authClient` (UI-only stub), `useCountdown`, `SocialLogin`, `AuthAlert`, `StatusScreen`.
+- Pages: `LoginPage` (phone/email + OTP, terms gate, social placeholders), `RegisterPage` (profile + role + dual consent), `ForgotPasswordPage`, `VerifyOtpPage` (6-digit OTP, resend countdown, `?demo=1`), `SessionPages` (loading/expired/logged-out/access-denied), `ErrorPages` (401/403/Auth/Network/Server), `ErrorGallery`.
+- Preview routes `/preview/login`, `/preview/register`, `/preview/otp`, `/preview/session`, `/preview/auth-errors`; real routes `/login`, `/register`, `/forgot-password`, `/verify-otp`, `/auth/loading`, `/session-expired`, `/access-denied`, `/auth-error`.
+- `App.tsx`: lazy routes + `isNonEnterpriseRoute` extended with `AUTH_ROUTES`.
+- Reused Design System v1.0.0 (Button, Input, OtpInput, Checkbox, Select, Icon, useScopedStyle); `auth.css` token-only, responsive, reduced-motion.
+- Docs: `docs/authentication/*` (8 docs) + `docs/phase-6/sprint-21-part-7.md`.
+
+### Changed
+- `/auth` placeholder now backed by real auth pages; no backend auth/OTP/RBAC/session logic modified (`authClient` is the swap target for Supabase Auth).
+
 ## [Unreleased] — 2026-07-13 — Phase 6 Sprint 21 Part 5: Blog & Knowledge Hub
 ### Added
 - Blog & Knowledge Hub: `BlogPage` (landing), `ArticlePage`, `BlogCategoryPage`, `BlogTagPage`, `SearchPage`.

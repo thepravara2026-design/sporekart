@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.6.0 - 2026-07-13
+### Sprint 21 Part 7: Authentication Experience
+- Authentication feature under `frontend/web-app/src/features/auth`: `AuthLayout`, `authClient` (UI-only stub), `useCountdown`, `SocialLogin`, `AuthAlert`, `StatusScreen`.
+- Pages: `LoginPage` (phone/email + OTP, terms gate, social placeholders), `RegisterPage` (profile + role + dual consent), `ForgotPasswordPage`, `VerifyOtpPage` (6-digit OTP, resend countdown, demo mode), `SessionPages` (loading/expired/logged-out/access-denied), `ErrorPages` (401/403/Auth/Network/Server), `ErrorGallery`.
+- Preview routes: `/preview/login`, `/preview/register`, `/preview/otp`, `/preview/session`, `/preview/auth-errors`.
+- `App.tsx`: lazy routes + `isNonEnterpriseRoute` extended with `AUTH_ROUTES`; `/auth` placeholder now backed by real pages.
+- Reused Design System v1.0.0 (Button, Input, OtpInput, Checkbox, Select, Icon, useScopedStyle); `auth.css` token-only, responsive, reduced-motion.
+- Constraint honored: no backend auth/OTP/RBAC/session/API logic changed. `authClient` is the single swap target for real Supabase Auth.
+- Docs: `docs/authentication/*` (Architecture, Login, Registration, OTP, Session-Management, Error-Pages, Accessibility, Review-Notes) + `docs/phase-6/sprint-21-part-7.md`.
+- TypeScript: 0 errors; `npm run build`: success (per-route code-split).
+
 ## 0.5.0 - 2026-07-13
 ### Sprint 19 Part 1E: Design Governance & Foundation Certification
 - **Governance Framework**: 12 new docs — design-governance, review-framework, quality-gates, component-governance, design-freeze-policy, documentation-standards, performance-standards, accessibility-certification, design-system-governance, frontend-certification, release-readiness, documentation-standards

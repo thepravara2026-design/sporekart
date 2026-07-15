@@ -1,0 +1,1 @@
+export { useRecentPages } from './useRecentPages';

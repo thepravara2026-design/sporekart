@@ -6,6 +6,7 @@ export interface CardProps {
   variant?: 'default' | 'elevated' | 'outlined' | 'ghost';
   padding?: 'none' | 'sm' | 'md' | 'lg';
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
   hoverable?: boolean;
   disabled?: boolean;
@@ -20,6 +21,7 @@ export const Card: React.FC<CardProps> = ({
   variant = 'default',
   padding = 'md',
   className = '',
+  style,
   onClick,
   hoverable = false,
   disabled = false,
@@ -67,15 +69,15 @@ export const Card: React.FC<CardProps> = ({
     none: 'padding: 0;',
     sm: 'padding: var(--space-3);',
     md: 'padding: var(--space-4);',
-    lg: 'padding: var(--space-6);',
+    lg: 'padding: var(--space-8);',
   };
 
   const hoverableStyles = hoverable
     ? `
       cursor: pointer;
       &:hover {
-        box-shadow: var(--shadow-2);
-        transform: translateY(-1px);
+        box-shadow: var(--shadow-3);
+        transform: translateY(-2px);
       }
     `
     : '';
@@ -96,7 +98,7 @@ export const Card: React.FC<CardProps> = ({
     ? `cursor: pointer;`
     : '';
 
-  const style = `
+  const cardCss = `
     ${baseStyles}
     ${variantStyles[variant]}
     ${paddingStyles[padding]}
@@ -107,7 +109,7 @@ export const Card: React.FC<CardProps> = ({
     ${clickableStyles}
   `;
 
-  const { className: scopedClass, styleEl } = useScopedStyle(style);
+  const { className: scopedClass, styleEl } = useScopedStyle(cardCss);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (onClick && !disabled && !loading && (e.key === 'Enter' || e.key === ' ')) {
@@ -123,6 +125,7 @@ export const Card: React.FC<CardProps> = ({
       {styleEl}
       <Component
         className={`sk-card ${scopedClass} ${className}`.trim()}
+        style={style}
         onClick={!disabled && !loading ? onClick : undefined}
       onKeyDown={onClick ? handleKeyDown : undefined}
       tabIndex={onClick ? 0 : undefined}

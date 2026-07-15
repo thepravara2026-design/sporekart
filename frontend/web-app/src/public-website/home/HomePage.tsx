@@ -76,28 +76,28 @@ export default function HomePage() {
       <ScrollProgress />
       <HeroSection />
       <Reveal>
-        <StoryBand />
-      </Reveal>
-      <Reveal>
-        <TrustStrip />
-      </Reveal>
-      <Reveal>
-        <RecognitionStrip />
-      </Reveal>
-      <Reveal>
         <FeaturedProducts />
       </Reveal>
       <Reveal>
         <TrainingHighlight />
       </Reveal>
       <Reveal>
-        <WhyChoose />
+        <TrustStrip />
+      </Reveal>
+      <Reveal>
+        <SuccessStories />
       </Reveal>
       <Reveal>
         <CultivationJourney />
       </Reveal>
       <Reveal>
-        <SuccessStories />
+        <StoryBand />
+      </Reveal>
+      <Reveal>
+        <RecognitionStrip />
+      </Reveal>
+      <Reveal>
+        <WhyChoose />
       </Reveal>
       <Reveal>
         <ResourcesPreview />

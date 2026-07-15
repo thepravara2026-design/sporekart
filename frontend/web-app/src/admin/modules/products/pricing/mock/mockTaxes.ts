@@ -1,0 +1,73 @@
+import type { TaxRule } from '../types';
+
+export const MOCK_TAX_RULES: TaxRule[] = [
+  {
+    id: 'tax-001',
+    name: 'GST 5% Food Items',
+    percentage: 5,
+    type: 'gst',
+    category: 'Food',
+    applicableTo: 'category',
+    applicableIds: ['cat-fresh', 'cat-dried'],
+    status: 'active',
+    description: 'GST 5% on fresh produce and dried goods',
+    createdAt: '2025-04-01T00:00:00Z',
+    createdBy: 'Finance Team',
+  },
+  {
+    id: 'tax-002',
+    name: 'GST 12% Standard',
+    percentage: 12,
+    type: 'gst',
+    category: 'Standard',
+    applicableTo: 'category',
+    applicableIds: ['cat-spawn', 'cat-value'],
+    status: 'active',
+    description: 'Standard GST rate for processed goods',
+    createdAt: '2025-04-01T00:00:00Z',
+    createdBy: 'Finance Team',
+  },
+  {
+    id: 'tax-003',
+    name: 'GST 0% Nil Rated',
+    percentage: 0,
+    type: 'gst',
+    category: 'Nil',
+    applicableTo: 'category',
+    applicableIds: ['cat-training'],
+    status: 'active',
+    description: 'Nil GST for educational materials',
+    createdAt: '2025-04-01T00:00:00Z',
+    createdBy: 'Finance Team',
+  },
+  {
+    id: 'tax-004',
+    name: 'GST 18% Agri Inputs',
+    percentage: 18,
+    type: 'gst',
+    category: 'Standard',
+    applicableTo: 'all',
+    applicableIds: [],
+    status: 'active',
+    description: 'Standard rate for agricultural inputs',
+    createdAt: '2025-04-01T00:00:00Z',
+    createdBy: 'Finance Team',
+  },
+  {
+    id: 'tax-005',
+    name: 'Cess 1% on Luxury',
+    percentage: 1,
+    type: 'cess',
+    category: 'Cess',
+    applicableTo: 'all',
+    applicableIds: [],
+    status: 'inactive',
+    description: 'Additional cess on luxury items',
+    createdAt: '2025-06-01T00:00:00Z',
+    createdBy: 'Finance Team',
+  },
+];
+
+export function getTaxForCategory(categoryId: string): TaxRule | undefined {
+  return MOCK_TAX_RULES.find((t) => t.status === 'active' && (t.applicableTo === 'all' || t.applicableIds.includes(categoryId)));
+}

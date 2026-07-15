@@ -1,0 +1,88 @@
+import type { AssetCollection } from '../types';
+
+export const MOCK_COLLECTIONS: AssetCollection[] = [
+  {
+    id: 'col-001',
+    name: 'Product Photography',
+    description: 'All product-level imagery including hero shots, macro details, and packaging photos.',
+    coverAssetId: 'ast-001',
+    assetCount: 10,
+    isSystem: false,
+    createdAt: '2026-01-01T00:00:00Z',
+    updatedAt: '2026-06-14T12:00:00Z',
+  },
+  {
+    id: 'col-002',
+    name: 'Marketing & Campaigns',
+    description: 'Assets created for marketing campaigns, social media, email newsletters, and promotional materials.',
+    coverAssetId: 'ast-015',
+    assetCount: 7,
+    isSystem: false,
+    createdAt: '2026-01-05T00:00:00Z',
+    updatedAt: '2026-06-15T11:00:00Z',
+  },
+  {
+    id: 'col-003',
+    name: 'Website & Brand',
+    description: 'Hero banners, brand imagery, and assets used across the website and public-facing materials.',
+    coverAssetId: 'ast-004',
+    assetCount: 8,
+    isSystem: false,
+    createdAt: '2026-01-10T00:00:00Z',
+    updatedAt: '2026-06-16T12:00:00Z',
+  },
+  {
+    id: 'col-004',
+    name: 'Farm & Facility',
+    description: 'Behind-the-scenes photos and videos of the farm, harvest operations, and facility.',
+    coverAssetId: 'ast-008',
+    assetCount: 6,
+    isSystem: false,
+    createdAt: '2026-02-01T00:00:00Z',
+    updatedAt: '2026-06-13T08:00:00Z',
+  },
+  {
+    id: 'col-005',
+    name: 'Documents & Compliance',
+    description: 'Certifications, nutrition sheets, templates, and compliance documents.',
+    coverAssetId: 'ast-010',
+    assetCount: 6,
+    isSystem: true,
+    createdAt: '2026-01-01T00:00:00Z',
+    updatedAt: '2026-06-10T10:00:00Z',
+  },
+  {
+    id: 'col-006',
+    name: '3D & Interactive',
+    description: '3D models, AR assets, and interactive product visualizations.',
+    coverAssetId: 'ast-011',
+    assetCount: 2,
+    isSystem: false,
+    createdAt: '2026-03-01T00:00:00Z',
+    updatedAt: '2026-06-15T12:00:00Z',
+  },
+  {
+    id: 'col-007',
+    name: 'Education & Resources',
+    description: 'Infographics, guides, tutorials, and educational content for customers.',
+    coverAssetId: 'ast-026',
+    assetCount: 5,
+    isSystem: false,
+    createdAt: '2026-04-01T00:00:00Z',
+    updatedAt: '2026-06-10T10:00:00Z',
+  },
+  {
+    id: 'col-all',
+    name: 'All Assets',
+    description: 'System collection containing every asset in the library.',
+    coverAssetId: 'ast-001',
+    assetCount: 40,
+    isSystem: true,
+    createdAt: '2026-01-01T00:00:00Z',
+    updatedAt: '2026-06-16T12:00:00Z',
+  },
+];
+
+export function getCollectionById(id: string): AssetCollection | undefined {
+  return MOCK_COLLECTIONS.find((c) => c.id === id);
+}

@@ -11,15 +11,15 @@ const RESOURCES = [
 ];
 
 export function ResourcesPreview() {
-  const headerStyle: React.CSSProperties = { marginBottom: 'var(--space-6, 32px)', maxWidth: 640 };
+  const headerStyle: React.CSSProperties = { marginBottom: 'var(--space-7, 28px)', maxWidth: 640 };
   const gridStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-    gap: 'var(--space-4, 16px)',
+    gap: 'var(--space-6, 24px)',
   };
 
   return (
-    <section className="sk-home-resources" aria-labelledby="sk-home-resources-title" style={{ backgroundColor: 'var(--color-bg-surface-muted, #f8fafc)' }}>
+    <section className="sk-home-resources" aria-labelledby="sk-home-resources-title" style={{ backgroundColor: 'var(--color-bg-surface-muted, #f8fafc)', padding: 'var(--space-12, 48px) 0' }}>
       <PublicContentContainer>
         <div style={headerStyle}>
           <span style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 600, color: 'var(--color-text-accent, #1d4ed8)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Resources</span>
@@ -40,7 +40,7 @@ export function ResourcesPreview() {
             </Card>
           ))}
         </div>
-        <div style={{ marginTop: 'var(--space-5, 20px)' }}>
+        <div style={{ marginTop: 'var(--space-6, 24px)' }}>
           <NavButton to="/blog" variant="outline" rightIcon={<Icon name="arrow-right" size={18} aria-label="All" />}>All resources</NavButton>
         </div>
       </PublicContentContainer>

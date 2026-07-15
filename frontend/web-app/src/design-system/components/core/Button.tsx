@@ -51,7 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const sizeStyles = {
       sm: 'padding: 6px 12px; height: 36px; font-size: 0.8125rem; gap: var(--space-inline-xs);',
       md: 'padding: 9px 16px; height: 40px; font-size: var(--text-button); gap: var(--space-inline-sm);',
-      lg: 'padding: 11px 24px; height: 48px; font-size: 1rem; gap: var(--space-inline-md);',
+      lg: 'padding: 13px 28px; height: 52px; font-size: 1rem; gap: var(--space-inline-md);',
     };
 
     const widthStyles = fullWidth ? 'width: 100%;' : '';
@@ -73,11 +73,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         background: var(--color-bg-primary-default);
         color: var(--color-text-on-primary);
         border-color: var(--color-bg-primary-default);
+        &:hover {
+          box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+          transform: translateY(-1px);
+        }
       `,
       secondary: `
         background: var(--color-bg-surface-default);
         color: var(--color-text-primary);
         border-color: var(--color-border-default);
+        &:hover {
+          box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+          transform: translateY(-1px);
+        }
       `,
       outline: `
         background: transparent;

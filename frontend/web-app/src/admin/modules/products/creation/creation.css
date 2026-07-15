@@ -1,0 +1,36 @@
+.sk-wizard-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-component-gap);
+  align-items: start;
+}
+
+.sk-wizard-shell--with-preview {
+  grid-template-columns: minmax(0, 1fr) 380px;
+}
+
+@media (max-width: 1024px) {
+  .sk-wizard-shell--with-preview {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sk-wizard-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-component-gap);
+  min-width: 0;
+}
+
+.sk-wizard-preview {
+  position: sticky;
+  top: var(--space-component-gap);
+  min-width: 0;
+}
+
+.sk-wizard-stepper-wrap {
+  background: var(--color-bg-surface-default);
+  border: 1px solid var(--color-border);
+  borderRadius: var(--radius-md);
+  padding: var(--space-stack-sm) var(--space-stack-md);
+}

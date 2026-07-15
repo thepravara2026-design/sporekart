@@ -19,7 +19,7 @@ export function TrainingHighlight() {
     gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
     gap: 'var(--space-8, 48px)',
     alignItems: 'center',
-    padding: 'var(--space-10, 64px) 0',
+    padding: 'var(--space-12, 48px) 0',
   };
 
   const visualStyle: React.CSSProperties = {
@@ -54,7 +54,7 @@ export function TrainingHighlight() {
                 </li>
               ))}
             </ul>
-            <div style={{ marginTop: 'var(--space-5, 20px)' }}>
+            <div style={{ marginTop: 'var(--space-6, 24px)' }}>
               <NavButton to="/training" size="lg" rightIcon={<Icon name="arrow-right" size={18} aria-label="Register" />}>
                 Browse training
               </NavButton>

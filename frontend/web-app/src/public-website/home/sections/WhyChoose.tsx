@@ -13,18 +13,18 @@ const PILLARS = [
 
 export function WhyChoose() {
   const headerStyle: React.CSSProperties = {
-    marginBottom: 'var(--space-6, 32px)',
+    marginBottom: 'var(--space-7, 28px)',
     maxWidth: 640,
   };
 
   const gridStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: 'var(--space-4, 16px)',
+    gap: 'var(--space-6, 24px)',
   };
 
   return (
-    <section className="sk-home-why" aria-labelledby="sk-home-why-title" style={{ backgroundColor: 'var(--color-bg-surface-default, #ffffff)' }}>
+    <section className="sk-home-why" aria-labelledby="sk-home-why-title" style={{ backgroundColor: 'var(--color-bg-surface-default, #ffffff)', padding: 'var(--space-12, 48px) 0' }}>
       <PublicContentContainer>
         <div style={headerStyle}>
           <span style={{ fontSize: 'var(--text-body-sm, 14px)', fontWeight: 600, color: 'var(--color-text-accent, #1d4ed8)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Why SporeKart</span>

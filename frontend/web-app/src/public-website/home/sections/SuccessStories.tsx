@@ -19,7 +19,7 @@ export function SuccessStories() {
     gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
     gap: 'var(--space-8, 48px)',
     alignItems: 'center',
-    padding: 'var(--space-10, 64px) 0',
+    padding: 'var(--space-12, 48px) 0',
   };
   const videoStyle: React.CSSProperties = {
     position: 'relative',
@@ -81,7 +81,7 @@ export function SuccessStories() {
               </span>
             </div>
 
-            <div style={{ marginTop: 'var(--space-5, 20px)' }}>
+            <div style={{ marginTop: 'var(--space-6, 24px)' }}>
               <NavButton to="/blog" variant="outline" size="md">Read more stories</NavButton>
             </div>
           </div>

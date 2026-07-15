@@ -31,7 +31,7 @@ export function NewsletterCta() {
       <PublicContentContainer>
         <div
           style={{
-            padding: 'var(--space-9, 56px) var(--space-5, 24px)',
+            padding: 'var(--space-12, 48px) var(--space-5, 24px)',
             display: 'grid',
             gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)',
             gap: 'var(--space-8, 48px)',

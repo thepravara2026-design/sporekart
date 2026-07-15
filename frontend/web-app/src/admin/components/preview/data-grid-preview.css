@@ -1,0 +1,52 @@
+.dg-preview-section {
+  margin-bottom: 48px;
+}
+
+.dg-preview-section h2 {
+  font-size: var(--text-h3);
+  margin: 0 0 8px;
+}
+
+.dg-preview-section p {
+  color: var(--color-text-secondary);
+  margin: 0 0 16px;
+}
+
+.dg-preview-frame {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  background: var(--color-surface);
+  margin-bottom: 16px;
+}
+
+.dg-preview-frame--dark {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+.dg-preview-frame--dark input,
+.dg-preview-frame--dark select,
+.dg-preview-frame--dark button {
+  color-scheme: dark;
+}
+
+.dg-preview-desktop {
+  width: 100%;
+  min-height: 300px;
+}
+
+.dg-preview-tablet {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.dg-preview-mobile {
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
