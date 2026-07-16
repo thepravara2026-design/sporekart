@@ -14,6 +14,7 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'profile', label: 'Student Profile', icon: 'user', href: '/admin/training/student-workspace/profile', description: 'Student profile management' },
   { id: 'enrollment', label: 'Enrollments', icon: 'file-text', href: '/admin/training/student-workspace/enrollment', description: 'Admission & enrollment management' },
   { id: 'attendance', label: 'Attendance', icon: 'check-circle', href: '/admin/training/student-workspace/attendance', description: 'Attendance & learning presence' },
+  { id: 'assignments', label: 'Assignments', icon: 'edit', href: '/admin/training/student-workspace/assignments', description: 'Assignment & project management' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
@@ -35,6 +36,7 @@ const LABEL_MAP: Record<string, string> = {
   profile: 'Student Profile',
   enrollment: 'Enrollments',
   attendance: 'Attendance',
+  assignments: 'Assignments',
   analytics: 'Student Analytics',
   reports: 'Student Reports',
   alumni: 'Alumni',
