@@ -277,6 +277,7 @@ const StudentLearningProgressPage = lazy(() => import('./admin/training-workspac
 const StudentCertificatePage = lazy(() => import('./admin/training-workspace/student-workspace/certificate-platform/pages/CertificateIndex'));
 const StudentAnalyticsPage = lazy(() => import('./admin/training-workspace/student-workspace/analytics-platform/pages/AnalyticsIndexWrapper'));
 const StudentCommunicationPage = lazy(() => import('./admin/training-workspace/student-workspace/communication-platform/pages/CommunicationIndex'));
+const StudentAlumniPage = lazy(() => import('./admin/training-workspace/student-workspace/alumni-platform/pages/AlumniIndex'));
 const CommunicationOverviewPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationOverviewPage'));
 const CommunicationAnnouncementsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationAnnouncementsPage'));
 const CommunicationNotificationsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationNotificationsPage'));
@@ -626,6 +627,8 @@ export default function App() {
                   <Route path="analytics/*" element={<StudentAnalyticsPage />} />
                   <Route path="communication" element={<StudentCommunicationPage />} />
                   <Route path="communication/*" element={<StudentCommunicationPage />} />
+                  <Route path="alumni" element={<StudentAlumniPage />} />
+                  <Route path="alumni/*" element={<StudentAlumniPage />} />
                 </Route>
                 <Route path="settings" element={<TrainingSettingsPage />} />
                 <Route path="ai-assistant" element={<TrainingAiAssistantPage />} />

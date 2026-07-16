@@ -20,16 +20,17 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'certificates', label: 'Certificates', icon: 'award', href: '/admin/training/student-workspace/certificates', description: 'Certificate & digital credential platform' },
   { id: 'analytics', label: 'Analytics', icon: 'trending-up', href: '/admin/training/student-workspace/analytics', description: 'Analytics & learning intelligence dashboards' },
   { id: 'communication', label: 'Communication', icon: 'bell', href: '/admin/training/student-workspace/communication', description: 'Communication, notifications & engagement' },
+  { id: 'alumni', label: 'Alumni', icon: 'award', href: '/admin/training/student-workspace/alumni', description: 'Placement, internships, career development & alumni network' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
   { id: 'reports', label: 'Student Reports', icon: 'bar-chart', href: '/admin/training/student-workspace/reports', description: 'Student reports (Coming Soon)' },
-  { id: 'alumni', label: 'Alumni', icon: 'award', href: '/admin/training/student-workspace/alumni', description: 'Alumni management (Coming Soon)' },
 ];
 
 export const NAV_GROUPS: { id: string; label: string; items: StudentNavItem[] }[] = [
-  { id: 'main', label: 'Student Management', items: STUDENT_NAV_ITEMS.filter((i) => i.id !== 'analytics') },
+  { id: 'main', label: 'Student Management', items: STUDENT_NAV_ITEMS.filter((i) => i.id !== 'analytics' && i.id !== 'alumni') },
   { id: 'insights', label: 'Insights & Analytics', items: STUDENT_NAV_ITEMS.filter((i) => ['analytics', 'communication'].includes(i.id)) },
+  { id: 'career', label: 'Career & Alumni', items: STUDENT_NAV_ITEMS.filter((i) => ['alumni'].includes(i.id)) },
   { id: 'future', label: 'Coming Soon', items: STUDENT_FUTURE_ITEMS },
 ];
 
