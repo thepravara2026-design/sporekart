@@ -11,10 +11,10 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'registry', label: 'Student Registry', icon: 'database', href: '/admin/training/student-workspace/registry', description: 'Master student registry' },
   { id: 'directory', label: 'Student Directory', icon: 'users', href: '/admin/training/student-workspace/directory', description: 'Browse student directory' },
   { id: 'archived', label: 'Archived Students', icon: 'archive', href: '/admin/training/student-workspace/archived', description: 'View archived students' },
+  { id: 'profile', label: 'Student Profile', icon: 'user', href: '/admin/training/student-workspace/profile', description: 'Student profile management' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
-  { id: 'profile', label: 'Student Profile', icon: 'user', href: '/admin/training/student-workspace/profile', description: 'Student profile management (Coming Soon)' },
   { id: 'analytics', label: 'Student Analytics', icon: 'trending-up', href: '/admin/training/student-workspace/analytics', description: 'Student analytics (Coming Soon)' },
   { id: 'reports', label: 'Student Reports', icon: 'bar-chart', href: '/admin/training/student-workspace/reports', description: 'Student reports (Coming Soon)' },
   { id: 'alumni', label: 'Alumni', icon: 'award', href: '/admin/training/student-workspace/alumni', description: 'Alumni management (Coming Soon)' },
