@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { ProfileProvider } from '../state/ProfileContext';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { ProfileProvider, useProfile } from '../state/ProfileContext';
 import { ProfileNavigation } from '../components/ProfileNavigation';
 import { ProfileMainPage } from './ProfileMainPage';
 import { ProfileEditPage } from './ProfileEditPage';
@@ -10,8 +11,17 @@ import { ProfileLearningPage } from './ProfileLearningPage';
 import { ProfileGuardianPage } from './ProfileGuardianPage';
 import { ProfileDocumentsPage } from './ProfileDocumentsPage';
 
-export function ProfileIndex() {
+function ProfileIndexInner() {
+  const [searchParams] = useSearchParams();
+  const { selectProfile } = useProfile();
   const [activeSection, setActiveSection] = useState('profile');
+
+  useEffect(() => {
+    const studentId = searchParams.get('studentId');
+    if (studentId) {
+      selectProfile(studentId);
+    }
+  }, [searchParams, selectProfile]);
 
   const renderSection = () => {
     switch (activeSection) {
@@ -35,13 +45,19 @@ export function ProfileIndex() {
   };
 
   return (
-    <ProfileProvider>
-      <div className="profile-index">
-        <ProfileNavigation activeId={activeSection} onNavigate={setActiveSection} />
-        <div className="profile-index__content">
-          {renderSection()}
-        </div>
+    <div className="profile-index">
+      <ProfileNavigation activeId={activeSection} onNavigate={setActiveSection} />
+      <div className="profile-index__content">
+        {renderSection()}
       </div>
+    </div>
+  );
+}
+
+export function ProfileIndex() {
+  return (
+    <ProfileProvider>
+      <ProfileIndexInner />
     </ProfileProvider>
   );
 }
