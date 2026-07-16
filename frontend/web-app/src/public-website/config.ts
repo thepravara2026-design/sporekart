@@ -11,6 +11,12 @@ export const PUBLIC_WEBSITE_ROUTES: PublicRouteDef[] = [
   { path: '/about', label: 'About', description: 'About SporeKart, mission, and the team.' },
   { path: '/products', label: 'Products', description: 'Public product catalog and discovery.' },
   { path: '/training', label: 'Training', description: 'Training programs, courses, and certifications.' },
+  { path: '/training/courses', label: 'Course Catalog', description: 'Public course catalog and discovery experience.' },
+  { path: '/training/courses/category/:slug', label: 'Category', description: 'Courses filtered by category.' },
+  { path: '/training/courses/compare', label: 'Compare', description: 'Side-by-side course comparison.' },
+  { path: '/training/courses/:slug', label: 'Course', description: 'Public course detail experience.' },
+  { path: '/training/learning-paths', label: 'Learning Paths', description: 'Guided learning journeys.' },
+  { path: '/training/learn/:slug', label: 'Topic', description: 'Marketing landing page for a training topic.' },
   { path: '/blog', label: 'Blog', description: 'News, articles, and growing guides.' },
   { path: '/contact', label: 'Contact', description: 'Contact SporeKart support and sales.' },
   { path: '/faq', label: 'FAQ', description: 'Frequently asked questions.' },
@@ -40,6 +46,15 @@ export function isPublicWebsiteRoute(pathname: string): boolean {
   if (pathname.startsWith('/blog/')) {
     return true;
   }
+  if (pathname.startsWith('/training/courses')) {
+    return true;
+  }
+  if (pathname.startsWith('/training/learning-paths')) {
+    return true;
+  }
+  if (pathname.startsWith('/training/learn/')) {
+    return true;
+  }
   if (pathname === '/search' || pathname.startsWith('/search?')) {
     return true;
   }
@@ -54,6 +69,7 @@ export interface PublicNavItem {
 
 export const PUBLIC_PRIMARY_NAV: PublicNavItem[] = [
   { label: 'Products', href: '/products', description: 'Explore the catalog.' },
+  { label: 'Courses', href: '/training/courses', description: 'Browse training courses.' },
   { label: 'Training', href: '/training', description: 'Learn to grow.' },
   { label: 'Blog', href: '/blog', description: 'Guides and news.' },
   { label: 'About', href: '/about', description: 'Who we are.' },

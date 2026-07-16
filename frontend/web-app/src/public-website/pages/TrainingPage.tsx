@@ -80,7 +80,7 @@ export default function TrainingPage() {
         </div>
       </Reveal>
 
-      <CtaBanner title="Start your first course" description="Beginner-friendly, practical, and free to explore." primaryLabel="Browse products" primaryTo="/products" />
+      <CtaBanner title="Start your first course" description="Beginner-friendly, practical, and free to explore." primaryLabel="Browse courses" primaryTo="/training/courses" />
     </PublicLayout>
   );
 }
