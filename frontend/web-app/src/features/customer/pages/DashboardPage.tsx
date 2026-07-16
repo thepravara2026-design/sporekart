@@ -3,8 +3,8 @@ import { Grid } from '../../../design-system/components/layout/Grid';
 import { Icon } from '../../../design-system/icons/Icon';
 import { Widget } from '../components/Widget';
 import { ProfileSummary, QuickActions, NotificationsPreview, SummaryWidget, AccountCompletion, RecommendedActions, RecentActivity, SupportShortcuts } from '../components/Widgets';
-import '../../auth.css';
-import './customer.css';
+import '../../auth/auth.css';
+import '../customer.css';
 
 export default function DashboardPage() {
   const navigate = useNavigate();

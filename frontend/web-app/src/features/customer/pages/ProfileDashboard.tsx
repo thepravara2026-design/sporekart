@@ -4,7 +4,7 @@ import { Icon } from '../../../design-system/icons/Icon';
 import { Button } from '../../../design-system/components/core/Button';
 import { LinearProgress } from '../../../design-system/components/feedback/LinearProgress';
 import { useNavigate } from 'react-router-dom';
-import './profile.css';
+import '../profile.css';
 
 const PROFILE_STATS = [
   { label: 'Account Status', value: 'Active', status: 'success' },

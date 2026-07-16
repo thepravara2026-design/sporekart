@@ -1,0 +1,10 @@
+export { default as CommunicationWorkspaceRoute } from './CommunicationWorkspaceRoute';
+export { default as CommunicationOverviewPage } from './CommunicationOverviewPage';
+export { default as CommunicationAnnouncementsPage } from './CommunicationAnnouncementsPage';
+export { default as CommunicationNotificationsPage } from './CommunicationNotificationsPage';
+export { default as CommunicationScheduledPage } from './CommunicationScheduledPage';
+export { default as CommunicationTemplatesPage } from './CommunicationTemplatesPage';
+export { default as CommunicationHistoryPage } from './CommunicationHistoryPage';
+export { default as CommunicationDeliveryQueuePage } from './CommunicationDeliveryQueuePage';
+export { default as CommunicationFutureChannelsPage } from './CommunicationFutureChannelsPage';
+export { default as CommunicationStatisticsPage } from './CommunicationStatisticsPage';

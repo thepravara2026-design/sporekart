@@ -1,5 +1,5 @@
 import { Icon } from '../../../design-system/icons/Icon';
-import './customer.css';
+import '../customer.css';
 
 
 

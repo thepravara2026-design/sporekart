@@ -100,6 +100,13 @@ const HomepagePreview = lazy(() => import('./public-website/preview/HomepagePrev
 const AboutPage = lazy(() => import('./public-website/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./public-website/pages/ProductsPage'));
 const TrainingPage = lazy(() => import('./public-website/pages/TrainingPage'));
+// ---- Phase 11 · Sprint 26 · Part 8: Enterprise Course Discovery Platform (LMS) ----
+const CourseCatalogPage = lazy(() => import('./public-website/course-discovery/pages/CourseCatalogPage').then((m) => ({ default: m.CourseCatalogPage })));
+const CourseDetailsPage = lazy(() => import('./public-website/course-discovery/pages/CourseDetailsPage').then((m) => ({ default: m.CourseDetailsPage })));
+const CourseCategoryPage = lazy(() => import('./public-website/course-discovery/pages/CourseCategoryPage').then((m) => ({ default: m.CourseCategoryPage })));
+const LearningPathsPage = lazy(() => import('./public-website/course-discovery/pages/LearningPathsPage').then((m) => ({ default: m.LearningPathsPage })));
+const CourseComparisonPage = lazy(() => import('./public-website/course-discovery/pages/CourseComparisonPage').then((m) => ({ default: m.CourseComparisonPage })));
+const MarketingLandingPage = lazy(() => import('./public-website/course-discovery/pages/MarketingLandingPage').then((m) => ({ default: m.MarketingLandingPage })));
 const BlogPage = lazy(() => import('./public-website/pages/BlogPage'));
 const ArticlePage = lazy(() => import('./public-website/pages/ArticlePage'));
 const BlogCategoryPage = lazy(() => import('./public-website/pages/BlogCategoryPage'));
@@ -219,7 +226,53 @@ const AdminWarehousePage = lazy(() => import('./admin/modules/warehouse/Warehous
 const AdminOrdersPage = lazy(() => import('./admin/modules/orders/OrdersPage').then((m) => ({ default: m.OrdersPage })));
 const AdminCustomersPage = lazy(() => import('./admin/modules/customers/CustomersPage').then((m) => ({ default: m.CustomersPage })));
 const AdminCrmPage = lazy(() => import('./admin/modules/crm/CrmPage').then((m) => ({ default: m.CrmPage })));
-const AdminTrainingPage = lazy(() => import('./admin/modules/training/TrainingPage').then((m) => ({ default: m.TrainingPage })));
+// ---- Phase 11 · Sprint 26 · Part 1: Enterprise Training Workspace (LMS) ----
+const TrainingWorkspaceRoute = lazy(() => import('./admin/training-workspace/TrainingWorkspaceRoute'));
+const TrainingDashboardPage = lazy(() => import('./admin/training-workspace/pages/TrainingDashboardPage'));
+const TrainingCoursesPage = lazy(() => import('./admin/training-workspace/courses/pages/CourseRegistryPage'));
+const TrainingCurriculumPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.CurriculumPage })));
+const TrainingBatchesPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.BatchesPage })));
+const TrainingStudentsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.StudentsPage })));
+const TrainingTrainersPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.TrainersPage })));
+const TrainingAttendancePage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AttendancePage })));
+const TrainingAssignmentsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AssignmentsPage })));
+const TrainingAssessmentsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AssessmentsPage })));
+const TrainingCertificatesPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.CertificatesPage })));
+const TrainingAnnouncementsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AnnouncementsPage })));
+const TrainingReportsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.ReportsPage })));
+const TrainingAnalyticsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AnalyticsPage })));
+const TrainingSettingsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.SettingsPage })));
+const TrainingAiAssistantPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.AiAssistantPage })));
+const TrainingCommunityPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.CommunityPage })));
+const TrainingDiscussionsPage = lazy(() => import('./admin/training-workspace/pages/allPlaceholders').then(m => ({ default: m.DiscussionsPage })));
+const TrainingCourseDraftsPage = lazy(() => import('./admin/training-workspace/courses/pages/CourseDraftsPage'));
+const TrainingCourseArchivedPage = lazy(() => import('./admin/training-workspace/courses/pages/CourseArchivedPage'));
+const TrainingCoursePublishedPage = lazy(() => import('./admin/training-workspace/courses/pages/CoursePublishedPage'));
+const TrainingCourseDetailPage = lazy(() => import('./admin/training-workspace/courses/pages/CourseDetailPage'));
+const TrainingCourseBuilderPage = lazy(() => import('./admin/training-workspace/course-builder/components/CourseBuilderLayout').then(m => ({ default: m.CourseBuilderLayout })));
+const TrainingTaxonomyPage = lazy(() => import('./admin/training-workspace/course-taxonomy/components/TaxonomyLayout').then(m => ({ default: m.TaxonomyLayout })));
+const TrainingCurriculumBuilderPage = lazy(() => import('./admin/training-workspace/course-curriculum/components/CurriculumLayout').then(m => ({ default: m.CurriculumLayout })));
+const TrainingResourceLibraryPage = lazy(() => import('./admin/training-workspace/learning-resources/components/ResourceLibraryLayout').then(m => ({ default: m.ResourceLibraryLayout })));
+const TrainingEnrollmentPage = lazy(() => import('./admin/training-workspace/course-enrollment/components/EnrollmentLayout').then(m => ({ default: m.EnrollmentLayout })));
+
+const AnalyticsWorkspaceRoute = lazy(() => import('./admin/training-workspace/analytics/pages/AnalyticsWorkspaceRoute'));
+const AnalyticsExecutivePage = lazy(() => import('./admin/training-workspace/analytics/pages/ExecutiveDashboardPage'));
+const AnalyticsCoursePage = lazy(() => import('./admin/training-workspace/analytics/pages/CourseAnalyticsPage'));
+const AnalyticsEnrollmentPage = lazy(() => import('./admin/training-workspace/analytics/pages/EnrollmentAnalyticsPage'));
+const AnalyticsCurriculumPage = lazy(() => import('./admin/training-workspace/analytics/pages/CurriculumAnalyticsPage'));
+const AnalyticsResourcePage = lazy(() => import('./admin/training-workspace/analytics/pages/ResourceAnalyticsPage'));
+const AnalyticsSavedPage = lazy(() => import('./admin/training-workspace/analytics/pages/SavedDashboardsPage'));
+const CommunicationWorkspaceRoute = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationWorkspaceRoute'));
+const CommunicationOverviewPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationOverviewPage'));
+const CommunicationAnnouncementsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationAnnouncementsPage'));
+const CommunicationNotificationsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationNotificationsPage'));
+const CommunicationScheduledPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationScheduledPage'));
+const CommunicationTemplatesPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationTemplatesPage'));
+const CommunicationHistoryPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationHistoryPage'));
+const CommunicationDeliveryQueuePage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationDeliveryQueuePage'));
+const CommunicationFutureChannelsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationFutureChannelsPage'));
+const CommunicationStatisticsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationStatisticsPage'));
+
 const AdminShippingPage = lazy(() => import('./admin/modules/shipping/ShippingPage').then((m) => ({ default: m.ShippingPage })));
 const AdminFinancePage = lazy(() => import('./admin/modules/finance/FinancePage').then((m) => ({ default: m.FinancePage })));
 const AdminReportsPage = lazy(() => import('./admin/modules/reports/ReportsPage').then((m) => ({ default: m.ReportsPage })));
@@ -384,6 +437,12 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/training" element={<TrainingPage />} />
+            <Route path="/training/courses" element={<CourseCatalogPage />} />
+            <Route path="/training/courses/category/:slug" element={<CourseCategoryPage />} />
+            <Route path="/training/courses/compare" element={<CourseComparisonPage />} />
+            <Route path="/training/courses/:slug" element={<CourseDetailsPage />} />
+            <Route path="/training/learning-paths" element={<LearningPathsPage />} />
+            <Route path="/training/learn/:slug" element={<MarketingLandingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/category/:slug" element={<BlogCategoryPage />} />
             <Route path="/blog/tag/:slug" element={<BlogTagPage />} />
@@ -475,7 +534,64 @@ export default function App() {
               <Route path="orders" element={<AdminOrdersPage />} />
               <Route path="customers" element={<AdminCustomersPage />} />
               <Route path="crm" element={<AdminCrmPage />} />
-              <Route path="training" element={<AdminTrainingPage />} />
+              <Route path="training" element={<Navigate to="/admin/training/dashboard" replace />} />
+              <Route path="training/*" element={<TrainingWorkspaceRoute />}>
+                <Route path="dashboard" element={<TrainingDashboardPage />} />
+                <Route path="courses" element={<TrainingCoursesPage />} />
+              <Route path="courses/drafts" element={<TrainingCourseDraftsPage />} />
+              <Route path="courses/archived" element={<TrainingCourseArchivedPage />} />
+              <Route path="courses/published" element={<TrainingCoursePublishedPage />} />
+              <Route path="courses/:courseId" element={<TrainingCourseDetailPage />} />
+              <Route path="courses/builder" element={<TrainingCourseBuilderPage />} />
+              <Route path="courses/builder/new" element={<TrainingCourseBuilderPage />} />
+              <Route path="courses/builder/:courseId" element={<TrainingCourseBuilderPage />} />
+              <Route path="taxonomy" element={<TrainingTaxonomyPage />} />
+              <Route path="taxonomy/:section" element={<TrainingTaxonomyPage />} />
+              <Route path="curriculum" element={<TrainingCurriculumBuilderPage />} />
+              <Route path="curriculum/:section" element={<TrainingCurriculumBuilderPage />} />
+                <Route path="curriculum" element={<TrainingCurriculumPage />} />
+                <Route path="batches" element={<TrainingBatchesPage />} />
+                <Route path="students" element={<TrainingStudentsPage />} />
+                <Route path="trainers" element={<TrainingTrainersPage />} />
+                <Route path="attendance" element={<TrainingAttendancePage />} />
+                <Route path="assignments" element={<TrainingAssignmentsPage />} />
+                <Route path="assessments" element={<TrainingAssessmentsPage />} />
+                <Route path="certificates" element={<TrainingCertificatesPage />} />
+                <Route path="resources" element={<TrainingResourceLibraryPage />} />
+                <Route path="resources/:section" element={<TrainingResourceLibraryPage />} />
+                <Route path="enrollment" element={<TrainingEnrollmentPage />} />
+                <Route path="enrollment/:section" element={<TrainingEnrollmentPage />} />
+                <Route path="announcements" element={<TrainingAnnouncementsPage />} />
+                <Route path="reports" element={<TrainingReportsPage />} />
+                <Route path="analytics" element={<TrainingAnalyticsPage />} />
+                <Route path="lms-analytics" element={<Navigate to="/admin/training/lms-analytics/executive" replace />} />
+                <Route path="lms-analytics/*" element={<AnalyticsWorkspaceRoute />}>
+                  <Route index element={<Navigate to="/admin/training/lms-analytics/executive" replace />} />
+                  <Route path="executive" element={<AnalyticsExecutivePage />} />
+                  <Route path="course" element={<AnalyticsCoursePage />} />
+                  <Route path="enrollment" element={<AnalyticsEnrollmentPage />} />
+                  <Route path="curriculum" element={<AnalyticsCurriculumPage />} />
+                  <Route path="resource" element={<AnalyticsResourcePage />} />
+                  <Route path="saved" element={<AnalyticsSavedPage />} />
+                </Route>
+                <Route path="communication" element={<Navigate to="/admin/training/communication/overview" replace />} />
+                <Route path="communication/*" element={<CommunicationWorkspaceRoute />}>
+                  <Route index element={<Navigate to="/admin/training/communication/overview" replace />} />
+                  <Route path="overview" element={<CommunicationOverviewPage />} />
+                  <Route path="announcements" element={<CommunicationAnnouncementsPage />} />
+                  <Route path="notifications" element={<CommunicationNotificationsPage />} />
+                  <Route path="scheduled" element={<CommunicationScheduledPage />} />
+                  <Route path="templates" element={<CommunicationTemplatesPage />} />
+                  <Route path="history" element={<CommunicationHistoryPage />} />
+                  <Route path="delivery" element={<CommunicationDeliveryQueuePage />} />
+                  <Route path="channels" element={<CommunicationFutureChannelsPage />} />
+                  <Route path="statistics" element={<CommunicationStatisticsPage />} />
+                </Route>
+                <Route path="settings" element={<TrainingSettingsPage />} />
+                <Route path="ai-assistant" element={<TrainingAiAssistantPage />} />
+                <Route path="community" element={<TrainingCommunityPage />} />
+                <Route path="discussions" element={<TrainingDiscussionsPage />} />
+              </Route>
               <Route path="shipping" element={<AdminShippingPage />} />
               <Route path="finance" element={<AdminFinancePage />} />
               <Route path="reports" element={<AdminReportsPage />} />
