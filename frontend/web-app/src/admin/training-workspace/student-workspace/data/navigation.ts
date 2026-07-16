@@ -19,6 +19,7 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'learning-progress', label: 'Learning Progress', icon: 'trending-up', href: '/admin/training/student-workspace/learning-progress', description: 'Learning progress & competency tracking' },
   { id: 'certificates', label: 'Certificates', icon: 'award', href: '/admin/training/student-workspace/certificates', description: 'Certificate & digital credential platform' },
   { id: 'analytics', label: 'Analytics', icon: 'trending-up', href: '/admin/training/student-workspace/analytics', description: 'Analytics & learning intelligence dashboards' },
+  { id: 'communication', label: 'Communication', icon: 'bell', href: '/admin/training/student-workspace/communication', description: 'Communication, notifications & engagement' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
@@ -28,7 +29,7 @@ export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
 
 export const NAV_GROUPS: { id: string; label: string; items: StudentNavItem[] }[] = [
   { id: 'main', label: 'Student Management', items: STUDENT_NAV_ITEMS.filter((i) => i.id !== 'analytics') },
-  { id: 'insights', label: 'Insights & Analytics', items: STUDENT_NAV_ITEMS.filter((i) => i.id === 'analytics') },
+  { id: 'insights', label: 'Insights & Analytics', items: STUDENT_NAV_ITEMS.filter((i) => ['analytics', 'communication'].includes(i.id)) },
   { id: 'future', label: 'Coming Soon', items: STUDENT_FUTURE_ITEMS },
 ];
 
@@ -45,6 +46,7 @@ const LABEL_MAP: Record<string, string> = {
   'learning-progress': 'Learning Progress',
   certificates: 'Certificates',
   analytics: 'Student Analytics',
+  communication: 'Communication',
   reports: 'Student Reports',
   alumni: 'Alumni',
 };
