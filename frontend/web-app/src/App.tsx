@@ -263,6 +263,11 @@ const AnalyticsCurriculumPage = lazy(() => import('./admin/training-workspace/an
 const AnalyticsResourcePage = lazy(() => import('./admin/training-workspace/analytics/pages/ResourceAnalyticsPage'));
 const AnalyticsSavedPage = lazy(() => import('./admin/training-workspace/analytics/pages/SavedDashboardsPage'));
 const CommunicationWorkspaceRoute = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationWorkspaceRoute'));
+const StudentWorkspaceRoute = lazy(() => import('./admin/training-workspace/student-workspace/StudentWorkspaceRoute'));
+const StudentDashboardPage = lazy(() => import('./admin/training-workspace/student-workspace/pages/StudentDashboardPage'));
+const StudentRegistryPage = lazy(() => import('./admin/training-workspace/student-workspace/pages/StudentRegistryPage'));
+const StudentDirectoryPage = lazy(() => import('./admin/training-workspace/student-workspace/pages/StudentDirectoryPage'));
+const StudentArchivedPage = lazy(() => import('./admin/training-workspace/student-workspace/pages/StudentArchivedPage'));
 const CommunicationOverviewPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationOverviewPage'));
 const CommunicationAnnouncementsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationAnnouncementsPage'));
 const CommunicationNotificationsPage = lazy(() => import('./admin/training-workspace/communication/pages/CommunicationNotificationsPage'));
@@ -586,6 +591,14 @@ export default function App() {
                   <Route path="delivery" element={<CommunicationDeliveryQueuePage />} />
                   <Route path="channels" element={<CommunicationFutureChannelsPage />} />
                   <Route path="statistics" element={<CommunicationStatisticsPage />} />
+                </Route>
+                <Route path="student-workspace" element={<Navigate to="/admin/training/student-workspace/overview" replace />} />
+                <Route path="student-workspace/*" element={<StudentWorkspaceRoute />}>
+                  <Route index element={<Navigate to="/admin/training/student-workspace/overview" replace />} />
+                  <Route path="overview" element={<StudentDashboardPage />} />
+                  <Route path="registry" element={<StudentRegistryPage />} />
+                  <Route path="directory" element={<StudentDirectoryPage />} />
+                  <Route path="archived" element={<StudentArchivedPage />} />
                 </Route>
                 <Route path="settings" element={<TrainingSettingsPage />} />
                 <Route path="ai-assistant" element={<TrainingAiAssistantPage />} />
