@@ -11,3 +11,29 @@ maven-extracted/
 *.tsbuildinfo
 .vite/
 .anchor.md
+
+# Logs
+*.log
+
+# Archives / downloaded binaries
+maven.zip
+
+# Downloaded Maven distribution (binary tooling, not source)
+tools/maven/apache-maven-3.9.9/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# OS-specific
+Thumbs.db
+
+# Temporary
+tmp/
+temp/
+
+# Playwright generated artifacts (runtime only)
+shared-testing/playwright-report/
+shared-testing/test-results/

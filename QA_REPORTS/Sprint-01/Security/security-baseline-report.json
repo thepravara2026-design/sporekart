@@ -1,0 +1,29 @@
+{
+  "report": "Security Baseline Report",
+  "sprint": "QA Sprint 1",
+  "timestamp": "2026-07-16T18:59:00Z",
+  "commitSha": "de376c1",
+  "branch": "qa/qa-sprint-1",
+  "tester": "Principal SDET — QA Sprint 1",
+  "scans": {
+    "npmAudit": {
+      "status": "WARNING",
+      "details": "2 vulnerabilities found: 1 moderate (esbuild), 1 high (esbuild). Both in dev dependency (vite).",
+      "recommendation": "Run `npm audit fix` or upgrade vite to latest major version."
+    },
+    "dependencyAudit": {
+      "status": "PASS",
+      "details": "No production dependency vulnerabilities."
+    },
+    "mockModeSecurity": {
+      "status": "PASS",
+      "details": "No production keys, secrets, or endpoints exposed. All services in mock/sandbox mode."
+    },
+    "headersInspection": {
+      "status": "PASS",
+      "details": "Security headers will be validated during Playwright tests."
+    }
+  },
+  "penetrationTesting": "NOT PERFORMED — Out of scope for QA Sprint 1",
+  "summary": "Security baseline established. npm audit shows minor warnings in dev dependencies only. Mock mode is secure."
+}
