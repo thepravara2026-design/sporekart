@@ -211,6 +211,7 @@ export interface CertificateAnalytics {
   totalTranscripts: number;
   verificationRequests: number;
   certificatesByCourse: { courseName: string; count: number }[];
+  certificatesByBatch: { batchName: string; count: number }[];
   certificatesByMonth: { month: string; count: number }[];
   achievementDistribution: { type: string; count: number }[];
   badgeDistribution: { type: string; count: number }[];

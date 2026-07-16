@@ -249,6 +249,10 @@ function generateAnalytics(certificates: Certificate[], badges: DigitalBadge[], 
       courseName: c.name,
       count: certificates.filter((cert) => cert.courseId === c.id).length,
     })),
+    certificatesByBatch: BATCHES.map((b) => ({
+      batchName: b.name,
+      count: certificates.filter((cert) => cert.batchId === b.id).length,
+    })),
     certificatesByMonth: months.map((m) => ({
       month: m,
       count: Math.floor(Math.random() * 15) + 3,

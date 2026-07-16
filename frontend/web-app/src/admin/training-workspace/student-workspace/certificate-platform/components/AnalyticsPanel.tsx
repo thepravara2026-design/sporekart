@@ -7,6 +7,7 @@ interface AnalyticsPanelProps {
 
 export const AnalyticsPanel = memo(function AnalyticsPanel({ analytics }: AnalyticsPanelProps) {
   const maxByCourse = Math.max(...analytics.certificatesByCourse.map((c) => c.count), 1);
+  const maxByBatch = Math.max(...analytics.certificatesByBatch.map((b) => b.count), 1);
   const maxByMonth = Math.max(...analytics.certificatesByMonth.map((m) => m.count), 1);
   const maxAch = Math.max(...analytics.achievementDistribution.map((a) => a.count), 1);
   const maxBadge = Math.max(...analytics.badgeDistribution.map((b) => b.count), 1);
@@ -60,6 +61,18 @@ export const AnalyticsPanel = memo(function AnalyticsPanel({ analytics }: Analyt
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-component-gap)' }}>
+        <div style={{ padding: 'var(--space-3)', background: 'var(--color-bg-surface-default)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-default)' }}>
+          <h3 style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)', margin: '0 0 12px 0' }}>Certificates by Batch</h3>
+          {analytics.certificatesByBatch.map((b) => (
+            <div key={b.batchName} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <span style={{ width: '40%', fontSize: 'var(--text-body-sm)' }}>{b.batchName}</span>
+              <div style={{ flex: 1, height: 10, background: 'var(--color-bg-skeleton-base)', borderRadius: 5, overflow: 'hidden' }}>
+                <div style={{ width: `${(b.count / maxByBatch) * 100}%`, height: '100%', background: '#7c3aed', borderRadius: 5 }} />
+              </div>
+              <span style={{ width: 30, textAlign: 'right', fontSize: 'var(--text-caption)', fontWeight: 'var(--weight-medium)' }}>{b.count}</span>
+            </div>
+          ))}
+        </div>
         <div style={{ padding: 'var(--space-3)', background: 'var(--color-bg-surface-default)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-default)' }}>
           <h3 style={{ fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)', margin: '0 0 12px 0' }}>Achievement Distribution</h3>
           {analytics.achievementDistribution.slice(0, 8).map((a) => (
