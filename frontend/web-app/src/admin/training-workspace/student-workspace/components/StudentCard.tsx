@@ -2,7 +2,6 @@ import { memo, useCallback } from 'react';
 import type { Student } from '../types';
 import { Card } from '../../../../design-system/components/composite/Card';
 import { Avatar } from '../../../../design-system/components/display/Avatar';
-import { Badge } from '../../../../design-system/components/display/Badge';
 import { Chip } from '../../../../design-system/components/display/Chip';
 import { Icon } from '../../../../design-system/icons/Icon';
 import StudentStatusBadge from './StudentStatusBadge';
@@ -24,13 +23,6 @@ export const StudentCard = memo(function StudentCard({
     if (onSelect) onSelect(student.id);
   }, [onSelect, student.id]);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (onSelect) onSelect(student.id);
-    }
-  }, [onSelect, student.id]);
-
   return (
     <Card
       variant={selected ? 'elevated' : 'default'}
@@ -38,7 +30,6 @@ export const StudentCard = memo(function StudentCard({
       padding="md"
       onClick={handleClick}
       aria-label={`Student: ${student.fullName}, ID: ${student.studentId}, Status: ${student.status}`}
-      role="article"
     >
       <div style={{ display: 'flex', gap: 12 }}>
         <Avatar

@@ -98,13 +98,13 @@ export const StudentFilterPanel = memo(function StudentFilterPanel({
 }: StudentSearchFilterProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const activeFilterCount = [
+  const activeFilterCount = ([
     filters.status?.length,
     filters.course?.length,
     filters.language?.length,
     filters.learningMode?.length,
     filters.category?.length,
-  ].reduce((sum, count) => sum + (count || 0), 0);
+  ] as number[]).reduce((sum, count) => sum + count, 0);
 
   const toggleStatus = useCallback((status: StudentStatus) => {
     const current = filters.status || [];

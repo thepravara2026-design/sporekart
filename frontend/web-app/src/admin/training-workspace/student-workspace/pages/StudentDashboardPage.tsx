@@ -43,8 +43,6 @@ const StatWidget = memo(function StatWidget({ label, value, icon: iconName, colo
 const StudentDashboardPage = memo(function StudentDashboardPage() {
   const { stats, students, loading } = useStudentWorkspace();
 
-  const activeStudents = useMemo(() => students.filter((s) => s.status === 'active'), [students]);
-  const pendingStudents = useMemo(() => students.filter((s) => s.status === 'pending-approval'), [students]);
   const newStudents = useMemo(() => {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     return students.filter((s) => new Date(s.registrationDate) >= thirtyDaysAgo);

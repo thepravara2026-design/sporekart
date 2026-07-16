@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState, useCallback } from 'react';
 import { Card } from '../../../../design-system/components/composite/Card';
 import { Icon } from '../../../../design-system/icons/Icon';
 import { Skeleton } from '../../../../design-system/components/display/Skeleton';
@@ -27,8 +27,6 @@ const StudentDirectoryPage = memo(function StudentDirectoryPage() {
     paginatedStudents,
     searchQuery,
     setSearchQuery,
-    filters,
-    updateFilter,
     clearFilters,
     page,
     totalPages,

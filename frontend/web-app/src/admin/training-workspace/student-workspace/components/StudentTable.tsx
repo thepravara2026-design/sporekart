@@ -46,7 +46,6 @@ export const StudentTable = memo(function StudentTable({
   sortField,
   sortDirection,
   onSort,
-  loading = false,
 }: StudentTableProps) {
   const allSelected = students.length > 0 && selectedIds.size === students.length;
 
