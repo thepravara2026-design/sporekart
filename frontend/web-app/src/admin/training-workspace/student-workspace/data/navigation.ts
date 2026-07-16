@@ -12,6 +12,7 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'directory', label: 'Student Directory', icon: 'users', href: '/admin/training/student-workspace/directory', description: 'Browse student directory' },
   { id: 'archived', label: 'Archived Students', icon: 'archive', href: '/admin/training/student-workspace/archived', description: 'View archived students' },
   { id: 'profile', label: 'Student Profile', icon: 'user', href: '/admin/training/student-workspace/profile', description: 'Student profile management' },
+  { id: 'enrollment', label: 'Enrollments', icon: 'file-text', href: '/admin/training/student-workspace/enrollment', description: 'Admission & enrollment management' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
@@ -31,6 +32,7 @@ const LABEL_MAP: Record<string, string> = {
   directory: 'Student Directory',
   archived: 'Archived Students',
   profile: 'Student Profile',
+  enrollment: 'Enrollments',
   analytics: 'Student Analytics',
   reports: 'Student Reports',
   alumni: 'Alumni',
