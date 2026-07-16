@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useCommunication } from '../state/CommunicationContext';
 import { SharedFilters } from '../components/SharedFilters';
 import { DashboardWidget } from '../components/DashboardWidget';
@@ -6,13 +6,15 @@ import { TemplateCard } from '../components/TemplateCard';
 import { MetricCard } from '../components/MetricCard';
 import { COMMUNICATION_TYPE_LABELS } from '../types';
 import type { CommunicationType } from '../types';
+import Pagination from '../../../../components/navigation/Pagination';
 
 export default function NotificationTemplates() {
-  const { templates } = useCommunication();
+  const { templates, page, pageSize, setPage, setPageSize } = useCommunication();
   const [selectedType, setSelectedType] = useState<CommunicationType | 'all'>('all');
 
-  const filtered = selectedType === 'all' ? templates : templates.filter((t) => t.type === selectedType);
+  const filtered = useMemo(() => selectedType === 'all' ? templates : templates.filter((t) => t.type === selectedType), [templates, selectedType]);
   const types = [...new Set(templates.map((t) => t.type))];
+  const displayItems = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <main style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: 'var(--space-section-gap)' }}>
@@ -28,7 +30,7 @@ export default function NotificationTemplates() {
       </div>
 
       <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-        <button onClick={() => setSelectedType('all')} style={{
+        <button onClick={() => { setSelectedType('all'); setPage(1); }} style={{
           padding: '6px 14px', borderRadius: 'var(--radius-sm)', border: 'none', cursor: 'pointer',
           background: selectedType === 'all' ? 'var(--color-bg-primary-subtle)' : 'transparent',
           color: selectedType === 'all' ? 'var(--color-primary)' : 'var(--color-text-secondary)',
@@ -36,7 +38,7 @@ export default function NotificationTemplates() {
           fontSize: 'var(--text-body-sm)',
         }}>All ({templates.length})</button>
         {types.map((type) => (
-          <button key={type} onClick={() => setSelectedType(type)} style={{
+          <button key={type} onClick={() => { setSelectedType(type); setPage(1); }} style={{
             padding: '6px 14px', borderRadius: 'var(--radius-sm)', border: 'none', cursor: 'pointer',
             background: selectedType === type ? 'var(--color-bg-primary-subtle)' : 'transparent',
             color: selectedType === type ? 'var(--color-primary)' : 'var(--color-text-secondary)',
@@ -47,9 +49,14 @@ export default function NotificationTemplates() {
       </div>
 
       <DashboardWidget title="Templates" subtitle={`${filtered.length} templates`}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 8 }}>
-          {filtered.map((t) => <TemplateCard key={t.id} template={t} />)}
-        </div>
+        {displayItems.length === 0 ? <div style={{ padding: 24, textAlign: 'center', color: 'var(--color-text-tertiary)' }}>No templates found</div> : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 8 }}>
+              {displayItems.map((t) => <TemplateCard key={t.id} template={t} />)}
+            </div>
+            <Pagination page={page} pageSize={pageSize} total={filtered.length} onPageChange={setPage} onPageSizeChange={setPageSize} />
+          </div>
+        )}
       </DashboardWidget>
     </main>
   );
