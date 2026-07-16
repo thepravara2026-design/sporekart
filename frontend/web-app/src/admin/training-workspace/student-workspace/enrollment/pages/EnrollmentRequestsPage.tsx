@@ -1,13 +1,19 @@
 import { useMemo, useState, useCallback } from 'react';
 import { useEnrollment } from '../state/EnrollmentContext';
+import { StudentSearchBar } from '../../components/StudentSearchFilter';
+import { StudentPagination } from '../../components/StudentPagination';
 import { EnrollmentTable } from '../components/EnrollmentTable';
 import { EnrollmentCard } from '../components/EnrollmentCard';
-import { EnrollmentSearchFilter } from '../components/EnrollmentSearchFilter';
-import { EnrollmentPagination } from '../components/EnrollmentPagination';
 import { EnrollmentStatusBadge } from '../components/EnrollmentStatusBadge';
 import { EnrollmentTableSkeleton } from '../components/Skeletons';
 import { EmptyState } from '../components/EmptyStates';
-import { ADMISSION_TYPE_LABELS } from '../types';
+import { ENROLLMENT_STATUS_LABELS, ADMISSION_TYPE_LABELS } from '../types';
+import type { EnrollmentStatus } from '../types';
+
+const STATUS_OPTIONS: (EnrollmentStatus | 'all')[] = [
+  'all', 'draft', 'submitted', 'under-review', 'pending-approval',
+  'approved', 'rejected', 'seat-reserved', 'batch-assigned', 'enrolled', 'cancelled', 'archived',
+];
 
 export function EnrollmentRequestsPage() {
   const { requests, searchTerm, setSearchTerm, statusFilter, setStatusFilter, selectRequest, currentRequest, isLoading } = useEnrollment();
@@ -57,13 +63,25 @@ export function EnrollmentRequestsPage() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-        <EnrollmentSearchFilter
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-          totalResults={filtered.length}
-        />
+        <StudentSearchBar searchQuery={searchTerm} onSearchChange={setSearchTerm} />
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value as EnrollmentStatus | 'all')}
+          aria-label="Filter by status"
+          style={{
+            padding: '6px 12px', borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--color-border-default)',
+            background: 'var(--color-bg-surface-default)', color: 'var(--color-text-primary)',
+            fontSize: 'var(--text-body-sm)', height: 36,
+          }}
+        >
+          {STATUS_OPTIONS.map((s) => (
+            <option key={s} value={s}>{s === 'all' ? 'All Statuses' : ENROLLMENT_STATUS_LABELS[s]}</option>
+          ))}
+        </select>
+        <span style={{ fontSize: 'var(--text-caption)', color: 'var(--color-text-tertiary)' }}>
+          {filtered.length} result{filtered.length !== 1 ? 's' : ''}
+        </span>
         <div style={{ flex: 1 }} />
         <div style={{ display: 'flex', gap: 4 }} role="radiogroup" aria-label="View mode">
           {(['table', 'card'] as const).map((mode) => (
@@ -97,9 +115,10 @@ export function EnrollmentRequestsPage() {
           background: 'var(--color-bg-surface-default)',
         }}>
           <EnrollmentTable requests={paginated} onSelect={selectRequest} selectedId={currentRequest?.id ?? null} />
-          <EnrollmentPagination
+          <StudentPagination
             page={page} totalPages={totalPages} totalFiltered={filtered.length}
             pageSize={pageSize} onPageChange={handlePageChange} onPageSizeChange={handlePageSizeChange}
+            pageSizeOptions={[10, 20, 50]}
           />
         </div>
       ) : (
@@ -117,9 +136,10 @@ export function EnrollmentRequestsPage() {
               />
             ))}
           </div>
-          <EnrollmentPagination
+          <StudentPagination
             page={page} totalPages={totalPages} totalFiltered={filtered.length}
             pageSize={pageSize} onPageChange={handlePageChange} onPageSizeChange={handlePageSizeChange}
+            pageSizeOptions={[10, 20, 50]}
           />
         </>
       )}

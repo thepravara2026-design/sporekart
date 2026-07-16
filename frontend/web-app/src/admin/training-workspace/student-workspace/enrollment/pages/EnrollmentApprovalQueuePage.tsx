@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback } from 'react';
 import { useEnrollment } from '../state/EnrollmentContext';
 import { EnrollmentTable } from '../components/EnrollmentTable';
-import { EnrollmentPagination } from '../components/EnrollmentPagination';
+import { StudentPagination } from '../../components/StudentPagination';
 import { ApprovalActionsPanel } from '../components/ApprovalActionsPanel';
 import { EnrollmentTimeline } from '../components/EnrollmentTimeline';
 import { EmptyState } from '../components/EmptyStates';
@@ -37,6 +37,14 @@ export function EnrollmentApprovalQueuePage() {
     console.log('Request info for', id);
   }, []);
 
+  const handleReserveSeat = useCallback((id: string) => {
+    console.log('Reserve seat for', id);
+  }, []);
+
+  const handleAssignBatch = useCallback((id: string) => {
+    console.log('Assign batch for', id);
+  }, []);
+
   if (isLoading) return <EnrollmentTableSkeleton />;
 
   return (
@@ -61,7 +69,7 @@ export function EnrollmentApprovalQueuePage() {
               Pending Approvals ({pendingApprovals.length})
             </h3>
             <EnrollmentTable requests={paginated} onSelect={selectRequest} selectedId={currentRequest?.id ?? null} />
-            <EnrollmentPagination
+            <StudentPagination
               page={page} totalPages={totalPages} totalFiltered={pendingApprovals.length}
               pageSize={pageSize} onPageChange={setPage} onPageSizeChange={() => {}}
               pageSizeOptions={[10]}
@@ -75,6 +83,8 @@ export function EnrollmentApprovalQueuePage() {
                 onApprove={handleApprove}
                 onReject={handleReject}
                 onRequestInfo={handleRequestInfo}
+                onReserveSeat={handleReserveSeat}
+                onAssignBatch={handleAssignBatch}
               />
               <div style={{
                 padding: 'var(--space-3)', borderRadius: 'var(--radius-md)',

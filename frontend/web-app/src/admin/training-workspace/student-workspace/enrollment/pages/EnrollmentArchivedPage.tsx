@@ -1,8 +1,8 @@
 import { useMemo, useState, useCallback } from 'react';
 import { useEnrollment } from '../state/EnrollmentContext';
+import { StudentSearchBar } from '../../components/StudentSearchFilter';
+import { StudentPagination } from '../../components/StudentPagination';
 import { EnrollmentTable } from '../components/EnrollmentTable';
-import { EnrollmentPagination } from '../components/EnrollmentPagination';
-import { EnrollmentSearchFilter } from '../components/EnrollmentSearchFilter';
 import { EmptyState } from '../components/EmptyStates';
 import { EnrollmentTableSkeleton } from '../components/Skeletons';
 
@@ -43,13 +43,7 @@ export function EnrollmentArchivedPage() {
         </p>
       </div>
 
-      <EnrollmentSearchFilter
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        statusFilter="all"
-        onStatusFilterChange={() => {}}
-        totalResults={filtered.length}
-      />
+      <StudentSearchBar searchQuery={searchTerm} onSearchChange={setSearchTerm} />
 
       {filtered.length === 0 ? (
         <EmptyState type="noArchived" onClearFilters={clearFilters} />
@@ -60,9 +54,10 @@ export function EnrollmentArchivedPage() {
           background: 'var(--color-bg-surface-default)',
         }}>
           <EnrollmentTable requests={paginated} onSelect={selectRequest} selectedId={currentRequest?.id ?? null} />
-          <EnrollmentPagination
+          <StudentPagination
             page={page} totalPages={totalPages} totalFiltered={filtered.length}
             pageSize={pageSize} onPageChange={setPage} onPageSizeChange={setPageSize}
+            pageSizeOptions={[10, 20, 50]}
           />
         </div>
       )}
