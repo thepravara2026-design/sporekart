@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { AuthenticatedLayout } from '../design-system/components/layout/AuthenticatedLayout';
+import { PermissionProvider } from './permissions/PermissionProvider';
 import { Sidebar } from '../design-system/components/navigation/Sidebar';
 import { TopNav } from '../design-system/components/navigation/TopNav';
 import { Breadcrumb } from '../design-system/components/navigation/Breadcrumb';
@@ -49,6 +50,7 @@ export default function AdminLayout() {
   const activeId = getAdminActiveId(location.pathname);
 
   return (
+    <PermissionProvider initialRole={activeRole || 'viewer'}>
     <AuthenticatedLayout
       header={
         <div className="admin-header" style={{
@@ -228,5 +230,6 @@ export default function AdminLayout() {
         </PageFooter>
       </div>
     </AuthenticatedLayout>
+    </PermissionProvider>
   );
 }

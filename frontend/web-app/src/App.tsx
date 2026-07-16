@@ -839,9 +839,8 @@ export default function App() {
                   <Route path="/design-system/timelines" element={<TimelinesPreview />} />
                   <Route path="/design-system/calendars" element={<CalendarsPreview />} />
                   <Route path="/design-system/data-filters" element={<DataFiltersPreview />} />
-                  <Route path="/design-system/export" element={<ExportPreview />} />
-                  <Route path="/products/*" element={<ProductPreviewApp />} />
-                  <Route path="*" element={<NotFound />} />
+                   <Route path="/design-system/export" element={<ExportPreview />} />
+                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </main>
