@@ -16,6 +16,7 @@ export const STUDENT_NAV_ITEMS: StudentNavItem[] = [
   { id: 'attendance', label: 'Attendance', icon: 'check-circle', href: '/admin/training/student-workspace/attendance', description: 'Attendance & learning presence' },
   { id: 'assignments', label: 'Assignments', icon: 'edit', href: '/admin/training/student-workspace/assignments', description: 'Assignment & project management' },
   { id: 'assessments', label: 'Assessments', icon: 'check-square', href: '/admin/training/student-workspace/assessments', description: 'Assessment & examination management' },
+  { id: 'learning-progress', label: 'Learning Progress', icon: 'trending-up', href: '/admin/training/student-workspace/learning-progress', description: 'Learning progress & competency tracking' },
 ];
 
 export const STUDENT_FUTURE_ITEMS: StudentNavItem[] = [
@@ -39,6 +40,7 @@ const LABEL_MAP: Record<string, string> = {
   attendance: 'Attendance',
   assignments: 'Assignments',
   assessments: 'Assessments',
+  'learning-progress': 'Learning Progress',
   analytics: 'Student Analytics',
   reports: 'Student Reports',
   alumni: 'Alumni',
