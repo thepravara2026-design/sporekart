@@ -1,0 +1,65 @@
+{
+  "sprint": "Bug Fix Sprint B — High-Priority Stabilization (P1)",
+  "releaseCandidate": "v1.0.0-rc1",
+  "date": "2026-07-17",
+  "branch": "bugfix/sprint-b-high-priority",
+  "classification": "CONFIDENTIAL",
+  "gateDecision": "COMPLETE_WITH_CONDITIONS",
+  "summary": {
+    "p0Remaining": 0,
+    "p1InScope": 16,
+    "p1Resolved": 16,
+    "p1Deferred": 19,
+    "buildBlockersResolved": 1,
+    "buildBlockersTracked": 1
+  },
+  "fixes": [
+    { "id": "BUG-RT-007", "title": "WorkspacePage redirect to /access-denied", "status": "fixed", "commit": "f979743" },
+    { "id": "BUG-RT-008", "title": "Logout clears session + history", "status": "fixed", "commit": "f979743" },
+    { "id": "BUG-RT-009", "title": "Multi-tab session sync", "status": "fixed", "commit": "f979743" },
+    { "id": "BUG-RT-010", "title": "Global error boundary", "status": "fixed", "commit": "0279772" },
+    { "id": "BUG-RT-011", "title": "Session expiry auto-redirect", "status": "fixed", "commit": "f979743" },
+    { "id": "BUG-PERF-002", "title": "Timer leak in SessionTimeoutWarning", "status": "fixed", "commit": "930b106" },
+    { "id": "SEC-005", "title": "Hide role switcher when authenticated", "status": "fixed", "commit": "9da8173" },
+    { "id": "SEC-011", "title": "Mock OTP requires demo PIN", "status": "fixed", "commit": "9da8173" },
+    { "id": "BUG-COMP-001", "title": "Responsive KPI grid", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-COMP-002", "title": "Table horizontal scroll", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-COMP-003", "title": "Profile button layout", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-COMP-004", "title": "Sidebar overlay on nav", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-MOB-001", "title": "KPI grid mobile", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-MOB-002", "title": "Tables mobile scroll", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-MOB-003", "title": "Profile buttons mobile", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-MOB-004", "title": "Sidebar drawer mobile", "status": "fixed", "commit": "64e8678" },
+    { "id": "BUG-MOB-006", "title": "WCAG 44px touch targets", "status": "fixed", "commit": "64e8678" },
+    { "id": "inventory-service.getId", "title": "Pre-existing compile blocker (gate cond 1)", "status": "fixed", "commit": "ff00116" }
+  ],
+  "validation": {
+    "typecheck": "pass",
+    "build": "pass",
+    "inventoryCompile": "pass",
+    "regression": "no_regressions",
+    "security": "no_p0_regression; p1_security_closed",
+    "accessibility": "wcag_aa_touch_targets_closed",
+    "crossBrowser": "static_pass",
+    "playwrightE2E": "not_executed_no_browser_runtime"
+  },
+  "conditionsForRC2": [
+    "Execute full Playwright/cross-browser E2E suite (gate condition 2).",
+    "Schedule dedicated sprint for ai-service foundation defects.",
+    "Clean residual untracked artifacts from prior sprints."
+  ],
+  "deliverables": [
+    "high-priority-bug-fix-report.md",
+    "root-cause-analysis.md",
+    "fixed-bug-register.md",
+    "security-validation-report.md",
+    "performance-validation-report.md",
+    "regression-report.md",
+    "smoke-test-report.md",
+    "cross-browser-validation.md",
+    "accessibility-validation.md",
+    "remaining-defects.md",
+    "executive-summary.md",
+    "dashboard.json"
+  ]
+}
