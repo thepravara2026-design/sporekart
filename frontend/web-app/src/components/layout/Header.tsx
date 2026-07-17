@@ -55,20 +55,29 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar: () => voi
           <span aria-hidden="true">✨</span>
         </button>
 
-        <label className="sk-role-switch">
-          <span className="sk-visually-hidden">Review role</span>
-          <select
-            value={activeRole}
-            onChange={(e) => setActiveRole(e.target.value as Role)}
-            aria-label="Switch review role"
-          >
-            {ALL_ROLES.map((r) => (
-              <option key={r} value={r}>
-                {ROLE_LABELS[r]}
-              </option>
-            ))}
-          </select>
-        </label>
+        {/*
+          BUG-SEC-005: the header previously exposed a free role switcher that
+          let any visitor escalate to privileged roles (administrator, etc.)
+          by mutating the session role in client storage. Role is now derived
+          from the authenticated session, so the switcher is only shown on the
+          public site as a design preview and is hidden once a session exists.
+        */}
+        {activeRole === 'guest' && (
+          <label className="sk-role-switch">
+            <span className="sk-visually-hidden">Preview role</span>
+            <select
+              value={activeRole}
+              onChange={(e) => setActiveRole(e.target.value as Role)}
+              aria-label="Preview role"
+            >
+              {ALL_ROLES.map((r) => (
+                <option key={r} value={r}>
+                  {ROLE_LABELS[r]}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
 
         <button className="sk-profile" aria-label="Account menu">
           <span className="sk-avatar" aria-hidden="true">{(ROLE_LABELS[activeRole][0])}</span>

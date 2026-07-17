@@ -73,8 +73,11 @@ export const authClient = {
         throw new Error('Enter the full code.');
       });
     }
-    // Simulated: any 6-char code except "000000" is accepted.
-    if (code === '000000') {
+    // UX stub: a real OTP check is performed by the platform auth service. To
+    // avoid the previous "any code is accepted" behaviour (BUG-SEC-011), the
+    // stub now requires a specific demo PIN so the flow cannot be bypassed
+    // with an arbitrary value. This remains a front-end simulation only.
+    if (code !== '123456') {
       return delay({ ok: false, message: 'Incorrect code. Please try again.' }).then(() => {
         throw new Error('Incorrect code. Please try again.');
       });
