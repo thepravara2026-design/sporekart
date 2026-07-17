@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import StatusScreen from '../components/StatusScreen';
+import { useApp } from '../../../context';
 import '../auth.css';
 
 export function SessionExpiredPage() {
@@ -33,11 +34,22 @@ export function LoggedOutPage() {
 
 export function AuthLoadingPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { setActiveRole } = useApp();
 
   useEffect(() => {
-    const t = window.setTimeout(() => navigate('/', { replace: true }), 1600);
+    const state = (location.state ?? {}) as { role?: string; from?: string; flow?: string };
+    const nextRole = (state.role as never) ?? 'customer';
+    const destination = state.from && state.from !== '/login' ? state.from : '/dashboard';
+    try {
+      sessionStorage.setItem('sk_session_role', nextRole);
+    } catch {
+      /* sessionStorage unavailable — in-memory session still applies */
+    }
+    setActiveRole(nextRole);
+    const t = window.setTimeout(() => navigate(destination, { replace: true }), 1600);
     return () => window.clearTimeout(t);
-  }, [navigate]);
+  }, [navigate, setActiveRole, location.state]);
 
   return (
     <div className="auth-status">

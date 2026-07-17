@@ -151,6 +151,7 @@ export default function LoginPage() {
           />
 
           {status === 'error' && error && <AuthAlert type="error">{error}</AuthAlert>}
+          {termsError && <AuthAlert type="error">{termsError}</AuthAlert>}
 
           <div className="auth-submit">
             <Button type="submit" size="lg" fullWidth loading={status === 'loading'}>
