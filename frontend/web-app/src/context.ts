@@ -5,6 +5,7 @@ export interface AppContextValue {
   setActiveRole: (r: Role) => void;
   paletteOpen: boolean;
   setPaletteOpen: (b: boolean) => void;
+  logout: (reason?: 'user' | 'expired') => void;
 }
 
 import { createContext, useContext } from 'react';

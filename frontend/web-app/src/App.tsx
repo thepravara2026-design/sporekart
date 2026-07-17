@@ -1,5 +1,5 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from './context';
 import type { Role } from './config/roles';
 import { getAllPages } from './config/navigation';
@@ -11,6 +11,8 @@ import CommandPalette from './components/layout/CommandPalette';
 import WorkspacePage from './pages/WorkspacePage';
 import NotFound from './pages/NotFound';
 import { Icon } from './design-system/icons/Icon';
+import { RequireAuth } from './features/auth/RequireAuth';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 const DemoIndex = lazy(() => import('./pages/DemoIndex'));
 const ResponsiveDemo = lazy(() => import('./pages/ResponsiveDemo'));
@@ -423,9 +425,50 @@ function isNonEnterpriseRoute(pathname: string): boolean {
 }
 
 export default function App() {
-  const [activeRole, setActiveRole] = useState<Role>('administrator');
+  const [activeRole, setActiveRole] = useState<Role>(() => {
+    try {
+      const persisted = sessionStorage.getItem('sk_session_role');
+      if (persisted && persisted !== 'guest') return persisted as Role;
+    } catch {
+      /* ignore */
+    }
+    return 'guest';
+  });
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+
+  /**
+   * Central session termination (BUG-RT-008 / BUG-RT-011).
+   *
+   * Root cause: there was no single place that cleared the persisted session
+   * or redirected on logout / expiry, so the previous role survived in
+   * sessionStorage and the browser back button could return to a protected
+   * view. `logout` clears the stored role and resets to 'guest', then replaces
+   * history so the protected route cannot be reached via back navigation.
+   *
+   * A 'storage' event is dispatched manually so other tabs observing the same
+   * key (BUG-RT-009 multi-tab session synchronisation) pick up the change.
+   */
+  const logout = useCallback(
+    (reason: 'user' | 'expired' = 'user') => {
+      try {
+        sessionStorage.removeItem('sk_session_role');
+        window.dispatchEvent(
+          new StorageEvent('storage', { key: 'sk_session_role', newValue: null }),
+        );
+      } catch {
+        /* storage unavailable — in-memory reset still applies */
+      }
+      setActiveRole('guest');
+      if (reason === 'expired') {
+        navigate('/session-expired', { replace: true });
+      } else {
+        navigate('/login', { replace: true });
+      }
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -438,14 +481,33 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  /**
+   * BUG-RT-009: multi-tab session synchronisation. When another tab signs in
+   * or out (writing 'sk_session_role'), mirror that role into this tab so all
+   * open tabs share one session state.
+   */
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== 'sk_session_role') return;
+      if (e.newValue && e.newValue !== 'guest') {
+        setActiveRole(e.newValue as Role);
+      } else {
+        setActiveRole('guest');
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   const pages = getAllPages();
   const location = useLocation();
   const nonEnterprise = isNonEnterpriseRoute(location.pathname);
 
   if (nonEnterprise) {
     return (
-      <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen }}>
+      <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen, logout }}>
         <a href="#main" className="sk-skip">Skip to content</a>
+        <ErrorBoundary>
         <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -487,7 +549,7 @@ export default function App() {
             <Route path="/preview/otp" element={<AuthOtpPreview />} />
             <Route path="/preview/session" element={<SessionPreview />} />
             <Route path="/preview/auth-errors" element={<AuthErrorsPreview />} />
-            <Route path="/dashboard" element={<CustomerLayout />}>
+            <Route path="/dashboard" element={<RequireAuth><CustomerLayout /></RequireAuth>}>
               <Route index element={<DashboardPage />} />
               <Route path="orders" element={<OrdersDashboard />} />
               <Route path="orders/:id" element={<OrderDetailsPage />} />
@@ -533,7 +595,7 @@ export default function App() {
               <Route path="settings" element={<PlaceholderPage title="Settings" description="Configure notifications, privacy, and preferences." icon={<Icon name="settings" size={32} color="currentColor" />} />} />
             </Route>
 
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<RequireAuth allowedRoles={['administrator', 'business_owner', 'governance_manager']}><AdminLayout /></RequireAuth>}>
               <Route index element={<Navigate to="/admin/dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="products" element={<AdminProductsPage />} />
@@ -754,13 +816,14 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </AppContext.Provider>
     );
   }
 
 
   return (
-    <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen }}>
+    <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen, logout }}>
       <a href="#main" className="sk-skip">Skip to content</a>
       <div className="sk-shell">
         <Header onToggleSidebar={() => setSidebarOpen((v) => !v)} />
@@ -769,6 +832,7 @@ export default function App() {
           <div className="sk-shell__main">
             <BreadcrumbBar />
 <main id="main" className="sk-content" tabIndex={-1}>
+                <ErrorBoundary>
                 <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
 <Routes>
                   {pages.map((p) => (
@@ -840,9 +904,10 @@ export default function App() {
                   <Route path="/design-system/calendars" element={<CalendarsPreview />} />
                   <Route path="/design-system/data-filters" element={<DataFiltersPreview />} />
                    <Route path="/design-system/export" element={<ExportPreview />} />
-                   <Route path="*" element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
+                </ErrorBoundary>
             </main>
           </div>
         </div>

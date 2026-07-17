@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import { useApp } from '../context';
 import { resolveRoute, canView } from '../config/navigation';
 import PlaceholderPanel from '../components/ui/PlaceholderPanel';
@@ -23,15 +23,13 @@ export default function WorkspacePage() {
   const { page, workspace, params } = resolved;
 
   if (!canView(page.roles, activeRole)) {
-    return (
-      <div className="sk-content__header">
-        <h1>Access restricted</h1>
-        <PlaceholderPanel
-          title="Access restricted"
-          hint={`Your current role (${activeRole}) cannot view this page. Use the header role switcher to preview other roles.`}
-        />
-      </div>
-    );
+    /**
+     * BUG-RT-007: the workspace shell previously rendered a static
+     * "Access restricted" placeholder instead of enforcing the restriction.
+     * Redirect unauthorised roles to the dedicated Access Denied screen so the
+     * restriction is consistent with the route guard behaviour.
+     */
+    return <Navigate to="/access-denied" replace />;
   }
 
   const title = params.id ? `${workspace.label}: ${params.id}` : page.label;
