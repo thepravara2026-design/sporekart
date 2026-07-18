@@ -1,0 +1,3521 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config=../QA_REPORTS/Sprint-03/playwright.config.ts"
+    ],
+    "configFile": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\playwright.config.ts",
+    "rootDir": "F:/The Pravara/clients/sporekart/sporekart/QA_REPORTS/Sprint-03",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "F:/The Pravara/clients/sporekart/sporekart/shared-testing/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "F:/The Pravara/clients/sporekart/sporekart/QA_REPORTS/Sprint-03",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "../Sprint-03/Sprint-3-Validation/html-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../Sprint-03/Sprint-3-Validation/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "../Sprint-03/Sprint-3-Validation/junit.xml"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "sprint-03-validation.spec.ts",
+      "file": "sprint-03-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "QA Sprint 3 — Comprehensive Functional Area Validation",
+          "file": "sprint-03-validation.spec.ts",
+          "line": 40,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "1. Customer Dashboard (/dashboard)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 42,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Dashboard page loads with key elements",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 1108,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:49:29",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 29,
+                              "line": 49
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 47 |\u001b[39m       \u001b[36mconst\u001b[39m bodyText \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m body\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m       expect(bodyText\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m20\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 49 |\u001b[39m       expect(errors\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 50 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n \u001b[90m 52 |\u001b[39m     test(\u001b[32m'Dashboard navigation links are present'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 29,
+                                "line": 49
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n\n  47 |       const bodyText = await body.innerText();\n  48 |       expect(bodyText.length).toBeGreaterThan(20);\n> 49 |       expect(errors.length).toBe(0);\n     |                             ^\n  50 |     });\n  51 |\n  52 |     test('Dashboard navigation links are present', async ({ page }) => {\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:49:29"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:42.688Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 29,
+                            "line": 49
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-ffb9f339c83c34a28eb7",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 43,
+                  "column": 9
+                },
+                {
+                  "title": "Dashboard navigation links are present",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 1105,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:59:38",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 38,
+                              "line": 59
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 57 |\u001b[39m       \u001b[36mconst\u001b[39m hrefs \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m links\u001b[33m.\u001b[39mevaluateAll((els) \u001b[33m=>\u001b[39m els\u001b[33m.\u001b[39mmap((el) \u001b[33m=>\u001b[39m (el \u001b[36mas\u001b[39m \u001b[33mHTMLAnchorElement\u001b[39m)\u001b[33m.\u001b[39mhref))\u001b[33m;\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mconst\u001b[39m dashboardRoutes \u001b[33m=\u001b[39m hrefs\u001b[33m.\u001b[39mfilter((h) \u001b[33m=>\u001b[39m h\u001b[33m.\u001b[39mincludes(\u001b[32m'/dashboard/'\u001b[39m))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 59 |\u001b[39m       expect(dashboardRoutes\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[35m2\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 60 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 61 |\u001b[39m\n \u001b[90m 62 |\u001b[39m     test(\u001b[32m'Dashboard quick actions render'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 38,
+                                "line": 59
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  57 |       const hrefs = await links.evaluateAll((els) => els.map((el) => (el as HTMLAnchorElement).href));\n  58 |       const dashboardRoutes = hrefs.filter((h) => h.includes('/dashboard/'));\n> 59 |       expect(dashboardRoutes.length).toBeGreaterThanOrEqual(2);\n     |                                      ^\n  60 |     });\n  61 |\n  62 |     test('Dashboard quick actions render', async ({ page }) => {\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:59:38"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:44.683Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 38,
+                            "line": 59
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-de9c42afca5183b72ea0",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "Dashboard quick actions render",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 998,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:46.565Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-1b2d25e6493bec0b4c96",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 62,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "2. User Profile (/dashboard/profile)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 70,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Profile overview page renders",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 968,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:74:29",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 29,
+                              "line": 74
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 72 |\u001b[39m       \u001b[36mconst\u001b[39m { status\u001b[33m,\u001b[39m errors } \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m navigateAndCapture(page\u001b[33m,\u001b[39m \u001b[32m'/dashboard/profile'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'02-profile-overview'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m       expect(status)\u001b[33m.\u001b[39mtoBeLessThan(\u001b[35m500\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m       expect(errors\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 76 |\u001b[39m\n \u001b[90m 77 |\u001b[39m     test(\u001b[32m'Profile edit page renders'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 29,
+                                "line": 74
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n\n  72 |       const { status, errors } = await navigateAndCapture(page, '/dashboard/profile', '02-profile-overview');\n  73 |       expect(status).toBeLessThan(500);\n> 74 |       expect(errors.length).toBe(0);\n     |                             ^\n  75 |     });\n  76 |\n  77 |     test('Profile edit page renders', async ({ page }) => {\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:74:29"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:47.712Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 29,
+                            "line": 74
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-c0a19972a65ccd174f5f",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 71,
+                  "column": 9
+                },
+                {
+                  "title": "Profile edit page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 993,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:49.405Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-92c1a669e135fdf03004",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 77,
+                  "column": 9
+                },
+                {
+                  "title": "Security settings page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1089,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:50.544Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-1f2b9bd7a6295e5dfafe",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 82,
+                  "column": 9
+                },
+                {
+                  "title": "Preferences page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1157,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:51.678Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-3aa5279469198c805663",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 87,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "3. Address Management (/dashboard/addresses)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 93,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Address list page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1201,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:52.874Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-c3dd756d275a16e4e0bc",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 94,
+                  "column": 9
+                },
+                {
+                  "title": "Add address page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 953,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:54.106Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-57bf79fe6ea060b23b52",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 101,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "4. Notifications (/dashboard/notifications)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 107,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Notification center loads",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 926,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:111:29",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 29,
+                              "line": 111
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 109 |\u001b[39m       \u001b[36mconst\u001b[39m { status\u001b[33m,\u001b[39m errors } \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m navigateAndCapture(page\u001b[33m,\u001b[39m \u001b[32m'/dashboard/notifications'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'04-notifications'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 110 |\u001b[39m       expect(status)\u001b[33m.\u001b[39mtoBeLessThan(\u001b[35m500\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 111 |\u001b[39m       expect(errors\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 112 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 113 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 114 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 29,
+                                "line": 111
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n\n  109 |       const { status, errors } = await navigateAndCapture(page, '/dashboard/notifications', '04-notifications');\n  110 |       expect(status).toBeLessThan(500);\n> 111 |       expect(errors.length).toBe(0);\n      |                             ^\n  112 |     });\n  113 |   });\n  114 |\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:111:29"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:55.105Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 29,
+                            "line": 111
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-d8a31f87402ded3716ef",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 108,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "5. Wishlist (/dashboard/wishlist)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 115,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Wishlist page loads",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 984,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:56.960Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-b701523ba81758e3d3ec",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 116,
+                  "column": 9
+                },
+                {
+                  "title": "Wishlist has sort controls if content present",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 965,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:58.083Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-e635d7ea748c148c70cd",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 123,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "6. Training Module (/dashboard/training)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 133,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Training dashboard loads",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 936,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:28:59.079Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-6cd39216ecde8c642d13",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 134,
+                  "column": 9
+                },
+                {
+                  "title": "Course library renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1000,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:00.044Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-556ce31daefd96da8c3e",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 139,
+                  "column": 9
+                },
+                {
+                  "title": "My Learning page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 947,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:01.078Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-263de82e175e5ec0554e",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 144,
+                  "column": 9
+                },
+                {
+                  "title": "Certificates page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1027,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:02.064Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-375d84f33463317783bd",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "Course detail page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 927,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:03.124Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-074c3e14a2375d0037f0",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 154,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "7. Grower Dashboard",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 160,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Grower view loads with role switcher",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1775,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:04.081Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-475ca0dd9a5622ff3093",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 161,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "8. Admin Dashboard (/admin)",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 174,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Admin dashboard loads",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 986,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:06.100Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-c92d5e669db4ad37d138",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 175,
+                  "column": 9
+                },
+                {
+                  "title": "Admin sidebar navigation renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 925,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:07.133Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-2898d5ffd652598d759b",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 180,
+                  "column": 9
+                },
+                {
+                  "title": "Admin profile page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 951,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:08.094Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-a345b16907a25e4304b4",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 189,
+                  "column": 9
+                },
+                {
+                  "title": "Admin settings page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 935,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:09.079Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-fc10c953ab0bbe3d1c93",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 194,
+                  "column": 9
+                },
+                {
+                  "title": "Admin system page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1018,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:10.045Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-f9e6a173cf732ecbfa45",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 199,
+                  "column": 9
+                },
+                {
+                  "title": "Admin help page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 957,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:11.090Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-9594b9644c971668a769",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 204,
+                  "column": 9
+                },
+                {
+                  "title": "Admin products page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1001,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:12.074Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-6ede1f4cc19fb9220916",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 209,
+                  "column": 9
+                },
+                {
+                  "title": "Admin orders page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 954,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:13.105Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-bffd1f7187e1ceb58b46",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 214,
+                  "column": 9
+                },
+                {
+                  "title": "Admin customers page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 941,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:14.086Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-29ac5d8f81d1fc4eef8b",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 219,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "9. RBAC / Route Protection",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 225,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Homepage role switcher exists with expected roles",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 6635,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('select[aria-label=\"Switch review role\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('select[aria-label=\"Switch review role\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:229:28",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 28,
+                              "line": 229
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 227 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'networkidle'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 228 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'select[aria-label=\"Switch review role\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 229 |\u001b[39m       \u001b[36mawait\u001b[39m expect(select)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 230 |\u001b[39m       \u001b[36mconst\u001b[39m options \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mlocator(\u001b[32m'option'\u001b[39m)\u001b[33m.\u001b[39mallTextContents()\u001b[33m;\u001b[39m\n \u001b[90m 231 |\u001b[39m       expect(options\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[35m3\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 28,
+                                "line": 229
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('select[aria-label=\"Switch review role\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n\n\n  227 |       await page.goto('/', { waitUntil: 'networkidle' });\n  228 |       const select = page.locator('select[aria-label=\"Switch review role\"]');\n> 229 |       await expect(select).toBeVisible();\n      |                            ^\n  230 |       const options = await select.locator('option').allTextContents();\n  231 |       expect(options.length).toBeGreaterThanOrEqual(3);\n  232 |     });\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:229:28"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:15.056Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 28,
+                            "line": 229
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-22cacf60641df250e04e",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 226,
+                  "column": 9
+                },
+                {
+                  "title": "Admin routes accessible without auth guard",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 5,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1106,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:22.782Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-d650be05b099e5ccc1b2",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 234,
+                  "column": 9
+                },
+                {
+                  "title": "Unauthenticated guest redirected from /dashboard",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 5,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 2039,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:251:27",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 27,
+                              "line": 251
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 249 |\u001b[39m       \u001b[36mconst\u001b[39m isBlocked \u001b[33m=\u001b[39m bodyText\u001b[33m.\u001b[39mincludes(\u001b[32m'Access restricted'\u001b[39m) \u001b[33m||\u001b[39m bodyText\u001b[33m.\u001b[39mincludes(\u001b[32m'sign in'\u001b[39m) \u001b[33m||\u001b[39m bodyText\u001b[33m.\u001b[39mincludes(\u001b[32m'login'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 250 |\u001b[39m       \u001b[36mif\u001b[39m (resp\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mstatus() \u001b[33m===\u001b[39m \u001b[35m200\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 251 |\u001b[39m         expect(isBlocked)\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 252 |\u001b[39m       }\n \u001b[90m 253 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 254 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 27,
+                                "line": 251
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  249 |       const isBlocked = bodyText.includes('Access restricted') || bodyText.includes('sign in') || bodyText.includes('login');\n  250 |       if (resp?.status() === 200) {\n> 251 |         expect(isBlocked).toBe(true);\n      |                           ^\n  252 |       }\n  253 |     });\n  254 |\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:251:27"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:24.052Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 27,
+                            "line": 251
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-79ebc66cc49a1b9cff0d",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 239,
+                  "column": 9
+                },
+                {
+                  "title": "Role switcher state persists after SPA navigation",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 6,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 17362,
+                          "error": {
+                            "message": "TimeoutError: locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n",
+                            "stack": "TimeoutError: locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:258:20",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 20,
+                              "line": 258
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 256 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'networkidle'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 257 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'select[aria-label=\"Switch review role\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 258 |\u001b[39m       \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mselectOption(\u001b[32m'grower'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 259 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m300\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 260 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/products'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'networkidle'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 261 |\u001b[39m       \u001b[36mconst\u001b[39m currentRole \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39minputValue()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 20,
+                                "line": 258
+                              },
+                              "message": "TimeoutError: locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('select[aria-label=\"Switch review role\"]')\u001b[22m\n\n\n  256 |       await page.goto('/', { waitUntil: 'networkidle' });\n  257 |       const select = page.locator('select[aria-label=\"Switch review role\"]');\n> 258 |       await select.selectOption('grower');\n      |                    ^\n  259 |       await page.waitForTimeout(300);\n  260 |       await page.goto('/products', { waitUntil: 'networkidle' });\n  261 |       const currentRole = await select.inputValue();\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:258:20"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:26.931Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 20,
+                            "line": 258
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-355fd62664427d86fa87",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 255,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "10. Error States",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 266,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "404 page renders for unknown route",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 924,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:45.479Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-3b79bb67f269b0af6304",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 267,
+                  "column": 9
+                },
+                {
+                  "title": "Auth error gallery renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1126,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:46.556Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-ed2a932f852fb9775c18",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 276,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "11. Empty States",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 282,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Empty wishlist state is handled",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 931,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:47.726Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-a0554346147a28e63a41",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 283,
+                  "column": 9
+                },
+                {
+                  "title": "Empty notifications state is handled",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 933,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:48.688Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-f48945aaf8d5e98e4d88",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 292,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "12. Loading States",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 298,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Loading indicators present on data-dependent pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 893,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:49.655Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-7b3f670cb7182002dbde",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 299,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "13. Session Management",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 307,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Session expired page renders with actions",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 995,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:50.579Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-a2a095a2fe6f55f4645c",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 308,
+                  "column": 9
+                },
+                {
+                  "title": "Access denied page renders with status indicators",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 904,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:51.603Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-2bb0f723dacfbd97992e",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 315,
+                  "column": 9
+                },
+                {
+                  "title": "Auth loading page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1078,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:52.537Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-e440934756ecea75d2f7",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 322,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "14. Mobile Responsiveness",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 328,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Dashboard renders at mobile viewport (375px)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 873,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:53.659Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-1871da78ce126e5afc3d",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 329,
+                  "column": 9
+                },
+                {
+                  "title": "Products page renders at mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1097,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:54.562Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-47e93a54bf7b506a2966",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 337,
+                  "column": 9
+                },
+                {
+                  "title": "Dashboard renders at tablet viewport (768px)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 860,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:55.699Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-7772fc356af2b67d7c7d",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 343,
+                  "column": 9
+                },
+                {
+                  "title": "No horizontal scroll on dashboard at mobile",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 951,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:56.589Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-1187f3da20e80ac654b1",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 349,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "15. Accessibility",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 358,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Skip to content link is present",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1413,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:57.577Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-aa3c2bfd01c5a3540a8a",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 359,
+                  "column": 9
+                },
+                {
+                  "title": "ARIA landmarks present on dashboard pages",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 952,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:373:50",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 50,
+                              "line": 373
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 371 |\u001b[39m       \u001b[36mconst\u001b[39m navCount \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m navigation\u001b[33m.\u001b[39mcount()\u001b[33m;\u001b[39m\n \u001b[90m 372 |\u001b[39m       \u001b[36mconst\u001b[39m bannerCount \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m banner\u001b[33m.\u001b[39mcount()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 373 |\u001b[39m       expect(mainCount \u001b[33m+\u001b[39m navCount \u001b[33m+\u001b[39m bannerCount)\u001b[33m.\u001b[39mtoBeGreaterThanOrEqual(\u001b[35m2\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 374 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 375 |\u001b[39m\n \u001b[90m 376 |\u001b[39m     test(\u001b[32m'Images have alt text'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 50,
+                                "line": 373
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m2\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  371 |       const navCount = await navigation.count();\n  372 |       const bannerCount = await banner.count();\n> 373 |       expect(mainCount + navCount + bannerCount).toBeGreaterThanOrEqual(2);\n      |                                                  ^\n  374 |     });\n  375 |\n  376 |     test('Images have alt text', async ({ page }) => {\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:373:50"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:29:59.297Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 50,
+                            "line": 373
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-2fe24cee0c37638ca611",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 365,
+                  "column": 9
+                },
+                {
+                  "title": "Images have alt text",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1510,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:00.954Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-4d9ec407c089399cede0",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "Semantic heading structure on homepage",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1596,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:02.920Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-526ca9dc9a51991b8160",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 388,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "16. Keyboard Navigation",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 398,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Skip link is first focusable element",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1672,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:04.773Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-1e00b0b3694dd80a5dcb",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 399,
+                  "column": 9
+                },
+                {
+                  "title": "Login form is keyboard navigable",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 934,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:06.709Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-581956ab230ff3ba4c16",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 409,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "17. Security",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 419,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "No console errors on public pages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1341,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:07.675Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-2aeb233364ddfddf519e",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 420,
+                  "column": 9
+                },
+                {
+                  "title": "No console errors on login page",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 898,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:431:29",
+                            "location": {
+                              "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                              "column": 29,
+                              "line": 431
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 429 |\u001b[39m       \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/login'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'networkidle'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 430 |\u001b[39m       \u001b[36mconst\u001b[39m errors \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m errorPromise\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 431 |\u001b[39m       expect(errors\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 432 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 433 |\u001b[39m\n \u001b[90m 434 |\u001b[39m     test(\u001b[32m'No sensitive data in dashboard page source'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                                "column": 29,
+                                "line": 431
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m14\u001b[39m\n\n  429 |       await page.goto('/login', { waitUntil: 'networkidle' });\n  430 |       const errors = await errorPromise;\n> 431 |       expect(errors.length).toBe(0);\n      |                             ^\n  432 |     });\n  433 |\n  434 |     test('No sensitive data in dashboard page source', async ({ page }) => {\n    at F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts:431:29"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:09.269Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\\test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\\video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\\error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\\trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\sprint-03-validation.spec.ts",
+                            "column": 29,
+                            "line": 431
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-cf3dd252f553f5253917",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 427,
+                  "column": 9
+                },
+                {
+                  "title": "No sensitive data in dashboard page source",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 965,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:11.056Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-252967241d722e805a16",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 434,
+                  "column": 9
+                },
+                {
+                  "title": "No sensitive data in admin page source",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1044,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:12.192Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-6281791eccbc51506012",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 443,
+                  "column": 9
+                },
+                {
+                  "title": "Auth pages do not expose PII in HTML source",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1040,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:13.271Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-14a35938471e912baced",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 452,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "18. Input Validation",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 459,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Login form validates empty submission",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1080,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:14.350Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-0bbbc34bcc74f1c9571f",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 460,
+                  "column": 9
+                },
+                {
+                  "title": "Login form rejects invalid phone number",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 961,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:15.474Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-33edc74530c5f49df217",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 472,
+                  "column": 9
+                },
+                {
+                  "title": "Forgot password page renders",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 913,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:16.466Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-ba2e7d4bfc1cbd6e4d83",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 487,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "19. Cross-Page Navigation Integrity",
+              "file": "sprint-03-validation.spec.ts",
+              "line": 493,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Public website routes are reachable",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1237,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:17.412Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-5743553fa88c347da607",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 494,
+                  "column": 9
+                },
+                {
+                  "title": "Dashboard sub-routes are reachable",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 776,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:18.701Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-44b3a51487ea72761cf4",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 502,
+                  "column": 9
+                },
+                {
+                  "title": "Local navigation links do not cause 404s",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 3368,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-07-18T04:30:19.508Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\\test-finished-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\\video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\\trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "5121ca76c0ef4c741af4-fb70d0348f4dbb5ab188",
+                  "file": "sprint-03-validation.spec.ts",
+                  "line": 520,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-18T04:28:42.142Z",
+    "duration": 101115.5,
+    "expected": 51,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}

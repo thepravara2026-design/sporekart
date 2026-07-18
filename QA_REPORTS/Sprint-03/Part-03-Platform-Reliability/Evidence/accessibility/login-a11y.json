@@ -1,0 +1,8 @@
+{
+  "route": "/login",
+  "violations": {
+    "violations": 3,
+    "passes": 20
+  },
+  "timestamp": "2026-07-18T05:46:08.574Z"
+}

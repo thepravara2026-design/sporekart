@@ -1,0 +1,60 @@
+{
+  "project": "SporeKart",
+  "gate": "Approval Gate D",
+  "reportType": "Release Condition Closure",
+  "generatedAt": "2026-07-18",
+  "branch": "bugfix/sprint-b-high-priority",
+  "baseCommit": "12429b0",
+  "deliverableCommit": "f19e795",
+  "conditions": [
+    {
+      "id": "C1",
+      "title": "Reconcile Selenium/Playwright specs to shipped architecture",
+      "status": "CLOSED",
+      "changedFiles": [
+        "shared-testing/tests/rbac-authorization.spec.ts",
+        "shared-testing/tests/protected-routes.spec.ts",
+        "shared-testing/tests/customer-journey-product-details.spec.ts"
+      ],
+      "evidence": "condition-c1-report.md",
+      "validation": "125/125 cross-browser pass; 50/50 baseline re-verify"
+    },
+    {
+      "id": "C2",
+      "title": "Parameterize PLAYWRIGHT_REPORT_DIR in CI workflow",
+      "status": "CLOSED",
+      "changedFiles": [".github/workflows/playwright-regression.yml"],
+      "evidence": "condition-c2-report.md",
+      "validation": "ci-validation.md; structural validator PASS"
+    },
+    {
+      "id": "C3",
+      "title": "Cross-browser matrix qualification",
+      "status": "CLOSED",
+      "changedFiles": [],
+      "evidence": "condition-c3-report.md",
+      "validation": "5/6 engines PASS locally (firefox via CI); playwright-validation.md"
+    },
+    {
+      "id": "C4",
+      "title": "Repository hygiene",
+      "status": "CLOSED",
+      "changedFiles": [],
+      "evidence": "condition-c4-report.md",
+      "validation": "production source clean; WIP stashed (preserved)"
+    }
+  ],
+  "metrics": {
+    "specsReconciled": 3,
+    "totalAssertionsValidatedLocal": 125,
+    "baselineReverifyAssertions": 50,
+    "browserEnginesLocal": 5,
+    "browserEnginesViaCI": 6,
+    "firefoxLocal": "host-launch limitation (Windows)",
+    "typeScriptBuild": "PASS",
+    "productionSourceModified": false,
+    "priorSprintWipDisposition": "stashed (stash@{0}, stash@{1}), preserved"
+  },
+  "recommendation": "READY FOR REGRESSION SPRINT D; STOP after closure per mandate",
+  "stopsHere": true
+}

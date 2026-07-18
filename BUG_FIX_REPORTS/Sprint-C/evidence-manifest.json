@@ -1,0 +1,83 @@
+{
+  "manifest": "Bug Fix Sprint C — Engineering Planning Report",
+  "generated": "2026-07-18T20:00:00Z",
+  "planning_board": "Enterprise Engineering Planning Board",
+  "roles_applied": [
+    "Principal Software Engineer",
+    "Principal QA Architect",
+    "Principal Product Manager",
+    "Principal Release Manager",
+    "Principal Security Engineer",
+    "Principal UX Engineer",
+    "Principal SDET",
+    "Principal Technical Program Manager"
+  ],
+  "source_phases": [
+    "QA Sprint 3 — Initial Sweep (60 tests, 7 reports)",
+    "QA Sprint 3 — Part 1 Customer Account (88 tests, 14 reports)",
+    "QA Sprint 3 — Part 2 Training Admin RBAC (221 tests, 16 reports)",
+    "QA Sprint 3 — Part 3 Platform Reliability (138 tests, 18 reports)"
+  ],
+  "source_total_tests": 507,
+  "source_total_reports": 55,
+  "consolidation": {
+    "total_raw_bug_entries": 32,
+    "unique_defects": 19,
+    "duplicates_removed": 13,
+    "p0_p1_blockers": 6,
+    "p2_medium_eligible": 9,
+    "p3_p4_deferred": 4
+  },
+  "sprint_c_backlog": {
+    "total_items": 9,
+    "total_engineering_hours": 99,
+    "total_qa_hours": 33,
+    "recommended_team": "2 FTE engineers + 0.5 FTE QA",
+    "recommended_duration_weeks": 3,
+    "waves": {
+      "wave_1_quick_wins": {
+        "items": ["BUG-C-001", "BUG-C-002", "BUG-C-003", "BUG-C-004", "BUG-C-007"],
+        "engineering_hours": 39,
+        "qa_hours": 13
+      },
+      "wave_2_infrastructure": {
+        "items": ["BUG-C-005", "BUG-C-006", "BUG-C-008"],
+        "engineering_hours": 48,
+        "qa_hours": 16
+      },
+      "wave_3_ci_quality": {
+        "items": ["BUG-C-009"],
+        "engineering_hours": 12,
+        "qa_hours": 4
+      }
+    }
+  },
+  "reclassified_items": [
+    { "original_id": "BUG-S3-HIGH-004", "new_id": "BUG-C-003", "from": "S2 High P2", "to": "S3 Medium P2", "reason": "Missing landmarks ≠ data loss; accessibility improvement fits Medium" },
+    { "original_id": "BUG-S3-P3-006", "new_id": "BUG-C-008", "from": "S4 Low P3", "to": "S3 Medium P2", "reason": "Missing 404 affects all users; error UX improvement" },
+    { "original_id": "BUG-S3-P3-008", "new_id": "BUG-C-009", "from": "S4 Low P3", "to": "S3 Medium P2", "reason": "Missing CI quality gates affect release confidence" }
+  ],
+  "deliverables": [
+    { "file": "engineering-backlog.md", "description": "Master Sprint C backlog with waves, complexity, and effort", "status": "generated" },
+    { "file": "consolidated-bug-register.md", "description": "Full deduplicated bug register with eligibility status", "status": "generated" },
+    { "file": "bug-deduplication-report.md", "description": "Cross-register deduplication analysis with disposition", "status": "generated" },
+    { "file": "priority-matrix.md", "description": "Value-effort matrix with ranked priority and wave assignment", "status": "generated" },
+    { "file": "dependency-analysis.md", "description": "Item dependency graph with shared component, auth, DB, and testing deps", "status": "generated" },
+    { "file": "root-cause-analysis.md", "description": "Root cause clusters with fix patterns and distribution analysis", "status": "generated" },
+    { "file": "risk-assessment.md", "description": "Item-level risk scoring with implementation, regression, and security dimensions", "status": "generated" },
+    { "file": "implementation-plan.md", "description": "Day-by-day execution plan with file paths, test strategies, and rollback plan", "status": "generated" },
+    { "file": "effort-estimation.md", "description": "Story points, engineering hours, QA hours with velocity and resource assumptions", "status": "generated" },
+    { "file": "quality-dashboard.md", "description": "Quality metrics, gate status, defect age, and coverage by domain", "status": "generated" },
+    { "file": "executive-summary.md", "description": "Concise executive overview with key decisions and go/no-go recommendation", "status": "generated" },
+    { "file": "readiness-scorecard.md", "description": "16/18 readiness score with conditions for go decision", "status": "generated" },
+    { "file": "sprint-c-work-items.md", "description": "Executable backlog with file paths, fix descriptions, and acceptance criteria", "status": "generated" },
+    { "file": "owner-assignment.md", "description": "Recommended owner assignments with workload distribution and notes", "status": "generated" },
+    { "file": "evidence-manifest.json", "description": "This file — complete evidence manifest", "status": "generated" }
+  ],
+  "final_decision": {
+    "verdict": "READY WITH OBSERVATIONS",
+    "reason": "All P2 items are triaged, estimated, and planned. 4 pre-conditions must be addressed before Day 1 (owner assignments, build crash parallel track, auth review, wave 3 stretch acknowledgment).",
+    "blockers": ["BUG-S3-CRIT-001 must be scheduled as parallel P1 track"],
+    "recommendation": "Authorize Sprint C to begin planning, with the understanding that BUG-S3-CRIT-001 fix is a hard dependency for verifying 4 of 9 items."
+  }
+}

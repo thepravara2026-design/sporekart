@@ -1,0 +1,15 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="4.948466000000001">
+<testsuite name="part-03-validation.spec.ts" timestamp="2026-07-18T05:48:45.201Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.177" errors="0">
+<testcase name="Phase 2 — Error Handling › Friendly error messages — no stack traces exposed" classname="part-03-validation.spec.ts" time="2.177">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

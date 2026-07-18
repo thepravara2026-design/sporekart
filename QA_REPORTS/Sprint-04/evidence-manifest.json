@@ -1,0 +1,139 @@
+{
+  "sprint": "QA Sprint 4",
+  "date": "2026-07-18",
+  "description": "Evidence manifest listing all artifacts generated during QA Sprint 4 validation. Includes screenshots, test reports, traces, and configuration files.",
+  "generatedBy": "Enterprise Principal QA Engineer",
+  "evidence": [
+    {
+      "id": "E-001",
+      "type": "screenshot",
+      "path": "debug-login-page.png",
+      "description": "Login page rendering after Input/Checkbox style prop fix (BUG-QA4-CRIT-001). Confirms page loads without React error #62."
+    },
+    {
+      "id": "E-002",
+      "type": "test-results",
+      "path": "html-report/",
+      "description": "Playwright HTML test report containing full test results for all ~520 tests. Open index.html in browser to view."
+    },
+    {
+      "id": "E-003",
+      "type": "trace",
+      "path": "traces/",
+      "description": "Playwright trace files (.zip) for failed tests. Load in Playwright Trace Viewer to inspect network, console, and DOM state at failure point."
+    },
+    {
+      "id": "E-004",
+      "type": "screenshot",
+      "path": "screenshots/otp-page-empty.png",
+      "description": "OTP page rendering without navigation state (BUG-QA4-HIGH-003). Shows blank content area where OTP input should appear."
+    },
+    {
+      "id": "E-005",
+      "type": "screenshot",
+      "path": "screenshots/input-checkbox-fixed.png",
+      "description": "Input and Checkbox components rendering correctly after style prop fix. Validates all input variants (text, email, password, checkbox)."
+    },
+    {
+      "id": "E-006",
+      "type": "screenshot",
+      "path": "screenshots/admin-console-error.png",
+      "description": "Admin console page showing React error boundary after unauthorized access. Demonstrates lack of route guard (BUG-S3-MED-006)."
+    },
+    {
+      "id": "E-007",
+      "type": "screenshot",
+      "path": "screenshots/dashboard-placeholder.png",
+      "description": "Dashboard page showing placeholder content ('Welcome to your dashboard') with empty KPI cards."
+    },
+    {
+      "id": "E-008",
+      "type": "screenshot",
+      "path": "screenshots/training-platform.png",
+      "description": "Training platform index page with course listing and placeholder content."
+    },
+    {
+      "id": "E-009",
+      "type": "screenshot",
+      "path": "screenshots/catalog-browsing.png",
+      "description": "Product catalog page with category filter active and product cards visible."
+    },
+    {
+      "id": "E-010",
+      "type": "test-results",
+      "path": "accessibility/axe-results.json",
+      "description": "axe-core accessibility scan results. JSON file with violations, passes, and incomplete items per page."
+    },
+    {
+      "id": "E-011",
+      "type": "test-results",
+      "path": "accessibility/keyboard-nav-results.txt",
+      "description": "Keyboard navigation test results. Logs Tab order, focus indicators, and Enter/Space activation for all pages."
+    },
+    {
+      "id": "E-012",
+      "type": "performance",
+      "path": "performance/build-time.txt",
+      "description": "Build time measurement: 11.89s for `vite build`. Includes duration, asset count, and bundle sizes."
+    },
+    {
+      "id": "E-013",
+      "type": "performance",
+      "path": "performance/page-load-times.json",
+      "description": "Page load time measurements for all routes captured via Playwright `waitForLoadState`. Times in milliseconds."
+    },
+    {
+      "id": "E-014",
+      "type": "test-results",
+      "path": "api-mocks/endpoint-validation.json",
+      "description": "Mock API endpoint validation results. HTTP status codes, response payload shapes, and latency for all mock endpoints."
+    },
+    {
+      "id": "E-015",
+      "type": "test-results",
+      "path": "cross-browser/comparison.csv",
+      "description": "Cross-browser test comparison (Chromium vs Firefox). Lists passing/failing tests per browser with failure reasons."
+    },
+    {
+      "id": "E-016",
+      "type": "screenshot",
+      "path": "screenshots/responsive-mobile-375.png",
+      "description": "Home page rendered at 375px viewport width. Verifies responsive layout and hamburger menu behavior."
+    },
+    {
+      "id": "E-017",
+      "type": "screenshot",
+      "path": "screenshots/responsive-tablet-768.png",
+      "description": "Home page rendered at 768px viewport width. Verifies tablet layout adaptation."
+    },
+    {
+      "id": "E-018",
+      "type": "screenshot",
+      "path": "screenshots/terms-gate.png",
+      "description": "Registration page with terms gate checkbox active. Confirms checkbox required before submission."
+    },
+    {
+      "id": "E-019",
+      "type": "config",
+      "path": "playwright.config.ts",
+      "description": "Playwright configuration used for Sprint 4 test execution. Includes browser projects, test match patterns, and reporter settings."
+    },
+    {
+      "id": "E-020",
+      "type": "report",
+      "path": "executive-summary.md",
+      "description": "QA Sprint 4 Executive Summary. High-level findings, pass rates, critical fixes, and recommendations."
+    }
+  ],
+  "totalEvidenceItems": 20,
+  "evidenceByType": {
+    "screenshot": 9,
+    "test-results": 4,
+    "trace": 1,
+    "performance": 2,
+    "config": 1,
+    "report": 1,
+    "cross-browser": 1,
+    "api-mocks": 1
+  }
+}

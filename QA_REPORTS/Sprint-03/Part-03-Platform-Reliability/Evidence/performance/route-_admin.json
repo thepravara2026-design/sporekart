@@ -1,0 +1,26 @@
+{
+  "route": "/admin",
+  "loadTime": 141,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 25.900000005960464,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 7.5,
+      "size": 7649
+    },
+    {
+      "name": "LoginPage-CcrOWyDo.js",
+      "duration": 9.799999982118607,
+      "size": 2774
+    },
+    {
+      "name": "authClient-D86OGCOl.js",
+      "duration": 10.700000017881393,
+      "size": 1713
+    }
+  ]
+}

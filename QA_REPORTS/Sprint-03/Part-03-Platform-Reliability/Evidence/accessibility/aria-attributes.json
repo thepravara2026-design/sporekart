@@ -1,0 +1,102 @@
+{
+  "ariaElements": [
+    {
+      "tag": "div",
+      "aria-label": "Announcement",
+      "role": "region"
+    },
+    {
+      "tag": "button",
+      "aria-label": "Dismiss announcement"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Dismiss announcement",
+      "role": "img"
+    },
+    {
+      "tag": "button",
+      "aria-label": "Open navigation menu",
+      "aria-expanded": "false"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Open navigation menu",
+      "role": "img"
+    },
+    {
+      "tag": "a",
+      "aria-label": "SporeKart home"
+    },
+    {
+      "tag": "nav",
+      "aria-label": "Primary"
+    },
+    {
+      "tag": "button",
+      "aria-label": "Search"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Search",
+      "role": "img"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Sign in",
+      "role": "img"
+    },
+    {
+      "tag": "div",
+      "aria-label": "Page scroll progress",
+      "aria-valuemin": "0",
+      "aria-valuemax": "100",
+      "aria-valuenow": "0",
+      "role": "progressbar"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Natural",
+      "role": "img"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Shop",
+      "role": "img"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Training",
+      "role": "img"
+    },
+    {
+      "tag": "ul",
+      "aria-label": "Why growers choose SporeKart"
+    },
+    {
+      "tag": "div",
+      "aria-label": "Product categories",
+      "role": "tablist"
+    },
+    {
+      "tag": "div",
+      "aria-label": "Spawn Seeds products",
+      "role": "tabpanel"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Live, expert-led sessions",
+      "role": "img"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Hands-on cultivation labs",
+      "role": "img"
+    },
+    {
+      "tag": "svg",
+      "aria-label": "Measurable yield outcomes",
+      "role": "img"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "route": "/dashboard",
+  "loadTime": 173,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 33.599999994039536,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 11.699999988079071,
+      "size": 7649
+    },
+    {
+      "name": "LoginPage-CcrOWyDo.js",
+      "duration": 22.099999994039536,
+      "size": 2774
+    },
+    {
+      "name": "authClient-D86OGCOl.js",
+      "duration": 21.69999998807907,
+      "size": 1713
+    }
+  ]
+}
