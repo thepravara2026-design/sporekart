@@ -1,4 +1,4 @@
-name: Playwright Regression — Sprint B RC2
+name: Playwright Regression
 
 on:
   push:
@@ -6,16 +6,57 @@ on:
   pull_request:
     branches: [ main, 'release/**' ]
   workflow_dispatch:
+    inputs:
+      report_dir:
+        description: >-
+          Artifact directory under QA_REPORTS to write this run's Playwright
+          reports to (html-report/results.json/junit.xml). Every sprint,
+          regression and RC MUST use a unique value to prevent report overwrite.
+        required: false
+        default: ''
+
+# Release Condition C2 — Artifact Isolation.
+#
+# PLAYWRIGHT_REPORT_DIR is parameterized so every sprint / regression / RC writes
+# to its own artifact directory under QA_REPORTS and no report is ever
+# overwritten. Resolution order:
+#   1. workflow_dispatch input `report_dir` (explicit per-run override), else
+#   2. a computed, run-unique default:
+#        Regression/<sanitized-ref>/<run_number>-<run_attempt>
+# The resolved value is exported once (compute-report-dir job) and consumed by
+# both the Playwright config (reporter output paths) and the artifact uploads.
 
 env:
   NODE_VERSION: '20'
-  PLAYWRIGHT_REPORT_DIR: Regression/Sprint-B/RC2
   BASE_URL: http://localhost:4173
 
 jobs:
+  compute-report-dir:
+    name: Resolve report directory
+    runs-on: ubuntu-latest
+    outputs:
+      report_dir: ${{ steps.resolve.outputs.report_dir }}
+    steps:
+      - name: Resolve PLAYWRIGHT_REPORT_DIR
+        id: resolve
+        run: |
+          if [ -n "${{ github.event.inputs.report_dir }}" ]; then
+            REPORT_DIR="${{ github.event.inputs.report_dir }}"
+          else
+            SAFE_REF=$(echo "${{ github.ref_name }}" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')
+            REPORT_DIR="Regression/${SAFE_REF}/${{ github.run_number }}-${{ github.run_attempt }}"
+          fi
+          echo "report_dir=${REPORT_DIR}" >> "$GITHUB_OUTPUT"
+          echo "Resolved PLAYWRIGHT_REPORT_DIR=${REPORT_DIR}"
+
   regression:
     name: Playwright E2E (${{ matrix.project }})
+    needs: compute-report-dir
     runs-on: ubuntu-latest
+    env:
+      # Isolate every matrix project into its own subdirectory so parallel
+      # browsers never overwrite each other's reports.
+      PLAYWRIGHT_REPORT_DIR: ${{ needs.compute-report-dir.outputs.report_dir }}/${{ matrix.project }}
     strategy:
       fail-fast: false
       matrix:
@@ -99,7 +140,7 @@ jobs:
         if: always()
         with:
           name: playwright-report-${{ matrix.project }}
-          path: QA_REPORTS/Regression/Sprint-B/RC2/html-report/
+          path: QA_REPORTS/${{ env.PLAYWRIGHT_REPORT_DIR }}/html-report/
           retention-days: 90
 
       - name: Upload JSON results
@@ -107,7 +148,15 @@ jobs:
         if: always()
         with:
           name: playwright-json-${{ matrix.project }}
-          path: QA_REPORTS/Regression/Sprint-B/RC2/results.json
+          path: QA_REPORTS/${{ env.PLAYWRIGHT_REPORT_DIR }}/results.json
+          retention-days: 90
+
+      - name: Upload JUnit results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-junit-${{ matrix.project }}
+          path: QA_REPORTS/${{ env.PLAYWRIGHT_REPORT_DIR }}/junit.xml
           retention-days: 90
 
       - name: Upload test traces

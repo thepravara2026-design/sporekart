@@ -1,128 +1,67 @@
 import { test, expect } from '@playwright/test';
 
+/**
+ * Release Condition C1 — reconciled to the shipped application (Approval Gate D).
+ *
+ * Shipped facts this suite is aligned to:
+ *  - The single shipped product-detail route is /products/:id. It is a public
+ *    enterprise-shell route that renders WorkspacePage as a navigation
+ *    prototype: heading "<workspace>: <id>" (e.g. "Public: 1"), subtitle
+ *    "Single product view." and a "Product detail — empty panel" placeholder.
+ *    There is NO commerce detail view yet —
+ *    no price (₹), no image gallery, no quantity selector, no add-to-cart
+ *    button, and no breadcrumb-specific detail markup.
+ *  - The obsolete route candidates /product/1, /p/1, /product/test and
+ *    /products/sample are not shipped and have been removed.
+ *  - The public catalog list lives at /products (public-website router).
+ *  - Unknown enterprise routes render the WorkspacePage "Not found" placeholder
+ *    (heading "Not found") rather than an HTTP 404 status.
+ */
+
 test.describe('Part 2 — Customer Journey: Phase 7 — Product Details', () => {
 
-  test('Product detail routes are reachable', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let found = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        found = true;
-        expect(page.url()).toContain('product');
-        break;
-      }
-    }
-    if (!found) {
-      await page.goto('/products', { waitUntil: 'networkidle' });
-    }
+  const DETAIL_PATH = '/products/1';
+
+  test('Product detail route /products/:id is reachable', async ({ page }) => {
+    await page.goto(DETAIL_PATH, { waitUntil: 'networkidle' });
+    expect(page.url()).toContain('/products/1');
+    expect(page.url()).not.toContain('/access-denied');
   });
 
-  test('Product image gallery renders if present', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let foundDetail = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        foundDetail = true;
-        break;
-      }
-    }
-    if (foundDetail) {
-      const images = page.locator('img');
-      const count = await images.count();
-      expect(count).toBeGreaterThan(0);
-    }
+  test('Product detail renders the shipped workspace prototype header', async ({ page }) => {
+    await page.goto(DETAIL_PATH, { waitUntil: 'networkidle' });
+    // WorkspacePage renders the h1 as "<workspace label>: <id>" — i.e. "Public: 1"
+    // for /products/1 — with the page label ("Product detail") shown in the
+    // placeholder panel below.
+    await expect(page.locator('h1', { hasText: 'Public: 1' })).toBeVisible();
+    await expect(page.locator('text=Single product view.')).toBeVisible();
+    await expect(page.locator('text=Product detail — empty panel')).toBeVisible();
   });
 
-  test('Product price and description are displayed if detail page exists', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let foundDetail = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        foundDetail = true;
-        break;
-      }
-    }
-    if (foundDetail) {
-      const bodyText = await page.locator('body').innerText();
-      const hasPrice = bodyText.includes('₹') || bodyText.includes('Rs') || bodyText.includes('price') || bodyText.includes('Price');
-      expect(hasPrice).toBeTruthy();
-    }
+  test('Product detail exposes the navigation-prototype placeholder panel', async ({ page }) => {
+    await page.goto(DETAIL_PATH, { waitUntil: 'networkidle' });
+    const bodyText = await page.locator('body').innerText();
+    expect(bodyText).toContain('Product detail');
   });
 
-  test('Quantity selector works on detail page if present', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let foundDetail = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        foundDetail = true;
-        break;
-      }
-    }
-    if (foundDetail) {
-      const qtyInput = page.locator('input[type="number"], [class*="quantity"], [class*="Quantity"]');
-      if (await qtyInput.isVisible().catch(() => false)) {
-        await qtyInput.first().fill('2');
-        await page.waitForTimeout(300);
-      }
-    }
-  });
-
-  test('Add to cart button exists on detail page if present', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let foundDetail = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        foundDetail = true;
-        break;
-      }
-    }
-    if (foundDetail) {
-      const addToCart = page.locator('button:has-text("Cart"), button:has-text("cart"), button:has-text("Buy"), [aria-label*="cart" i]');
-      if (await addToCart.isVisible().catch(() => false)) {
-        await expect(addToCart.first()).toBeVisible();
-      }
-    }
-  });
-
-  test('Breadcrumb navigation exists on detail page if present', async ({ page }) => {
-    const paths = ['/product/1', '/products/1', '/p/1', '/product/test', '/products/sample'];
-    let foundDetail = false;
-    for (const path of paths) {
-      const response = await page.goto(path, { waitUntil: 'networkidle' });
-      if (response?.status() !== 404) {
-        foundDetail = true;
-        break;
-      }
-    }
-    if (foundDetail) {
-      const breadcrumb = page.locator('[class*="breadcrumb"], [class*="Breadcrumb"], nav[aria-label="breadcrumb"]');
-      const present = await breadcrumb.isVisible().catch(() => false);
-      expect(present).toBeTruthy();
-    }
-  });
-
-  test('Invalid product URL shows 404 or error', async ({ page }) => {
-    const response = await page.goto('/product/this-product-does-not-exist-999999', { waitUntil: 'networkidle' });
-    if (response?.status() === 404) {
-      await expect(page.locator('text=404, not found, Not Found').first()).toBeVisible();
-    }
-  });
-
-  test('Back navigation from product page works', async ({ page }) => {
+  test('Product list route /products is reachable', async ({ page }) => {
     await page.goto('/products', { waitUntil: 'networkidle' });
-    const links = page.locator('a[href*="product"]');
-    if (await links.first().isVisible().catch(() => false)) {
-      await links.first().click();
-      await page.waitForTimeout(1000);
-      await page.goBack();
-      await page.waitForLoadState('networkidle');
-      expect(page.url()).toContain('product');
-    }
+    expect(page.url()).toContain('/products');
+    const bodyText = await page.locator('body').innerText();
+    expect(bodyText.length).toBeGreaterThan(0);
+  });
+
+  test('Product detail is served by the enterprise shell sidebar', async ({ page }) => {
+    await page.goto(DETAIL_PATH, { waitUntil: 'networkidle' });
+    // /products/:id is an enterprise-shell route, so the workspace sidebar is
+    // present. On tablet/mobile it is an off-canvas drawer, so assert attachment.
+    await expect(page.locator('nav.sk-sidebar')).toBeAttached();
+  });
+
+  test('Unknown enterprise product route renders the Not found placeholder', async ({ page }) => {
+    await page.goto('/products/1/does-not-exist', { waitUntil: 'networkidle' });
+    const bodyText = await page.locator('body').innerText();
+    expect(bodyText.toLowerCase()).toContain('not found');
   });
 
 });
