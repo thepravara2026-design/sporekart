@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const reportDir = process.env.PLAYWRIGHT_REPORT_DIR || 'Sprint-01/Playwright';
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -7,9 +9,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 1,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ['html', { outputFolder: '../QA_REPORTS/Sprint-01/Playwright/html-report' }],
-    ['json', { outputFile: '../QA_REPORTS/Sprint-01/Playwright/results.json' }],
-    ['junit', { outputFile: '../QA_REPORTS/Sprint-01/Playwright/junit.xml' }],
+    ['html', { outputFolder: `../QA_REPORTS/${reportDir}/html-report` }],
+    ['json', { outputFile: `../QA_REPORTS/${reportDir}/results.json` }],
+    ['junit', { outputFile: `../QA_REPORTS/${reportDir}/junit.xml` }],
     ['list'],
   ],
   use: {

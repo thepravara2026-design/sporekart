@@ -1,0 +1,138 @@
+name: Playwright Regression — Sprint B RC2
+
+on:
+  push:
+    branches: [ 'release/**' ]
+  pull_request:
+    branches: [ main, 'release/**' ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  PLAYWRIGHT_REPORT_DIR: Regression/Sprint-B/RC2
+  BASE_URL: http://localhost:4173
+
+jobs:
+  regression:
+    name: Playwright E2E (${{ matrix.project }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - chromium
+          - firefox
+          - webkit
+          - mobile-chrome
+          - mobile-safari
+          - tablet
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Cache npm (frontend/web-app)
+        uses: actions/cache@v4
+        with:
+          path: frontend/web-app/node_modules
+          key: ${{ runner.os }}-node-webapp-${{ hashFiles('frontend/web-app/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-webapp-
+
+      - name: Cache npm (shared-testing)
+        uses: actions/cache@v4
+        with:
+          path: shared-testing/node_modules
+          key: ${{ runner.os }}-node-shared-testing-${{ hashFiles('shared-testing/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-shared-testing-
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend/web-app
+
+      - name: Build application
+        run: npm run build
+        working-directory: frontend/web-app
+
+      - name: Start application (preview)
+        run: |
+          npx vite preview --port 4173 &
+          echo "PID=$!"
+        working-directory: frontend/web-app
+
+      - name: Wait for application health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:4173 | grep -q 200; then
+              echo "Application is healthy"
+              exit 0
+            fi
+            echo "Waiting for application... attempt $i"
+            sleep 2
+          done
+          echo "Application failed to start"
+          exit 1
+
+      - name: Install shared-testing dependencies
+        run: npm ci
+        working-directory: shared-testing
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+        working-directory: shared-testing
+
+      - name: Run Playwright tests (${{ matrix.project }})
+        run: npx playwright test --project=${{ matrix.project }}
+        working-directory: shared-testing
+        env:
+          BASE_URL: ${{ env.BASE_URL }}
+          PLAYWRIGHT_REPORT_DIR: ${{ env.PLAYWRIGHT_REPORT_DIR }}
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: QA_REPORTS/Regression/Sprint-B/RC2/html-report/
+          retention-days: 90
+
+      - name: Upload JSON results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-json-${{ matrix.project }}
+          path: QA_REPORTS/Regression/Sprint-B/RC2/results.json
+          retention-days: 90
+
+      - name: Upload test traces
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces-${{ matrix.project }}
+          path: |
+            shared-testing/test-results/
+          retention-days: 30
+
+      - name: Upload test videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-videos-${{ matrix.project }}
+          path: |
+            shared-testing/test-results/**/*.webm
+          retention-days: 30
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-screenshots-${{ matrix.project }}
+          path: |
+            shared-testing/test-results/**/*.png
+          retention-days: 30
