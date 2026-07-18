@@ -1,0 +1,56 @@
+{
+  "report": "SporeKart QA Sprint 2 — Part 2: Customer Journey Dashboard",
+  "date": "2026-07-17",
+  "rc": "v1.0.0-rc1",
+  "mode": "mock",
+  "summary": {
+    "totalTests": 200,
+    "passed": 136,
+    "failed": 13,
+    "flaky": 11,
+    "passRate": 75,
+    "screenshots": 197,
+    "videos": 186,
+    "traces": 198,
+    "totalEvidence": 581
+  },
+  "journeyCompletion": {
+    "landingPage": { "status": "implemented", "score": 95 },
+    "navigation": { "status": "implemented", "score": 90 },
+    "categoryBrowsing": { "status": "partial", "score": 30 },
+    "search": { "status": "placeholder", "score": 10 },
+    "filters": { "status": "missing", "score": 0 },
+    "sorting": { "status": "missing", "score": 0 },
+    "productListing": { "status": "missing", "score": 0 },
+    "productDetails": { "status": "missing", "score": 0 },
+    "quantitySelection": { "status": "missing", "score": 0 },
+    "cart": { "status": "missing", "score": 0 },
+    "cartUpdate": { "status": "missing", "score": 0 },
+    "cartPersistence": { "status": "missing", "score": 0 },
+    "proceedToCheckout": { "status": "missing", "score": 0 }
+  },
+  "scores": {
+    "customerJourneyHealth": 25,
+    "productCatalog": 15,
+    "searchAndFilter": 5,
+    "cartReliability": 0,
+    "browserCompatibility": 40,
+    "accessibility": 65,
+    "performance": 95,
+    "overallReadiness": 42
+  },
+  "bugs": {
+    "critical": 4,
+    "high": 5,
+    "medium": 4,
+    "low": 2,
+    "total": 15
+  },
+  "recommendation": "NO-GO",
+  "gatingIssues": [
+    "No product catalog/listing page",
+    "No product detail page",
+    "No shopping cart",
+    "Firefox complete failure"
+  ]
+}

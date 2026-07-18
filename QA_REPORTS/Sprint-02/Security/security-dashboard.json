@@ -1,0 +1,96 @@
+{
+  "dashboard_title": "SporeKart Enterprise Security Dashboard",
+  "report_date": "2026-07-17",
+  "overall_status": "FAIL",
+  "security_score": 25,
+
+  "category_scores": {
+    "broken_access_control": 10,
+    "cryptographic_failures": 40,
+    "injection_prevention": 85,
+    "secure_design": 15,
+    "security_misconfiguration": 20,
+    "vulnerable_components": 70,
+    "authentication": 5,
+    "software_integrity": 80,
+    "logging_monitoring": 30,
+    "ssrf_prevention": 90
+  },
+
+  "authentication_score": 5,
+  "authorization_score": 10,
+  "api_security_score": 15,
+  "client_security_score": 55,
+  "dependency_score": 70,
+  "security_headers_score": 0,
+
+  "critical_findings": 4,
+  "high_findings": 8,
+  "medium_findings": 7,
+  "low_findings": 3,
+
+  "security_header_status": {
+    "content_security_policy": "NOT_CONFIGURED",
+    "x_frame_options": "NOT_CONFIGURED",
+    "x_content_type_options": "NOT_CONFIGURED",
+    "strict_transport_security": "NOT_CONFIGURED",
+    "x_xss_protection": "NOT_CONFIGURED",
+    "referrer_policy": "NOT_CONFIGURED",
+    "permissions_policy": "NOT_CONFIGURED",
+    "cache_control": "NOT_CONFIGURED"
+  },
+
+  "vulnerability_severity_distribution": {
+    "critical": 4,
+    "high": 8,
+    "medium": 7,
+    "low": 3,
+    "total": 22
+  },
+
+  "vulnerability_category_distribution": {
+    "broken_access_control": 4,
+    "authentication": 3,
+    "api_security": 5,
+    "security_misconfiguration": 3,
+    "client_security": 2,
+    "session_management": 2,
+    "logging": 2,
+    "dependency": 1
+  },
+
+  "stop_conditions_triggered": {
+    "authentication_bypass": true,
+    "authorization_bypass": true,
+    "critical_idor": true,
+    "privilege_escalation": true,
+    "critical_incident_report_generated": true
+  },
+
+  "quality_gates": {
+    "owasp_assessment_completed": true,
+    "authentication_security_validated": true,
+    "authorization_security_validated": true,
+    "api_security_validated": true,
+    "client_storage_inspected": true,
+    "security_headers_reviewed": true,
+    "dependency_review_completed": true,
+    "reports_generated": true,
+    "evidence_collected": false,
+    "repository_remains_clean": true,
+    "gates_passed": 8,
+    "gates_failed": 1
+  },
+
+  "top_risks": [
+    {"id": "SEC-001", "title": "No route guards on any protected route", "severity": "CRITICAL", "score": 9.5},
+    {"id": "SEC-003", "title": "Authentication is entirely mock-based", "severity": "CRITICAL", "score": 9.5},
+    {"id": "SEC-004", "title": "82.6% of API endpoints have no authentication", "severity": "CRITICAL", "score": 9.0},
+    {"id": "SEC-002", "title": "Default role is administrator — no auth enforcement", "severity": "CRITICAL", "score": 9.0},
+    {"id": "SEC-009", "title": "IDOR vulnerability on all controllers", "severity": "HIGH", "score": 7.5},
+    {"id": "SEC-005", "title": "Role can be changed via UI dropdown", "severity": "HIGH", "score": 7.0},
+    {"id": "SEC-006", "title": "No CSP header configured", "severity": "HIGH", "score": 7.0}
+  ],
+
+  "remediation_effort_estimate_days": 45
+}

@@ -1,0 +1,99 @@
+{
+  "report": "SporeKart QA Sprint 2 — Part 1: Authentication Validation Dashboard",
+  "date": "2026-07-17",
+  "rc": "v1.0.0-rc1",
+  "mode": "mock",
+  "summary": {
+    "totalTests": 131,
+    "passed": 113,
+    "failed": 7,
+    "flaky": 11,
+    "passRate": 86.3
+  },
+  "byPart": {
+    "part1_auth_validation": {
+      "label": "Part 1 — Auth Validation",
+      "runs": 55,
+      "passed": 40,
+      "failed": 11,
+      "rate": 72.7,
+      "byBrowser": {
+        "chromium": { "passed": 10, "failed": 0, "flaky": 0, "rate": 100 },
+        "firefox": { "passed": 0, "failed": 11, "flaky": 0, "rate": 0 },
+        "webkit": { "passed": 10, "failed": 0, "flaky": 1, "rate": 90.9 },
+        "mobile-chrome": { "passed": 11, "failed": 0, "flaky": 0, "rate": 100 },
+        "mobile-safari": { "passed": 9, "failed": 0, "flaky": 2, "rate": 81.8 }
+      }
+    },
+    "part2_session_management": {
+      "label": "Part 2 — Session Management",
+      "runs": 46,
+      "passed": 40,
+      "failed": 0,
+      "flaky": 4,
+      "rate": 87.0,
+      "byBrowser": {
+        "chromium": { "passed": 19, "failed": 0, "flaky": 4, "rate": 82.6 },
+        "webkit": { "passed": 21, "failed": 0, "flaky": 0, "rate": 100 }
+      }
+    },
+    "part3_rbac_authorization": {
+      "label": "Part 3 — RBAC / Authorization",
+      "runs": 19,
+      "passed": 19,
+      "failed": 0,
+      "flaky": 0,
+      "rate": 100
+    },
+    "part8_accessibility": {
+      "label": "Part 8 — Accessibility",
+      "runs": 3,
+      "passed": 0,
+      "failed": 3,
+      "flaky": 0,
+      "rate": 0
+    },
+    "part9_performance": {
+      "label": "Part 9 — Performance",
+      "runs": 2,
+      "passed": 2,
+      "failed": 0,
+      "flaky": 0,
+      "rate": 100
+    },
+    "part10_security": {
+      "label": "Part 10 — Security Validation",
+      "runs": 2,
+      "passed": 1,
+      "failed": 1,
+      "flaky": 0,
+      "rate": 50
+    }
+  },
+  "bugs": {
+    "critical": [
+      { "id": "BUG-AUTH-001", "description": "Firefox: Complete test failure — all auth tests time out", "browser": "firefox", "severity": "critical" }
+    ],
+    "high": [
+      { "id": "BUG-AUTH-002", "description": "LoginPage: 2 WCAG critical/serious violations", "browser": "chromium", "severity": "high" },
+      { "id": "BUG-AUTH-003", "description": "RegisterPage: 1 WCAG critical/serious violation", "browser": "chromium", "severity": "high" },
+      { "id": "BUG-AUTH-004", "description": "Keyboard Tab order: checkbox not focusable", "browser": "chromium", "severity": "high" },
+      { "id": "BUG-AUTH-005", "description": "Unauthorized workspace access prevention test fails — role switcher not found", "browser": "chromium", "severity": "high" }
+    ],
+    "medium": [
+      { "id": "BUG-AUTH-006", "description": "OTP input fill timeout flaky on Mobile Safari", "browser": "mobile-safari", "severity": "medium" },
+      { "id": "BUG-AUTH-007", "description": "OTP input fill timeout flaky on WebKit", "browser": "webkit", "severity": "medium" },
+      { "id": "BUG-AUTH-008", "description": "Dashboard networkidle timeout on Chromium", "browser": "chromium", "severity": "medium" }
+    ],
+    "low": [
+      { "id": "BUG-AUTH-009", "description": "ENOENT artifact cleanup failures on Chromium (3 instances)", "browser": "chromium", "severity": "low" }
+    ]
+  },
+  "evidence": {
+    "screenshots": 40,
+    "videos": 54,
+    "traces": 52,
+    "totalFiles": 146
+  },
+  "readinessScore": 43
+}

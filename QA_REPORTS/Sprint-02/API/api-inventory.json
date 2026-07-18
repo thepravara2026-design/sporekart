@@ -1,0 +1,251 @@
+{
+  "report": {
+    "id": "SK-API-INV-002-005",
+    "title": "API Inventory Report",
+    "sprint": "QA Sprint 2 – Part 5",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "INTERNAL"
+  },
+  "summary": {
+    "totalBackendEndpoints": 155,
+    "totalFrontendAPICalls": 87,
+    "totalUniqueEndpoints": 165,
+    "servicesWithControllers": 10,
+    "servicesWithoutControllers": 6,
+    "endpointsWithAuth": 7,
+    "endpointsWithRoleCheck": 20,
+    "endpointsPermitAll": 128
+  },
+  "services": [
+    {
+      "id": "identity-service",
+      "port": 8081,
+      "status": "ACTIVE",
+      "basePath": "/auth, /users",
+      "controllers": ["AuthController", "UserController"],
+      "endpointCount": 4,
+      "security": "HTTP Basic (except actuator/swagger)",
+      "endpoints": [
+        { "method": "POST", "path": "/auth/register", "auth": "HTTP Basic", "roles": "any authenticated" },
+        { "method": "POST", "path": "/auth/login", "auth": "HTTP Basic", "roles": "any authenticated" },
+        { "method": "GET", "path": "/users/me", "auth": "HTTP Basic", "roles": "any authenticated" },
+        { "method": "GET", "path": "/users/{id}", "auth": "HTTP Basic", "roles": "any authenticated" }
+      ],
+      "missingEndpoints": ["/auth/logout", "/auth/refresh", "/auth/otp/send", "/auth/otp/verify", "/auth/social/*", "/roles", "/permissions"]
+    },
+    {
+      "id": "catalog-service",
+      "port": 8082,
+      "status": "ACTIVE",
+      "basePath": "/products",
+      "controllers": ["ProductController"],
+      "endpointCount": 2,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "GET", "path": "/products", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/products", "auth": "none", "roles": "none" }
+      ],
+      "missingEndpoints": ["/products/{id}", "/products/{id}", "/products/search", "/categories", "/categories/{id}", "/products/{id}/inventory"]
+    },
+    {
+      "id": "order-service",
+      "port": 8084,
+      "status": "ACTIVE",
+      "basePath": "/orders",
+      "controllers": ["OrderController"],
+      "endpointCount": 4,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "POST", "path": "/orders", "auth": "none", "roles": "none" },
+        { "method": "GET", "path": "/orders", "auth": "none", "roles": "none" },
+        { "method": "GET", "path": "/orders/{id}", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/orders/{id}/cancel", "auth": "none", "roles": "none" }
+      ],
+      "missingEndpoints": ["/orders/{id}/items", "/orders/{id}/status", "/orders/{id}/payment"]
+    },
+    {
+      "id": "payment-service",
+      "port": 8085,
+      "status": "ACTIVE",
+      "basePath": "/payments",
+      "controllers": ["PaymentController"],
+      "endpointCount": 3,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "POST", "path": "/payments/create-order", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/payments/{paymentId}/capture", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/payments/{paymentId}/fail", "auth": "none", "roles": "none" }
+      ],
+      "missingEndpoints": ["/payments/{id}", "/payments/history", "/payments/refund"]
+    },
+    {
+      "id": "notification-service",
+      "port": 8086,
+      "status": "ACTIVE",
+      "basePath": "/notifications",
+      "controllers": ["NotificationController"],
+      "endpointCount": 2,
+      "security": "PermitAll",
+      "endpoints": [
+        { "method": "GET", "path": "/notifications", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/notifications", "auth": "none", "roles": "none" }
+      ],
+      "missingEndpoints": ["/notifications/{id}", "/notifications/{id}/read", "/notifications/read-all"]
+    },
+    {
+      "id": "inventory-service",
+      "port": 8087,
+      "status": "ACTIVE",
+      "basePath": "/inventory",
+      "controllers": ["InventoryController"],
+      "endpointCount": 1,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "GET", "path": "/inventory/{productId}", "auth": "none", "roles": "none" }
+      ],
+      "missingEndpoints": ["/inventory", "/inventory/{id}/update", "/inventory/reserve", "/inventory/release"]
+    },
+    {
+      "id": "fulfillment-service",
+      "port": 8088,
+      "status": "ACTIVE",
+      "basePath": "/shipments",
+      "controllers": ["ShipmentController"],
+      "endpointCount": 5,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "POST", "path": "/shipments", "auth": "none", "roles": "none" },
+        { "method": "GET", "path": "/shipments", "auth": "none", "roles": "none" },
+        { "method": "GET", "path": "/shipments/{id}", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/shipments/{id}/cancel", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/shipments/{id}/pickup", "auth": "none", "roles": "none" }
+      ]
+    },
+    {
+      "id": "training-service",
+      "port": 8096,
+      "status": "ACTIVE",
+      "basePath": "/trainings",
+      "controllers": ["TrainingController"],
+      "endpointCount": 3,
+      "security": "PermitAll (no SecurityConfig)",
+      "endpoints": [
+        { "method": "GET", "path": "/trainings", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/trainings", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/trainings/{id}/publish", "auth": "none", "roles": "none" }
+      ]
+    },
+    {
+      "id": "admin-service",
+      "port": 8095,
+      "status": "ACTIVE",
+      "basePath": "/admin",
+      "controllers": ["AdminController"],
+      "endpointCount": 4,
+      "security": "PermitAll",
+      "endpoints": [
+        { "method": "GET", "path": "/admin/dashboard", "auth": "none", "roles": "none" },
+        { "method": "GET", "path": "/admin/support", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/admin/support", "auth": "none", "roles": "none" },
+        { "method": "POST", "path": "/admin/approvals", "auth": "none", "roles": "none" }
+      ]
+    },
+    {
+      "id": "analytics-service",
+      "port": 8090,
+      "status": "ACTIVE",
+      "basePath": "/analytics, /reports, /seo",
+      "controllers": ["AnalyticsController", "ReportController", "SeoController"],
+      "endpointCount": 15,
+      "security": "PermitAll",
+      "endpoints": [
+        { "method": "GET", "path": "/analytics/dashboard", "auth": "none" },
+        { "method": "GET", "path": "/analytics/sales", "auth": "none" },
+        { "method": "GET", "path": "/analytics/customers", "auth": "none" },
+        { "method": "GET", "path": "/analytics/inventory", "auth": "none" },
+        { "method": "GET", "path": "/analytics/payments", "auth": "none" },
+        { "method": "GET", "path": "/analytics/shipments", "auth": "none" },
+        { "method": "GET", "path": "/analytics/trainings", "auth": "none" },
+        { "method": "GET", "path": "/analytics/growers", "auth": "none" },
+        { "method": "GET", "path": "/analytics/widgets", "auth": "none" },
+        { "method": "POST", "path": "/analytics/widgets", "auth": "none" },
+        { "method": "GET", "path": "/reports", "auth": "none" },
+        { "method": "POST", "path": "/reports/export", "auth": "none" },
+        { "method": "GET", "path": "/seo/sitemap", "auth": "none" },
+        { "method": "GET", "path": "/seo/robots", "auth": "none" },
+        { "method": "GET", "path": "/seo/metadata", "auth": "none" },
+        { "method": "POST", "path": "/seo/metadata", "auth": "none" }
+      ]
+    },
+    {
+      "id": "ai-service",
+      "port": 8088,
+      "status": "ACTIVE (largest service)",
+      "controllers": "23 controllers (Ai, Gateway, B2b, Finance, Marketplace, Mobile, Procurement, ERP, Operations, Provider, Supplier, Warehouse, GST, Workflow, Decision, Compliance, Prompt, Risk, Conversation, Content, Assistant, Governance, Policy, Approval, EventCatalog)",
+      "endpointCount": 112,
+      "security": "Mixed — most PermitAll, some with Role checks",
+      "roleProtectedEndpoints": [
+        { "path": "/procurement/*", "roles": ["PROCUREMENT_MANAGER", "ADMINISTRATOR"] },
+        { "path": "/suppliers/*", "roles": ["SUPPLIER_MANAGER", "OPERATIONS_MANAGER", "ADMINISTRATOR"] },
+        { "path": "/warehouses/*", "roles": ["WAREHOUSE_MANAGER", "OPERATIONS_MANAGER", "ADMINISTRATOR"] },
+        { "path": "/erp/*", "roles": ["OPERATIONS_MANAGER", "ADMINISTRATOR"] },
+        { "path": "/operations/*", "roles": ["OPERATIONS_MANAGER", "ADMINISTRATOR"] }
+      ]
+    },
+    {
+      "id": "cart-service",
+      "port": 8083,
+      "status": "PLACEHOLDER — no REST controllers",
+      "endpointCount": 0,
+      "missingEndpoints": ["/cart", "/cart/items", "/cart/items/{id}", "/cart/clear", "/cart/merge"]
+    },
+    {
+      "id": "content-service",
+      "port": 8092,
+      "status": "PLACEHOLDER — no REST controllers",
+      "endpointCount": 0
+    },
+    {
+      "id": "risk-service",
+      "port": 8093,
+      "status": "PLACEHOLDER — no REST controllers",
+      "endpointCount": 0
+    },
+    {
+      "id": "search-service",
+      "port": 8089,
+      "status": "PLACEHOLDER — no REST controllers",
+      "endpointCount": 0
+    },
+    {
+      "id": "support-service",
+      "port": 8094,
+      "status": "PLACEHOLDER — no REST controllers",
+      "endpointCount": 0
+    }
+  ],
+  "frontendAPICalls": {
+    "adminControlPlane": { "basePath": "/api/v1/admin/*", "endpoints": 8, "auth": "none" },
+    "riskDashboard": { "basePath": "/api/v1/risk/*", "endpoints": 5, "auth": "none" },
+    "governanceDashboard": { "basePath": "/api/v1/governance/*", "endpoints": 7, "auth": "none" },
+    "complianceDashboard": { "basePath": "/api/v1/compliance/*", "endpoints": 5, "auth": "none" },
+    "approvalDashboard": { "basePath": "/api/v1/approvals/*", "endpoints": 6, "auth": "none" },
+    "automationDashboard": { "basePath": "/api/v1/automation/*", "endpoints": 5, "auth": "none" },
+    "registryCenter": { "basePath": "/api/v1/*", "endpoints": 12, "auth": "none" },
+    "mobileApp": { "basePath": "/auth/*, /mobile/*", "endpoints": 9, "auth": "Bearer token" },
+    "webApp": { "basePath": "mock services (in-memory)", "endpoints": 0, "auth": "N/A (mock)" }
+  },
+  "missingCriticalEndpoints": [
+    { "service": "identity-service", "endpoints": ["/auth/logout", "/auth/refresh", "/auth/otp/send", "/auth/otp/verify", "/auth/social/*"] },
+    { "service": "catalog-service", "endpoints": ["/products/{id}", "PUT /products/{id}", "DELETE /products/{id}", "/products/search"] },
+    { "service": "cart-service", "endpoints": ["ALL — entire cart service is a placeholder"] },
+    { "service": "order-service", "endpoints": ["/orders/{id}/status", "/orders/{id}/items"] },
+    { "service": "payment-service", "endpoints": ["/payments/{id}", "/payments/history"] },
+    { "service": "inventory-service", "endpoints": ["/inventory (list)", "/inventory/update", "/inventory/reserve"] },
+    { "service": "notification-service", "endpoints": ["/notifications/{id}/read", "/notifications/read-all"] },
+    { "service": "content-service", "endpoints": ["ALL — entire content service is a placeholder"] },
+    { "service": "search-service", "endpoints": ["ALL — entire search service is a placeholder"] },
+    { "service": "support-service", "endpoints": ["ALL — entire support service is a placeholder"] }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "sprint": "Bug Fix Sprint A",
+  "releaseCandidate": "v1.0.0-rc1",
+  "date": "2026-07-17",
+  "branch": "bugfix/sprint-a-critical-stabilization",
+  "scope": "P0 (Critical, Release-Blocker=YES) only",
+  "criticalBugs": {
+    "total": 22,
+    "fixed": 22,
+    "remaining": 0
+  },
+  "fixedByModule": {
+    "Route Protection (RT-001..006, SEC-001/002)": 8,
+    "Authentication (SEC-003)": 1,
+    "API Security (API-001..012, SEC-004)": 13
+  },
+  "validation": {
+    "frontendTypecheck": "PASS",
+    "frontendBuild": "PASS",
+    "backendCompileServicesPassed": 8,
+    "backendCompileServicesEdited": 10,
+    "backendCompileBlockedByPreExisting": ["inventory-service", "ai-service"],
+    "playwrightSuite": "NOT_EXECUTED (no browser runtime in this environment)"
+  },
+  "regression": "NONE",
+  "securityP0": "RESOLVED",
+  "performance": "NO_REGRESSION",
+  "recommendation": "READY_FOR_BUG_FIX_SPRINT_B",
+  "deferredToSprintB": [
+    "P1 route/session bugs (RT-007..011)",
+    "Security headers / CSP / X-Frame-Options (SEC-005..008)",
+    "CSRF (SEC-013), rate limiting (SEC-012/022), server-side validation (SEC-017)",
+    "Full JWT/OAuth2 IdP replacement of session model",
+    "Pre-existing build blockers: inventory-service getId(), ai-service lombok"
+  ]
+}

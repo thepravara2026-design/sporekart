@@ -1,0 +1,84 @@
+{
+  "dashboard": {
+    "id": "SK-API-DASH-002-005",
+    "title": "API Validation Dashboard",
+    "sprint": "QA Sprint 2 – Part 5",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "status": "FAIL",
+    "readinessScore": 32
+  },
+  "metrics": {
+    "totalBackendEndpoints": 155,
+    "totalFrontendAPICalls": 87,
+    "servicesWithControllers": 10,
+    "servicesPlaceholder": 6,
+    "authenticatedEndpoints": 7,
+    "permitAllEndpoints": 128,
+    "roleProtectedEndpoints": 20,
+    "contractViolations": 13,
+    "criticalViolations": 9,
+    "highViolations": 7,
+    "openAPISpecsFound": 0,
+    "standardizedErrors": 1
+  },
+  "serviceBreakdown": {
+    "identity-service": { "endpoints": 4, "auth": "HTTP Basic", "contract": "PARTIAL", "missing": 6 },
+    "catalog-service": { "endpoints": 2, "auth": "none", "contract": "SKELETON", "missing": 6 },
+    "cart-service": { "endpoints": 0, "auth": "N/A", "contract": "MISSING", "missing": 5 },
+    "order-service": { "endpoints": 4, "auth": "none", "contract": "PARTIAL", "missing": 3 },
+    "payment-service": { "endpoints": 3, "auth": "none", "contract": "BASIC", "missing": 3 },
+    "notification-service": { "endpoints": 2, "auth": "none", "contract": "BASIC", "missing": 3 },
+    "inventory-service": { "endpoints": 1, "auth": "none", "contract": "SKELETON", "missing": 3 },
+    "fulfillment-service": { "endpoints": 5, "auth": "none", "contract": "GOOD", "missing": 0 },
+    "training-service": { "endpoints": 3, "auth": "none", "contract": "BASIC", "missing": 3 },
+    "admin-service": { "endpoints": 4, "auth": "none", "contract": "BASIC", "missing": 4 },
+    "analytics-service": { "endpoints": 16, "auth": "none", "contract": "GOOD", "missing": 0 },
+    "ai-service": { "endpoints": 112, "auth": "mixed", "contract": "COMPREHENSIVE", "missing": 0 },
+    "content-service": { "endpoints": 0, "auth": "N/A", "contract": "MISSING", "missing": "ALL" },
+    "search-service": { "endpoints": 0, "auth": "N/A", "contract": "MISSING", "missing": "ALL" },
+    "support-service": { "endpoints": 0, "auth": "N/A", "contract": "MISSING", "missing": "ALL" },
+    "risk-service": { "endpoints": 0, "auth": "N/A", "contract": "MISSING", "missing": "ALL" }
+  },
+  "httpMethodUsage": {
+    "GET": 60,
+    "POST": 75,
+    "PUT": 15,
+    "DELETE": 15,
+    "PATCH": 0,
+    "OPTIONS": 0,
+    "HEAD": 0,
+    "recommendation": "Add PATCH for partial updates, configure OPTIONS for CORS"
+  },
+  "statusCodeCoverage": {
+    "used": ["200", "201", "204", "400", "401", "403", "404", "500"],
+    "missing": ["409", "422", "429", "502", "503"],
+    "recommendation": "Add 409 for conflicts, 422 for validation, 429 for rate limiting"
+  },
+  "topViolations": [
+    { "id": "C-VIOL-005", "desc": "POST /auth/register requires auth (circular)", "severity": "CRITICAL" },
+    { "id": "C-VIOL-006", "desc": "GET /orders — no ownership check (IDOR)", "severity": "CRITICAL" },
+    { "id": "C-VIOL-007", "desc": "GET /orders/{id} — no ownership check (IDOR)", "severity": "CRITICAL" },
+    { "id": "C-VIOL-009", "desc": "POST /products — no auth, anyone can create", "severity": "CRITICAL" },
+    { "id": "C-VIOL-010", "desc": "POST /shipments — no auth, anyone can create", "severity": "CRITICAL" },
+    { "id": "C-VIOL-011", "desc": "GET /analytics/customers — PII exposed", "severity": "CRITICAL" },
+    { "id": "C-VIOL-012", "desc": "GET /analytics/payments — payment data exposed", "severity": "CRITICAL" }
+  ],
+  "qualityGates": {
+    "total": 11,
+    "passed": 3,
+    "failed": 8,
+    "passRate": 27.3
+  },
+  "recommendations": [
+    { "priority": "P0", "action": "Fix circular auth dependency on /auth/register", "target": "identity-service" },
+    { "priority": "P0", "action": "Add authentication to all data-modifying endpoints", "target": "All services" },
+    { "priority": "P0", "action": "Add authorization checks to order/user endpoints", "target": "order-service, identity-service" },
+    { "priority": "P0", "action": "Replace Map<String,String> DTOs with typed objects", "target": "ai-service" },
+    { "priority": "P1", "action": "Implement API Gateway", "target": "Infrastructure" },
+    { "priority": "P1", "action": "Add standardized error envelope", "target": "All services" },
+    { "priority": "P1", "action": "Add pagination to list endpoints", "target": "All services" },
+    { "priority": "P2", "action": "Implement remaining placeholder services", "target": "cart, content, search, support, risk" },
+    { "priority": "P2", "action": "Add OpenAPI/Swagger docs", "target": "All services" }
+  ]
+}

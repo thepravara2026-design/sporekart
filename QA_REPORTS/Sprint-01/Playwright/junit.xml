@@ -1,0 +1,3930 @@
+<testsuites id="" name="" tests="965" failures="0" skipped="965" errors="0" time="0.32088300000000003">
+<testsuite name="accessibility.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="4" failures="0" skipped="4" time="0" errors="0">
+<testcase name="Part 8 — Accessibility Validation › Skip to content link is present and functional" classname="accessibility.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 8 — Accessibility Validation › LoginPage accessibility scan (WCAG 2.1 AA)" classname="accessibility.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 8 — Accessibility Validation › RegisterPage accessibility scan (WCAG 2.1 AA)" classname="accessibility.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 8 — Accessibility Validation › Semantic HTML and keyboard navigation on login inputs" classname="accessibility.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="admin-console.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="84" failures="0" skipped="84" time="0" errors="0">
+<testcase name="Phase 1 — Admin Authorization › Admin dashboard route accessible" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › Direct URL to admin dashboard works" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › Admin sidebar renders" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › IMPLEMENTATION GAP: No auth guard on /admin routes" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › Guest can access admin dashboard" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › Customer can access admin dashboard (BUG-CHK-001)" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Admin Authorization › Admin route in multiple tabs" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard loads without console errors" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard has content" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard sidebar navigation visible" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard cards/widgets render" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard KPI indicators present" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › IMPLEMENTATION GAP: No real-time data indicators" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › IMPLEMENTATION GAP: No charts/graphs" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Admin Dashboard › Dashboard refresh works" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › Products page loads (HTTP)" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › Product search input exists" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › IMPLEMENTATION GAP: No product create form" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › IMPLEMENTATION GAP: No product edit capability" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › IMPLEMENTATION GAP: No product delete" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › IMPLEMENTATION GAP: No image upload" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › IMPLEMENTATION GAP: No pricing editor" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Product Management › Export button exists on DataGrid" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › Inventory page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › Warehouse page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › Stock page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › Batch page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › Movements page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › IMPLEMENTATION GAP: No stock update UI" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Inventory Management › IMPLEMENTATION GAP: No inventory history API" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Order Management › Orders page loads (HTTP)" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Order Management › Order search input exists" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Order Management › IMPLEMENTATION GAP: No order status update" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Order Management › IMPLEMENTATION GAP: No bulk actions" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Order Management › IMPLEMENTATION GAP: No order cancellation from admin" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — User Management › Customers page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — User Management › IMPLEMENTATION GAP: No /admin/users route with content" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — User Management › IMPLEMENTATION GAP: No /admin/roles route" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — User Management › IMPLEMENTATION GAP: No user deactivate/reactivate" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › Training dashboard loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › Training courses loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › Training enrollment loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › Training curriculum loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › IMPLEMENTATION GAP: Training batches placeholder" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Training Management › IMPLEMENTATION GAP: Training attendance placeholder" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Coupons &amp; Pricing › IMPLEMENTATION GAP: No /admin/coupons route" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Coupons &amp; Pricing › IMPLEMENTATION GAP: No /admin/discounts route" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Coupons &amp; Pricing › IMPLEMENTATION GAP: No /admin/promo route" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Coupons &amp; Pricing › IMPLEMENTATION GAP: No /admin/pricing route" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Shipping Management › Shipping page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Shipping Management › IMPLEMENTATION GAP: No shipping zone config" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Shipping Management › IMPLEMENTATION GAP: No courier config" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Shipping Management › IMPLEMENTATION GAP: No shipping rate config" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Analytics &amp; Reporting › Analytics page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Analytics &amp; Reporting › Reports page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Analytics &amp; Reporting › Finance page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Analytics &amp; Reporting › IMPLEMENTATION GAP: No charts on analytics" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Analytics &amp; Reporting › IMPLEMENTATION GAP: No date range filtering" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › Settings page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › System page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › Profile page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › Help page loads" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › IMPLEMENTATION GAP: No editable settings fields" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Settings › IMPLEMENTATION GAP: No save button" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Security › No production secrets in admin pages" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Security › IMPLEMENTATION GAP: No privilege escalation protection" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Security › IMPLEMENTATION GAP: No admin API authentication" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Security › Admin layout renders with navigation" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Data Integrity › Dashboard renders on reload" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Data Integrity › Admin pages accessible without errors" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Data Integrity › Mock API data accessible from admin" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Accessibility › Skip to content link exists" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Accessibility › ARIA landmarks present" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Accessibility › Images have alt text" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Accessibility › Admin sidebar keyboard navigable" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 15 — Performance › Dashboard loads within 15s" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 15 — Performance › Products page loads within 15s" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 15 — Performance › Orders page loads within 15s" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 16 — Visual Review › Dashboard cards are visible" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 16 — Visual Review › Typography is consistent" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 16 — Visual Review › No horizontal scroll on desktop" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 16 — Visual Review › Admin sidebar renders" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 17 — Evidence Collection › Screenshots captured (config: screenshot=on)" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 17 — Evidence Collection › Traces captured (config: trace=on)" classname="admin-console.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth-apis.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="4" failures="0" skipped="4" time="0" errors="0">
+<testcase name="Part 5 — Authentication APIs Validation › sendOtp returns correct mock payload structure" classname="auth-apis.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 5 — Authentication APIs Validation › sendOtp enforces simulated network latency" classname="auth-apis.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 5 — Authentication APIs Validation › verifyOtp handles success and failure stubs correctly" classname="auth-apis.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 5 — Authentication APIs Validation › register validates payload name" classname="auth-apis.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="auth-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testcase name="Part 1 — Authentication Validation › Switching channels updates form input labels" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Validation alerts are displayed for empty identifiers" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Validation alerts are displayed for invalid formats" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Terms agreement gate blocks form submission" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Happy path login redirects to OTP verification page" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › OTP verification fails deterministic code 000000" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › OTP verification success redirects and establishes session" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Resend OTP cooldown timer and resend action" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › RegisterPage submits and transitions to OTP" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › ForgotPasswordPage submits and shows success state" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 1 — Authentication Validation › Social sign in buttons return unenabled warning" classname="auth-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="checkout-order-summary.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows pricing" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows subtotal tax" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows items qty" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows discount" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows payment info" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Order shows shipping address" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Data persists on refresh" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Order Summary, Coupons, Payment › Different order loads" classname="checkout-order-summary.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="checkout-security-a11y-perf.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Checkout Security, A11y, Performance › Unauth /admin/orders redirects" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Unauth /dashboard/addresses redirects" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Session-expired page renders" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Access-denied page renders" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Skip to content link" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › ARIA landmarks" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Images have alt text" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › Performance: orders load &lt;10s" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › No console errors on orders" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Security, A11y, Performance › No failed network requests" classname="checkout-security-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="checkout-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="Checkout Entry,Address,Shipping › Cart 404" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Checkout 404" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Unauth redirect" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Login works" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Orders dashboard" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Order details" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Shipment tracking" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Returns refunds" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Tab filters" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Search input" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Address placeholder" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Address new route" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Entry,Address,Shipping › Admin shipping" classname="checkout-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="checkout-visual.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="7" failures="0" skipped="7" time="0" errors="0">
+<testcase name="Checkout Visual Review › Homepage renders at desktop" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › Homepage renders at mobile" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › 404 page has content" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › Typography is consistent" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › No horizontal scroll" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › Cross-browser: key pages render at desktop" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Checkout Visual Review › Cross-browser: key pages render at mobile" classname="checkout-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="cross-browser.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="Part 6 — Browser Compatibility › Login layout renders consistently" classname="cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-a11y-perf.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="15" failures="0" skipped="15" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Skip to content link exists on homepage" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Homepage has semantic heading structure" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Interactive elements have accessible labels" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Images have alt text" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Focus order is logical on homepage" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Color contrast is sufficient on text elements" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › ARIA landmarks are present" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Form inputs have associated labels" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Keyboard navigation works on products page" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Performance: Homepage load completes under 5s" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Performance: Products page load completes under 5s" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Performance: Search response within threshold" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › No failed network requests during catalog browsing" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › No console errors during catalog browsing" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 11 — Accessibility &amp; Performance › Memory usage stays stable across page navigations" classname="customer-journey-a11y-perf.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-cart.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Cart route accessibility" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Add to Cart buttons are present in featured products" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Add to Cart interaction logs or shows feedback" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Cart badge or icon exists in header" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Empty cart state is handled" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Cart total is displayed if cart page exists" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Remove item interaction works if cart exists" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Cart content persists after page refresh" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Browser restart maintains cart state" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Guest cart state survives page navigation" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Cart is accessible across multiple tabs" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Login preserves guest cart items" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 8-9 — Cart &amp; Session Continuity › Proceed to Checkout button exists if cart page exists" classname="customer-journey-cart.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-catalog.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="22" failures="0" skipped="22" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Products page loads and shows category cards" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Product categories are displayed" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Product category card links navigate somewhere" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › No broken images on products page" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Featured products on homepage show product information" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Products page handles loading state" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Products page handles empty state" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search page loads" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search input field exists and is interactive" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search returns results for exact match" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search with no results shows appropriate message" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Case insensitive search works" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search with special characters handles gracefully" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Search resets properly" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Filter controls exist on product/search pages" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Category filter interaction works if present" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Multiple filters can be combined if present" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Clear filters button works if present" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Sort controls exist on product/search pages" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Sort by price ascending works if present" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Sort by price descending works if present" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting › Sorting persists after filtering if both exist" classname="customer-journey-catalog.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-cross-browser.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="6" failures="0" skipped="6" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Homepage loads on all viewport sizes" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Navigation bar adapts to all viewport sizes" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Products page renders consistently across viewports" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Key pages render correctly across all viewports" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Responsive images load correctly on all viewports" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 10 — Cross-Browser Validation › Horizontal scroll is not present on any page" classname="customer-journey-cross-browser.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-landing.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="13" failures="0" skipped="13" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Homepage loads successfully" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Hero section is present with heading and CTA" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Navigation bar is present and contains main links" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Footer is present with links" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Featured products section renders" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › No broken images on homepage" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › No broken links on homepage" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Page scrolls smoothly and content remains" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Responsive layout renders at desktop viewport" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Responsive layout renders at tablet viewport" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Responsive layout renders at mobile viewport" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Performance: First Contentful Paint within threshold" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 1 — Landing Page Validation › Performance: DOM Content Loaded within threshold" classname="customer-journey-landing.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-navigation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="23" failures="0" skipped="23" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Home (/) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Products (/products) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Training (/training) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Blog (/blog) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to About (/about) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Contact (/contact) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Login (/login) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Register (/register) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to FAQ (/faq) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Support (/support) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigating to Certifications (/certifications) returns 200 and renders content" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Unimplemented route Cart (not implemented) (/cart) shows appropriate message" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Unimplemented route Checkout (not implemented) (/checkout) shows appropriate message" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Protected route Dashboard (needs auth) (/dashboard) redirects or shows auth error" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Protected route Admin (needs auth) (/admin) redirects or shows auth error" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Browser back button returns to previous page" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Browser forward button returns to next page" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Deep link to /training resolves correctly" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Deep link to /blog resolves correctly" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Invalid route returns 404 page" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Header logo or brand link navigates to home" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Login link navigates to /login" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 2 — Navigation Validation › Navigation link active state reflects current page" classname="customer-journey-navigation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-product-details.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Product detail routes are reachable" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Product image gallery renders if present" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Product price and description are displayed if detail page exists" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Quantity selector works on detail page if present" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Add to cart button exists on detail page if present" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Breadcrumb navigation exists on detail page if present" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Invalid product URL shows 404 or error" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 7 — Product Details › Back navigation from product page works" classname="customer-journey-product-details.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="customer-journey-visual.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Homepage layout is visually correct at desktop" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Homepage layout is visually correct at mobile" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Products page layout is visually correct" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Product card spacing and alignment look correct" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Loading skeletons are visually consistent if present" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Typography is consistent across pages" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Animations and transitions do not cause layout shift" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Customer Journey: Phase 12 — Visual Review › Error states should be visually clear and meaningful" classname="customer-journey-visual.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="debug-login.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="Debug login page content" classname="debug-login.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mobile-responsive.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="3" failures="0" skipped="3" time="0" errors="0">
+<testcase name="Part 7 — Mobile &amp; Responsive Validation › Desktop layout (1920x1080) details" classname="mobile-responsive.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 7 — Mobile &amp; Responsive Validation › Tablet layout (768x1024) details" classname="mobile-responsive.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 7 — Mobile &amp; Responsive Validation › Mobile layout (375x812) details" classname="mobile-responsive.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mock-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="5" failures="0" skipped="5" time="0" errors="0">
+<testcase name="Mock Mode Isolation Validation › MOCK_MODE is enabled" classname="mock-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mock Mode Isolation Validation › No production API keys are set" classname="mock-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mock Mode Isolation Validation › Mock Razorpay key does not contain production values" classname="mock-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mock Mode Isolation Validation › Mock Shiprocket key does not contain production values" classname="mock-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mock Mode Isolation Validation › FF_PRODUCTION_MODE is false" classname="mock-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="notification-platform.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="82" failures="0" skipped="82" time="0" errors="0">
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No notification on registration" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No notification on login" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No OTP notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No password reset notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No order created notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No order confirmed notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No order cancelled notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No training registration notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No training approval notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No admin action notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No system alert notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No shipping update notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Event Triggers › IMPLEMENTATION GAP: No payment status notification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Email › IMPLEMENTATION GAP: Email notification service not available" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Email › IMPLEMENTATION GAP: No email template selection UI" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Email › IMPLEMENTATION GAP: No email sending integration" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Email › IMPLEMENTATION GAP: No dynamic placeholder substitution" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — SMS › IMPLEMENTATION GAP: SMS notification service not available" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — SMS › IMPLEMENTATION GAP: No SMS template UI" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — SMS › IMPLEMENTATION GAP: No SMS sending integration" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — WhatsApp › IMPLEMENTATION GAP: WhatsApp notification service not available" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — WhatsApp › IMPLEMENTATION GAP: No WhatsApp template UI" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — WhatsApp › IMPLEMENTATION GAP: No WhatsApp sending integration" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Notification bell icon visible in admin nav" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Notification dropdown opens on bell click" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Notification dropdown has notification list" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Notification has mark as read button" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Notification has dismiss button" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › IMPLEMENTATION GAP: No unread count badge on bell" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › IMPLEMENTATION GAP: No mark all read button" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › IMPLEMENTATION GAP: No view all notifications link" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication notifications page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication overview page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication announcements page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication scheduled page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication templates page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication history page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication delivery queue page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication statistics page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Admin communication channels page loads" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — In-App Notifications › Design system NotificationProvider renders toast container" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Push Notifications › IMPLEMENTATION GAP: No push notification permission request" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Push Notifications › IMPLEMENTATION GAP: No push notification service worker" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Push Notifications › IMPLEMENTATION GAP: No push notification UI in settings" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Delivery Workflow › IMPLEMENTATION GAP: No notification delivery queue" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Delivery Workflow › Delivery queue has status indicators" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Delivery Workflow › IMPLEMENTATION GAP: No retry mechanism visible" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Delivery Workflow › IMPLEMENTATION GAP: No delivery ordering/filtering" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Failure Handling › IMPLEMENTATION GAP: No provider unavailable handling" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Failure Handling › IMPLEMENTATION GAP: No network failure handling visible" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Failure Handling › IMPLEMENTATION GAP: No timeout handling visible" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Failure Handling › IMPLEMENTATION GAP: No invalid payload handling" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Failure Handling › IMPLEMENTATION GAP: No user error messaging" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Data Integrity › Notification service API returns data" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Data Integrity › IMPLEMENTATION GAP: No notification recipient data visible" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Data Integrity › IMPLEMENTATION GAP: No notification timestamp display" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Data Integrity › IMPLEMENTATION GAP: No notification type classification" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Security › Public pages accessible without auth" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Security › IMPLEMENTATION GAP: Admin notification pages accessible without auth" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Security › No PII in notification page source" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Security › No console errors on notification pages" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Security › No PII in delivery queue page" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser › Notification bell renders at desktop" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser › Notification bell renders at tablet" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser › Notification bell renders at mobile" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser › Communication pages render at all viewports" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Accessibility › Notification bell has aria-label" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Accessibility › Notification dropdown has ARIA dialog role" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Accessibility › Notification list items have listitem role" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Accessibility › Notification provider has aria-live region" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Accessibility › Close buttons have aria-label" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Performance › Notification bell renders within 5s" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Performance › Communication notifications page loads within 10s" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Performance › Communication delivery queue loads within 10s" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Performance › Communication templates page loads within 10s" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Performance › Communication statistics page loads within 10s" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Visual Review › Notification dropdown has proper width" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Visual Review › No horizontal scroll on notification page" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Visual Review › Communication overview has content" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Visual Review › No horizontal scroll on delivery queue page" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 15 — Evidence Collection › Screenshots captured (config: screenshot=on)" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 15 — Evidence Collection › Traces captured (config: trace=on)" classname="notification-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="order-lifecycle.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="91" failures="0" skipped="91" time="0" errors="0">
+<testcase name="Phase 1 — Order Creation › IMPLEMENTATION GAP: No order creation UI exists" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Order Creation › IMPLEMENTATION GAP: No checkout flow for order submission" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Order Creation › No order creation API endpoint exposed" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order ORD-2026-8842 loads with correct page content" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order ORD-2026-7715 loads with correct page content" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order ORD-2026-5541 loads with correct page content" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order ORD-2026-9922 loads with correct page content" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows pricing with INR currency" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows subtotal and tax breakdown" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows items with quantity and SKU" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows discount/coupon info" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows payment information" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows shipping address" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows billing address" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order shows timeline with milestones" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Order grand total matches expected values" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Invalid order ID shows not-found state" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Back button returns to orders list" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Order Details › Deep link to order ID resolves correctly" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Orders dashboard renders with order list" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Order statistics cards display correctly" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › AI Order Assistant section renders" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Status filter tabs render" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Filter by Active tab works" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Search input is present" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Search input accepts text" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Order cards display order IDs, status, pricing" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Data persists on page refresh" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Different order loads correctly" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Empty state not shown when orders exist" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Order History › Browser restart preserves order session" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › Orders show correct status badges" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › ORD-2026-8842 shows In Transit status" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › ORD-2026-7715 shows Delivered status" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › ORD-2026-5541 shows Refunded status" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › ORD-2026-9922 shows Processing status" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › Status filter tabs exist with correct labels" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › IMPLEMENTATION GAP: Status transition UI does not exist" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Order Status › IMPLEMENTATION GAP: No cancel order button" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › View Details link navigates to order detail" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Track Order button visible for In Transit order" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Return/Refund button visible for Delivered eligible order" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Refund page renders return request form" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Refund form has item selection" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Refund form has reason dropdown" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Track Shipment page renders with tracking info" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Tracking page shows courier partner info" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Tracking page shows scan history/timeline" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Invoice button exists on order detail" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › IMPLEMENTATION GAP: Reorder button not functional" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Support link exists on order" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Deep link to tracking page resolves" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Deep link to refund page resolves" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Customer Actions › Back from tracking returns to order detail" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Admin Visibility › Admin orders page renders with data grid" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Admin Visibility › Admin grid shows multiple order rows" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Admin Visibility › Admin grid shows order ID, status, customer, total columns" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Admin Visibility › Admin grid search field exists" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › DEFECT: Dashboard orders accessible without authentication" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › DEFECT: Admin orders accessible without authentication" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › Guest role sees access restricted for customer orders" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › Customer role can access dashboard orders" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › Invalid order ID shows not-found page" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › Session-expired page renders correctly" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Security › Access-denied page renders correctly" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Order data persists on page refresh" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › All 4 test orders have unique content" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Order pricing is consistent between list and detail" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Mock data for ORD-2026-8842 shows correct total (₹3,450)" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Orders dashboard renders at desktop viewport" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Orders dashboard renders at tablet viewport" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Orders dashboard renders at mobile viewport" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Order detail renders at all viewports" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Admin orders renders at desktop viewport" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Skip to content link exists" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › ARIA landmarks present on orders dashboard" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Images have alt text on orders dashboard" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Orders dashboard heading is descriptive" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Tab order is preserved on orders page" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › Order history loads within 15s" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › Order detail loads within 15s" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › No console errors on orders dashboard" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › No console errors on order detail" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › No failed network requests on orders" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › Repeated navigation is performant" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › Orders dashboard has consistent typography" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › No horizontal scroll on orders dashboard" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › Order cards have proper spacing and alignment" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › Status badges have visible text" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Evidence Collection › Screenshots captured automatically (config: screenshot=on)" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Evidence Collection › Traces captured automatically (config: trace=on)" classname="order-lifecycle.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="payment-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="58" failures="0" skipped="58" time="0" errors="0">
+<testcase name="Phase 0 — Mock Environment Validation › MOCK_MODE is enabled on dev server" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 0 — Mock Environment Validation › Mock Razorpay key does not contain production values" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Payment Initialization › IMPLEMENTATION GAP: Checkout page not implemented" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Payment Initialization › IMPLEMENTATION GAP: Cart page not implemented" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Payment Initialization › IMPLEMENTATION GAP: No payment initialization flow exists" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Payment Initialization › IMPLEMENTATION GAP: No gateway initialization endpoint" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Payment Initialization › IMPLEMENTATION GAP: No transaction creation UI" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › Payment information displays on order details" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › Multiple payment methods displayed in mock data" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › Payment status displays correctly per order" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › IMPLEMENTATION GAP: UPI method selection UI does not exist" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › IMPLEMENTATION GAP: Credit/Debit card form does not exist" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › IMPLEMENTATION GAP: Wallet payment option does not exist" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › IMPLEMENTATION GAP: EMI option does not exist" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › IMPLEMENTATION GAP: Cash on Delivery not available" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › Demo payment form renders at /demo/forms" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Payment Method Validation › Address form component exists in design system" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Mock Payment Success › IMPLEMENTATION GAP: No payment success callback flow" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Mock Payment Success › IMPLEMENTATION GAP: No order status update on payment" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Mock Payment Success › IMPLEMENTATION GAP: No payment success page content" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Mock Payment Success › IMPLEMENTATION GAP: No receipt generation on success" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Mock Payment Failure › IMPLEMENTATION GAP: No payment failure page content" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Mock Payment Failure › IMPLEMENTATION GAP: No retry mechanism for failed payment" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Mock Payment Failure › IMPLEMENTATION GAP: No error messaging for payment failure" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Mock Payment Failure › IMPLEMENTATION GAP: No cancellation during payment" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Mock Payment Failure › IMPLEMENTATION GAP: No payment timeout simulation" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Retry &amp; Idempotency › IMPLEMENTATION GAP: No duplicate payment prevention UI" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Retry &amp; Idempotency › IMPLEMENTATION GAP: No idempotency key mechanism" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Retry &amp; Idempotency › IMPLEMENTATION GAP: No transaction duplication prevention" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Webhook Simulation › IMPLEMENTATION GAP: No webhook endpoint exists" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Webhook Simulation › IMPLEMENTATION GAP: No payment success webhook" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Webhook Simulation › IMPLEMENTATION GAP: No payment failure webhook" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Webhook Simulation › IMPLEMENTATION GAP: No webhook signature verification" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Synchronization › Payment info accessible from orders area" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Synchronization › Transaction ID displayed on order detail" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Synchronization › Amount consistency across orders" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Order Synchronization › IMPLEMENTATION GAP: No payment-to-order real-time sync" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › Mock environment does not expose production API keys" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › No payment API keys in client-side source" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › IMPLEMENTATION GAP: No transaction tampering protection" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › IMPLEMENTATION GAP: No parameter tampering protection in payment init" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › Dashboard accessible without auth (known defect)" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Security › Checkout accessible without auth (expected — placeholder)" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Order detail renders payment info at desktop" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Order detail renders payment info at mobile" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Cross-Browser › Checkout placeholder renders at all viewports" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Payment info section has ARIA landmarks on order detail" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Skip to content link on orders dashboard" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Images have alt text on payment-related pages" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Accessibility › Checkout placeholder has descriptive heading" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › Order detail with payment info loads within 15s" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › No console errors on order detail with payment info" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Performance › No failed network requests on payment-related pages" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › Payment details section has proper spacing" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › No horizontal scroll on payment-related pages" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Review › Typography is consistent on payment pages" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Evidence Collection › Screenshots captured automatically (config: screenshot=on)" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Evidence Collection › Traces captured automatically (config: trace=on)" classname="payment-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="performance-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="90" failures="0" skipped="90" time="0" errors="0">
+<testcase name="Phase 1 — Application Startup › Cold start — initial page load within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › First Contentful Paint within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › DOM Content Loaded completes within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › Minimal JavaScript bundle size" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › Loading indicator shown during initial load" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › Warm start — subsequent page load faster" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › No JavaScript errors during application bootstrap" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Application Startup › Application shell renders correctly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Home page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Login page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Register page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Products page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Cart page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Checkout page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Orders page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Dashboard page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Training page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Admin page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Settings page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › Search page loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › All admin routes load within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Page Performance › All training routes load within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Route transition completes within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Browser back navigation restores previous page" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Browser forward navigation restores next page" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Page refresh maintains stability" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Deep links resolve correctly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › Repeated navigation between routes remains fast" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Navigation Performance › CSS transitions and animations complete smoothly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Product list renders with acceptable DOM size" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Order history loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Training list loads within threshold" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Pagination controls present on list pages" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Filter controls present and interactive" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Sort controls present and interactive" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › Search input present on search page" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Data Loading › User table renders in admin console" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › Memory usage stays within reasonable limits" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › DOM does not grow excessively with repeated navigation" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › Network request count stays reasonable per page" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › No resource leaks over repeated page visits" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › Repeated interactions do not accumulate DOM nodes" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Resource Utilization › No excessive re-renders or layout thrashing" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › Session remains stable after repeated navigation" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › Memory does not leak over sustained usage" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › UI remains responsive after prolonged interaction" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › No unexpected full page reloads during session" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › Repeated search queries maintain performance" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Long Session Reliability › Dashboard remains stable after repeated views" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Page handles navigation after route change" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Browser refresh restores page correctly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Tab restoration re-renders page correctly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Page is reachable after multiple route changes" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Slow page loads do not break application" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Navigation to nonexistent route shows fallback UI" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Rapid repeated navigation does not cause crash" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Error Recovery › Browser back/forward after deep navigation" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Multiple tabs can load simultaneously" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Rapid clicking does not break navigation" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Simultaneous navigation requests are handled" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Repeated identical requests do not degrade performance" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Tab switching preserves state" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Concurrency › Concurrent browser contexts remain independent" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Responsive Performance › Desktop viewport renders all key pages" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Responsive Performance › Tablet viewport renders all key pages" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Responsive Performance › Mobile viewport renders all key pages" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Responsive Performance › Scrolling performance on list pages" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Responsive Performance › No layout shifts on viewport changes" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Performance › Browser capabilities detected" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Performance › Performance API available across browsers" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Performance › Render engine reports timing data" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility Impact › Keyboard navigation does not degrade page performance" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility Impact › Focus movement does not cause layout shifts" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility Impact › ARIA live regions update without performance impact" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility Impact › Screen reader announcements do not block rendering" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › Skeleton loaders or progress indicators present during load" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › Images load with correct dimensions" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › Typography renders without layout shift" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › Animations use compositor-friendly properties" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › Responsive breakpoints render correctly" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Visual Stability › No visible UI corruption after route changes" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › No console errors during page loads" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › No unhandled promise rejections" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › HTTP status codes are satisfactory" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › Console warnings do not indicate performance issues" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › Performance timing data available for analysis" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Observability › Browser diagnostics captured" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Browser and viewport info captured" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Performance traces collected during session" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Network request log available" classname="performance-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="performance.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="Part 9 — Performance Baseline › Page loads complete within performance threshold" classname="performance.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 9 — Performance Baseline › No failed network requests or broken assets" classname="performance.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="protected-routes.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="3" failures="0" skipped="3" time="0" errors="0">
+<testcase name="Part 4 — Protected Routes Validation › Access is restricted for unauthorized roles on customer routes" classname="protected-routes.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 4 — Protected Routes Validation › Access is restricted for customer role on administrator routes" classname="protected-routes.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 4 — Protected Routes Validation › Authorized role can successfully access protected workspace" classname="protected-routes.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="qa-foundation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="QA Foundation — Environment Validation › Mock mode environment variables are accessible" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Environment Validation › QA configuration is present" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Application Accessibility › Application loads at base URL" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Application Accessibility › Page renders without console errors" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Trace &amp; Video Recording › Trace and video artifacts are generated" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Responsive Layout › Desktop layout renders correctly" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Responsive Layout › Tablet layout renders correctly" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Responsive Layout › Mobile layout renders correctly" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Network &amp; Performance › Page load completes within acceptable time" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Foundation — Network &amp; Performance › No failed network requests" classname="qa-foundation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="rbac-authorization.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="28" failures="0" skipped="28" time="0" errors="0">
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Role switcher exists with all 9 roles" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Guest role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Customer role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Grower role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Trainer role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Distributor role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Support role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Administrator role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Business Owner role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Governance Manager role shows correct workspaces in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Guest cannot access admin dashboard directly" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Customer cannot access order management queue directly" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Role persists after SPA navigation (clicking sidebar link)" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Administrator can navigate to all protected routes without error" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Role persists after browser refresh" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Workspace groups are correctly labelled in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Sidebar workspaces change when role is switched" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Direct URL to /settings renders settings workspace" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Direct URL to /admin/dashboard renders admin dashboard" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Direct URL to /account renders customer workspace" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Navigation to /demo shows demo workspace in sidebar" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Admin dashboard route is accessible with administrator role" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Admin users management route renders without error" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Admin settings route renders without error" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › No role or permission data stored in localStorage" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › No role or permission data stored in sessionStorage" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Multiple tabs show same role by default" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 3 — Authorization &amp; RBAC Validation › Sidebar is responsive on mobile viewport" classname="rbac-authorization.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="regression.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="Part 11 — Regression Validation › Mock mode environment variables are present and verify correct defaults" classname="regression.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 11 — Regression Validation › Application header and navigation elements render correctly" classname="regression.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="security-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="113" failures="0" skipped="113" time="0" errors="0">
+<testcase name="Phase 1 — Authentication Security › Login page renders with all form elements" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Login with empty fields shows validation alerts" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Login with invalid email format shows validation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Terms agreement gates form submission" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Happy path login redirects to OTP verification" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › OTP 000000 is rejected with error message" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Valid OTP establishes session and redirects to workspace" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Forgot password flow submits and shows success state" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Session expired page renders with sign-in action" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Social login buttons show not-enabled message" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Resend OTP cooldown timer is displayed" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Authentication Security › Auth loading page shows spinner and redirects" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /orders is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /products is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /training is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /cms is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /governance is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /analytics is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /account is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /settings is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /support is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Enterprise route /ai is accessible with default admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Guest role sees access restricted on customer account page" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Customer role sees access restricted on admin routes" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Direct URL to /admin is accessible without auth (BUG-ADM-001)" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Guest role sidebar shows limited workspaces" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Role switcher exists with all 9 roles" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Unauthorized page renders 401 content" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Forbidden page renders 403 content" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Authorization › Access denied page shows correct content and back navigation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › guest role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › customer role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › grower role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › trainer role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › distributor role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › support role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › administrator role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › business_owner role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › governance_manager role shows correct sidebar visibility" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › Admin role can access enterprise routes without restriction" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — RBAC › Default role is administrator on fresh page load" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Direct URL to verify-otp without state redirects to login" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Refresh after OTP page lands on login or verify-otp page" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › localStorage contains no authentication secrets" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › sessionStorage contains no authentication secrets" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › No authentication cookies are set by the application" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Session expired page navigates to login on sign-in click" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Access denied page navigates to home on back click" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Auth error gallery renders all 5 error variants" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › localStorage values contain no plain-text credentials" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Session Management › Console output during login contains no sensitive data" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Empty phone number shows validation error" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Invalid email format shows validation error" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Very long phone number is handled gracefully" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › SQL injection attempt in email is validated" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Unicode characters in phone number show validation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Whitespace-only phone number shows validation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Client-side validation prevents XSS in phone input" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Register page validates required fields" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Register page accepts valid inputs" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Input Validation › Forgot password empty email shows validation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › localStorage keys do not contain sensitive identifiers" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › sessionStorage keys do not contain sensitive identifiers" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › No auth-related cookies set by application" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › Page source does not contain hardcoded API keys" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › Page source does not contain hardcoded secrets" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › No sensitive PII in page source for auth pages" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › Console errors are minimal on auth pages" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › No debug information exposed in production-like mode" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Client-Side Security › Source maps not exposed to end users" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › Mock auth token is not a production key" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › Mock mode is explicitly enabled" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › API calls from login page are intercepted by SPA" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › Form submission sends valid request structure" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › Error pages return successful HTTP status (SPA catch-all)" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — API Security (Mock) › Unknown routes return SPA catch-all (200)" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › Login page does not display full phone numbers" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › OTP page masks phone number display" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › Forgot password page does not expose user email" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › Error messages do not contain sensitive debugging info" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › Access restricted messages do not leak data" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Privacy › Registration page does not prefill sensitive data" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A01 Broken Access Control — role-based gating exists" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A02 Cryptographic Failures — no HTTPS enforcement implemented" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A03 Injection — input fields validate special characters" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A04 Insecure Design — auth is entirely client-side mock" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A05 Security Misconfiguration — admin routes accessible without auth" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A07 Identification &amp; Authentication Failures — OTP bypass check" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A08 Software &amp; Data Integrity — mock data is clearly identified" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A09 Logging &amp; Monitoring — console errors are collectable" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — OWASP Review › A10 SSRF — no external URL calls during page loads" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Security › Login form renders with same elements across browsers" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Security › OTP input renders 6 fields consistently" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Security › Sidebar renders consistently for admin role" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser Security › Access restricted message appears consistently" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Login page has semantic heading structure" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Login form elements have associated labels" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › OTP inputs have correct ARIA attributes" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Auth loading page has status role announcement" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Error pages are keyboard accessible" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Login page loads within 10 seconds" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Auth loading page resolves within 10 seconds" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Protected enterprise routes load within 10 seconds" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Role switch and re-navigation completes within 10 seconds" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Auth error pages load within 10 seconds" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Login page UI renders without layout issues" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Access denied page renders centered content" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Session expired page renders with action buttons" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Auth loading page renders spinner animation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Auth error gallery renders all 5 variants without overlap" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Browser and viewport info captured" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Console logs captured during security validation" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Network requests captured during auth flow" classname="security-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="session-management.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="32" failures="0" skipped="32" time="0" errors="0">
+<testcase name="Part 2 — Session Management Validation › AuthLoadingPage resolves and redirects to home" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › SessionExpiredPage renders correct icons, content, and redirect actions" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › AccessDeniedPage displays correct status indicators and navigates back" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › AuthErrorGallery renders all 5 error variants" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Complete login flow: Login -&gt; OTP -&gt; AuthLoading -&gt; Home" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Session flow persists across browser refresh after login" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Hard refresh after login flow lands on home page" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › localStorage inspection — no auth secrets stored" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › sessionStorage inspection — no auth secrets stored" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › localStorage values contain no plain-text credentials" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Cookies — no authentication cookies set by the app" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › localStorage is accessible and writable across pages" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Direct URL to session-expired renders page correctly" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Direct URL to access-denied renders page correctly" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Back button from session-expired to login works" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Bookmark access to auth pages renders correctly" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Direct URL to verify-otp without state redirects to login" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › AuthLoadingPage redirects to home when accessed directly" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Navigation shows different workspaces based on role" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Admin dashboard route is accessible" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Customer dashboard route is accessible" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › LoggedOutPage component renders (exists but not routed)" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Auth error pages render correct status colors and actions" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Concurrent navigation to session pages shows consistent state" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Session pages maintain layout on mobile viewport" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Session pages maintain layout on tablet viewport" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › AuthLoadingPage has correct ARIA attributes" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Session pages have semantic headings" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Multiple tabs can view session-expired page independently" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Window resize during auth loading completes navigation" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › No sensitive data in page source for session pages" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Part 2 — Session Management Validation › Console output contains no sensitive session information" classname="session-management.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="6" failures="0" skipped="6" time="0" errors="0">
+<testcase name="QA Infrastructure Smoke Tests › Browser launches and homepage loads" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Page title is defined and valid" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Screenshot capture works" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Console logs are captured" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Network requests are logged" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › 404 page returns expected status" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="training-platform.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="98" failures="0" skipped="98" time="0" errors="0">
+<testcase name="Phase 1 — Training Discovery › Course catalog page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has course cards" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has search input" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has filter controls" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has category highlights" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has grid/list/table view toggles" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has pagination" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Catalog has sort controls" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Course comparison page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Learning paths page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Public training marketing page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — Training Discovery › Certifications page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has hero/banner" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has curriculum" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has learning objectives" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has prerequisites" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has trainer info" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has pricing" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has enroll CTA" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has FAQ" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has related courses" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Training Details › Course detail has SEO metadata" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Registration › Customer course detail with enroll button" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Registration › Enroll button triggers action" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Registration › IMPLEMENTATION GAP: No registration form" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Registration › IMPLEMENTATION GAP: No enrollment form validation" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Eligibility &amp; Approval › IMPLEMENTATION GAP: No eligibility check UI" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Eligibility &amp; Approval › IMPLEMENTATION GAP: No approval workflow UI" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Eligibility &amp; Approval › IMPLEMENTATION GAP: No waitlist mechanism" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Batch Management › IMPLEMENTATION GAP: No training batch assignment in admin" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Batch Management › IMPLEMENTATION GAP: No batch capacity management" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Batch Management › IMPLEMENTATION GAP: No trainer-to-batch assignment" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Learner dashboard loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Learner dashboard has metrics" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Learner dashboard has continue learning" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Learner dashboard has catalog options" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Course library page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › My learning page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › My learning has enrolled courses" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Certificates page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Certificates page shows certificate data" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Training schedule page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Training schedule has upcoming sessions" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Video classroom page loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Learner Dashboard › Video classroom has player" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Admin training dashboard loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Admin training has stats" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Admin course registry loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Course registry has search/filter" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Course builder loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Course builder has form panels" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Curriculum builder loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Enrollment management loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Enrollment has pricing panel" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Taxonomy manager loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Resource library loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › LMS analytics loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Communication platform loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › Student workspace loads" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › IMPLEMENTATION GAP: No admin certificates page" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › IMPLEMENTATION GAP: No attendance tracking" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Admin Training Management › IMPLEMENTATION GAP: No assessment management" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Catalog data persists on reload" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Course detail data persists on reload" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Learner dashboard data persists" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Admin course registry shows mock courses" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Enrollment mock data accessible" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — Data Integrity › Navigation consistent across training pages" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Security › Public catalog accessible without auth" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Security › Learner dashboard requires auth" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Security › No production secrets in training pages" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Security › Admin training workspace accessible (no auth guard)" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Security › No console errors on training pages" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser › Catalog renders at desktop" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser › Catalog renders at mobile" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser › Course detail renders at all viewports" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser › Learner dashboard renders at desktop" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Cross-Browser › Learner dashboard renders at mobile" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Catalog has skip to content link" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Catalog has ARIA landmarks" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Images have alt text on catalog" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Course detail has semantic headings" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Admin training workspace has landmarks" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Accessibility › Course cards are keyboard navigable" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Catalog loads within 15s" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Course detail loads within 15s" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Learner dashboard loads within 15s" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Admin training dashboard loads within 15s" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance › Course builder loads within 15s" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Catalog has course cards" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Course detail has proper layout" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › No horizontal scroll on catalog" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Typography consistent on course detail" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Admin course builder has visual panels" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Visual Review › Course catalog view toggles work" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Screenshots captured (config: screenshot=on)" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Traces captured (config: trace=on)" classname="training-platform.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ux-accessibility-validation.spec.ts" timestamp="2026-07-17T19:09:47.833Z" hostname="chromium" tests="91" failures="0" skipped="91" time="0" errors="0">
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › WCAG scan — login page accessibility violations documented" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › WCAG scan — home page accessibility violations documented" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Skip to content link present and functional" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Skip link becomes focusable on Tab press" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Landmark regions present on key pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Heading hierarchy is logical" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › All pages have a descriptive title" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Interactive elements have accessible names" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Images have alt text" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Modal and dialog elements have correct ARIA roles" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Form fields have associated labels" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 1 — WCAG 2.1 AA Validation › Required fields have aria-required or required attribute" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Focus ring visible on interactive elements" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Error messages use distinct colors" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Disabled buttons have discernible styling" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Color alone is not used as sole indicator" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Links are distinguishable from surrounding text" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 2 — Color &amp; Visual Accessibility › Warning, error, and success states visually distinct" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Tab navigation moves through login form in logical order" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Enter key activates buttons" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Escape key does not break page state" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Space key scrolls page predictably" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Arrow keys navigate radio groups on login" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Tab order does not trap focus on modals if none open" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 3 — Keyboard Experience › Focusable elements exist on all key pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Screen Reader Experience › ARIA live region present for announcements" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Screen Reader Experience › Alert role elements announce errors" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Screen Reader Experience › Status role elements announce success" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Screen Reader Experience › Form fields have proper reading order" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 4 — Screen Reader Experience › Navigation landmarks have accessible labels" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Login form has labeled input" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Validation error messages present when form submitted empty" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Required fields visually indicated" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Search input has accessible label" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › OTP input fields accessible" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Checkbox has accessible label" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Form submit button has descriptive text" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 5 — Form Experience › Autocomplete attributes present on forms" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Button component renders consistently" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Input component renders with consistent styling" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Card components present on dashboard" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Table present on admin pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Badge and tag components render" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Loading skeleton or spinner present during navigation" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Dialog container renders with correct structure" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Empty state component renders when no content" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Typography scale is consistent" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 6 — Design System Consistency › Icons have aria-hidden or accessible labels" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Desktop viewport displays all page content" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Tablet viewport displays all page content" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Mobile viewport displays all page content" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Small mobile viewport (320px) displays content" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Orientation change maintains content visibility" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 7 — Responsive Design › Touch targets meet minimum size (44x44px)" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Navigation elements present on all pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Loading state indicated during actions" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Error recovery guidance present" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Empty state provides guidance" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Confirmation or feedback shown after actions" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 8 — User Experience › Page content is scannable with clear hierarchy" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Visual Consistency › Typography scale produces consistent heading sizes" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Visual Consistency › Spacing and alignment consistent across pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Visual Consistency › Layout does not break across viewport sizes" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Visual Consistency › Component spacing appears consistent" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 9 — Visual Consistency › Brand colors used consistently" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › 404 page shows friendly message and navigation option" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › 403 access denied page shows recovery options" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › Session expired page guides user to re-authenticate" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › Auth error page displays informative message" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › Forgot password page guides recovery flow" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › Validation errors show on invalid form submission" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 10 — Error Experience › Empty list page displays meaningful message" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser UX Consistency › Key pages render across browsers" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser UX Consistency › Interactive elements are consistently focusable" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 11 — Cross-Browser UX Consistency › ARIA attributes preserved across browsers" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance Impact of UX Features › Page load times within acceptable range for UX" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance Impact of UX Features › No layout shifts on key pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance Impact of UX Features › Animations do not block interaction" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 12 — Performance Impact of UX Features › Interaction latencies acceptable on list pages" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 1: Visibility of system status" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 2: Match between system and real world" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 3: User control and freedom" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 4: Consistency and standards" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 5: Error prevention" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 6: Recognition rather than recall" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 7: Aesthetic and minimalist design" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 8: Help users recognize, diagnose, and recover from errors" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 13 — Heuristic Evaluation › Nielsen 9: Help and documentation" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Browser and viewport info captured" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Console logs captured during UX validation" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Phase 14 — Evidence Collection › Network requests captured during UX flow" classname="ux-accessibility-validation.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

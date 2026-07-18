@@ -1,0 +1,147 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: customer-journey-catalog.spec.ts >> Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting >> Product category card links navigate somewhere
+- Location: tests\customer-journey-catalog.spec.ts:21:7
+
+# Error details
+
+```
+Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/products
+Call log:
+  - navigating to "http://localhost:5173/products", waiting until "networkidle"
+
+```
+
+# Test source
+
+```ts
+  1   | import { test, expect } from '@playwright/test';
+  2   | 
+  3   | test.describe('Part 2 — Customer Journey: Phases 3-6 — Catalog, Search, Filters, Sorting', () => {
+  4   | 
+  5   |   // === PHASE 3: PRODUCT CATALOG ===
+  6   | 
+  7   |   test('Products page loads and shows category cards', async ({ page }) => {
+  8   |     const response = await page.goto('/products', { waitUntil: 'networkidle' });
+  9   |     expect(response?.status()).toBeLessThan(400);
+  10  |     const bodyText = await page.locator('body').innerText();
+  11  |     expect(bodyText.length).toBeGreaterThan(20);
+  12  |   });
+  13  | 
+  14  |   test('Product categories are displayed', async ({ page }) => {
+  15  |     await page.goto('/products', { waitUntil: 'networkidle' });
+  16  |     const categoryCards = page.locator('[class*="card"], [class*="category"], [class*="CategoryCard"], section a');
+  17  |     const count = await categoryCards.count();
+  18  |     expect(count).toBeGreaterThanOrEqual(1);
+  19  |   });
+  20  | 
+  21  |   test('Product category card links navigate somewhere', async ({ page }) => {
+> 22  |     await page.goto('/products', { waitUntil: 'networkidle' });
+      |                ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/products
+  23  |     const links = page.locator('a[href*="product"], a[href*="category"], section a');
+  24  |     const count = await links.count();
+  25  |     if (count > 0) {
+  26  |       const href = await links.first().getAttribute('href');
+  27  |       expect(href).toBeTruthy();
+  28  |     }
+  29  |   });
+  30  | 
+  31  |   test('No broken images on products page', async ({ page }) => {
+  32  |     await page.goto('/products', { waitUntil: 'networkidle' });
+  33  |     const images = page.locator('img');
+  34  |     const count = await images.count();
+  35  |     let broken = 0;
+  36  |     for (let i = 0; i < count; i++) {
+  37  |       const img = images.nth(i);
+  38  |       const src = await img.getAttribute('src');
+  39  |       if (!src || src === '' || src.startsWith('data:')) continue;
+  40  |       const naturalWidth = await img.evaluate(el => (el as HTMLImageElement).naturalWidth);
+  41  |       if (naturalWidth === 0) broken++;
+  42  |     }
+  43  |     expect(broken).toBe(0);
+  44  |   });
+  45  | 
+  46  |   test('Featured products on homepage show product information', async ({ page }) => {
+  47  |     await page.goto('/', { waitUntil: 'networkidle' });
+  48  |     const productSections = page.locator('section').filter({ hasText: /Product/i });
+  49  |     const sectionCount = await productSections.count();
+  50  |     if (sectionCount > 0) {
+  51  |       const section = productSections.first();
+  52  |       const productCards = section.locator('[class*="card"], [class*="ProductCard"], [class*="product"]');
+  53  |       const cardCount = await productCards.count();
+  54  |       if (cardCount > 0) {
+  55  |         await expect(productCards.first()).toBeVisible();
+  56  |       }
+  57  |     }
+  58  |   });
+  59  | 
+  60  |   test('Products page handles loading state', async ({ page }) => {
+  61  |     await page.goto('/products', { waitUntil: 'domcontentloaded' });
+  62  |     const spinner = page.locator('[class*="spinner"], [class*="loading"], [class*="skeleton"], [class*="Loader"]');
+  63  |     const present = await spinner.isVisible().catch(() => false);
+  64  |     if (present) {
+  65  |       await page.waitForLoadState('networkidle');
+  66  |       await expect(spinner).not.toBeVisible({ timeout: 10000 });
+  67  |     }
+  68  |   });
+  69  | 
+  70  |   test('Products page handles empty state', async ({ page }) => {
+  71  |     await page.goto('/products', { waitUntil: 'networkidle' });
+  72  |     const emptyMsg = page.locator('text=No products, no results, empty, Nothing here, No items').first();
+  73  |     const present = await emptyMsg.isVisible().catch(() => false);
+  74  |     if (present) {
+  75  |       await expect(emptyMsg).toBeVisible();
+  76  |     }
+  77  |   });
+  78  | 
+  79  |   // === PHASE 4: SEARCH ===
+  80  | 
+  81  |   test('Search page loads', async ({ page }) => {
+  82  |     const response = await page.goto('/search', { waitUntil: 'networkidle' });
+  83  |     expect(response?.status()).toBeLessThan(400);
+  84  |   });
+  85  | 
+  86  |   test('Search input field exists and is interactive', async ({ page }) => {
+  87  |     await page.goto('/search', { waitUntil: 'networkidle' });
+  88  |     const searchInput = page.locator('input[type="search"], input[type="text"][placeholder*="search" i], textarea[placeholder*="search" i]');
+  89  |     const count = await searchInput.count();
+  90  |     if (count > 0) {
+  91  |       await searchInput.first().fill('test');
+  92  |       const value = await searchInput.first().inputValue();
+  93  |       expect(value).toBe('test');
+  94  |     }
+  95  |   });
+  96  | 
+  97  |   test('Search returns results for exact match', async ({ page }) => {
+  98  |     await page.goto('/search', { waitUntil: 'networkidle' });
+  99  |     const searchInput = page.locator('input[type="search"], input[type="text"][placeholder*="search" i]');
+  100 |     if (await searchInput.isVisible().catch(() => false)) {
+  101 |       await searchInput.first().fill('mushroom');
+  102 |       await searchInput.first().press('Enter');
+  103 |       await page.waitForTimeout(1000);
+  104 |       const results = page.locator('[class*="result"], [class*="card"], article, li');
+  105 |       const count = await results.count();
+  106 |       expect(count).toBeGreaterThanOrEqual(0);
+  107 |     }
+  108 |   });
+  109 | 
+  110 |   test('Search with no results shows appropriate message', async ({ page }) => {
+  111 |     await page.goto('/search', { waitUntil: 'networkidle' });
+  112 |     const searchInput = page.locator('input[type="search"], input[type="text"][placeholder*="search" i]');
+  113 |     if (await searchInput.isVisible().catch(() => false)) {
+  114 |       await searchInput.first().fill('zzzzzznotfound');
+  115 |       await searchInput.first().press('Enter');
+  116 |       await page.waitForTimeout(1000);
+  117 |       const emptyMsg = page.locator('text=No results, no matches, nothing found, empty, Nothing here').first();
+  118 |       const visible = await emptyMsg.isVisible().catch(() => false);
+  119 |       if (!visible) {
+  120 |         const results = page.locator('[class*="result"], article, li');
+  121 |         const count = await results.count();
+  122 |         expect(count).toBeGreaterThanOrEqual(0);
+```

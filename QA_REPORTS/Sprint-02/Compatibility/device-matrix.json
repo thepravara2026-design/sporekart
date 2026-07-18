@@ -1,0 +1,167 @@
+{
+  "report": {
+    "id": "SK-DM-002-006",
+    "title": "Device Compatibility Matrix",
+    "sprint": "QA Sprint 2 – Part 6",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17"
+  },
+  "devices": [
+    {
+      "category": "Desktop",
+      "device": "Desktop HD",
+      "viewport": "1920x1080",
+      "os": "Windows/macOS/Linux",
+      "browsers": { "chromium": "PASS", "firefox": "PASS", "webkit": "NOT TESTED", "edge": "NOT TESTED" },
+      "status": "PASS"
+    },
+    {
+      "category": "Desktop",
+      "device": "Desktop SXGA+",
+      "viewport": "1600x900",
+      "os": "Windows/macOS/Linux",
+      "browsers": { "chromium": "PASS", "firefox": "PASS" },
+      "status": "PASS"
+    },
+    {
+      "category": "Desktop",
+      "device": "Laptop WXGA+",
+      "viewport": "1440x900",
+      "os": "Windows/macOS/Linux",
+      "browsers": { "chromium": "PASS", "firefox": "PASS" },
+      "status": "PASS"
+    },
+    {
+      "category": "Desktop",
+      "device": "Laptop HD",
+      "viewport": "1366x768",
+      "os": "Windows/macOS/Linux",
+      "browsers": { "chromium": "PASS", "firefox": "PASS" },
+      "status": "PASS"
+    },
+    {
+      "category": "Tablet Landscape",
+      "device": "iPad Pro 12.9\"",
+      "viewport": "1024x1366",
+      "os": "iPadOS",
+      "browsers": { "chromium": "PASS", "webkit": "NOT TESTED" },
+      "status": "PASS"
+    },
+    {
+      "category": "Tablet Portrait",
+      "device": "iPad Pro 12.9\"",
+      "viewport": "768x1024",
+      "os": "iPadOS",
+      "browsers": { "chromium": "WARNING", "webkit": "NOT TESTED" },
+      "status": "WARNING",
+      "issues": ["Sidebar icon rail lacks hover labels on touch", "Header search hidden"]
+    },
+    {
+      "category": "Tablet Portrait",
+      "device": "iPad Mini",
+      "viewport": "744x1133",
+      "os": "iPadOS",
+      "browsers": { "chromium": "WARNING", "webkit": "NOT TESTED" },
+      "status": "WARNING",
+      "issues": ["Same as iPad Pro — icon rail + hidden search"]
+    },
+    {
+      "category": "Mobile Large",
+      "device": "iPhone 14 Pro Max",
+      "viewport": "430x932",
+      "os": "iOS",
+      "browsers": { "webkit": "NOT TESTED" },
+      "status": "NOT TESTED",
+      "notes": "iOS Safari not available in Playwright config"
+    },
+    {
+      "category": "Mobile Large",
+      "device": "iPhone 11 Pro Max",
+      "viewport": "414x896",
+      "os": "iOS",
+      "browsers": { "webkit": "NOT TESTED", "chromium": "WARNING" },
+      "status": "WARNING",
+      "issues": ["Admin tables overflow without horizontal scroll"]
+    },
+    {
+      "category": "Mobile",
+      "device": "iPhone X / 12 / 13",
+      "viewport": "375x812",
+      "os": "iOS",
+      "browsers": { "webkit": "NOT TESTED", "chromium": "FAIL" },
+      "status": "FAIL",
+      "issues": [
+        "Admin tables overflow (BUG-COMP-002)",
+        "Profile buttons overlap (BUG-COMP-003)",
+        "Sidebar overlay remains after navigation (BUG-COMP-004)",
+        "ResponsiveModal shows desktop variant (BUG-COMP-006)"
+      ]
+    },
+    {
+      "category": "Mobile Small",
+      "device": "iPhone SE",
+      "viewport": "375x667",
+      "os": "iOS",
+      "browsers": { "webkit": "NOT TESTED", "chromium": "FAIL" },
+      "status": "FAIL",
+      "issues": [
+        "Same as iPhone X plus button wrapping issues",
+        "OTP input circles below touch target minimum"
+      ]
+    },
+    {
+      "category": "Mobile Small",
+      "device": "iPhone 5 / SE 1st gen",
+      "viewport": "320x568",
+      "os": "iOS",
+      "status": "NOT TESTED",
+      "notes": "Below minimum supported viewport (360px recommended)"
+    },
+    {
+      "category": "Android Large",
+      "device": "Pixel 6 Pro",
+      "viewport": "412x915",
+      "os": "Android 12+",
+      "browsers": { "chromium": "PASS", "firefox": "PASS" },
+      "status": "PASS"
+    },
+    {
+      "category": "Android",
+      "device": "Pixel 5",
+      "viewport": "393x851",
+      "os": "Android 11+",
+      "browsers": { "chromium": "PASS", "firefox": "WARNING" },
+      "status": "WARNING",
+      "issues": ["Sidebar navigation overlay bug (BUG-COMP-004)"]
+    },
+    {
+      "category": "Android Small",
+      "device": "Samsung Galaxy S8",
+      "viewport": "360x740",
+      "os": "Android 9+",
+      "browsers": { "chromium": "WARNING", "firefox": "WARNING" },
+      "status": "WARNING",
+      "issues": ["Admin grid collapses poorly", "Action card text wraps"]
+    },
+    {
+      "category": "Foldable",
+      "device": "Samsung Galaxy Fold",
+      "viewport": "280x653 (folded)",
+      "os": "Android",
+      "status": "NOT TESTED",
+      "notes": "No foldable emulation available. Minimum content width of 280px not verified."
+    }
+  ],
+  "coverageSummary": {
+    "desktopViewportsTested": 4,
+    "tabletViewportsTested": 2,
+    "mobileViewportsTested": 5,
+    "devicesTested": 11,
+    "devicesNotTested": 4,
+    "devicesFailed": 2,
+    "devicesWithIssues": 5,
+    "iosSafariMissing": true,
+    "edgeMissing": true,
+    "foldableNotTested": true
+  }
+}

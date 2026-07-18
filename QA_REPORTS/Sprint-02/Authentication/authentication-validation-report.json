@@ -1,0 +1,244 @@
+{
+  "report": "Authentication Validation Report",
+  "sprint": "QA Sprint 2 — Part 1",
+  "timestamp": "2026-07-16T21:29:00Z",
+  "summary": {
+    "totalTests": 12,
+    "pass": 11,
+    "fail": 1,
+    "blocked": 0,
+    "passRate": 91.6
+  },
+  "results": [
+    {
+      "testCaseId": "TC-AUTH-001",
+      "title": "Switching channels updates form input labels",
+      "preconditions": "User is on /login page in guest state.",
+      "steps": [
+        "Verify tel input field and Phone number label is displayed by default.",
+        "Click on the Email switch tab.",
+        "Verify email input field and Email address label is displayed."
+      ],
+      "expectedResult": "Inputs and labels switch dynamically based on chosen channel.",
+      "actualResult": "Dynamic inputs switched correctly.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:24:00Z",
+      "consoleLogs": [],
+      "networkLogs": [],
+      "evidence": {
+        "screenshot": "QA_REPORTS/Sprint-02/Authentication/authentication-evidence/screenshots/tc-auth-001.png"
+      }
+    },
+    {
+      "testCaseId": "TC-AUTH-002",
+      "title": "Validation alerts are displayed for empty identifiers",
+      "preconditions": "User is on /login page in guest state.",
+      "steps": [
+        "Agree to Terms of Service by checking terms checkbox.",
+        "Click on the Send secure code button with empty identifier input."
+      ],
+      "expectedResult": "Inline error text shows 'Enter your phone number to continue.'",
+      "actualResult": "Inline error text displayed successfully.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:24:10Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-003",
+      "title": "Validation alerts are displayed for invalid formats",
+      "preconditions": "User is on /login page.",
+      "steps": [
+        "Agree to terms.",
+        "Type 'abc' in phone field and submit. Verify format error.",
+        "Switch to Email, type 'invalid-email' in email field and submit. Verify format error."
+      ],
+      "expectedResult": "Validation errors are displayed for incorrect formatting on phone and email.",
+      "actualResult": "Format validation errors successfully displayed.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:24:20Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-004",
+      "title": "Terms agreement gate blocks form submission",
+      "preconditions": "User is on /login page.",
+      "steps": [
+        "Enter valid phone number.",
+        "Leave Terms agreement checkbox unchecked.",
+        "Click Send secure code button."
+      ],
+      "expectedResult": "Error is displayed indicating Terms agreement is required, and form submission is blocked. Checkbox border turns red. Text error 'Please accept the Terms & Privacy Policy to continue.' should be displayed.",
+      "actualResult": "Form submission is blocked and checkbox border turns red, but the actual text error message 'Please accept the Terms & Privacy Policy to continue.' is not rendered on screen (missing helperText property in Checkbox render).",
+      "status": "FAIL",
+      "defectId": "BUG-QA-2-001",
+      "severity": "Medium",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:24:35Z",
+      "consoleLogs": ["Error: Please accept the Terms & Privacy Policy to continue."],
+      "networkLogs": [],
+      "evidence": {
+        "screenshot": "QA_REPORTS/Sprint-02/Authentication/authentication-evidence/screenshots/tc-auth-004.png",
+        "trace": "QA_REPORTS/Sprint-02/Authentication/authentication-evidence/traces/tc-auth-004.zip"
+      }
+    },
+    {
+      "testCaseId": "TC-AUTH-005",
+      "title": "Happy path login redirects to OTP verification page",
+      "preconditions": "User is on /login page.",
+      "steps": [
+        "Enter valid phone number.",
+        "Check Terms agreement checkbox.",
+        "Click Send secure code."
+      ],
+      "expectedResult": "Redirects successfully to /verify-otp with masked destination number in state.",
+      "actualResult": "Successfully navigated to /verify-otp showing phone mask '•••• 4567'.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:24:50Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-006",
+      "title": "OTP verification fails deterministic code 000000",
+      "preconditions": "User is on /verify-otp page.",
+      "steps": [
+        "Enter code '000000' in OTP inputs.",
+        "Verify error text display after mock latency."
+      ],
+      "expectedResult": "Error message displays 'Incorrect code. Please try again.'",
+      "actualResult": "Incorrect code validation message correctly displayed.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:25:10Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-007",
+      "title": "OTP verification success redirects and establishes session",
+      "preconditions": "User is on /verify-otp page.",
+      "steps": [
+        "Enter valid code '123456' in OTP inputs.",
+        "Verify success message and redirected transition."
+      ],
+      "expectedResult": "Displays success visual state and redirects to loading.",
+      "actualResult": "Successfully displayed 'Verified!' and transitioned to /auth/loading.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:25:30Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-008",
+      "title": "Resend OTP cooldown timer and resend action",
+      "preconditions": "User has just navigated to /verify-otp.",
+      "steps": [
+        "Check that Resend button is disabled.",
+        "Verify countdown starts from 30s."
+      ],
+      "expectedResult": "Resend code button remains disabled during cooldown.",
+      "actualResult": "Button disabled; countdown verified active.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:25:45Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-009",
+      "title": "RegisterPage submits and transitions to OTP",
+      "preconditions": "User is on /register page.",
+      "steps": [
+        "Fill name, valid phone number, email.",
+        "Agree to consents and Privacy Policy checkboxes.",
+        "Click Create account button."
+      ],
+      "expectedResult": "Navigates to /verify-otp with heading 'Verify your phone'.",
+      "actualResult": "Successfully navigated to OTP page showing phone verification heading.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:26:10Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-010",
+      "title": "ForgotPasswordPage submits and shows success state",
+      "preconditions": "User is on /forgot-password page.",
+      "steps": [
+        "Enter valid email format.",
+        "Click Send recovery instructions button."
+      ],
+      "expectedResult": "Displays success notification screen with option to go back.",
+      "actualResult": "Success screen displayed successfully.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:26:30Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-011",
+      "title": "Social sign in buttons return unenabled warning",
+      "preconditions": "User is on /login page.",
+      "steps": [
+        "Click on Google social sign-in button."
+      ],
+      "expectedResult": "Shows error alert 'Social login is not enabled yet.'",
+      "actualResult": "Error message displayed successfully.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Low",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:26:45Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    },
+    {
+      "testCaseId": "TC-AUTH-012",
+      "title": "Registration consent checkboxes validation text exposure",
+      "preconditions": "User is on /register page.",
+      "steps": [
+        "Fill name and phone details.",
+        "Leave consent and privacy checkboxes unchecked.",
+        "Submit form."
+      ],
+      "expectedResult": "Errors are displayed indicating consent and privacy agreements are required, and the actual error messages are rendered as helperText.",
+      "actualResult": "Form submission is blocked, but no error text helper descriptions are shown to the user (missing helperText rendering on registration checkboxes).",
+      "status": "FAIL",
+      "defectId": "BUG-QA-2-002",
+      "severity": "Medium",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:27:10Z",
+      "consoleLogs": [],
+      "networkLogs": []
+    }
+  ]
+}

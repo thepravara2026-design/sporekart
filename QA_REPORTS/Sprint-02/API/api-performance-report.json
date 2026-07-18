@@ -1,0 +1,75 @@
+{
+  "report": {
+    "id": "SK-API-PERF-002-005",
+    "title": "API Performance Validation Report",
+    "sprint": "QA Sprint 2 – Part 5",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "INTERNAL"
+  },
+  "summary": {
+    "status": "WARNING",
+    "overallAssessment": "API performance validation is limited as the system is in mock/prototype stage. No production load testing was possible. Findings are based on code analysis and architectural review."
+  },
+  "latencyAnalysis": {
+    "mockServiceLatency": {
+      "authClientStub": "900ms (simulated delay in web-app authClient)",
+      "warehouseMockService": "500ms (simulated delay per call)",
+      "inventoryMockService": "300-800ms (simulated delay per call)",
+      "mobileApiClient": "No mock — real network calls with configurable timeout"
+    },
+    "backendLatency": {
+      "identity-service": "Direct JPA queries — expected <50ms per call",
+      "ai-service": "In-memory H2 — expected <20ms per call",
+      "analysis": "No caching layer, no connection pooling tuning, no query optimization evident"
+    }
+  },
+  "payloadAnalysis": {
+    "requestPayloads": {
+      "typical": "Small DTOs (3-10 fields), JSON format",
+      "largest": "Workflow definitions, content generation requests — could exceed 1MB",
+      "issues": ["No request size limits configured", "No compression enforced (Accept-Encoding)"]
+    },
+    "responsePayloads": {
+      "typical": "Small to medium JSON responses",
+      "listEndpoints": "No pagination — could grow unbounded",
+      "issues": ["No field selection (no sparse fieldsets)", "No pagination metadata"]
+    }
+  },
+  "concurrentRequestAnalysis": {
+    "connectionPool": "Default HikariCP (Spring Boot default: 10 connections)",
+    "threadPool": "Default Tomcat (Spring Boot default: 200 threads)",
+    "rateLimiting": "Not implemented in any service",
+    "issues": ["No rate limiting (429 not used)", "No circuit breakers", "No retry with backoff (except mobile offline sync)"]
+  },
+  "cachingAnalysis": {
+    "httpCaching": "No Cache-Control headers observed in controller responses",
+    "applicationCaching": "No @Cacheable annotations found in any service",
+    "cdnConfig": "Not configured",
+    "recommendation": "Add Cache-Control headers for GET endpoints, implement Redis caching for frequently accessed data"
+  },
+  "retryBehavior": {
+    "mobileApiClient": "401 retry with token refresh implemented",
+    "mobileOfflineSync": "Exponential backoff retry implemented",
+    "allOtherFrontends": "No retry logic — single attempt, fail immediately",
+    "recommendation": "Add retry with exponential backoff to all API calls"
+  },
+  "networkValidation": {
+    "compression": "Not enforced — no Accept-Encoding headers configured",
+    "keepAlive": "Default HTTP/1.1 keep-alive (no custom tuning)",
+    "timeouts": {
+      "mobileApiClient": "Configurable from MobileConfig.requestTimeout",
+      "webAppDashboards": "Default fetch timeout (none — could hang indefinitely)",
+      "backendServices": "Default Spring Boot (30s for Tomcat)"
+    }
+  },
+  "recommendations": [
+    { "priority": "P1", "action": "Implement API Gateway with rate limiting and caching" },
+    { "priority": "P1", "action": "Add pagination to all list endpoints" },
+    { "priority": "P1", "action": "Configure Cache-Control headers on GET responses" },
+    { "priority": "P2", "action": "Add response compression (gzip/brotli)" },
+    { "priority": "P2", "action": "Implement connection pooling tuning and query optimization" },
+    { "priority": "P2", "action": "Add request timeout configuration to all frontend API calls" },
+    { "priority": "P2", "action": "Implement circuit breakers for inter-service calls" }
+  ]
+}

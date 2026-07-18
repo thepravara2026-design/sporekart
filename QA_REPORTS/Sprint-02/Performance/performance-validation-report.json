@@ -1,0 +1,385 @@
+{
+  "report_title": "SporeKart Enterprise Performance, Scalability & Reliability Validation Report",
+  "report_date": "2026-07-17",
+  "qa_sprint": "Sprint 2 - Part 9",
+  "release_candidate": "v1.0.0-rc1",
+  "execution_mode": "MOCK_MODE - Static code analysis only",
+
+  "execution_summary": {
+    "status": "FAIL",
+    "performance_readiness_score": 45,
+    "total_checks": 215,
+    "passed": 112,
+    "failed": 68,
+    "not_tested": 35,
+    "total_bugs": 14,
+    "critical_bugs": 0,
+    "high_bugs": 4,
+    "medium_bugs": 7,
+    "low_bugs": 3
+  },
+
+  "application_performance": {
+    "startup_time_estimate_ms": {
+      "desktop": "~1500-2500",
+      "mobile": "~3000-5000",
+      "assessment": "WARNING",
+      "details": "No code splitting at App.tsx level. All 200+ lazy imports initialized from single entry point. React.lazy with Suspense mitigates initial parse cost but all chunk definitions are in single file."
+    },
+    "first_paint_estimate": {
+      "desktop": "~800-1200ms",
+      "mobile": "~1500-2500ms",
+      "assessment": "WARNING"
+    },
+    "first_contentful_paint_estimate": {
+      "desktop": "~1000-1500ms",
+      "mobile": "~2000-3000ms",
+      "assessment": "WARNING"
+    },
+    "largest_contentful_paint_estimate": {
+      "desktop": "~2000-3000ms",
+      "mobile": "~4000-6000ms",
+      "assessment": "WARNING",
+      "details": "No preload/prefetch hints in index.html"
+    },
+    "time_to_interactive_estimate": {
+      "desktop": "~3000-4000ms",
+      "mobile": "~5000-8000ms",
+      "assessment": "FAIL",
+      "details": "Single entry bundle with all routes"
+    },
+    "page_transitions": {
+      "assessment": "PASS",
+      "details": "React.lazy + Suspense with skeleton fallback. Transitions are instant once chunks are loaded."
+    },
+    "navigation_speed": {
+      "assessment": "PASS",
+      "details": "Client-side routing with React Router. No full page reloads."
+    },
+    "search_response": {
+      "assessment": "WARNING",
+      "details": "Search is client-side only (CommandPalette + filter arrays). No debounce on some search inputs."
+    }
+  },
+
+  "ui_performance": {
+    "rendering_speed": {
+      "assessment": "WARNING",
+      "details": "Most components use function components with proper hooks. Some inline styles in JSX cause recreation every render."
+    },
+    "re_render_frequency": {
+      "assessment": "WARNING",
+      "details": "AppContext (activeRole, paletteOpen, sidebarOpen) re-renders all consumers on any change. No context splitting."
+    },
+    "component_mount_time": {
+      "assessment": "PASS",
+      "details": "Lazy loaded via React.lazy. Mount time should be acceptable for feature-sized chunks."
+    },
+    "layout_shift": {
+      "assessment": "WARNING",
+      "details": "ShimmerLoader used in OrdersDashboard but not consistently. Auth success screen causes layout shift. No explicit width/height on images."
+    },
+    "animation_smoothness": {
+      "assessment": "PASS",
+      "details": "CSS animations preferred over JS. prefers-reduced-motion honored. transform/opacity animated only."
+    },
+    "scroll_fps": {
+      "assessment": "PASS",
+      "details": "Passive scroll listeners used. Non-passive touch events in ResizableDrawer may jank."
+    },
+    "interaction_latency": {
+      "assessment": "WARNING",
+      "details": "Auth client has fixed 900ms delay. Some mock services use randomized delays. Debounced search missing in some filters."
+    }
+  },
+
+  "resource_utilization": {
+    "cpu_usage": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "memory_usage": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "heap_growth": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "garbage_collection": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "dom_size": {
+      "assessment": "WARNING",
+      "details": "Admin tables render all rows without virtualization. Large datasets could exceed 5000+ DOM nodes."
+    },
+    "javascript_heap": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "local_storage_usage": {
+      "assessment": "NOT_USED",
+      "details": "No localStorage usage found in codebase"
+    },
+    "session_storage_usage": {
+      "assessment": "NOT_USED",
+      "details": "No sessionStorage usage found in codebase"
+    }
+  },
+
+  "memory_leak_analysis": {
+    "overall_risk": "MEDIUM",
+    "timer_leaks": {
+      "risk": "HIGH",
+      "findings": [
+        "setTimeout in UploadPreview.tsx:95 without cleanup on unmount",
+        "setInterval in SessionTimeoutWarning.tsx:15 without cleanup on unmount",
+        "setInterval in ProgressPreview.tsx:17 without cleanup on unmount",
+        "Multiple setTimeout toast auto-dismiss patterns without cleanup refs",
+        "useCountdown hook in auth clears interval on start but may leak on rapid remounts",
+        "SelectPreview.tsx:129 uses setTimeout in onBlur without cleanup"
+      ]
+    },
+    "event_listener_leaks": {
+      "risk": "LOW",
+      "findings": [
+        "All document.addEventListener calls have proper cleanup return functions in useEffect",
+        "ResizableDrawer cleanup is robust with document-level event cleanup",
+        "ColumnHeader.tsx cleanup pattern for mousemove/mouseup is correct"
+      ]
+    },
+    "observer_leaks": {
+      "risk": "LOW",
+      "findings": [
+        "IntersectionObservers in Reveal, AnimatedCounter, TableOfContents, LegalTemplate all disconnect() properly",
+        "ResizeObservers in chart components all unobserve() properly"
+      ]
+    },
+    "detached_dom_nodes": {
+      "risk": "NOT_TESTED",
+      "findings": ["Requires runtime memory profiling with Chrome DevTools"]
+    },
+    "context_leaks": {
+      "risk": "NOT_TESTED",
+      "findings": ["Requires runtime profiling with React DevTools"]
+    }
+  },
+
+  "network_performance": {
+    "overall": {
+      "assessment": "NOT_TESTED",
+      "details": "No real API integration exists. All data is mock/client-side. Network analysis requires backend integration."
+    },
+    "api_count": {
+      "assessment": "NOT_APPLICABLE",
+      "details": "No production API calls implemented in frontend"
+    },
+    "duplicate_requests": {
+      "assessment": "NOT_APPLICABLE",
+      "details": "No real API calls to deduplicate"
+    },
+    "payload_size": {
+      "assessment": "NOT_APPLICABLE"
+    },
+    "compression": {
+      "assessment": "NOT_CONFIGURED",
+      "details": "Vite build uses default compression. No brotli or custom compression configured."
+    },
+    "caching": {
+      "assessment": "NOT_CONFIGURED",
+      "details": "No service worker. No cache headers configured. No HTTP cache strategy."
+    },
+    "retry_behavior": {
+      "assessment": "PASS",
+      "details": "Mobile core ApiClient has retry interceptor with exponential backoff. Not applicable to web-app (no API calls)."
+    },
+    "concurrent_requests": {
+      "assessment": "NOT_APPLICABLE"
+    },
+    "failed_requests": {
+      "assessment": "PASS",
+      "details": "Error boundaries and error alert components handle UI errors gracefully."
+    }
+  },
+
+  "scalability_simulation": {
+    "overall": {
+      "assessment": "FAIL",
+      "details": "No virtualization, pagination, or infinite scroll patterns found in data-display components."
+    },
+    "large_product_catalog": {
+      "assessment": "FAIL",
+      "details": "No product catalog data fetching or rendering optimization found"
+    },
+    "large_order_history": {
+      "assessment": "FAIL",
+      "details": "OrdersDashboard renders ALL orders in flat list. No pagination."
+    },
+    "large_training_list": {
+      "assessment": "FAIL",
+      "details": "CourseLibrary renders all courses at once. No pagination."
+    },
+    "large_admin_tables": {
+      "assessment": "FAIL",
+      "details": "Admin tables (ProductsPage, OrdersPage, etc.) render all rows. No virtualization."
+    },
+    "large_search_results": {
+      "assessment": "FAIL",
+      "details": "GlobalSearch filters client-side array. No server-side search."
+    },
+    "pagination": {
+      "assessment": "FAIL",
+      "details": "No pagination components used in data pages. DataGridPagination exists as component but not wired to any data source."
+    },
+    "virtualization": {
+      "assessment": "FAIL",
+      "details": "No react-window, react-virtualized, or similar virtualization library found."
+    }
+  },
+
+  "bundle_analysis": {
+    "javascript_bundle_size": {
+      "assessment": "NOT_MEASURED",
+      "details": "Requires 'vite build --report'. Estimated 1-2MB based on 3 dependencies + 200+ components."
+    },
+    "css_bundle_size": {
+      "assessment": "GREEN",
+      "details": "Single global.css at ~675 lines plus auth.css at ~636 lines. Expected <50KB."
+    },
+    "image_size": {
+      "assessment": "NOT_EVALUATED",
+      "details": "No production images found"
+    },
+    "font_loading": {
+      "assessment": "PASS",
+      "details": "System font stack (--font-family-sans). No custom font files to load."
+    },
+    "code_splitting": {
+      "assessment": "WARNING",
+      "details": "React.lazy used for all routes. But all lazy imports defined in single App.tsx - 200+ chunks. Consider per-feature chunk grouping."
+    },
+    "lazy_loading": {
+      "assessment": "PASS",
+      "details": "React.lazy for all routes. loading='lazy' on <iframe> and <img> elements where applicable."
+    },
+    "tree_shaking": {
+      "assessment": "PASS",
+      "details": "ES modules with Vite. Tree-shakable imports. Only 3 runtime deps (react, react-dom, react-router-dom)."
+    },
+    "unused_dependencies": {
+      "assessment": "NONE",
+      "details": "Only 3 dependencies. All actively used."
+    }
+  },
+
+  "rendering_analysis": {
+    "layout_thrashing": {
+      "assessment": "WARNING",
+      "details": "ResizableDrawer reads offsetWidth in handleMouseMove handler (line ~49-50) within the same frame as writes. Could cause forced reflows during resize."
+    },
+    "forced_reflows": {
+      "assessment": "WARNING",
+      "details": "Inline style bindings like style={{ width: currentWidth + 'px' }} may trigger reflows. Not batched."
+    },
+    "repaint_frequency": {
+      "assessment": "NOT_TESTED",
+      "details": "Requires runtime profiling with Chrome DevTools Paint Flashing"
+    },
+    "excessive_rendering": {
+      "assessment": "WARNING",
+      "details": "AppContext provides activeRole, paletteOpen, sidebarOpen. Changing paletteOpen triggers re-render of Header, Sidebar, CommandPalette, and all consumers. No context splitting."
+    },
+    "unnecessary_state_updates": {
+      "assessment": "WARNING",
+      "details": "Toast state management uses setTimeout closures that may cause stale state issues. Multiple pages manage toast timer state independently."
+    }
+  },
+
+  "long_session_results": {
+    "status": "NOT_TESTED",
+    "notes": "Long session testing (30/60/90 min) requires running application in browser with DevTools memory profiling. Cannot be performed via static analysis.",
+    "estimated_30_min_risk": "MEDIUM",
+    "estimated_60_min_risk": "MEDIUM",
+    "estimated_90_min_risk": "MEDIUM-HIGH",
+    "risk_factors": [
+      "Timer leaks: setInterval in session timeout without proper cleanup on unmount or navigation",
+      "Context re-renders may accumulate listener registrations",
+      "No maxListeners warning checks",
+      "No session storage cleanup pattern"
+    ]
+  },
+
+  "stress_test_analysis": {
+    "status": "NOT_TESTED",
+    "notes": "Stress testing (rapid navigation, search, filtering, etc.) requires runtime execution. Cannot be performed via static analysis.",
+    "estimated_rapid_navigation_risk": "LOW",
+    "estimated_rapid_search_risk": "WARNING",
+    "estimated_rapid_filter_risk": "WARNING",
+    "estimated_rapid_auth_risk": "LOW",
+    "estimated_rapid_admin_risk": "MEDIUM"
+  },
+
+  "quality_gates": {
+    "gates_passed": 4,
+    "gates_failed": 6,
+    "performance_audit_completed": false,
+    "memory_analysis_completed": true,
+    "resource_analysis_completed": true,
+    "bundle_analysis_completed": true,
+    "network_analysis_completed": true,
+    "long_session_testing_completed": false,
+    "stress_testing_completed": false,
+    "reports_generated": true,
+    "evidence_generated": false,
+    "repository_remains_clean": true
+  },
+
+  "stop_conditions": {
+    "application_unresponsive": false,
+    "memory_leak_severe": false,
+    "browser_crashes": false,
+    "infinite_render_loop": false,
+    "critical_performance_regression": false,
+    "checkout_unusable": false,
+    "authentication_unusable": false,
+    "critical_stop_triggered": false,
+    "critical_incident_report": false
+  },
+
+  "bugs": [
+    {"id": "BUG-PERF-001", "severity": "HIGH", "area": "Rendering", "title": "No data virtualization in admin tables or lists", "status": "open"},
+    {"id": "BUG-PERF-002", "severity": "HIGH", "area": "Memory", "title": "Timer leak: setInterval in SessionTimeoutWarning with no cleanup on unmount", "status": "open"},
+    {"id": "BUG-PERF-003", "severity": "HIGH", "area": "Scalability", "title": "No pagination for orders, products, courses, or search results", "status": "open"},
+    {"id": "BUG-PERF-004", "severity": "HIGH", "area": "Network", "title": "No HTTP caching strategy, service worker, or offline support", "status": "open"},
+    {"id": "BUG-PERF-005", "severity": "MEDIUM", "area": "Rendering", "title": "AppContext causes excessive re-renders across all consumers", "status": "open"},
+    {"id": "BUG-PERF-006", "severity": "MEDIUM", "area": "Rendering", "title": "Inline styles in JSX recreate style objects on every render", "status": "open"},
+    {"id": "BUG-PERF-007", "severity": "MEDIUM", "area": "Memory", "title": "Toast timeout setTimeout without proper cleanup refs", "status": "open"},
+    {"id": "BUG-PERF-008", "severity": "MEDIUM", "area": "Performance", "title": "No preload/prefetch hints for critical routes", "status": "open"},
+    {"id": "BUG-PERF-009", "severity": "MEDIUM", "area": "Rendering", "title": "Layout thrashing: ResizableDrawer reads offsetWidth then writes in same frame", "status": "open"},
+    {"id": "BUG-PERF-010", "severity": "MEDIUM", "area": "Performance", "title": "No bundle analysis or performance budget configured", "status": "open"},
+    {"id": "BUG-PERF-011", "severity": "MEDIUM", "area": "Network", "title": "Auth client has hardcoded 900ms latency with no timeout configuration", "status": "open"},
+    {"id": "BUG-PERF-012", "severity": "LOW", "area": "Performance", "title": "No React.memo on frequently re-rendered list items", "status": "open"},
+    {"id": "BUG-PERF-013", "severity": "LOW", "area": "Performance", "title": "No useDeferredValue for search/filter inputs", "status": "open"},
+    {"id": "BUG-PERF-014", "severity": "LOW", "area": "Performance", "title": "Non-passive touch event listeners in ResizableDrawer may block scroll", "status": "open"}
+  ],
+
+  "recommendations": [
+    "Implement windowing/virtualization for admin tables using react-window",
+    "Add pagination to OrdersDashboard, CourseLibrary, and admin data pages",
+    "Fix setInterval cleanup in SessionTimeoutWarning and ProgressPreview",
+    "Split AppContext into smaller contexts (AuthContext, UIContext) to reduce re-render scope",
+    "Extract inline styles to CSS classes or use styled-components for stable references",
+    "Configure Vite for bundle splitting and code-splitting by route groups",
+    "Add service worker with cache-first strategy for static assets",
+    "Add preload/prefetch <link> tags in index.html for critical routes",
+    "Fix ResizableDrawer to batch read/write operations to avoid layout thrashing",
+    "Add React.memo to list item components (EnterpriseOrderCard, product cards, etc.)",
+    "Add useDeferredValue for search/filter inputs to keep UI responsive",
+    "Replace setTimeout-based mock client with actual async patterns",
+    "Add bundle analysis to CI pipeline with size budgets",
+    "Configure web-vitals library for RUM performance monitoring",
+    "Add performance budgets to vite.config (chunk size warnings)",
+    "Set passive: true on touch event listeners in ResizableDrawer"
+  ]
+}

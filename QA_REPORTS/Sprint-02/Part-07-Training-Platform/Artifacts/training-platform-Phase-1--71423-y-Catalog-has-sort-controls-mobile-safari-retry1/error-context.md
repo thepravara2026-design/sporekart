@@ -1,0 +1,1990 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: training-platform.spec.ts >> Phase 1 — Training Discovery >> Catalog has sort controls
+- Location: tests\training-platform.spec.ts:69:7
+
+# Error details
+
+```
+Error: expect(received).toBeTruthy()
+
+Received: false
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3]:
+    - /url: "#main"
+  - navigation "Breadcrumb" [ref=e4]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "Training" [ref=e7]:
+          - /url: /training
+        - img "Next" [ref=e8]
+      - listitem [ref=e10]:
+        - generic [ref=e11]: Course Catalog
+  - banner [ref=e12]:
+    - text: Enterprise Learning
+    - heading "Course Catalog" [level=1] [ref=e13]
+    - paragraph [ref=e14]: Discover expert-led training programs across cultivation, spawn production, commercial farming, and entrepreneurship.
+  - generic [ref=e15]:
+    - region "Browse by category" [ref=e16]:
+      - heading "Browse by category" [level=2] [ref=e17]
+      - generic [ref=e18]:
+        - link "Mushroom Cultivation — 4 courses" [ref=e19]:
+          - /url: /training/courses/category/mushroom-cultivation
+          - img [ref=e21]
+          - generic [ref=e24]:
+            - generic [ref=e25]: Mushroom Cultivation
+            - generic [ref=e26]: 4 courses
+        - link "Spawn Production — 2 courses" [ref=e27]:
+          - /url: /training/courses/category/spawn-production
+          - img [ref=e29]
+          - generic [ref=e32]:
+            - generic [ref=e33]: Spawn Production
+            - generic [ref=e34]: 2 courses
+        - link "Commercial Farming — 1 courses" [ref=e35]:
+          - /url: /training/courses/category/commercial-farming
+          - img [ref=e37]
+          - generic [ref=e40]:
+            - generic [ref=e41]: Commercial Farming
+            - generic [ref=e42]: 1 courses
+        - link "Value Added Products — 2 courses" [ref=e43]:
+          - /url: /training/courses/category/value-added-products
+          - img [ref=e45]
+          - generic [ref=e48]:
+            - generic [ref=e49]: Value Added Products
+            - generic [ref=e50]: 2 courses
+        - link "Business Training — 2 courses" [ref=e51]:
+          - /url: /training/courses/category/business-training
+          - img [ref=e53]
+          - generic [ref=e56]:
+            - generic [ref=e57]: Business Training
+            - generic [ref=e58]: 2 courses
+        - link "Corporate Training — 1 courses" [ref=e59]:
+          - /url: /training/courses/category/corporate-training
+          - img [ref=e61]
+          - generic [ref=e64]:
+            - generic [ref=e65]: Corporate Training
+            - generic [ref=e66]: 1 courses
+        - link "Institutional Programs — 1 courses" [ref=e67]:
+          - /url: /training/courses/category/institutional-programs
+          - img [ref=e69]
+          - generic [ref=e72]:
+            - generic [ref=e73]: Institutional Programs
+            - generic [ref=e74]: 1 courses
+        - link "Franchise Programs — 1 courses" [ref=e75]:
+          - /url: /training/courses/category/franchise-programs
+          - img [ref=e77]
+          - generic [ref=e80]:
+            - generic [ref=e81]: Franchise Programs
+            - generic [ref=e82]: 1 courses
+        - link "Future AI Courses — 1 courses" [ref=e83]:
+          - /url: /training/courses/category/future-ai-courses
+          - img [ref=e85]
+          - generic [ref=e88]:
+            - generic [ref=e89]: Future AI Courses
+            - generic [ref=e90]: 1 courses
+    - region "Featured Courses" [ref=e91]:
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - text: Handpicked
+          - heading "Featured Courses" [level=2] [ref=e94]
+        - link "View all View all" [ref=e95]:
+          - /url: /training/courses?view=featured
+          - text: View all
+          - img "View all" [ref=e96]
+      - region "Featured Courses carousel" [ref=e98]:
+        - article "Mushroom Cultivation Fundamentals" [ref=e100] [cursor=pointer]:
+          - generic [ref=e101]:
+            - link "Mushroom Cultivation Fundamentals" [ref=e102]:
+              - /url: /training/courses/mushroom-cultivation-fundamentals
+              - 'figure "Image placeholder: Mushroom Cultivation Fundamentals" [ref=e103]':
+                - generic [ref=e104]:
+                  - img "Mushroom Cultivation Fundamentals" [ref=e105]
+                  - generic [ref=e108]: Mushroom Cultivation Fundamentals
+                  - generic [ref=e109]: Image placeholder
+                - generic [ref=e110]: Mushroom Cultivation
+            - generic [ref=e112]:
+              - generic [ref=e113]: Featured
+              - generic [ref=e114]: Popular
+            - generic [ref=e115]:
+              - button "Bookmark" [ref=e116]:
+                - img [ref=e117]
+              - button "Add to wishlist" [ref=e120]:
+                - img [ref=e121]
+              - button "Add to comparison" [ref=e123]:
+                - img [ref=e124]
+          - generic [ref=e125]:
+            - generic [ref=e126]: Mushroom Cultivation · MC-101
+            - heading "Mushroom Cultivation Fundamentals" [level=3] [ref=e127]:
+              - link "Mushroom Cultivation Fundamentals" [ref=e128]:
+                - /url: /training/courses/mushroom-cultivation-fundamentals
+            - paragraph [ref=e129]: Learn the complete process of commercial mushroom cultivation from spawn to harvest.
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - img "Level" [ref=e132]
+                - text: Beginner
+              - generic [ref=e133]:
+                - img "Duration" [ref=e134]
+                - text: 4 Weeks
+              - generic [ref=e137]:
+                - img "Delivery" [ref=e138]
+                - text: Offline
+              - generic [ref=e140]:
+                - img "Language" [ref=e141]
+                - text: English
+            - generic [ref=e144]:
+              - generic [ref=e145]: ₹3,070
+              - generic [ref=e146]:
+                - img "Rating" [ref=e147]
+                - text: "4.7"
+                - generic [ref=e149]: · 245 enrolled
+            - generic [ref=e151]:
+              - img "Seats" [ref=e152]
+              - text: 35 seats left
+            - generic [ref=e158]:
+              - link "View Mushroom Cultivation Fundamentals" [ref=e159]:
+                - /url: /training/courses/mushroom-cultivation-fundamentals
+                - text: View Course
+                - img "View" [ref=e160]
+              - button "Add to comparison" [ref=e162]:
+                - img "Compare" [ref=e163]
+                - text: Compare
+        - article "Commercial Oyster Farming" [ref=e165] [cursor=pointer]:
+          - generic [ref=e166]:
+            - link "Commercial Oyster Farming" [ref=e167]:
+              - /url: /training/courses/commercial-oyster-farming
+              - 'figure "Image placeholder: Commercial Oyster Farming" [ref=e168]':
+                - generic [ref=e169]:
+                  - img "Commercial Oyster Farming" [ref=e170]
+                  - generic [ref=e173]: Commercial Oyster Farming
+                  - generic [ref=e174]: Image placeholder
+                - generic [ref=e175]: Commercial Farming
+            - generic [ref=e177]:
+              - generic [ref=e178]: Featured
+              - generic [ref=e179]: Government
+            - generic [ref=e180]:
+              - button "Bookmark" [ref=e181]:
+                - img [ref=e182]
+              - button "Add to wishlist" [ref=e185]:
+                - img [ref=e186]
+              - button "Add to comparison" [ref=e188]:
+                - img [ref=e189]
+          - generic [ref=e190]:
+            - generic [ref=e191]: Commercial Farming · CF-301
+            - heading "Commercial Oyster Farming" [level=3] [ref=e192]:
+              - link "Commercial Oyster Farming" [ref=e193]:
+                - /url: /training/courses/commercial-oyster-farming
+            - paragraph [ref=e194]: End-to-end training for setting up and running a commercial oyster mushroom farm.
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - img "Level" [ref=e197]
+                - text: Advanced
+              - generic [ref=e198]:
+                - img "Duration" [ref=e199]
+                - text: 8 Weeks
+              - generic [ref=e202]:
+                - img "Delivery" [ref=e203]
+                - text: Offline
+              - generic [ref=e205]:
+                - img "Language" [ref=e206]
+                - text: English
+            - generic [ref=e209]:
+              - generic [ref=e210]: ₹4,150
+              - generic [ref=e211]:
+                - img "Rating" [ref=e212]
+                - text: "4.8"
+                - generic [ref=e214]: · 180 enrolled
+            - generic [ref=e216]:
+              - img "Seats" [ref=e217]
+              - text: 20 seats left
+            - generic [ref=e223]:
+              - link "View Commercial Oyster Farming" [ref=e224]:
+                - /url: /training/courses/commercial-oyster-farming
+                - text: View Course
+                - img "View" [ref=e225]
+              - button "Add to comparison" [ref=e227]:
+                - img "Compare" [ref=e228]
+                - text: Compare
+        - article "Corporate Mushroom Training Program" [ref=e230] [cursor=pointer]:
+          - generic [ref=e231]:
+            - link "Corporate Mushroom Training Program" [ref=e232]:
+              - /url: /training/courses/corporate-mushroom-training
+              - 'figure "Image placeholder: Corporate Mushroom Training Program" [ref=e233]':
+                - generic [ref=e234]:
+                  - img "Corporate Mushroom Training Program" [ref=e235]
+                  - generic [ref=e238]: Corporate Mushroom Training Program
+                  - generic [ref=e239]: Image placeholder
+                - generic [ref=e240]: Corporate Training
+            - generic [ref=e243]: Corporate
+            - generic [ref=e244]:
+              - button "Bookmark" [ref=e245]:
+                - img [ref=e246]
+              - button "Add to wishlist" [ref=e249]:
+                - img [ref=e250]
+              - button "Add to comparison" [ref=e252]:
+                - img [ref=e253]
+          - generic [ref=e254]:
+            - generic [ref=e255]: Corporate Training · CT-201
+            - heading "Corporate Mushroom Training Program" [level=3] [ref=e256]:
+              - link "Corporate Mushroom Training Program" [ref=e257]:
+                - /url: /training/courses/corporate-mushroom-training
+            - paragraph [ref=e258]: Tailored training for corporate teams entering the mushroom industry.
+            - generic [ref=e259]:
+              - generic [ref=e260]:
+                - img "Level" [ref=e261]
+                - text: Intermediate
+              - generic [ref=e262]:
+                - img "Duration" [ref=e263]
+                - text: 12 Weeks
+              - generic [ref=e266]:
+                - img "Delivery" [ref=e267]
+                - text: Hybrid
+              - generic [ref=e269]:
+                - img "Language" [ref=e270]
+                - text: English
+            - generic [ref=e273]:
+              - generic [ref=e274]: ₹3,610
+              - generic [ref=e275]:
+                - img "Rating" [ref=e276]
+                - text: "0.0"
+                - generic [ref=e278]: · 0 enrolled
+            - generic [ref=e280]:
+              - img "Seats" [ref=e281]
+              - text: 40 seats left
+            - generic [ref=e287]:
+              - link "View Corporate Mushroom Training Program" [ref=e288]:
+                - /url: /training/courses/corporate-mushroom-training
+                - text: View Course
+                - img "View" [ref=e289]
+              - button "Add to comparison" [ref=e291]:
+                - img "Compare" [ref=e292]
+                - text: Compare
+        - article "Mushroom Quality Control & Food Safety" [ref=e294] [cursor=pointer]:
+          - generic [ref=e295]:
+            - link "Mushroom Quality Control & Food Safety" [ref=e296]:
+              - /url: /training/courses/mushroom-quality-control
+              - 'figure "Image placeholder: Mushroom Quality Control & Food Safety" [ref=e297]':
+                - generic [ref=e298]:
+                  - img "Mushroom Quality Control & Food Safety" [ref=e299]
+                  - generic [ref=e302]: Mushroom Quality Control & Food Safety
+                  - generic [ref=e303]: Image placeholder
+                - generic [ref=e304]: Value Added Products
+            - generic [ref=e306]:
+              - generic [ref=e307]: Corporate
+              - generic [ref=e308]: Featured
+            - generic [ref=e309]:
+              - button "Bookmark" [ref=e310]:
+                - img [ref=e311]
+              - button "Add to wishlist" [ref=e314]:
+                - img [ref=e315]
+              - button "Add to comparison" [ref=e317]:
+                - img [ref=e318]
+          - generic [ref=e319]:
+            - generic [ref=e320]: Value Added Products · QC-101
+            - heading "Mushroom Quality Control & Food Safety" [level=3] [ref=e321]:
+              - link "Mushroom Quality Control & Food Safety" [ref=e322]:
+                - /url: /training/courses/mushroom-quality-control
+            - paragraph [ref=e323]: Ensure highest quality standards in mushroom production and processing.
+            - generic [ref=e324]:
+              - generic [ref=e325]:
+                - img "Level" [ref=e326]
+                - text: Intermediate
+              - generic [ref=e327]:
+                - img "Duration" [ref=e328]
+                - text: 3 Weeks
+              - generic [ref=e331]:
+                - img "Delivery" [ref=e332]
+                - text: Hybrid
+              - generic [ref=e334]:
+                - img "Language" [ref=e335]
+                - text: English
+            - generic [ref=e338]:
+              - generic [ref=e339]: ₹3,070
+              - generic [ref=e340]:
+                - img "Rating" [ref=e341]
+                - text: "0.0"
+                - generic [ref=e343]: · 0 enrolled
+            - generic [ref=e345]:
+              - img "Seats" [ref=e346]
+              - text: 40 seats left
+            - generic [ref=e352]:
+              - link "View Mushroom Quality Control & Food Safety" [ref=e353]:
+                - /url: /training/courses/mushroom-quality-control
+                - text: View Course
+                - img "View" [ref=e354]
+              - button "Add to comparison" [ref=e356]:
+                - img "Compare" [ref=e357]
+                - text: Compare
+    - region "Trending Courses" [ref=e358]:
+      - generic [ref=e359]:
+        - generic [ref=e360]:
+          - text: Popular now
+          - heading "Trending Courses" [level=2] [ref=e361]
+        - link "View all View all" [ref=e362]:
+          - /url: /training/courses?sort=trending
+          - text: View all
+          - img "View all" [ref=e363]
+      - region "Trending Courses carousel" [ref=e365]:
+        - article "Advanced Spawn Production" [ref=e367] [cursor=pointer]:
+          - generic [ref=e368]:
+            - link "Advanced Spawn Production" [ref=e369]:
+              - /url: /training/courses/advanced-spawn-production
+              - 'figure "Image placeholder: Advanced Spawn Production" [ref=e370]':
+                - generic [ref=e371]:
+                  - img "Advanced Spawn Production" [ref=e372]
+                  - generic [ref=e375]: Advanced Spawn Production
+                  - generic [ref=e376]: Image placeholder
+                - generic [ref=e377]: Spawn Production
+            - generic [ref=e379]:
+              - generic [ref=e380]: Trending
+              - generic [ref=e381]: Corporate
+            - generic [ref=e382]:
+              - button "Bookmark" [ref=e383]:
+                - img [ref=e384]
+              - button "Add to wishlist" [ref=e387]:
+                - img [ref=e388]
+              - button "Add to comparison" [ref=e390]:
+                - img [ref=e391]
+          - generic [ref=e392]:
+            - generic [ref=e393]: Spawn Production · SP-201
+            - heading "Advanced Spawn Production" [level=3] [ref=e394]:
+              - link "Advanced Spawn Production" [ref=e395]:
+                - /url: /training/courses/advanced-spawn-production
+            - paragraph [ref=e396]: Master the science of spawn production for large-scale mushroom farming.
+            - generic [ref=e397]:
+              - generic [ref=e398]:
+                - img "Level" [ref=e399]
+                - text: Advanced
+              - generic [ref=e400]:
+                - img "Duration" [ref=e401]
+                - text: 6 Weeks
+              - generic [ref=e404]:
+                - img "Delivery" [ref=e405]
+                - text: Hybrid
+              - generic [ref=e407]:
+                - img "Language" [ref=e408]
+                - text: English
+            - generic [ref=e411]:
+              - generic [ref=e412]: ₹3,610
+              - generic [ref=e413]:
+                - img "Rating" [ref=e414]
+                - text: "4.9"
+                - generic [ref=e416]: · 120 enrolled
+            - generic [ref=e418]:
+              - img "Seats" [ref=e419]
+              - text: 40 seats left
+            - generic [ref=e425]:
+              - link "View Advanced Spawn Production" [ref=e426]:
+                - /url: /training/courses/advanced-spawn-production
+                - text: View Course
+                - img "View" [ref=e427]
+              - button "Add to comparison" [ref=e429]:
+                - img "Compare" [ref=e430]
+                - text: Compare
+        - article "Mushroom Business & Entrepreneurship" [ref=e432] [cursor=pointer]:
+          - generic [ref=e433]:
+            - link "Mushroom Business & Entrepreneurship" [ref=e434]:
+              - /url: /training/courses/mushroom-business-entrepreneurship
+              - 'figure "Image placeholder: Mushroom Business & Entrepreneurship" [ref=e435]':
+                - generic [ref=e436]:
+                  - img "Mushroom Business & Entrepreneurship" [ref=e437]
+                  - generic [ref=e440]: Mushroom Business & Entrepreneurship
+                  - generic [ref=e441]: Image placeholder
+                - generic [ref=e442]: Business Training
+            - generic [ref=e445]: Trending
+            - generic [ref=e446]:
+              - button "Bookmark" [ref=e447]:
+                - img [ref=e448]
+              - button "Add to wishlist" [ref=e451]:
+                - img [ref=e452]
+              - button "Add to comparison" [ref=e454]:
+                - img [ref=e455]
+          - generic [ref=e456]:
+            - generic [ref=e457]: Business Training · BT-101
+            - heading "Mushroom Business & Entrepreneurship" [level=3] [ref=e458]:
+              - link "Mushroom Business & Entrepreneurship" [ref=e459]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+            - paragraph [ref=e460]: Build a sustainable mushroom business from the ground up.
+            - generic [ref=e461]:
+              - generic [ref=e462]:
+                - img "Level" [ref=e463]
+                - text: Beginner
+              - generic [ref=e464]:
+                - img "Duration" [ref=e465]
+                - text: 6 Weeks
+              - generic [ref=e468]:
+                - img "Delivery" [ref=e469]
+                - text: Online
+              - generic [ref=e471]:
+                - img "Language" [ref=e472]
+                - text: English
+            - generic [ref=e475]:
+              - generic [ref=e476]: ₹3,070
+              - generic [ref=e477]:
+                - img "Rating" [ref=e478]
+                - text: "4.6"
+                - generic [ref=e480]: · 210 enrolled
+            - generic [ref=e482]:
+              - img "Seats" [ref=e483]
+              - text: 30 seats left
+            - generic [ref=e489]:
+              - link "View Mushroom Business & Entrepreneurship" [ref=e490]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+                - text: View Course
+                - img "View" [ref=e491]
+              - button "Add to comparison" [ref=e493]:
+                - img "Compare" [ref=e494]
+                - text: Compare
+        - article "Introduction to Spawn Production" [ref=e496] [cursor=pointer]:
+          - generic [ref=e497]:
+            - link "Introduction to Spawn Production" [ref=e498]:
+              - /url: /training/courses/introduction-spawn-production
+              - 'figure "Image placeholder: Introduction to Spawn Production" [ref=e499]':
+                - generic [ref=e500]:
+                  - img "Introduction to Spawn Production" [ref=e501]
+                  - generic [ref=e504]: Introduction to Spawn Production
+                  - generic [ref=e505]: Image placeholder
+                - generic [ref=e506]: Spawn Production
+            - generic [ref=e508]:
+              - generic [ref=e509]: Trending
+              - generic [ref=e510]: New
+            - generic [ref=e511]:
+              - button "Bookmark" [ref=e512]:
+                - img [ref=e513]
+              - button "Add to wishlist" [ref=e516]:
+                - img [ref=e517]
+              - button "Add to comparison" [ref=e519]:
+                - img [ref=e520]
+          - generic [ref=e521]:
+            - generic [ref=e522]: Spawn Production · SP-101
+            - heading "Introduction to Spawn Production" [level=3] [ref=e523]:
+              - link "Introduction to Spawn Production" [ref=e524]:
+                - /url: /training/courses/introduction-spawn-production
+            - paragraph [ref=e525]: Foundation course for spawn production techniques and sterile laboratory practices.
+            - generic [ref=e526]:
+              - generic [ref=e527]:
+                - img "Level" [ref=e528]
+                - text: Beginner
+              - generic [ref=e529]:
+                - img "Duration" [ref=e530]
+                - text: 2 Weeks
+              - generic [ref=e533]:
+                - img "Delivery" [ref=e534]
+                - text: Offline
+              - generic [ref=e536]:
+                - img "Language" [ref=e537]
+                - text: English
+            - generic [ref=e540]:
+              - generic [ref=e541]: ₹3,070
+              - generic [ref=e542]:
+                - img "Rating" [ref=e543]
+                - text: "4.5"
+                - generic [ref=e545]: · 320 enrolled
+            - generic [ref=e547]:
+              - img "Seats" [ref=e548]
+              - text: 40 seats left
+            - generic [ref=e554]:
+              - link "View Introduction to Spawn Production" [ref=e555]:
+                - /url: /training/courses/introduction-spawn-production
+                - text: View Course
+                - img "View" [ref=e556]
+              - button "Add to comparison" [ref=e558]:
+                - img "Compare" [ref=e559]
+                - text: Compare
+    - region "Recommended for you" [ref=e560]:
+      - generic [ref=e562]:
+        - text: Curated
+        - heading "Recommended for you" [level=2] [ref=e563]
+      - region "Recommended for you carousel" [ref=e564]:
+        - article "Advanced Spawn Production" [ref=e566] [cursor=pointer]:
+          - generic [ref=e567]:
+            - link "Advanced Spawn Production" [ref=e568]:
+              - /url: /training/courses/advanced-spawn-production
+              - 'figure "Image placeholder: Advanced Spawn Production" [ref=e569]':
+                - generic [ref=e570]:
+                  - img "Advanced Spawn Production" [ref=e571]
+                  - generic [ref=e574]: Advanced Spawn Production
+                  - generic [ref=e575]: Image placeholder
+                - generic [ref=e576]: Spawn Production
+            - generic [ref=e578]:
+              - generic [ref=e579]: Trending
+              - generic [ref=e580]: Corporate
+            - generic [ref=e581]:
+              - button "Bookmark" [ref=e582]:
+                - img [ref=e583]
+              - button "Add to wishlist" [ref=e586]:
+                - img [ref=e587]
+              - button "Add to comparison" [ref=e589]:
+                - img [ref=e590]
+          - generic [ref=e591]:
+            - generic [ref=e592]: Spawn Production · SP-201
+            - heading "Advanced Spawn Production" [level=3] [ref=e593]:
+              - link "Advanced Spawn Production" [ref=e594]:
+                - /url: /training/courses/advanced-spawn-production
+            - paragraph [ref=e595]: Master the science of spawn production for large-scale mushroom farming.
+            - generic [ref=e596]:
+              - generic [ref=e597]:
+                - img "Level" [ref=e598]
+                - text: Advanced
+              - generic [ref=e599]:
+                - img "Duration" [ref=e600]
+                - text: 6 Weeks
+              - generic [ref=e603]:
+                - img "Delivery" [ref=e604]
+                - text: Hybrid
+              - generic [ref=e606]:
+                - img "Language" [ref=e607]
+                - text: English
+            - generic [ref=e610]:
+              - generic [ref=e611]: ₹3,610
+              - generic [ref=e612]:
+                - img "Rating" [ref=e613]
+                - text: "4.9"
+                - generic [ref=e615]: · 120 enrolled
+            - generic [ref=e617]:
+              - img "Seats" [ref=e618]
+              - text: 40 seats left
+            - generic [ref=e624]:
+              - link "View Advanced Spawn Production" [ref=e625]:
+                - /url: /training/courses/advanced-spawn-production
+                - text: View Course
+                - img "View" [ref=e626]
+              - button "Add to comparison" [ref=e628]:
+                - img "Compare" [ref=e629]
+                - text: Compare
+        - article "Corporate Mushroom Training Program" [ref=e631] [cursor=pointer]:
+          - generic [ref=e632]:
+            - link "Corporate Mushroom Training Program" [ref=e633]:
+              - /url: /training/courses/corporate-mushroom-training
+              - 'figure "Image placeholder: Corporate Mushroom Training Program" [ref=e634]':
+                - generic [ref=e635]:
+                  - img "Corporate Mushroom Training Program" [ref=e636]
+                  - generic [ref=e639]: Corporate Mushroom Training Program
+                  - generic [ref=e640]: Image placeholder
+                - generic [ref=e641]: Corporate Training
+            - generic [ref=e644]: Corporate
+            - generic [ref=e645]:
+              - button "Bookmark" [ref=e646]:
+                - img [ref=e647]
+              - button "Add to wishlist" [ref=e650]:
+                - img [ref=e651]
+              - button "Add to comparison" [ref=e653]:
+                - img [ref=e654]
+          - generic [ref=e655]:
+            - generic [ref=e656]: Corporate Training · CT-201
+            - heading "Corporate Mushroom Training Program" [level=3] [ref=e657]:
+              - link "Corporate Mushroom Training Program" [ref=e658]:
+                - /url: /training/courses/corporate-mushroom-training
+            - paragraph [ref=e659]: Tailored training for corporate teams entering the mushroom industry.
+            - generic [ref=e660]:
+              - generic [ref=e661]:
+                - img "Level" [ref=e662]
+                - text: Intermediate
+              - generic [ref=e663]:
+                - img "Duration" [ref=e664]
+                - text: 12 Weeks
+              - generic [ref=e667]:
+                - img "Delivery" [ref=e668]
+                - text: Hybrid
+              - generic [ref=e670]:
+                - img "Language" [ref=e671]
+                - text: English
+            - generic [ref=e674]:
+              - generic [ref=e675]: ₹3,610
+              - generic [ref=e676]:
+                - img "Rating" [ref=e677]
+                - text: "0.0"
+                - generic [ref=e679]: · 0 enrolled
+            - generic [ref=e681]:
+              - img "Seats" [ref=e682]
+              - text: 40 seats left
+            - generic [ref=e688]:
+              - link "View Corporate Mushroom Training Program" [ref=e689]:
+                - /url: /training/courses/corporate-mushroom-training
+                - text: View Course
+                - img "View" [ref=e690]
+              - button "Add to comparison" [ref=e692]:
+                - img "Compare" [ref=e693]
+                - text: Compare
+        - article "Advanced Composting & Substrate" [ref=e695] [cursor=pointer]:
+          - generic [ref=e696]:
+            - link "Advanced Composting & Substrate" [ref=e697]:
+              - /url: /training/courses/advanced-composting-substrate
+              - 'figure "Image placeholder: Advanced Composting & Substrate" [ref=e698]':
+                - generic [ref=e699]:
+                  - img "Advanced Composting & Substrate" [ref=e700]
+                  - generic [ref=e703]: Advanced Composting & Substrate
+                  - generic [ref=e704]: Image placeholder
+                - generic [ref=e705]: Mushroom Cultivation
+            - generic [ref=e708]: Popular
+            - generic [ref=e709]:
+              - button "Bookmark" [ref=e710]:
+                - img [ref=e711]
+              - button "Add to wishlist" [ref=e714]:
+                - img [ref=e715]
+              - button "Add to comparison" [ref=e717]:
+                - img [ref=e718]
+          - generic [ref=e719]:
+            - generic [ref=e720]: Mushroom Cultivation · MC-201
+            - heading "Advanced Composting & Substrate" [level=3] [ref=e721]:
+              - link "Advanced Composting & Substrate" [ref=e722]:
+                - /url: /training/courses/advanced-composting-substrate
+            - paragraph [ref=e723]: Master the art and science of mushroom substrate preparation.
+            - generic [ref=e724]:
+              - generic [ref=e725]:
+                - img "Level" [ref=e726]
+                - text: Advanced
+              - generic [ref=e727]:
+                - img "Duration" [ref=e728]
+                - text: 4 Weeks
+              - generic [ref=e731]:
+                - img "Delivery" [ref=e732]
+                - text: Recorded
+              - generic [ref=e734]:
+                - img "Language" [ref=e735]
+                - text: English
+            - generic [ref=e738]:
+              - generic [ref=e739]: ₹3,610
+              - generic [ref=e740]:
+                - img "Rating" [ref=e741]
+                - text: "4.4"
+                - generic [ref=e743]: · 45 enrolled
+            - generic [ref=e745]:
+              - img "Seats" [ref=e746]
+              - text: 35 seats left
+            - generic [ref=e752]:
+              - link "View Advanced Composting & Substrate" [ref=e753]:
+                - /url: /training/courses/advanced-composting-substrate
+                - text: View Course
+                - img "View" [ref=e754]
+              - button "Add to comparison" [ref=e756]:
+                - img "Compare" [ref=e757]
+                - text: Compare
+        - article "Mushroom Export & International Trade" [ref=e759] [cursor=pointer]:
+          - generic [ref=e760]:
+            - link "Mushroom Export & International Trade" [ref=e761]:
+              - /url: /training/courses/mushroom-export-international-trade
+              - 'figure "Image placeholder: Mushroom Export & International Trade" [ref=e762]':
+                - generic [ref=e763]:
+                  - img "Mushroom Export & International Trade" [ref=e764]
+                  - generic [ref=e767]: Mushroom Export & International Trade
+                  - generic [ref=e768]: Image placeholder
+                - generic [ref=e769]: Business Training
+            - generic [ref=e770]:
+              - button "Bookmark" [ref=e771]:
+                - img [ref=e772]
+              - button "Add to wishlist" [ref=e775]:
+                - img [ref=e776]
+              - button "Add to comparison" [ref=e778]:
+                - img [ref=e779]
+          - generic [ref=e780]:
+            - generic [ref=e781]: Business Training · BT-201
+            - heading "Mushroom Export & International Trade" [level=3] [ref=e782]:
+              - link "Mushroom Export & International Trade" [ref=e783]:
+                - /url: /training/courses/mushroom-export-international-trade
+            - paragraph [ref=e784]: Navigate the complexities of international mushroom trade and export regulations.
+            - generic [ref=e785]:
+              - generic [ref=e786]:
+                - img "Level" [ref=e787]
+                - text: Advanced
+              - generic [ref=e788]:
+                - img "Duration" [ref=e789]
+                - text: 4 Weeks
+              - generic [ref=e792]:
+                - img "Delivery" [ref=e793]
+                - text: Online
+              - generic [ref=e795]:
+                - img "Language" [ref=e796]
+                - text: English
+            - generic [ref=e799]:
+              - generic [ref=e800]: ₹3,610
+              - generic [ref=e801]:
+                - img "Rating" [ref=e802]
+                - text: "4.2"
+                - generic [ref=e804]: · 89 enrolled
+            - generic [ref=e806]:
+              - img "Seats" [ref=e807]
+              - text: 31 seats left
+            - generic [ref=e813]:
+              - link "View Mushroom Export & International Trade" [ref=e814]:
+                - /url: /training/courses/mushroom-export-international-trade
+                - text: View Course
+                - img "View" [ref=e815]
+              - button "Add to comparison" [ref=e817]:
+                - img "Compare" [ref=e818]
+                - text: Compare
+    - region "Recently Added" [ref=e819]:
+      - generic [ref=e821]:
+        - text: New
+        - heading "Recently Added" [level=2] [ref=e822]
+      - region "Recently Added carousel" [ref=e823]:
+        - article "AI-Powered Mushroom Farm Management" [ref=e825] [cursor=pointer]:
+          - generic [ref=e826]:
+            - link "AI-Powered Mushroom Farm Management" [ref=e827]:
+              - /url: /training/courses/ai-mushroom-farm-management
+              - 'figure "Image placeholder: AI-Powered Mushroom Farm Management" [ref=e828]':
+                - generic [ref=e829]:
+                  - img "AI-Powered Mushroom Farm Management" [ref=e830]
+                  - generic [ref=e833]: AI-Powered Mushroom Farm Management
+                  - generic [ref=e834]: Image placeholder
+                - generic [ref=e835]: Future AI Courses
+            - generic [ref=e836]:
+              - button "Bookmark" [ref=e837]:
+                - img [ref=e838]
+              - button "Add to wishlist" [ref=e841]:
+                - img [ref=e842]
+              - button "Add to comparison" [ref=e844]:
+                - img [ref=e845]
+          - generic [ref=e846]:
+            - generic [ref=e847]: Future AI Courses · AI-101
+            - heading "AI-Powered Mushroom Farm Management" [level=3] [ref=e848]:
+              - link "AI-Powered Mushroom Farm Management" [ref=e849]:
+                - /url: /training/courses/ai-mushroom-farm-management
+            - paragraph [ref=e850]: Leverage artificial intelligence for modern mushroom farm management.
+            - generic [ref=e851]:
+              - generic [ref=e852]:
+                - img "Level" [ref=e853]
+                - text: AI Assisted
+              - generic [ref=e854]:
+                - img "Duration" [ref=e855]
+                - text: TBD
+              - generic [ref=e858]:
+                - img "Delivery" [ref=e859]
+                - text: VR Training
+              - generic [ref=e861]:
+                - img "Language" [ref=e862]
+                - text: English
+            - generic [ref=e865]:
+              - generic [ref=e866]: ₹3,070
+              - generic [ref=e867]:
+                - img "Rating" [ref=e868]
+                - text: "0.0"
+                - generic [ref=e870]: · 0 enrolled
+            - generic [ref=e872]:
+              - img "Seats" [ref=e873]
+              - text: 40 seats left
+            - generic [ref=e879]:
+              - link "View AI-Powered Mushroom Farm Management" [ref=e880]:
+                - /url: /training/courses/ai-mushroom-farm-management
+                - text: View Course
+                - img "View" [ref=e881]
+              - button "Add to comparison" [ref=e883]:
+                - img "Compare" [ref=e884]
+                - text: Compare
+        - article "Mushroom Quality Control & Food Safety" [ref=e886] [cursor=pointer]:
+          - generic [ref=e887]:
+            - link "Mushroom Quality Control & Food Safety" [ref=e888]:
+              - /url: /training/courses/mushroom-quality-control
+              - 'figure "Image placeholder: Mushroom Quality Control & Food Safety" [ref=e889]':
+                - generic [ref=e890]:
+                  - img "Mushroom Quality Control & Food Safety" [ref=e891]
+                  - generic [ref=e894]: Mushroom Quality Control & Food Safety
+                  - generic [ref=e895]: Image placeholder
+                - generic [ref=e896]: Value Added Products
+            - generic [ref=e898]:
+              - generic [ref=e899]: Corporate
+              - generic [ref=e900]: Featured
+            - generic [ref=e901]:
+              - button "Bookmark" [ref=e902]:
+                - img [ref=e903]
+              - button "Add to wishlist" [ref=e906]:
+                - img [ref=e907]
+              - button "Add to comparison" [ref=e909]:
+                - img [ref=e910]
+          - generic [ref=e911]:
+            - generic [ref=e912]: Value Added Products · QC-101
+            - heading "Mushroom Quality Control & Food Safety" [level=3] [ref=e913]:
+              - link "Mushroom Quality Control & Food Safety" [ref=e914]:
+                - /url: /training/courses/mushroom-quality-control
+            - paragraph [ref=e915]: Ensure highest quality standards in mushroom production and processing.
+            - generic [ref=e916]:
+              - generic [ref=e917]:
+                - img "Level" [ref=e918]
+                - text: Intermediate
+              - generic [ref=e919]:
+                - img "Duration" [ref=e920]
+                - text: 3 Weeks
+              - generic [ref=e923]:
+                - img "Delivery" [ref=e924]
+                - text: Hybrid
+              - generic [ref=e926]:
+                - img "Language" [ref=e927]
+                - text: English
+            - generic [ref=e930]:
+              - generic [ref=e931]: ₹3,070
+              - generic [ref=e932]:
+                - img "Rating" [ref=e933]
+                - text: "0.0"
+                - generic [ref=e935]: · 0 enrolled
+            - generic [ref=e937]:
+              - img "Seats" [ref=e938]
+              - text: 40 seats left
+            - generic [ref=e944]:
+              - link "View Mushroom Quality Control & Food Safety" [ref=e945]:
+                - /url: /training/courses/mushroom-quality-control
+                - text: View Course
+                - img "View" [ref=e946]
+              - button "Add to comparison" [ref=e948]:
+                - img "Compare" [ref=e949]
+                - text: Compare
+        - article "Franchise Mushroom Farm Operations" [ref=e951] [cursor=pointer]:
+          - generic [ref=e952]:
+            - link "Franchise Mushroom Farm Operations" [ref=e953]:
+              - /url: /training/courses/franchise-mushroom-farm-operations
+              - 'figure "Image placeholder: Franchise Mushroom Farm Operations" [ref=e954]':
+                - generic [ref=e955]:
+                  - img "Franchise Mushroom Farm Operations" [ref=e956]
+                  - generic [ref=e959]: Franchise Mushroom Farm Operations
+                  - generic [ref=e960]: Image placeholder
+                - generic [ref=e961]: Franchise Programs
+            - generic [ref=e964]: New
+            - generic [ref=e965]:
+              - button "Bookmark" [ref=e966]:
+                - img [ref=e967]
+              - button "Add to wishlist" [ref=e970]:
+                - img [ref=e971]
+              - button "Add to comparison" [ref=e973]:
+                - img [ref=e974]
+          - generic [ref=e975]:
+            - generic [ref=e976]: Franchise Programs · FP-101
+            - heading "Franchise Mushroom Farm Operations" [level=3] [ref=e977]:
+              - link "Franchise Mushroom Farm Operations" [ref=e978]:
+                - /url: /training/courses/franchise-mushroom-farm-operations
+            - paragraph [ref=e979]: Standardized training for franchise mushroom farm operators.
+            - generic [ref=e980]:
+              - generic [ref=e981]:
+                - img "Level" [ref=e982]
+                - text: Intermediate
+              - generic [ref=e983]:
+                - img "Duration" [ref=e984]
+                - text: 8 Weeks
+              - generic [ref=e987]:
+                - img "Delivery" [ref=e988]
+                - text: Offline
+              - generic [ref=e990]:
+                - img "Language" [ref=e991]
+                - text: English
+            - generic [ref=e994]:
+              - generic [ref=e995]: ₹3,070
+              - generic [ref=e996]:
+                - img "Rating" [ref=e997]
+                - text: "0.0"
+                - generic [ref=e999]: · 0 enrolled
+            - generic [ref=e1001]:
+              - img "Seats" [ref=e1002]
+              - text: 40 seats left
+            - generic [ref=e1008]:
+              - link "View Franchise Mushroom Farm Operations" [ref=e1009]:
+                - /url: /training/courses/franchise-mushroom-farm-operations
+                - text: View Course
+                - img "View" [ref=e1010]
+              - button "Add to comparison" [ref=e1012]:
+                - img "Compare" [ref=e1013]
+                - text: Compare
+        - article "Institutional Mushroom Research Program" [ref=e1015] [cursor=pointer]:
+          - generic [ref=e1016]:
+            - link "Institutional Mushroom Research Program" [ref=e1017]:
+              - /url: /training/courses/institutional-mushroom-research
+              - 'figure "Image placeholder: Institutional Mushroom Research Program" [ref=e1018]':
+                - generic [ref=e1019]:
+                  - img "Institutional Mushroom Research Program" [ref=e1020]
+                  - generic [ref=e1023]: Institutional Mushroom Research Program
+                  - generic [ref=e1024]: Image placeholder
+                - generic [ref=e1025]: Institutional Programs
+            - generic [ref=e1028]: Government
+            - generic [ref=e1029]:
+              - button "Bookmark" [ref=e1030]:
+                - img [ref=e1031]
+              - button "Add to wishlist" [ref=e1034]:
+                - img [ref=e1035]
+              - button "Add to comparison" [ref=e1037]:
+                - img [ref=e1038]
+          - generic [ref=e1039]:
+            - generic [ref=e1040]: Institutional Programs · IP-301
+            - heading "Institutional Mushroom Research Program" [level=3] [ref=e1041]:
+              - link "Institutional Mushroom Research Program" [ref=e1042]:
+                - /url: /training/courses/institutional-mushroom-research
+            - paragraph [ref=e1043]: Advanced research-oriented program for academic institutions and research centers.
+            - generic [ref=e1044]:
+              - generic [ref=e1045]:
+                - img "Level" [ref=e1046]
+                - text: Advanced
+              - generic [ref=e1047]:
+                - img "Duration" [ref=e1048]
+                - text: 16 Weeks
+              - generic [ref=e1051]:
+                - img "Delivery" [ref=e1052]
+                - text: Hybrid
+              - generic [ref=e1054]:
+                - img "Language" [ref=e1055]
+                - text: English
+            - generic [ref=e1058]:
+              - generic [ref=e1059]: ₹4,150
+              - generic [ref=e1060]:
+                - img "Rating" [ref=e1061]
+                - text: "0.0"
+                - generic [ref=e1063]: · 0 enrolled
+            - generic [ref=e1065]:
+              - img "Seats" [ref=e1066]
+              - text: 40 seats left
+            - generic [ref=e1072]:
+              - link "View Institutional Mushroom Research Program" [ref=e1073]:
+                - /url: /training/courses/institutional-mushroom-research
+                - text: View Course
+                - img "View" [ref=e1074]
+              - button "Add to comparison" [ref=e1076]:
+                - img "Compare" [ref=e1077]
+                - text: Compare
+        - article "Advanced Composting & Substrate" [ref=e1079] [cursor=pointer]:
+          - generic [ref=e1080]:
+            - link "Advanced Composting & Substrate" [ref=e1081]:
+              - /url: /training/courses/advanced-composting-substrate
+              - 'figure "Image placeholder: Advanced Composting & Substrate" [ref=e1082]':
+                - generic [ref=e1083]:
+                  - img "Advanced Composting & Substrate" [ref=e1084]
+                  - generic [ref=e1087]: Advanced Composting & Substrate
+                  - generic [ref=e1088]: Image placeholder
+                - generic [ref=e1089]: Mushroom Cultivation
+            - generic [ref=e1092]: Popular
+            - generic [ref=e1093]:
+              - button "Bookmark" [ref=e1094]:
+                - img [ref=e1095]
+              - button "Add to wishlist" [ref=e1098]:
+                - img [ref=e1099]
+              - button "Add to comparison" [ref=e1101]:
+                - img [ref=e1102]
+          - generic [ref=e1103]:
+            - generic [ref=e1104]: Mushroom Cultivation · MC-201
+            - heading "Advanced Composting & Substrate" [level=3] [ref=e1105]:
+              - link "Advanced Composting & Substrate" [ref=e1106]:
+                - /url: /training/courses/advanced-composting-substrate
+            - paragraph [ref=e1107]: Master the art and science of mushroom substrate preparation.
+            - generic [ref=e1108]:
+              - generic [ref=e1109]:
+                - img "Level" [ref=e1110]
+                - text: Advanced
+              - generic [ref=e1111]:
+                - img "Duration" [ref=e1112]
+                - text: 4 Weeks
+              - generic [ref=e1115]:
+                - img "Delivery" [ref=e1116]
+                - text: Recorded
+              - generic [ref=e1118]:
+                - img "Language" [ref=e1119]
+                - text: English
+            - generic [ref=e1122]:
+              - generic [ref=e1123]: ₹3,610
+              - generic [ref=e1124]:
+                - img "Rating" [ref=e1125]
+                - text: "4.4"
+                - generic [ref=e1127]: · 45 enrolled
+            - generic [ref=e1129]:
+              - img "Seats" [ref=e1130]
+              - text: 35 seats left
+            - generic [ref=e1136]:
+              - link "View Advanced Composting & Substrate" [ref=e1137]:
+                - /url: /training/courses/advanced-composting-substrate
+                - text: View Course
+                - img "View" [ref=e1138]
+              - button "Add to comparison" [ref=e1140]:
+                - img "Compare" [ref=e1141]
+                - text: Compare
+        - article "Corporate Mushroom Training Program" [ref=e1143] [cursor=pointer]:
+          - generic [ref=e1144]:
+            - link "Corporate Mushroom Training Program" [ref=e1145]:
+              - /url: /training/courses/corporate-mushroom-training
+              - 'figure "Image placeholder: Corporate Mushroom Training Program" [ref=e1146]':
+                - generic [ref=e1147]:
+                  - img "Corporate Mushroom Training Program" [ref=e1148]
+                  - generic [ref=e1151]: Corporate Mushroom Training Program
+                  - generic [ref=e1152]: Image placeholder
+                - generic [ref=e1153]: Corporate Training
+            - generic [ref=e1156]: Corporate
+            - generic [ref=e1157]:
+              - button "Bookmark" [ref=e1158]:
+                - img [ref=e1159]
+              - button "Add to wishlist" [ref=e1162]:
+                - img [ref=e1163]
+              - button "Add to comparison" [ref=e1165]:
+                - img [ref=e1166]
+          - generic [ref=e1167]:
+            - generic [ref=e1168]: Corporate Training · CT-201
+            - heading "Corporate Mushroom Training Program" [level=3] [ref=e1169]:
+              - link "Corporate Mushroom Training Program" [ref=e1170]:
+                - /url: /training/courses/corporate-mushroom-training
+            - paragraph [ref=e1171]: Tailored training for corporate teams entering the mushroom industry.
+            - generic [ref=e1172]:
+              - generic [ref=e1173]:
+                - img "Level" [ref=e1174]
+                - text: Intermediate
+              - generic [ref=e1175]:
+                - img "Duration" [ref=e1176]
+                - text: 12 Weeks
+              - generic [ref=e1179]:
+                - img "Delivery" [ref=e1180]
+                - text: Hybrid
+              - generic [ref=e1182]:
+                - img "Language" [ref=e1183]
+                - text: English
+            - generic [ref=e1186]:
+              - generic [ref=e1187]: ₹3,610
+              - generic [ref=e1188]:
+                - img "Rating" [ref=e1189]
+                - text: "0.0"
+                - generic [ref=e1191]: · 0 enrolled
+            - generic [ref=e1193]:
+              - img "Seats" [ref=e1194]
+              - text: 40 seats left
+            - generic [ref=e1200]:
+              - link "View Corporate Mushroom Training Program" [ref=e1201]:
+                - /url: /training/courses/corporate-mushroom-training
+                - text: View Course
+                - img "View" [ref=e1202]
+              - button "Add to comparison" [ref=e1204]:
+                - img "Compare" [ref=e1205]
+                - text: Compare
+        - article "Mushroom Disease Management & IPM" [ref=e1207] [cursor=pointer]:
+          - generic [ref=e1208]:
+            - link "Mushroom Disease Management & IPM" [ref=e1209]:
+              - /url: /training/courses/mushroom-disease-management
+              - 'figure "Image placeholder: Mushroom Disease Management & IPM" [ref=e1210]':
+                - generic [ref=e1211]:
+                  - img "Mushroom Disease Management & IPM" [ref=e1212]
+                  - generic [ref=e1215]: Mushroom Disease Management & IPM
+                  - generic [ref=e1216]: Image placeholder
+                - generic [ref=e1217]: Mushroom Cultivation
+            - generic [ref=e1220]: Government
+            - generic [ref=e1221]:
+              - button "Bookmark" [ref=e1222]:
+                - img [ref=e1223]
+              - button "Add to wishlist" [ref=e1226]:
+                - img [ref=e1227]
+              - button "Add to comparison" [ref=e1229]:
+                - img [ref=e1230]
+          - generic [ref=e1231]:
+            - generic [ref=e1232]: Mushroom Cultivation · MC-301
+            - heading "Mushroom Disease Management & IPM" [level=3] [ref=e1233]:
+              - link "Mushroom Disease Management & IPM" [ref=e1234]:
+                - /url: /training/courses/mushroom-disease-management
+            - paragraph [ref=e1235]: Identify, prevent, and manage mushroom diseases using integrated pest management.
+            - generic [ref=e1236]:
+              - generic [ref=e1237]:
+                - img "Level" [ref=e1238]
+                - text: Advanced
+              - generic [ref=e1239]:
+                - img "Duration" [ref=e1240]
+                - text: 3 Weeks
+              - generic [ref=e1243]:
+                - img "Delivery" [ref=e1244]
+                - text: Live
+              - generic [ref=e1246]:
+                - img "Language" [ref=e1247]
+                - text: English
+            - generic [ref=e1250]:
+              - generic [ref=e1251]: ₹4,150
+              - generic [ref=e1252]:
+                - img "Rating" [ref=e1253]
+                - text: "4.6"
+                - generic [ref=e1255]: · 78 enrolled
+            - generic [ref=e1257]:
+              - img "Seats" [ref=e1258]
+              - text: 2 seats left
+            - generic [ref=e1264]:
+              - link "View Mushroom Disease Management & IPM" [ref=e1265]:
+                - /url: /training/courses/mushroom-disease-management
+                - text: View Course
+                - img "View" [ref=e1266]
+              - button "Add to comparison" [ref=e1268]:
+                - img "Compare" [ref=e1269]
+                - text: Compare
+        - article "Mushroom Business & Entrepreneurship" [ref=e1271] [cursor=pointer]:
+          - generic [ref=e1272]:
+            - link "Mushroom Business & Entrepreneurship" [ref=e1273]:
+              - /url: /training/courses/mushroom-business-entrepreneurship
+              - 'figure "Image placeholder: Mushroom Business & Entrepreneurship" [ref=e1274]':
+                - generic [ref=e1275]:
+                  - img "Mushroom Business & Entrepreneurship" [ref=e1276]
+                  - generic [ref=e1279]: Mushroom Business & Entrepreneurship
+                  - generic [ref=e1280]: Image placeholder
+                - generic [ref=e1281]: Business Training
+            - generic [ref=e1284]: Trending
+            - generic [ref=e1285]:
+              - button "Bookmark" [ref=e1286]:
+                - img [ref=e1287]
+              - button "Add to wishlist" [ref=e1290]:
+                - img [ref=e1291]
+              - button "Add to comparison" [ref=e1293]:
+                - img [ref=e1294]
+          - generic [ref=e1295]:
+            - generic [ref=e1296]: Business Training · BT-101
+            - heading "Mushroom Business & Entrepreneurship" [level=3] [ref=e1297]:
+              - link "Mushroom Business & Entrepreneurship" [ref=e1298]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+            - paragraph [ref=e1299]: Build a sustainable mushroom business from the ground up.
+            - generic [ref=e1300]:
+              - generic [ref=e1301]:
+                - img "Level" [ref=e1302]
+                - text: Beginner
+              - generic [ref=e1303]:
+                - img "Duration" [ref=e1304]
+                - text: 6 Weeks
+              - generic [ref=e1307]:
+                - img "Delivery" [ref=e1308]
+                - text: Online
+              - generic [ref=e1310]:
+                - img "Language" [ref=e1311]
+                - text: English
+            - generic [ref=e1314]:
+              - generic [ref=e1315]: ₹3,070
+              - generic [ref=e1316]:
+                - img "Rating" [ref=e1317]
+                - text: "4.6"
+                - generic [ref=e1319]: · 210 enrolled
+            - generic [ref=e1321]:
+              - img "Seats" [ref=e1322]
+              - text: 30 seats left
+            - generic [ref=e1328]:
+              - link "View Mushroom Business & Entrepreneurship" [ref=e1329]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+                - text: View Course
+                - img "View" [ref=e1330]
+              - button "Add to comparison" [ref=e1332]:
+                - img "Compare" [ref=e1333]
+                - text: Compare
+    - region "Upcoming Batches" [ref=e1334]:
+      - generic [ref=e1336]:
+        - text: Enrolling soon
+        - heading "Upcoming Batches" [level=2] [ref=e1337]
+      - region "Upcoming Batches carousel" [ref=e1338]:
+        - article "Advanced Composting & Substrate" [ref=e1340] [cursor=pointer]:
+          - generic [ref=e1341]:
+            - link "Advanced Composting & Substrate" [ref=e1342]:
+              - /url: /training/courses/advanced-composting-substrate
+              - 'figure "Image placeholder: Advanced Composting & Substrate" [ref=e1343]':
+                - generic [ref=e1344]:
+                  - img "Advanced Composting & Substrate" [ref=e1345]
+                  - generic [ref=e1348]: Advanced Composting & Substrate
+                  - generic [ref=e1349]: Image placeholder
+                - generic [ref=e1350]: Mushroom Cultivation
+            - generic [ref=e1353]: Popular
+            - generic [ref=e1354]:
+              - button "Bookmark" [ref=e1355]:
+                - img [ref=e1356]
+              - button "Add to wishlist" [ref=e1359]:
+                - img [ref=e1360]
+              - button "Add to comparison" [ref=e1362]:
+                - img [ref=e1363]
+          - generic [ref=e1364]:
+            - generic [ref=e1365]: Mushroom Cultivation · MC-201
+            - heading "Advanced Composting & Substrate" [level=3] [ref=e1366]:
+              - link "Advanced Composting & Substrate" [ref=e1367]:
+                - /url: /training/courses/advanced-composting-substrate
+            - paragraph [ref=e1368]: Master the art and science of mushroom substrate preparation.
+            - generic [ref=e1369]:
+              - generic [ref=e1370]:
+                - img "Level" [ref=e1371]
+                - text: Advanced
+              - generic [ref=e1372]:
+                - img "Duration" [ref=e1373]
+                - text: 4 Weeks
+              - generic [ref=e1376]:
+                - img "Delivery" [ref=e1377]
+                - text: Recorded
+              - generic [ref=e1379]:
+                - img "Language" [ref=e1380]
+                - text: English
+            - generic [ref=e1383]:
+              - generic [ref=e1384]: ₹3,610
+              - generic [ref=e1385]:
+                - img "Rating" [ref=e1386]
+                - text: "4.4"
+                - generic [ref=e1388]: · 45 enrolled
+            - generic [ref=e1390]:
+              - img "Seats" [ref=e1391]
+              - text: 35 seats left
+            - generic [ref=e1397]:
+              - link "View Advanced Composting & Substrate" [ref=e1398]:
+                - /url: /training/courses/advanced-composting-substrate
+                - text: View Course
+                - img "View" [ref=e1399]
+              - button "Add to comparison" [ref=e1401]:
+                - img "Compare" [ref=e1402]
+                - text: Compare
+        - article "Mushroom Disease Management & IPM" [ref=e1404] [cursor=pointer]:
+          - generic [ref=e1405]:
+            - link "Mushroom Disease Management & IPM" [ref=e1406]:
+              - /url: /training/courses/mushroom-disease-management
+              - 'figure "Image placeholder: Mushroom Disease Management & IPM" [ref=e1407]':
+                - generic [ref=e1408]:
+                  - img "Mushroom Disease Management & IPM" [ref=e1409]
+                  - generic [ref=e1412]: Mushroom Disease Management & IPM
+                  - generic [ref=e1413]: Image placeholder
+                - generic [ref=e1414]: Mushroom Cultivation
+            - generic [ref=e1417]: Government
+            - generic [ref=e1418]:
+              - button "Bookmark" [ref=e1419]:
+                - img [ref=e1420]
+              - button "Add to wishlist" [ref=e1423]:
+                - img [ref=e1424]
+              - button "Add to comparison" [ref=e1426]:
+                - img [ref=e1427]
+          - generic [ref=e1428]:
+            - generic [ref=e1429]: Mushroom Cultivation · MC-301
+            - heading "Mushroom Disease Management & IPM" [level=3] [ref=e1430]:
+              - link "Mushroom Disease Management & IPM" [ref=e1431]:
+                - /url: /training/courses/mushroom-disease-management
+            - paragraph [ref=e1432]: Identify, prevent, and manage mushroom diseases using integrated pest management.
+            - generic [ref=e1433]:
+              - generic [ref=e1434]:
+                - img "Level" [ref=e1435]
+                - text: Advanced
+              - generic [ref=e1436]:
+                - img "Duration" [ref=e1437]
+                - text: 3 Weeks
+              - generic [ref=e1440]:
+                - img "Delivery" [ref=e1441]
+                - text: Live
+              - generic [ref=e1443]:
+                - img "Language" [ref=e1444]
+                - text: English
+            - generic [ref=e1447]:
+              - generic [ref=e1448]: ₹4,150
+              - generic [ref=e1449]:
+                - img "Rating" [ref=e1450]
+                - text: "4.6"
+                - generic [ref=e1452]: · 78 enrolled
+            - generic [ref=e1454]:
+              - img "Seats" [ref=e1455]
+              - text: 2 seats left
+            - generic [ref=e1461]:
+              - link "View Mushroom Disease Management & IPM" [ref=e1462]:
+                - /url: /training/courses/mushroom-disease-management
+                - text: View Course
+                - img "View" [ref=e1463]
+              - button "Add to comparison" [ref=e1465]:
+                - img "Compare" [ref=e1466]
+                - text: Compare
+    - region "Browse all courses" [ref=e1467]:
+      - heading "Browse all courses" [level=2] [ref=e1468]
+      - generic [ref=e1469]:
+        - generic [ref=e1470]:
+          - generic [ref=e1471]:
+            - generic:
+              - img
+            - searchbox "Search the course catalog" [ref=e1472]
+          - button "Toggle course filters" [ref=e1473] [cursor=pointer]:
+            - img [ref=e1474]
+            - text: Filters
+          - generic [ref=e1476]:
+            - button "Grid view" [pressed] [ref=e1477] [cursor=pointer]:
+              - img [ref=e1478]
+            - button "List view" [ref=e1483] [cursor=pointer]:
+              - img [ref=e1484]
+            - button "Compact view" [ref=e1485] [cursor=pointer]:
+              - img [ref=e1486]
+            - button "Featured view" [ref=e1487] [cursor=pointer]:
+              - img [ref=e1488]
+            - button "Carousel view" [ref=e1490] [cursor=pointer]:
+              - img [ref=e1491]
+          - generic [ref=e1494]: 15 courses
+        - generic [ref=e1496]:
+          - generic [ref=e1497]: Sort by
+          - generic [ref=e1498]:
+            - button "Sort by Most Popular" [pressed] [ref=e1499] [cursor=pointer]: Most Popular
+            - button "Sort by Newest" [ref=e1500] [cursor=pointer]: Newest
+            - button "Sort by Trending" [ref=e1501] [cursor=pointer]: Trending
+            - button "Sort by Featured" [ref=e1502] [cursor=pointer]: Featured
+            - button "Sort by Recently Updated" [ref=e1503] [cursor=pointer]: Recently Updated
+            - button "Sort by Alphabetical" [ref=e1504] [cursor=pointer]: Alphabetical
+            - button "Sort by Duration" [ref=e1505] [cursor=pointer]: Duration
+            - button "Sort by Price" [ref=e1506] [cursor=pointer]: Price
+            - button "Sort by Difficulty" [ref=e1507] [cursor=pointer]: Difficulty
+      - generic [ref=e1508]:
+        - article "Introduction to Spawn Production" [ref=e1509] [cursor=pointer]:
+          - generic [ref=e1510]:
+            - link "Introduction to Spawn Production" [ref=e1511]:
+              - /url: /training/courses/introduction-spawn-production
+              - 'figure "Image placeholder: Introduction to Spawn Production" [ref=e1512]':
+                - generic [ref=e1513]:
+                  - img "Introduction to Spawn Production" [ref=e1514]
+                  - generic [ref=e1517]: Introduction to Spawn Production
+                  - generic [ref=e1518]: Image placeholder
+                - generic [ref=e1519]: Spawn Production
+            - generic [ref=e1521]:
+              - generic [ref=e1522]: Trending
+              - generic [ref=e1523]: New
+            - generic [ref=e1524]:
+              - button "Bookmark" [ref=e1525]:
+                - img [ref=e1526]
+              - button "Add to wishlist" [ref=e1529]:
+                - img [ref=e1530]
+              - button "Add to comparison" [ref=e1532]:
+                - img [ref=e1533]
+          - generic [ref=e1534]:
+            - generic [ref=e1535]: Spawn Production · SP-101
+            - heading "Introduction to Spawn Production" [level=3] [ref=e1536]:
+              - link "Introduction to Spawn Production" [ref=e1537]:
+                - /url: /training/courses/introduction-spawn-production
+            - paragraph [ref=e1538]: Foundation course for spawn production techniques and sterile laboratory practices.
+            - generic [ref=e1539]:
+              - generic [ref=e1540]:
+                - img "Level" [ref=e1541]
+                - text: Beginner
+              - generic [ref=e1542]:
+                - img "Duration" [ref=e1543]
+                - text: 2 Weeks
+              - generic [ref=e1546]:
+                - img "Delivery" [ref=e1547]
+                - text: Offline
+              - generic [ref=e1549]:
+                - img "Language" [ref=e1550]
+                - text: English
+            - generic [ref=e1553]:
+              - generic [ref=e1554]: ₹3,070
+              - generic [ref=e1555]:
+                - img "Rating" [ref=e1556]
+                - text: "4.5"
+                - generic [ref=e1558]: · 320 enrolled
+            - generic [ref=e1560]:
+              - img "Seats" [ref=e1561]
+              - text: 40 seats left
+            - generic [ref=e1567]:
+              - link "View Introduction to Spawn Production" [ref=e1568]:
+                - /url: /training/courses/introduction-spawn-production
+                - text: View Course
+                - img "View" [ref=e1569]
+              - button "Add to comparison" [ref=e1571]:
+                - img "Compare" [ref=e1572]
+                - text: Compare
+        - article "Mushroom Cultivation Fundamentals" [ref=e1573] [cursor=pointer]:
+          - generic [ref=e1574]:
+            - link "Mushroom Cultivation Fundamentals" [ref=e1575]:
+              - /url: /training/courses/mushroom-cultivation-fundamentals
+              - 'figure "Image placeholder: Mushroom Cultivation Fundamentals" [ref=e1576]':
+                - generic [ref=e1577]:
+                  - img "Mushroom Cultivation Fundamentals" [ref=e1578]
+                  - generic [ref=e1581]: Mushroom Cultivation Fundamentals
+                  - generic [ref=e1582]: Image placeholder
+                - generic [ref=e1583]: Mushroom Cultivation
+            - generic [ref=e1585]:
+              - generic [ref=e1586]: Featured
+              - generic [ref=e1587]: Popular
+            - generic [ref=e1588]:
+              - button "Bookmark" [ref=e1589]:
+                - img [ref=e1590]
+              - button "Add to wishlist" [ref=e1593]:
+                - img [ref=e1594]
+              - button "Add to comparison" [ref=e1596]:
+                - img [ref=e1597]
+          - generic [ref=e1598]:
+            - generic [ref=e1599]: Mushroom Cultivation · MC-101
+            - heading "Mushroom Cultivation Fundamentals" [level=3] [ref=e1600]:
+              - link "Mushroom Cultivation Fundamentals" [ref=e1601]:
+                - /url: /training/courses/mushroom-cultivation-fundamentals
+            - paragraph [ref=e1602]: Learn the complete process of commercial mushroom cultivation from spawn to harvest.
+            - generic [ref=e1603]:
+              - generic [ref=e1604]:
+                - img "Level" [ref=e1605]
+                - text: Beginner
+              - generic [ref=e1606]:
+                - img "Duration" [ref=e1607]
+                - text: 4 Weeks
+              - generic [ref=e1610]:
+                - img "Delivery" [ref=e1611]
+                - text: Offline
+              - generic [ref=e1613]:
+                - img "Language" [ref=e1614]
+                - text: English
+            - generic [ref=e1617]:
+              - generic [ref=e1618]: ₹3,070
+              - generic [ref=e1619]:
+                - img "Rating" [ref=e1620]
+                - text: "4.7"
+                - generic [ref=e1622]: · 245 enrolled
+            - generic [ref=e1624]:
+              - img "Seats" [ref=e1625]
+              - text: 35 seats left
+            - generic [ref=e1631]:
+              - link "View Mushroom Cultivation Fundamentals" [ref=e1632]:
+                - /url: /training/courses/mushroom-cultivation-fundamentals
+                - text: View Course
+                - img "View" [ref=e1633]
+              - button "Add to comparison" [ref=e1635]:
+                - img "Compare" [ref=e1636]
+                - text: Compare
+        - article "Mushroom Business & Entrepreneurship" [ref=e1637] [cursor=pointer]:
+          - generic [ref=e1638]:
+            - link "Mushroom Business & Entrepreneurship" [ref=e1639]:
+              - /url: /training/courses/mushroom-business-entrepreneurship
+              - 'figure "Image placeholder: Mushroom Business & Entrepreneurship" [ref=e1640]':
+                - generic [ref=e1641]:
+                  - img "Mushroom Business & Entrepreneurship" [ref=e1642]
+                  - generic [ref=e1645]: Mushroom Business & Entrepreneurship
+                  - generic [ref=e1646]: Image placeholder
+                - generic [ref=e1647]: Business Training
+            - generic [ref=e1650]: Trending
+            - generic [ref=e1651]:
+              - button "Bookmark" [ref=e1652]:
+                - img [ref=e1653]
+              - button "Add to wishlist" [ref=e1656]:
+                - img [ref=e1657]
+              - button "Add to comparison" [ref=e1659]:
+                - img [ref=e1660]
+          - generic [ref=e1661]:
+            - generic [ref=e1662]: Business Training · BT-101
+            - heading "Mushroom Business & Entrepreneurship" [level=3] [ref=e1663]:
+              - link "Mushroom Business & Entrepreneurship" [ref=e1664]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+            - paragraph [ref=e1665]: Build a sustainable mushroom business from the ground up.
+            - generic [ref=e1666]:
+              - generic [ref=e1667]:
+                - img "Level" [ref=e1668]
+                - text: Beginner
+              - generic [ref=e1669]:
+                - img "Duration" [ref=e1670]
+                - text: 6 Weeks
+              - generic [ref=e1673]:
+                - img "Delivery" [ref=e1674]
+                - text: Online
+              - generic [ref=e1676]:
+                - img "Language" [ref=e1677]
+                - text: English
+            - generic [ref=e1680]:
+              - generic [ref=e1681]: ₹3,070
+              - generic [ref=e1682]:
+                - img "Rating" [ref=e1683]
+                - text: "4.6"
+                - generic [ref=e1685]: · 210 enrolled
+            - generic [ref=e1687]:
+              - img "Seats" [ref=e1688]
+              - text: 30 seats left
+            - generic [ref=e1694]:
+              - link "View Mushroom Business & Entrepreneurship" [ref=e1695]:
+                - /url: /training/courses/mushroom-business-entrepreneurship
+                - text: View Course
+                - img "View" [ref=e1696]
+              - button "Add to comparison" [ref=e1698]:
+                - img "Compare" [ref=e1699]
+                - text: Compare
+        - article "Commercial Oyster Farming" [ref=e1700] [cursor=pointer]:
+          - generic [ref=e1701]:
+            - link "Commercial Oyster Farming" [ref=e1702]:
+              - /url: /training/courses/commercial-oyster-farming
+              - 'figure "Image placeholder: Commercial Oyster Farming" [ref=e1703]':
+                - generic [ref=e1704]:
+                  - img "Commercial Oyster Farming" [ref=e1705]
+                  - generic [ref=e1708]: Commercial Oyster Farming
+                  - generic [ref=e1709]: Image placeholder
+                - generic [ref=e1710]: Commercial Farming
+            - generic [ref=e1712]:
+              - generic [ref=e1713]: Featured
+              - generic [ref=e1714]: Government
+            - generic [ref=e1715]:
+              - button "Bookmark" [ref=e1716]:
+                - img [ref=e1717]
+              - button "Add to wishlist" [ref=e1720]:
+                - img [ref=e1721]
+              - button "Add to comparison" [ref=e1723]:
+                - img [ref=e1724]
+          - generic [ref=e1725]:
+            - generic [ref=e1726]: Commercial Farming · CF-301
+            - heading "Commercial Oyster Farming" [level=3] [ref=e1727]:
+              - link "Commercial Oyster Farming" [ref=e1728]:
+                - /url: /training/courses/commercial-oyster-farming
+            - paragraph [ref=e1729]: End-to-end training for setting up and running a commercial oyster mushroom farm.
+            - generic [ref=e1730]:
+              - generic [ref=e1731]:
+                - img "Level" [ref=e1732]
+                - text: Advanced
+              - generic [ref=e1733]:
+                - img "Duration" [ref=e1734]
+                - text: 8 Weeks
+              - generic [ref=e1737]:
+                - img "Delivery" [ref=e1738]
+                - text: Offline
+              - generic [ref=e1740]:
+                - img "Language" [ref=e1741]
+                - text: English
+            - generic [ref=e1744]:
+              - generic [ref=e1745]: ₹4,150
+              - generic [ref=e1746]:
+                - img "Rating" [ref=e1747]
+                - text: "4.8"
+                - generic [ref=e1749]: · 180 enrolled
+            - generic [ref=e1751]:
+              - img "Seats" [ref=e1752]
+              - text: 20 seats left
+            - generic [ref=e1758]:
+              - link "View Commercial Oyster Farming" [ref=e1759]:
+                - /url: /training/courses/commercial-oyster-farming
+                - text: View Course
+                - img "View" [ref=e1760]
+              - button "Add to comparison" [ref=e1762]:
+                - img "Compare" [ref=e1763]
+                - text: Compare
+        - article "Mushroom Harvest & Post-Harvest Technology" [ref=e1764] [cursor=pointer]:
+          - generic [ref=e1765]:
+            - link "Mushroom Harvest & Post-Harvest Technology" [ref=e1766]:
+              - /url: /training/courses/mushroom-harvest-post-harvest
+              - 'figure "Image placeholder: Mushroom Harvest & Post-Harvest Technology" [ref=e1767]':
+                - generic [ref=e1768]:
+                  - img "Mushroom Harvest & Post-Harvest Technology" [ref=e1769]
+                  - generic [ref=e1772]: Mushroom Harvest & Post-Harvest Technology
+                  - generic [ref=e1773]: Image placeholder
+                - generic [ref=e1774]: Mushroom Cultivation
+            - generic [ref=e1775]:
+              - button "Bookmark" [ref=e1776]:
+                - img [ref=e1777]
+              - button "Add to wishlist" [ref=e1780]:
+                - img [ref=e1781]
+              - button "Add to comparison" [ref=e1783]:
+                - img [ref=e1784]
+          - generic [ref=e1785]:
+            - generic [ref=e1786]: Mushroom Cultivation · MC-401
+            - heading "Mushroom Harvest & Post-Harvest Technology" [level=3] [ref=e1787]:
+              - link "Mushroom Harvest & Post-Harvest Technology" [ref=e1788]:
+                - /url: /training/courses/mushroom-harvest-post-harvest
+            - paragraph [ref=e1789]: Optimize harvest techniques and post-harvest handling for maximum quality and shelf life.
+            - generic [ref=e1790]:
+              - generic [ref=e1791]:
+                - img "Level" [ref=e1792]
+                - text: Advanced
+              - generic [ref=e1793]:
+                - img "Duration" [ref=e1794]
+                - text: 2 Weeks
+              - generic [ref=e1797]:
+                - img "Delivery" [ref=e1798]
+                - text: Recorded
+              - generic [ref=e1800]:
+                - img "Language" [ref=e1801]
+                - text: English
+            - generic [ref=e1804]:
+              - generic [ref=e1805]: ₹4,690
+              - generic [ref=e1806]:
+                - img "Rating" [ref=e1807]
+                - text: "4.3"
+                - generic [ref=e1809]: · 156 enrolled
+            - generic [ref=e1811]:
+              - img "Seats" [ref=e1812]
+              - text: 4 seats left
+            - generic [ref=e1818]:
+              - link "View Mushroom Harvest & Post-Harvest Technology" [ref=e1819]:
+                - /url: /training/courses/mushroom-harvest-post-harvest
+                - text: View Course
+                - img "View" [ref=e1820]
+              - button "Add to comparison" [ref=e1822]:
+                - img "Compare" [ref=e1823]
+                - text: Compare
+        - article "Advanced Spawn Production" [ref=e1824] [cursor=pointer]:
+          - generic [ref=e1825]:
+            - link "Advanced Spawn Production" [ref=e1826]:
+              - /url: /training/courses/advanced-spawn-production
+              - 'figure "Image placeholder: Advanced Spawn Production" [ref=e1827]':
+                - generic [ref=e1828]:
+                  - img "Advanced Spawn Production" [ref=e1829]
+                  - generic [ref=e1832]: Advanced Spawn Production
+                  - generic [ref=e1833]: Image placeholder
+                - generic [ref=e1834]: Spawn Production
+            - generic [ref=e1836]:
+              - generic [ref=e1837]: Trending
+              - generic [ref=e1838]: Corporate
+            - generic [ref=e1839]:
+              - button "Bookmark" [ref=e1840]:
+                - img [ref=e1841]
+              - button "Add to wishlist" [ref=e1844]:
+                - img [ref=e1845]
+              - button "Add to comparison" [ref=e1847]:
+                - img [ref=e1848]
+          - generic [ref=e1849]:
+            - generic [ref=e1850]: Spawn Production · SP-201
+            - heading "Advanced Spawn Production" [level=3] [ref=e1851]:
+              - link "Advanced Spawn Production" [ref=e1852]:
+                - /url: /training/courses/advanced-spawn-production
+            - paragraph [ref=e1853]: Master the science of spawn production for large-scale mushroom farming.
+            - generic [ref=e1854]:
+              - generic [ref=e1855]:
+                - img "Level" [ref=e1856]
+                - text: Advanced
+              - generic [ref=e1857]:
+                - img "Duration" [ref=e1858]
+                - text: 6 Weeks
+              - generic [ref=e1861]:
+                - img "Delivery" [ref=e1862]
+                - text: Hybrid
+              - generic [ref=e1864]:
+                - img "Language" [ref=e1865]
+                - text: English
+            - generic [ref=e1868]:
+              - generic [ref=e1869]: ₹3,610
+              - generic [ref=e1870]:
+                - img "Rating" [ref=e1871]
+                - text: "4.9"
+                - generic [ref=e1873]: · 120 enrolled
+            - generic [ref=e1875]:
+              - img "Seats" [ref=e1876]
+              - text: 40 seats left
+            - generic [ref=e1882]:
+              - link "View Advanced Spawn Production" [ref=e1883]:
+                - /url: /training/courses/advanced-spawn-production
+                - text: View Course
+                - img "View" [ref=e1884]
+              - button "Add to comparison" [ref=e1886]:
+                - img "Compare" [ref=e1887]
+                - text: Compare
+        - article "Value-Added Mushroom Products" [ref=e1888] [cursor=pointer]:
+          - generic [ref=e1889]:
+            - link "Value-Added Mushroom Products" [ref=e1890]:
+              - /url: /training/courses/value-added-mushroom-products
+              - 'figure "Image placeholder: Value-Added Mushroom Products" [ref=e1891]':
+                - generic [ref=e1892]:
+                  - img "Value-Added Mushroom Products" [ref=e1893]
+                  - generic [ref=e1896]: Value-Added Mushroom Products
+                  - generic [ref=e1897]: Image placeholder
+                - generic [ref=e1898]: Value Added Products
+            - generic [ref=e1901]: New
+            - generic [ref=e1902]:
+              - button "Bookmark" [ref=e1903]:
+                - img [ref=e1904]
+              - button "Add to wishlist" [ref=e1907]:
+                - img [ref=e1908]
+              - button "Add to comparison" [ref=e1910]:
+                - img [ref=e1911]
+          - generic [ref=e1912]:
+            - generic [ref=e1913]: Value Added Products · VA-101
+            - heading "Value-Added Mushroom Products" [level=3] [ref=e1914]:
+              - link "Value-Added Mushroom Products" [ref=e1915]:
+                - /url: /training/courses/value-added-mushroom-products
+            - paragraph [ref=e1916]: Learn to create and market value-added products from mushrooms.
+            - generic [ref=e1917]:
+              - generic [ref=e1918]:
+                - img "Level" [ref=e1919]
+                - text: Intermediate
+              - generic [ref=e1920]:
+                - img "Duration" [ref=e1921]
+                - text: 4 Weeks
+              - generic [ref=e1924]:
+                - img "Delivery" [ref=e1925]
+                - text: Online
+              - generic [ref=e1927]:
+                - img "Language" [ref=e1928]
+                - text: English
+            - generic [ref=e1931]:
+              - generic [ref=e1932]: ₹3,070
+              - generic [ref=e1933]:
+                - img "Rating" [ref=e1934]
+                - text: "4.5"
+                - generic [ref=e1936]: · 95 enrolled
+            - generic [ref=e1938]:
+              - img "Seats" [ref=e1939]
+              - text: 25 seats left
+            - generic [ref=e1945]:
+              - link "View Value-Added Mushroom Products" [ref=e1946]:
+                - /url: /training/courses/value-added-mushroom-products
+                - text: View Course
+                - img "View" [ref=e1947]
+              - button "Add to comparison" [ref=e1949]:
+                - img "Compare" [ref=e1950]
+                - text: Compare
+        - article "Mushroom Export & International Trade" [ref=e1951] [cursor=pointer]:
+          - generic [ref=e1952]:
+            - link "Mushroom Export & International Trade" [ref=e1953]:
+              - /url: /training/courses/mushroom-export-international-trade
+              - 'figure "Image placeholder: Mushroom Export & International Trade" [ref=e1954]':
+                - generic [ref=e1955]:
+                  - img "Mushroom Export & International Trade" [ref=e1956]
+                  - generic [ref=e1959]: Mushroom Export & International Trade
+                  - generic [ref=e1960]: Image placeholder
+                - generic [ref=e1961]: Business Training
+            - generic [ref=e1962]:
+              - button "Bookmark" [ref=e1963]:
+                - img [ref=e1964]
+              - button "Add to wishlist" [ref=e1967]:
+                - img [ref=e1968]
+              - button "Add to comparison" [ref=e1970]:
+                - img [ref=e1971]
+          - generic [ref=e1972]:
+            - generic [ref=e1973]: Business Training · BT-201
+            - heading "Mushroom Export & International Trade" [level=3] [ref=e1974]:
+              - link "Mushroom Export & International Trade" [ref=e1975]:
+                - /url: /training/courses/mushroom-export-international-trade
+            - paragraph [ref=e1976]: Navigate the complexities of international mushroom trade and export regulations.
+            - generic [ref=e1977]:
+              - generic [ref=e1978]:
+                - img "Level" [ref=e1979]
+                - text: Advanced
+              - generic [ref=e1980]:
+                - img "Duration" [ref=e1981]
+                - text: 4 Weeks
+              - generic [ref=e1984]:
+                - img "Delivery" [ref=e1985]
+                - text: Online
+              - generic [ref=e1987]:
+                - img "Language" [ref=e1988]
+                - text: English
+            - generic [ref=e1991]:
+              - generic [ref=e1992]: ₹3,610
+              - generic [ref=e1993]:
+                - img "Rating" [ref=e1994]
+                - text: "4.2"
+                - generic [ref=e1996]: · 89 enrolled
+            - generic [ref=e1998]:
+              - img "Seats" [ref=e1999]
+              - text: 31 seats left
+            - generic [ref=e2005]:
+              - link "View Mushroom Export & International Trade" [ref=e2006]:
+                - /url: /training/courses/mushroom-export-international-trade
+                - text: View Course
+                - img "View" [ref=e2007]
+              - button "Add to comparison" [ref=e2009]:
+                - img "Compare" [ref=e2010]
+                - text: Compare
+        - article "Mushroom Disease Management & IPM" [ref=e2011] [cursor=pointer]:
+          - generic [ref=e2012]:
+            - link "Mushroom Disease Management & IPM" [ref=e2013]:
+              - /url: /training/courses/mushroom-disease-management
+              - 'figure "Image placeholder: Mushroom Disease Management & IPM" [ref=e2014]':
+                - generic [ref=e2015]:
+                  - img "Mushroom Disease Management & IPM" [ref=e2016]
+                  - generic [ref=e2019]: Mushroom Disease Management & IPM
+                  - generic [ref=e2020]: Image placeholder
+                - generic [ref=e2021]: Mushroom Cultivation
+            - generic [ref=e2024]: Government
+            - generic [ref=e2025]:
+              - button "Bookmark" [ref=e2026]:
+                - img [ref=e2027]
+              - button "Add to wishlist" [ref=e2030]:
+                - img [ref=e2031]
+              - button "Add to comparison" [ref=e2033]:
+                - img [ref=e2034]
+          - generic [ref=e2035]:
+            - generic [ref=e2036]: Mushroom Cultivation · MC-301
+            - heading "Mushroom Disease Management & IPM" [level=3] [ref=e2037]:
+              - link "Mushroom Disease Management & IPM" [ref=e2038]:
+                - /url: /training/courses/mushroom-disease-management
+            - paragraph [ref=e2039]: Identify, prevent, and manage mushroom diseases using integrated pest management.
+            - generic [ref=e2040]:
+              - generic [ref=e2041]:
+                - img "Level" [ref=e2042]
+                - text: Advanced
+              - generic [ref=e2043]:
+                - img "Duration" [ref=e2044]
+                - text: 3 Weeks
+              - generic [ref=e2047]:
+                - img "Delivery" [ref=e2048]
+                - text: Live
+              - generic [ref=e2050]:
+                - img "Language" [ref=e2051]
+                - text: English
+            - generic [ref=e2054]:
+              - generic [ref=e2055]: ₹4,150
+              - generic [ref=e2056]:
+                - img "Rating" [ref=e2057]
+                - text: "4.6"
+                - generic [ref=e2059]: · 78 enrolled
+            - generic [ref=e2061]:
+              - img "Seats" [ref=e2062]
+              - text: 2 seats left
+            - generic [ref=e2068]:
+              - link "View Mushroom Disease Management & IPM" [ref=e2069]:
+                - /url: /training/courses/mushroom-disease-management
+                - text: View Course
+                - img "View" [ref=e2070]
+              - button "Add to comparison" [ref=e2072]:
+                - img "Compare" [ref=e2073]
+                - text: Compare
+      - navigation "Course catalog pagination" [ref=e2074]:
+        - button "Previous page" [disabled] [ref=e2075]:
+          - img [ref=e2076]
+        - button "Page 1" [ref=e2078] [cursor=pointer]: "1"
+        - button "Page 2" [ref=e2079] [cursor=pointer]: "2"
+        - button "Next page" [ref=e2080] [cursor=pointer]:
+          - img [ref=e2081]
+```
+
+# Test source
+
+```ts
+  1   | import { test, expect } from '@playwright/test';
+  2   | 
+  3   | const BASE = 'http://localhost:5174';
+  4   | 
+  5   | async function login(page) {
+  6   |   await page.goto('/login'); await page.waitForLoadState('networkidle');
+  7   |   const inp = page.locator('input[id="sk-identifier"],input[type="tel"],input[inputmode="numeric"]').first();
+  8   |   await inp.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+  9   |   await inp.fill('9876543210');
+  10  |   const btn = page.locator('button[type="submit"],button:has-text("Send"),button:has-text("Continue")').first();
+  11  |   await btn.click(); await page.waitForTimeout(2000);
+  12  |   const otp = page.locator('.sk-otp-input,input[maxlength="1"][inputmode="numeric"]');
+  13  |   const n = await otp.count();
+  14  |   if (n > 0) { for (let i = 0; i < Math.min(n, 6); i++) await otp.nth(i).fill(String(i + 1)); await page.waitForTimeout(3000); }
+  15  | }
+  16  | 
+  17  | async function bodyText(page) { return (await page.locator('body').innerText()); }
+  18  | async function hasText(page, t) { return (await bodyText(page)).includes(t); }
+  19  | 
+  20  | // ====================================================================
+  21  | // PHASE 1 — TRAINING DISCOVERY (PUBLIC CATALOG)
+  22  | // ====================================================================
+  23  | test.describe('Phase 1 — Training Discovery', () => {
+  24  |   test('Course catalog page loads', async ({ page }) => {
+  25  |     const r = await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  26  |     expect(r?.status()).toBeLessThan(400);
+  27  |   });
+  28  | 
+  29  |   test('Catalog has course cards', async ({ page }) => {
+  30  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  31  |     const cards = page.locator('[class*="card"],[class*="Card"],[class*="course"],article').first();
+  32  |     await expect(cards).toBeVisible({ timeout: 5000 });
+  33  |   });
+  34  | 
+  35  |   test('Catalog has search input', async ({ page }) => {
+  36  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  37  |     const s = page.locator('input[type="search"],input[placeholder*="Search"]').first();
+  38  |     if (await s.isVisible({ timeout: 3000 }).catch(() => false)) {
+  39  |       await s.fill('mushroom'); await page.waitForTimeout(300);
+  40  |     }
+  41  |     expect(true).toBeTruthy();
+  42  |   });
+  43  | 
+  44  |   test('Catalog has filter controls', async ({ page }) => {
+  45  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  46  |     const t = await bodyText(page);
+  47  |     expect(t.includes('Filter') || t.includes('Category') || t.includes('Level')).toBeTruthy();
+  48  |   });
+  49  | 
+  50  |   test('Catalog has category highlights', async ({ page }) => {
+  51  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  52  |     const t = await bodyText(page);
+  53  |     expect(t.includes('Mushroom') || t.includes('Cultivation') || t.includes('Course')).toBeTruthy();
+  54  |   });
+  55  | 
+  56  |   test('Catalog has grid/list/table view toggles', async ({ page }) => {
+  57  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  58  |     const t = await bodyText(page);
+  59  |     expect(t.includes('Grid') || t.includes('List') || t.includes('Table')).toBeTruthy();
+  60  |   });
+  61  | 
+  62  |   test('Catalog has pagination', async ({ page }) => {
+  63  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  64  |     const p = page.locator('[class*="pagination"],[class*="Pagination"],nav[aria-label*="pagination"]');
+  65  |     const v = await p.isVisible({ timeout: 3000 }).catch(() => false);
+  66  |     if (v) expect(v).toBe(true);
+  67  |   });
+  68  | 
+  69  |   test('Catalog has sort controls', async ({ page }) => {
+  70  |     await page.goto('/training/courses', { waitUntil: 'networkidle' });
+  71  |     const t = await bodyText(page);
+> 72  |     expect(t.includes('Sort') || t.includes('Name') || t.includes('Rating')).toBeTruthy();
+      |                                                                              ^ Error: expect(received).toBeTruthy()
+  73  |   });
+  74  | 
+  75  |   test('Course comparison page loads', async ({ page }) => {
+  76  |     const r = await page.goto('/training/courses/compare', { waitUntil: 'networkidle' });
+  77  |     expect(r?.status()).toBeLessThan(400);
+  78  |   });
+  79  | 
+  80  |   test('Learning paths page loads', async ({ page }) => {
+  81  |     const r = await page.goto('/training/learning-paths', { waitUntil: 'networkidle' });
+  82  |     expect(r?.status()).toBeLessThan(400);
+  83  |   });
+  84  | 
+  85  |   test('Public training marketing page loads', async ({ page }) => {
+  86  |     const r = await page.goto('/training', { waitUntil: 'networkidle' });
+  87  |     expect(r?.status()).toBeLessThan(400);
+  88  |   });
+  89  | 
+  90  |   test('Certifications page loads', async ({ page }) => {
+  91  |     const r = await page.goto('/certifications', { waitUntil: 'networkidle' });
+  92  |     expect(r?.status()).toBeLessThan(400);
+  93  |   });
+  94  | });
+  95  | 
+  96  | // ====================================================================
+  97  | // PHASE 2 — TRAINING DETAILS
+  98  | // ====================================================================
+  99  | test.describe('Phase 2 — Training Details', () => {
+  100 |   test('Course detail page loads', async ({ page }) => {
+  101 |     const r = await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  102 |     expect(r?.status()).toBeLessThan(400);
+  103 |   });
+  104 | 
+  105 |   test('Course detail has hero/banner', async ({ page }) => {
+  106 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  107 |     const t = await bodyText(page);
+  108 |     expect(t.includes('Mushroom') || t.includes('Cultivation')).toBeTruthy();
+  109 |   });
+  110 | 
+  111 |   test('Course detail has curriculum', async ({ page }) => {
+  112 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  113 |     const t = await bodyText(page);
+  114 |     expect(t.includes('Curriculum') || t.includes('Module') || t.includes('Lesson')).toBeTruthy();
+  115 |   });
+  116 | 
+  117 |   test('Course detail has learning objectives', async ({ page }) => {
+  118 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  119 |     const t = await bodyText(page);
+  120 |     expect(t.includes('Objective') || t.includes('Learn') || t.includes('Outcome')).toBeTruthy();
+  121 |   });
+  122 | 
+  123 |   test('Course detail has prerequisites', async ({ page }) => {
+  124 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  125 |     const t = await bodyText(page);
+  126 |     expect(t.includes('Prerequisite') || t.includes('Requirement')).toBeTruthy();
+  127 |   });
+  128 | 
+  129 |   test('Course detail has trainer info', async ({ page }) => {
+  130 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  131 |     const t = await bodyText(page);
+  132 |     expect(t.includes('Trainer') || t.includes('Instructor')).toBeTruthy();
+  133 |   });
+  134 | 
+  135 |   test('Course detail has pricing', async ({ page }) => {
+  136 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  137 |     const t = await bodyText(page);
+  138 |     expect(t.includes('₹') || t.includes('Price') || t.includes('Free')).toBeTruthy();
+  139 |   });
+  140 | 
+  141 |   test('Course detail has enroll CTA', async ({ page }) => {
+  142 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  143 |     const cta = page.locator('button:has-text("Enroll"),a:has-text("Enroll"),button:has-text("Join")');
+  144 |     await expect(cta.first()).toBeVisible({ timeout: 3000 });
+  145 |   });
+  146 | 
+  147 |   test('Course detail has FAQ', async ({ page }) => {
+  148 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  149 |     const t = await bodyText(page);
+  150 |     expect(t.includes('FAQ') || t.includes('Question')).toBeTruthy();
+  151 |   });
+  152 | 
+  153 |   test('Course detail has related courses', async ({ page }) => {
+  154 |     await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  155 |     const t = await bodyText(page);
+  156 |     expect(t.includes('Related') || t.includes('Similar')).toBeTruthy();
+  157 |   });
+  158 | 
+  159 |   test('Course detail has SEO metadata', async ({ page }) => {
+  160 |     const r = await page.goto('/training/courses/mushroom-cultivation-masterclass', { waitUntil: 'networkidle' });
+  161 |     const meta = page.locator('meta[name="description"]');
+  162 |     expect(await meta.getAttribute('content').catch(() => '')).toBeTruthy();
+  163 |   });
+  164 | });
+  165 | 
+  166 | // ====================================================================
+  167 | // PHASE 3 — ENROLLMENT / REGISTRATION
+  168 | // ====================================================================
+  169 | test.describe('Phase 3 — Registration', () => {
+  170 |   test('Customer course detail with enroll button', async ({ page }) => {
+  171 |     await login(page);
+  172 |     await page.goto('/dashboard/training/course/crs-001', { waitUntil: 'networkidle' });
+```

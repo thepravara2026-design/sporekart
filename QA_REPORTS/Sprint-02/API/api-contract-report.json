@@ -1,0 +1,84 @@
+{
+  "report": {
+    "id": "SK-API-CON-002-005",
+    "title": "API Contract Validation Report",
+    "sprint": "QA Sprint 2 – Part 5",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "CONFIDENTIAL",
+    "status": "FAIL"
+  },
+  "executiveSummary": {
+    "overallStatus": "FAIL",
+    "apiReadinessScore": 32,
+    "totalEndpointsValidated": 155,
+    "contractsValid": 78,
+    "contractsViolated": 42,
+    "contractsMissing": 35,
+    "criticalFindings": 9,
+    "highFindings": 7,
+    "summary": "API contract validation reveals critical gaps across the microservices architecture. Only identity-service has authentication enforced via HTTP Basic; all other services use permitAll(). Six of 16 services are empty placeholders (cart, content, risk, search, support, registry-center). The ai-service is the largest but 85% of its 112 endpoints are fully open. No API gateway or centralized auth exists. Services lack standardized error responses, pagination, and consistent status codes."
+  },
+  "httpMethodValidation": {
+    "status": "FAIL",
+    "findings": [
+      { "method": "GET", "usage": "Read operations", "issues": ["Some GET endpoints accept request bodies (non-standard)"] },
+      { "method": "POST", "usage": "Create operations + actions", "issues": ["Used for cancel, approve, publish, capture, fail — should be PUT or PATCH in RESTful design"] },
+      { "method": "PUT", "usage": "Update operations", "issues": ["Underused — quotation update, vendor update, config update"] },
+      { "method": "PATCH", "usage": "NOT USED ANYWHERE", "issues": ["Missing — should be used for partial updates"] },
+      { "method": "DELETE", "usage": "Used in ai-service (workflows, prompts, conversations)", "issues": ["Not consistently implemented across services"] },
+      { "method": "OPTIONS", "usage": "NOT IMPLEMENTED", "issues": ["CORS preflight not configured in any service"] },
+      { "method": "HEAD", "usage": "NOT IMPLEMENTED", "issues": ["No HEAD endpoints for resource existence checks"] }
+    ]
+  },
+  "statusCodeValidation": {
+    "status": "WARNING",
+    "findings": [
+      { "code": "200", "usage": "Default success for GET, POST, PUT", "issues": ["Overused — 201 for creation rarely returned; most POST endpoints return 200"] },
+      { "code": "201", "usage": "Occasionally used for creation", "issues": ["Some controllers use 201, most don't specify status code"] },
+      { "code": "204", "usage": "Used for DELETE endpoints", "issues": ["Consistent in ai-service workflows"] },
+      { "code": "400", "usage": "@Valid triggers 400 via default Spring", "issues": ["Custom error body varies; no standardized format"] },
+      { "code": "401", "usage": "Should be used by identity-service", "issues": ["HTTP Basic handles 401 but no custom 401 handler"] },
+      { "code": "403", "usage": "Should be used for role-based access", "issues": ["Not explicitly returned by any controller"] },
+      { "code": "404", "usage": "Resource not found", "issues": ["Not consistently implemented — many controllers return null/empty instead of 404"] },
+      { "code": "409", "usage": "Conflict", "issues": ["Not used anywhere — no duplicate detection"] },
+      { "code": "422", "usage": "Validation error", "issues": ["Not used — 400 used for all validation failures"] },
+      { "code": "429", "usage": "Rate limiting", "issues": ["Not implemented in any service"] },
+      { "code": "500", "usage": "Server error", "issues": ["Default Spring error returned; could leak stack traces"] }
+    ]
+  },
+  "requestValidation": {
+    "status": "FAIL",
+    "findings": [
+      { "issue": "Missing @Valid annotations", "count": 12, "detail": "Many request DTOs lack validation annotations" },
+      { "issue": "Inconsistent parameter handling", "count": 8, "detail": "Some use @RequestParam, some use path variables inconsistently" },
+      { "issue": "No request size limits", "count": 1, "detail": "No @Size or payload limits configured" },
+      { "issue": "No Content-Type enforcement", "count": 1, "detail": "Some endpoints don't enforce Content-Type header" }
+    ]
+  },
+  "responseValidation": {
+    "status": "FAIL",
+    "findings": [
+      { "issue": "No standardized error envelope", "detail": "No consistent ApiError or ErrorResponse DTO across services" },
+      { "issue": "No pagination metadata", "detail": "List endpoints return raw arrays without pagination info" },
+      { "issue": "Sensitive data exposure", "detail": "No @JsonIgnore on sensitive fields; no field-level filtering" },
+      { "issue": "Null fields in responses", "detail": "No @JsonInclude(NON_NULL) configured globally; nulls leak in responses" },
+      { "issue": "Inconsistent field naming", "detail": "Some use camelCase, some use snake_case — no naming convention enforced" }
+    ]
+  },
+  "contractViolations": [
+    { "id": "C-VIOL-001", "endpoint": "POST /auth/login", "issue": "Uses @RequestParam instead of @RequestBody for credentials", "severity": "MEDIUM" },
+    { "id": "C-VIOL-002", "endpoint": "GET /users/me", "issue": "Returns placeholder string 'identity-ok' instead of user object", "severity": "HIGH" },
+    { "id": "C-VIOL-003", "endpoint": "POST /orders", "issue": "No validation on CreateOrderRequest — missing @Valid", "severity": "HIGH" },
+    { "id": "C-VIOL-004", "endpoint": "POST /payments/create-order", "issue": "Returns 200 instead of 201 for creation", "severity": "LOW" },
+    { "id": "C-VIOL-005", "endpoint": "POST /auth/register", "issue": "Requires authentication to register (circular dependency)", "severity": "CRITICAL" },
+    { "id": "C-VIOL-006", "endpoint": "GET /orders", "issue": "Returns all orders for any customerId — no auth check for ownership", "severity": "CRITICAL" },
+    { "id": "C-VIOL-007", "endpoint": "GET /orders/{id}", "issue": "Returns any order by ID — no ownership check (IDOR)", "severity": "CRITICAL" },
+    { "id": "C-VIOL-008", "endpoint": "POST /inventory/{productId}", "issue": "Read-only service — only has GET, no write endpoint", "severity": "HIGH" },
+    { "id": "C-VIOL-009", "endpoint": "POST /products", "issue": "No authentication — anyone can create products", "severity": "CRITICAL" },
+    { "id": "C-VIOL-010", "endpoint": "POST /shipments", "issue": "No authentication — anyone can create shipments", "severity": "CRITICAL" },
+    { "id": "C-VIOL-011", "endpoint": "GET /analytics/customers", "issue": "No authentication — customer PII exposed", "severity": "CRITICAL" },
+    { "id": "C-VIOL-012", "endpoint": "GET /analytics/payments", "issue": "No authentication — payment data exposed", "severity": "CRITICAL" },
+    { "id": "C-VIOL-013", "endpoint": "POST /notifications", "issue": "No authentication — anyone can send notifications", "severity": "HIGH" }
+  ]
+}
