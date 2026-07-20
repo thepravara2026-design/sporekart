@@ -1,0 +1,160 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "../QA_REPORTS/Sprint-03/Part-03-Platform-Reliability/part-03-validation.spec.ts",
+      "--config=../QA_REPORTS/Sprint-03/Part-03-Platform-Reliability/playwright.config.ts",
+      "-g",
+      "Friendly error messages"
+    ],
+    "configFile": "F:\\The Pravara\\clients\\sporekart\\sporekart\\QA_REPORTS\\Sprint-03\\Part-03-Platform-Reliability\\playwright.config.ts",
+    "rootDir": "F:/The Pravara/clients/sporekart/sporekart/QA_REPORTS/Sprint-03/Part-03-Platform-Reliability",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "F:/The Pravara/clients/sporekart/sporekart/shared-testing/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "F:/The Pravara/clients/sporekart/sporekart/QA_REPORTS/Sprint-03/Part-03-Platform-Reliability",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "../../Sprint-03/Part-03-Platform-Reliability/html-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../Sprint-03/Part-03-Platform-Reliability/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "../../Sprint-03/Part-03-Platform-Reliability/junit.xml"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "part-03-validation.spec.ts",
+      "file": "part-03-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 2 — Error Handling",
+          "file": "part-03-validation.spec.ts",
+          "line": 118,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Friendly error messages — no stack traces exposed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2177,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-18T05:48:46.553Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "F:\\The Pravara\\clients\\sporekart\\sporekart\\shared-testing\\test-results\\part-03-validation-Phase-2-63fbb-s-—-no-stack-traces-exposed-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "dec95d07b7e1edb163ef-a6cc4409a66fbbe7127e",
+              "file": "part-03-validation.spec.ts",
+              "line": 180,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-18T05:48:44.353Z",
+    "duration": 4948.466,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

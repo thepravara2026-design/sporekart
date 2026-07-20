@@ -8,6 +8,86 @@
   }
 }
 
+/* ==========================================================================
+   Bug Fix Sprint B — Responsive & Accessibility hardening
+   Addresses BUG-COMP-001..004, BUG-MOB-001..006 (P1, HIGH)
+   ========================================================================== */
+
+/* BUG-COMP-001 / BUG-MOB-001: Admin KPI grid collapses to a single fluid
+   column track on small screens instead of a fixed 4-up grid that overflows. */
+.dg-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--kpi-columns, 4), minmax(0, 1fr));
+  gap: var(--space-component-gap, 16px);
+}
+
+@media (max-width: 1200px) {
+  .dg-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  .dg-kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* BUG-COMP-002 / BUG-MOB-002: Admin tables overflow without horizontal
+   scroll on narrow viewports. Wrap any table context so it scrolls instead
+   of breaking the layout. */
+.admin-workspace table,
+.dg-table,
+.admin-module table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+@media (max-width: 767px) {
+  .admin-workspace :is(div, section, article)[style*="overflow"] table,
+  .dg-table-wrap,
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* BUG-COMP-003 / BUG-MOB-003: Profile action buttons overlap on small
+   mobile. Stack them and give them full-width, non-overlapping layout. */
+@media (max-width: 767px) {
+  .profile-main-page__actions,
+  .profile-action-row,
+  .profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .profile-main-page__actions button,
+  .profile-action-row button,
+  .profile-actions button {
+    width: 100%;
+  }
+}
+
+/* BUG-MOB-006: Touch targets below WCAG 2.5.5 minimum size. Enforce a
+   44x44px minimum interactive area for controls within the admin shell. */
+.admin-workspace button,
+.admin-workspace a[role="button"],
+.admin-workspace .dg-action,
+.admin-sidebar-search button,
+.admin-header__actions button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (max-width: 767px) {
+  .admin-workspace button,
+  .admin-workspace input,
+  .admin-workspace select,
+  .admin-workspace a[role="button"],
+  .admin-workspace [role="tab"] {
+    min-height: 44px;
+  }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

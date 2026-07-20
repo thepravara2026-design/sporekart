@@ -1,0 +1,28 @@
+<testsuites id="" name="" tests="6" failures="0" skipped="6" errors="0" time="0.029156999999999926">
+<testsuite name="smoke.spec.ts" timestamp="2026-07-18T11:44:03.941Z" hostname="chromium" tests="6" failures="0" skipped="6" time="0" errors="0">
+<testcase name="QA Infrastructure Smoke Tests › Browser launches and homepage loads" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Page title is defined and valid" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Screenshot capture works" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Console logs are captured" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › Network requests are logged" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="QA Infrastructure Smoke Tests › 404 page returns expected status" classname="smoke.spec.ts">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

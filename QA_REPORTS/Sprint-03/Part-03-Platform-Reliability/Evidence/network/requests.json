@@ -1,0 +1,20 @@
+{
+  "requests": [
+    "GET http://localhost:4173/",
+    "GET http://localhost:4173/assets/index-BcNh8cT_.js",
+    "GET http://localhost:4173/assets/index-CTUG3leP.css",
+    "GET http://localhost:4173/assets/HomePage-DHK-WLZp.js",
+    "GET http://localhost:4173/assets/PublicContentContainer-pUzkXNL_.js",
+    "GET http://localhost:4173/assets/BreadcrumbFoundation-BVFmcUDI.js",
+    "GET http://localhost:4173/assets/PublicContentContainer-BNeH7GDP.css",
+    "GET http://localhost:4173/assets/Reveal-2QMP_08t.js",
+    "GET http://localhost:4173/assets/Button-bh2yUiHp.js",
+    "GET http://localhost:4173/assets/useScopedStyle-CCb5e4w2.js",
+    "GET http://localhost:4173/assets/MediaPlaceholder-C_l9lzaG.js",
+    "GET http://localhost:4173/assets/FeatureCard-cp9dEz5N.js",
+    "GET http://localhost:4173/assets/Card-DwN-NuYx.js",
+    "GET http://localhost:4173/assets/NewsletterCta-kOPXJ5S4.js",
+    "GET http://localhost:4173/assets/ScrollProgress-hFYuvi3j.js",
+    "GET http://localhost:4173/hero-bg.png"
+  ]
+}

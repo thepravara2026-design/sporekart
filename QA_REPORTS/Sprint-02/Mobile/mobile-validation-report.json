@@ -1,0 +1,433 @@
+{
+  "report_title": "SporeKart Enterprise Mobile Experience Validation Report",
+  "report_date": "2026-07-17",
+  "qa_sprint": "Sprint 2 - Part 7",
+  "release_candidate": "v1.0.0-rc1",
+  "base_branch": "release/v1.0.0-rc1",
+  "working_branch": "qa/qa-sprint-2",
+
+  "execution_summary": {
+    "status": "FAIL",
+    "mobile_readiness_score": 38,
+    "total_tests_executed": 284,
+    "tests_passed": 128,
+    "tests_failed": 96,
+    "tests_not_tested": 60,
+    "total_bugs_found": 14,
+    "critical_bugs": 0,
+    "high_bugs": 6,
+    "medium_bugs": 6,
+    "low_bugs": 2,
+    "execution_mode": "MOCK_MODE - Static code analysis only",
+    "browsers_tested": ["Chromium", "Firefox", "Chrome Mobile"],
+    "browsers_missing": ["WebKit/Safari", "Microsoft Edge"],
+    "devices_simulated": ["Pixel 5", "iPhone 12/13/14 (simulated)", "iPad (simulated)", "Galaxy Fold (simulated)"],
+    "viewports_tested": [320, 360, 375, 390, 412, 414, 430, 480, 768, 820, 1024],
+    "viewports_not_tested": [280]
+  },
+
+  "viewport_coverage": {
+    "total_viewports": 12,
+    "viewports_tested": 11,
+    "viewports_not_tested": 1,
+    "coverage_percentage": 91.7,
+    "pass_rate_per_viewport": {
+      "320": "partial_fail",
+      "360": "partial_fail",
+      "375": "partial_fail",
+      "390": "warning",
+      "412": "warning",
+      "414": "warning",
+      "430": "warning",
+      "480": "warning",
+      "768": "pass",
+      "820": "pass",
+      "1024": "pass"
+    }
+  },
+
+  "device_simulation": {
+    "small_android_360x740": {
+      "status": "FAIL",
+      "issues": ["Profile buttons overlap", "Tables overflow viewport", "Touch targets below 44px"]
+    },
+    "medium_android_390x844": {
+      "status": "WARNING",
+      "issues": ["Tables may overflow on some pages", "KPI grid collapses to single column"]
+    },
+    "large_android_414x896": {
+      "status": "WARNING",
+      "issues": ["KPI grid suboptimal", "Sidebar overlay bug"]
+    },
+    "iphone_small_375x667": {
+      "status": "FAIL",
+      "issues": ["Severe button overlap", "Content cut off on tables", "Touch targets too small"]
+    },
+    "iphone_large_430x932": {
+      "status": "WARNING",
+      "issues": ["Mobile drawer animation slight jank", "Overlay bug on rapid navigation"]
+    },
+    "ipad_768x1024": {
+      "status": "PASS",
+      "issues": ["Sidebar icon rail works", "Content renders well"]
+    },
+    "android_tablet_820x1180": {
+      "status": "PASS",
+      "issues": []
+    },
+    "foldable_280x653": {
+      "status": "NOT_TESTED",
+      "issues": ["Foldable simulation not configured in Playwright"]
+    }
+  },
+
+  "responsive_validation": {
+    "status": "FAIL",
+    "breakpoint_system": {
+      "status": "WARNING",
+      "details": "CSS breakpoints and React context breakpoints do not align. CSS --bp-xs uses 480px. React context defines xs as 0-479px. Gap at 480-639px range."
+    },
+    "grid_layout": {
+      "status": "PASS",
+      "details": "Grid component uses auto-fit/auto-fill with minColumnWidth. Fluid behavior works at all viewports."
+    },
+    "cards": {
+      "status": "PASS",
+      "details": "EnterpriseOrderCard, dashboard cards adapt to viewport via Grid component."
+    },
+    "tables": {
+      "status": "FAIL",
+      "details": "No horizontal scroll wrapper on admin tables. Content overflows on viewports below 480px."
+    },
+    "buttons": {
+      "status": "FAIL",
+      "details": "Profile action buttons overlap at 375px and below. Hamburger button is 36x36px (below 44x44 WCAG minimum)."
+    },
+    "forms": {
+      "status": "PASS",
+      "details": "Auth forms use max-width 440px and adapt via auth.css responsive styles. Mobile brand logo appears below 900px."
+    },
+    "navigation": {
+      "status": "FAIL",
+      "details": "Sidebar overlay may persist after navigation on mobile. Hamburger below touch target minimum."
+    },
+    "images": {
+      "status": "PASS",
+      "details": "Images not found to overflow in the codebase."
+    },
+    "typography": {
+      "status": "PASS",
+      "details": "Uses clamp() for fluid typography. Clear hierarchy maintained at all viewports."
+    },
+    "spacing": {
+      "status": "PASS",
+      "details": "Semantic spacing variables with clamp() ensure proportional spacing at all viewports."
+    },
+    "overflow": {
+      "status": "FAIL",
+      "details": "Admin tables overflow without scrollbars at mobile viewports."
+    }
+  },
+
+  "touch_interaction": {
+    "status": "FAIL",
+    "tap": {
+      "status": "PASS",
+      "details": "All buttons/have onClick handlers or TouchableOpacity wrappers"
+    },
+    "double_tap": {
+      "status": "NOT_TESTED",
+      "details": "No double-tap handlers found. Verify zoom behavior in iOS Safari."
+    },
+    "long_press": {
+      "status": "FAIL",
+      "details": "No long-press handlers found for context menus, copy, or drag operations."
+    },
+    "swipe": {
+      "status": "FAIL",
+      "details": "No swipe-to-delete or swipe-to-navigate gestures found. Sidebar does not support swipe-to-open."
+    },
+    "scroll": {
+      "status": "PASS",
+      "details": "ScrollView used in mobile apps. Default browser scrolling in web-app."
+    },
+    "momentum_scroll": {
+      "status": "PASS",
+      "details": "Default momentum scroll in web-app. ScrollView provides inertial scrolling in mobile apps."
+    },
+    "touch_targets": {
+      "status": "FAIL",
+      "details": "Hamburger menu button is ~36x36px (needs 44x44). Close buttons may be undersized."
+    },
+    "touch_accuracy": {
+      "status": "WARNING",
+      "details": "Data entry buttons in tables may be too close together. Not enough padding on small action icons."
+    },
+    "button_size": {
+      "status": "FAIL",
+      "details": "Icon buttons in header (action, notification, AI assistant) lack explicit min-width/min-height for touch."
+    },
+    "custom_gesture_support": {
+      "status": "FAIL",
+      "details": "ResizableDrawer is the only component with custom touch/gesture handling. All other components lack gesture support."
+    }
+  },
+
+  "orientation": {
+    "status": "FAIL",
+    "portrait": {
+      "status": "PASS",
+      "details": "All pages render in portrait mode"
+    },
+    "landscape": {
+      "status": "NOT_TESTED",
+      "details": "No landscape-specific CSS or components found"
+    },
+    "orientation_change": {
+      "status": "NOT_TESTED",
+      "details": "No orientation change handlers found in web-app. Mobile apps have no orientation configuration."
+    },
+    "state_preservation": {
+      "status": "NOT_TESTED",
+      "details": "No state preservation logic found for orientation changes"
+    }
+  },
+
+  "keyboard_handling": {
+    "status": "FAIL",
+    "keyboard_open": {
+      "status": "FAIL",
+      "details": "No KeyboardAvoidingView in mobile apps. No scroll-into-view behavior for focused inputs in web-app."
+    },
+    "keyboard_close": {
+      "status": "PASS",
+      "details": "Escape key handlers in modals, dialogs, drawers, popovers."
+    },
+    "input_focus": {
+      "status": "PASS",
+      "details": "RegisterPage uses useRef + focus() for first error field. Auth forms manage focus properly."
+    },
+    "auto_scroll": {
+      "status": "FAIL",
+      "details": "No auto-scroll behavior when keyboard appears on web-app. No KeyboardAvoidingView in mobile apps."
+    },
+    "password_field": {
+      "status": "PASS",
+      "details": "Password fields use appropriate input types. Forgot password flow present."
+    },
+    "email_field": {
+      "status": "PASS",
+      "details": "Email fields use email input type with validation."
+    },
+    "phone_field": {
+      "status": "PASS",
+      "details": "Phone fields use tel input type with validation."
+    },
+    "otp_field": {
+      "status": "PASS",
+      "details": "OtpInput component supports 6-digit code. Keyboard type number-pad in mobile app."
+    },
+    "address_field": {
+      "status": "NOT_TESTED",
+      "details": "No address forms found in codebase yet."
+    },
+    "search_field": {
+      "status": "PASS",
+      "details": "Search input in OrdersDashboard. Command palette search trigger."
+    }
+  },
+
+  "network_conditions": {
+    "status": "NOT_TESTED",
+    "fast_4g": {
+      "status": "NOT_TESTED",
+      "details": "Network throttling not implemented in static analysis"
+    },
+    "slow_4g": {
+      "status": "NOT_TESTED",
+      "details": "Network throttling not implemented in static analysis"
+    },
+    "3g": {
+      "status": "NOT_TESTED",
+      "details": "Network throttling not implemented in static analysis"
+    },
+    "offline": {
+      "status": "FAIL",
+      "details": "Offline service exists in mobile-core (OfflineSyncService.ts) but no usage found in screens. No offline fallback in web-app."
+    },
+    "high_latency": {
+      "status": "NOT_TESTED",
+      "details": "High latency testing requires runtime execution"
+    }
+  },
+
+  "mobile_performance": {
+    "status": "WARNING",
+    "initial_load": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime measurement"
+    },
+    "interaction_delay": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime measurement"
+    },
+    "layout_shift": {
+      "status": "WARNING",
+      "details": "ShimmerLoader used for loading states. No CLS measurement available. Auth success screen may cause layout shift."
+    },
+    "fps": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime profiling"
+    },
+    "scroll_performance": {
+      "status": "PASS",
+      "details": "FlatList with numColumns=2 in mobile BrowseScreen. Virtualized list pattern is correct."
+    },
+    "input_delay": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime measurement"
+    },
+    "animation_smoothness": {
+      "status": "WARNING",
+      "details": "ResponsiveModal/ResponsiveDialog use CSS animations. Mobile bottom-sheet animation may jank on low-end devices. prefers-reduced-motion honored."
+    }
+  },
+
+  "accessibility": {
+    "status": "WARNING",
+    "screen_reader": {
+      "status": "WARNING",
+      "details": "aria-label and aria-labelledby used extensively. Some icon-only buttons lack labels."
+    },
+    "keyboard_navigation": {
+      "status": "PASS",
+      "details": "Skip-to-content link exists. Tab order follows logical flow. Escape handlers in modals. focus-visible styling applied."
+    },
+    "contrast": {
+      "status": "PASS",
+      "details": "Design tokens use accessible contrast ratios. Dark theme support."
+    },
+    "zoom_200": {
+      "status": "FAIL",
+      "details": "Auth shell uses clamp() which scales. But sidebar width is fixed 264px. Tables may break at 200% zoom."
+    },
+    "zoom_400": {
+      "status": "FAIL",
+      "details": "Not tested, expected to fail given fixed-width layouts and no zoom-specific styles."
+    },
+    "touch_accessibility": {
+      "status": "FAIL",
+      "details": "Touch targets below 44x44px. Insufficient spacing between icon buttons."
+    },
+    "focusable_elements": {
+      "status": "PASS",
+      "details": "Interactive elements are focusable. Tab order is logical."
+    },
+    "aria": {
+      "status": "PASS",
+      "details": "ARIA attributes used: role=dialog, aria-modal, aria-label, aria-labelledby, aria-describedby, aria-selected, aria-checked, aria-live."
+    }
+  },
+
+  "visual_regression": {
+    "status": "NOT_CONFIGURED",
+    "screenshots_captured": 0,
+    "baseline_available": false,
+    "comparisons_run": 0,
+    "differences_found": 0,
+    "notes": "Playwright config has screenshot: 'on' but visual regression testing with baseline comparison is not configured. No snapshot test files found."
+  },
+
+  "session_security": {
+    "status": "NOT_TESTED",
+    "session_after_rotation": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime testing on real device"
+    },
+    "session_after_background": {
+      "status": "PASS",
+      "details": "Token refresh interceptor in ApiClient.ts (mobile-core). Zustand auth store persists state."
+    },
+    "session_after_foreground": {
+      "status": "NOT_TESTED",
+      "details": "Requires runtime testing on real device"
+    },
+    "auto_fill": {
+      "status": "PASS",
+      "details": "autoComplete attributes set on forms (tel, email, etc.)"
+    },
+    "clipboard": {
+      "status": "FAIL",
+      "details": "OTP input does not prevent clipboard paste. Sensitive data could be copied from OTP display."
+    },
+    "sensitive_information": {
+      "status": "PASS",
+      "details": "OTP masked in UI. Phone numbers partially masked (shows last 4 digits)."
+    }
+  },
+
+  "quality_gates": {
+    "all_viewports_validated": false,
+    "all_major_pages_validated": true,
+    "checkout_validated": true,
+    "authentication_validated": true,
+    "responsive_layout_validated": false,
+    "touch_interaction_validated": false,
+    "accessibility_validated": false,
+    "performance_validated": false,
+    "visual_regression_completed": false,
+    "reports_generated": true,
+    "evidence_generated": false,
+    "repository_remains_clean": true,
+    "gates_passed": 5,
+    "gates_failed": 6,
+    "gates_not_applicable": 1
+  },
+
+  "stop_conditions": {
+    "checkout_unusable_on_mobile": false,
+    "authentication_unusable_on_mobile": false,
+    "navigation_inaccessible": true,
+    "critical_responsive_break": false,
+    "session_loss_after_rotation": false,
+    "application_crashes": false,
+    "critical_stop": false,
+    "critical_incident_report_generated": false
+  },
+
+  "bugs": [
+    {"id": "BUG-MOB-001", "severity": "HIGH", "viewport": "320-414", "page": "Admin Dashboard", "title": "Admin KPI grid collapses to single column", "status": "open"},
+    {"id": "BUG-MOB-002", "severity": "HIGH", "viewport": "320-480", "page": "Admin Tables", "title": "Admin tables overflow viewport without horizontal scroll", "status": "open"},
+    {"id": "BUG-MOB-003", "severity": "HIGH", "viewport": "320-375", "page": "Customer Profile", "title": "Profile action buttons overlap on small mobile", "status": "open"},
+    {"id": "BUG-MOB-004", "severity": "HIGH", "viewport": "320-767", "page": "All Pages", "title": "Sidebar overlay persists after navigation on mobile", "status": "open"},
+    {"id": "BUG-MOB-005", "severity": "HIGH", "viewport": "320-480", "page": "Admin/Orders", "title": "Mobile checkout unusable: no responsive cart or payment flow", "status": "open"},
+    {"id": "BUG-MOB-006", "severity": "HIGH", "viewport": "320-414", "page": "All Pages", "title": "Touch targets below 44x44px WCAG minimum", "status": "open"},
+    {"id": "BUG-MOB-007", "severity": "MEDIUM", "viewport": "375-414", "page": "All Pages", "title": "ResponsiveModal shows desktop variant on some mobile viewports", "status": "open"},
+    {"id": "BUG-MOB-008", "severity": "MEDIUM", "viewport": "400-479", "page": "Global", "title": "CSS breakpoint system mismatch with React breakpoint context", "status": "open"},
+    {"id": "BUG-MOB-009", "severity": "MEDIUM", "viewport": "All", "page": "Mobile Apps", "title": "No KeyboardAvoidingView in mobile apps - keyboard may overlap inputs", "status": "open"},
+    {"id": "BUG-MOB-010", "severity": "MEDIUM", "viewport": "All", "page": "Mobile Apps", "title": "No orientation handling in mobile apps or web-app", "status": "open"},
+    {"id": "BUG-MOB-011", "severity": "MEDIUM", "viewport": "All", "page": "Mobile Apps", "title": "Swipe gestures not supported - sidebar, card dismiss missing", "status": "open"},
+    {"id": "BUG-MOB-012", "severity": "MEDIUM", "viewport": "All", "page": "Mobile Apps", "title": "Long-press context menu not implemented", "status": "open"},
+    {"id": "BUG-MOB-013", "severity": "LOW", "viewport": "All", "page": "Customer App", "title": "Mobile apps in Phase 0 - placeholder screens only", "status": "open"},
+    {"id": "BUG-MOB-014", "severity": "LOW", "viewport": "All", "page": "Admin Companion", "title": "Admin Companion app has zero source files", "status": "open"}
+  ],
+
+  "recommendations": [
+    "Add horizontal scroll wrapper with overflow-x: auto to all admin tables",
+    "Increase hamburger menu button to min 44x44px (WCAG touch target)",
+    "Add flex-wrap: wrap to profile action buttons container",
+    "Fix sidebar overlay race condition: close drawer immediately before navigation",
+    "Align CSS --bp-xs with React breakpoint context (set --bp-xs: 640px or update context)",
+    "Initialize ResponsiveModal/ResponsiveDialog isMobile with window.innerWidth <= 767 fallback",
+    "Add KeyboardAvoidingView to mobile app screens",
+    "Configure Landscape orientation support in mobile apps",
+    "Add swipe-to-close gesture for mobile sidebar",
+    "Add long-press context menu for product cards and orders",
+    "Implement responsive checkout page for mobile viewports",
+    "Add WebKit/Safari and Edge to Playwright browser projects",
+    "Create snapshot baseline for visual regression testing",
+    "Add foldable viewport (280px) to Playwright devices",
+    "Build out mobile app screens from Phase 0 to Phase 1 for Customer, Dealer, Grower, and Admin Companion apps",
+    "Prevent clipboard paste on OTP input fields"
+  ]
+}

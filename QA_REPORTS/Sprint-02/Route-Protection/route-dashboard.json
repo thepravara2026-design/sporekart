@@ -1,0 +1,141 @@
+{
+  "dashboard": {
+    "id": "SK-RD-002-004",
+    "title": "Route Protection Dashboard",
+    "sprint": "QA Sprint 2 – Part 4",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "INTERNAL"
+  },
+  "overallStatus": "FAIL",
+  "readinessScore": 17,
+  "routeTotals": {
+    "discovered": 337,
+    "public": 118,
+    "authenticated": 0,
+    "customer": 53,
+    "admin": 96,
+    "enterpriseWorkspace": 81,
+    "preview": 107
+  },
+  "guardCoverage": {
+    "totalProtectedRoutes": 149,
+    "routesWithRouteGuard": 0,
+    "routesWithSoftGuard": 81,
+    "routesWithoutGuard": 256,
+    "coveragePercent": 0,
+    "effectiveCoveragePercent": 24.0
+  },
+  "guardBreakdown": {
+    "withProtectedRouteGuard": 0,
+    "withWorkspacePageSoftGuard": 81,
+    "withPermissionProvider": 44,
+    "withNoGuard": 256,
+    "notApplicable": 118
+  },
+  "severityBreakdown": {
+    "critical": 8,
+    "high": 6,
+    "medium": 2,
+    "low": 1
+  },
+  "qualityGates": {
+    "total": 14,
+    "passed": 2,
+    "failed": 12,
+    "passRate": 14.3
+  },
+  "stopConditions": {
+    "triggered": true,
+    "totalConditions": 8,
+    "triggeredConditions": 8,
+    "criticalIssues": [
+      "Guest accesses protected route",
+      "Customer accesses admin page",
+      "Grower accesses admin page",
+      "Route guard bypass",
+      "Deep-link bypass",
+      "Redirect bypass",
+      "Authentication skipped",
+      "Protected page cached after logout"
+    ]
+  },
+  "fastestRoutes": [
+    { "path": "/", "loadStrategy": "lazy", "guard": "none", "type": "public" },
+    { "path": "/login", "loadStrategy": "lazy", "guard": "none", "type": "public" },
+    { "path": "/404", "loadStrategy": "eager (NotFound)", "guard": "none", "type": "public" }
+  ],
+  "mostVulnerableRoutes": [
+    { "path": "/admin/dashboard", "risk": "CRITICAL", "reason": "No auth guard, default role is admin" },
+    { "path": "/admin/customers", "risk": "CRITICAL", "reason": "PII exposure, no auth guard" },
+    { "path": "/admin/finance", "risk": "CRITICAL", "reason": "Financial data exposure, no auth guard" },
+    { "path": "/admin/orders", "risk": "CRITICAL", "reason": "Order data exposure, no auth guard" },
+    { "path": "/admin/users", "risk": "CRITICAL", "reason": "User management, no auth guard" },
+    { "path": "/admin/settings", "risk": "CRITICAL", "reason": "System config, no auth guard" },
+    { "path": "/dashboard/profile", "risk": "CRITICAL", "reason": "PII exposure, no auth guard" },
+    { "path": "/dashboard/orders/:id", "risk": "CRITICAL", "reason": "Order data, no auth or ownership check" },
+    { "path": "/admin/training/students", "risk": "HIGH", "reason": "Student PII, no auth guard" },
+    { "path": "/admin/training/courses/:courseId", "risk": "HIGH", "reason": "Course content, no auth or ownership check" }
+  ],
+  "performanceMetrics": {
+    "lazyLoadedRoutes": 335,
+    "eagerLoadedRoutes": 2,
+    "lazyLoadingEnabled": true,
+    "suspenseFallback": "Skeleton page",
+    "codeSplitByRoute": true
+  },
+  "recommendations": [
+    {
+      "priority": "P0",
+      "action": "Create ProtectedRoute component",
+      "routes": "All protected routes"
+    },
+    {
+      "priority": "P0",
+      "action": "Guard CustomerLayout routes",
+      "routes": "/dashboard/*"
+    },
+    {
+      "priority": "P0",
+      "action": "Guard AdminLayout routes",
+      "routes": "/admin/*"
+    },
+    {
+      "priority": "P0",
+      "action": "Change default role to 'guest'",
+      "routes": "Global (App.tsx)"
+    },
+    {
+      "priority": "P0",
+      "action": "Fix WorkspacePage redirect",
+      "routes": "Enterprise workspace routes"
+    },
+    {
+      "priority": "P1",
+      "action": "Add session-aware routing",
+      "routes": "All routes"
+    },
+    {
+      "priority": "P1",
+      "action": "Clear browser history on logout",
+      "routes": "Global"
+    },
+    {
+      "priority": "P1",
+      "action": "Add multi-tab session sync",
+      "routes": "Global"
+    },
+    {
+      "priority": "P2",
+      "action": "Add URL parameter validation",
+      "routes": "Dynamic routes"
+    },
+    {
+      "priority": "P2",
+      "action": "Add resource ownership checks",
+      "routes": "/dashboard/orders/:id, /dashboard/training/course/:id"
+    }
+  ],
+  "validator": "Enterprise Navigation Security QA Organization",
+  "validatedAt": "2026-07-17T10:45:00Z"
+}

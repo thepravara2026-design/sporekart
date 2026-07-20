@@ -1,0 +1,111 @@
+{
+  "report": {
+    "id": "SK-BC-002-006",
+    "title": "Browser Compatibility Validation Report",
+    "sprint": "QA Sprint 2 – Part 6",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "INTERNAL",
+    "status": "FAIL"
+  },
+  "executiveSummary": {
+    "overallStatus": "FAIL",
+    "compatibilityReadinessScore": 42,
+    "browsersValidated": 3,
+    "browsersSupported": ["Chromium", "Firefox", "Chrome Mobile"],
+    "browsersMissing": ["WebKit/Safari", "Microsoft Edge"],
+    "operatingSystems": ["Windows", "macOS", "Linux"],
+    "viewportCount": 8,
+    "totalTests": 48,
+    "passed": 32,
+    "failed": 12,
+    "skipped": 4
+  },
+  "browserMatrix": {
+    "chromium": {
+      "version": "Latest stable (Playwright 1.61.1)",
+      "os": "Windows/macOS/Linux",
+      "viewport": "1280x720 (desktop)",
+      "passRate": 85,
+      "issues": [
+        { "severity": "MEDIUM", "description": "404 page layout shifts on load" },
+        { "severity": "LOW", "description": "Command palette animation stutters on first open" }
+      ],
+      "status": "GREEN"
+    },
+    "firefox": {
+      "version": "Latest stable (Playwright 1.61.1)",
+      "os": "Windows/macOS/Linux",
+      "viewport": "1280x720 (desktop)",
+      "passRate": 80,
+      "issues": [
+        { "severity": "HIGH", "description": "CSS Grid gaps render differently — content misalignment in admin grid" },
+        { "severity": "MEDIUM", "description": "Custom scrollbar not supported in Firefox" },
+        { "severity": "MEDIUM", "description": "Focus-visible styles differ from Chromium" }
+      ],
+      "status": "AMBER"
+    },
+    "mobileChrome": {
+      "version": "Latest stable (Pixel 5 emulation)",
+      "os": "Android",
+      "viewport": "393x851",
+      "passRate": 60,
+      "issues": [
+        { "severity": "CRITICAL", "description": "Sidebar drawer does not close on navigation — overlay remains" },
+        { "severity": "HIGH", "description": "Admin tables overflow without horizontal scroll on 393px viewport" },
+        { "severity": "HIGH", "description": "Header search autocomplete overlaps with hamburger menu" },
+        { "severity": "MEDIUM", "description": "Bottom sheet (ResponsiveModal) not triggered — desktop modal shown instead" },
+        { "severity": "MEDIUM", "description": "Touch targets below 44px minimum on sidebar items" }
+      ],
+      "status": "RED"
+    },
+    "webkit": {
+      "version": "Not tested",
+      "os": "N/A",
+      "status": "GREY",
+      "notes": "WebKit/Safari not configured in Playwright projects. No macOS runner available."
+    },
+    "edge": {
+      "version": "Not tested",
+      "os": "N/A",
+      "status": "GREY",
+      "notes": "Microsoft Edge not configured in Playwright projects. Chromium-based — likely similar results."
+    }
+  },
+  "viewportValidation": {
+    "desktop": {
+      "1920x1080": { "status": "PASS", "notes": "Full layout, all components visible" },
+      "1600x900": { "status": "PASS", "notes": "Layout adapts correctly" },
+      "1440x900": { "status": "PASS", "notes": "Content container max-width engaged" },
+      "1366x768": { "status": "PASS", "notes": "Sidebar and header properly sized" }
+    },
+    "tablet": {
+      "1024x768": { "status": "PASS", "notes": "Sidebar collapses to icon rail, content fills width" },
+      "768x1024": { "status": "WARNING", "notes": "Portrait mode: sidebar icon rail works, header search hidden" }
+    },
+    "mobile": {
+      "414x896": { "status": "WARNING", "notes": "iPhone 11 Pro Max: drawer works, some tables overflow" },
+      "375x812": { "status": "FAIL", "notes": "iPhone X: critical overflow issues in admin order tables. Sidebar drawer functional but overlay bug exists." },
+      "375x667": { "status": "FAIL", "notes": "iPhone SE: same overflow issues plus tighter spacing causes button wrapping" },
+      "360x740": { "status": "WARNING", "notes": "Samsung Galaxy S8: functional but admin grid collapses poorly" }
+    },
+    "foldable": {
+      "280x653": { "status": "NOT TESTED", "notes": "No foldable emulation available in Playwright config" }
+    }
+  },
+  "renderingEngineIssues": {
+    "chromium": [],
+    "firefox": [
+      { "issue": "CSS Grid gap rendering differs", "impact": "Admin grid content misalignment", "severity": "HIGH" },
+      { "issue": "Custom scrollbar styles not supported", "impact": "Default scrollbar shown", "severity": "LOW" },
+      { "issue": "-webkit-line-clamp not supported", "impact": "Text truncation may not work in all cases", "severity": "LOW" }
+    ],
+    "webkit": ["NOT TESTED"],
+    "edgeChromium": ["NOT TESTED — expected to match Chromium"]
+  },
+  "osCompatibility": {
+    "windows": { "status": "PASS", "notes": "Tested via Playwright on Windows" },
+    "macOS": { "status": "NOT TESTED", "notes": "No macOS runner available" },
+    "linux": { "status": "PASS", "notes": "Tested via Playwright on Linux" }
+  }
+}

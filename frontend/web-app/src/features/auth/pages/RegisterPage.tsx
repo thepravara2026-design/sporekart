@@ -130,12 +130,18 @@ export default function RegisterPage() {
             onChange={(e) => setConsent(e.target.checked)}
             error={errors.consent ? true : undefined}
           />
+          {errors.consent && (
+            <AuthAlert type="error">{errors.consent}</AuthAlert>
+          )}
           <Checkbox
             label="I have read and accept the Privacy Policy."
             checked={privacy}
             onChange={(e) => setPrivacy(e.target.checked)}
             error={errors.privacy ? true : undefined}
           />
+          {errors.privacy && (
+            <AuthAlert type="error">{errors.privacy}</AuthAlert>
+          )}
 
           {status === 'error' && error && <AuthAlert type="error">{error}</AuthAlert>}
 

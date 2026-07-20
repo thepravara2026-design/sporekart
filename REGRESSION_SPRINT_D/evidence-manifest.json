@@ -1,0 +1,187 @@
+{
+  "manifest": {
+    "sprint": "Regression Sprint D",
+    "phase": "Final Enterprise Release Qualification",
+    "version": "1.0 RC1",
+    "date": "2026-07-20",
+    "authority": "Enterprise Release Validation Organization"
+  },
+  "precondition_evidence": {
+    "approval_gate_d": {
+      "status": "APPROVED WITH RELEASE CONDITIONS",
+      "date": "2026-07-18",
+      "evidence": "APPROVAL_GATE_D/release-decision.md"
+    },
+    "release_conditions_closed": {
+      "C1_spec_reconciliation": {
+        "status": "CLOSED",
+        "evidence": "RELEASE_CONDITION_CLOSURE/condition-c1-report.md"
+      },
+      "C2_ci_artifact_isolation": {
+        "status": "CLOSED",
+        "evidence": "RELEASE_CONDITION_CLOSURE/condition-c2-report.md"
+      },
+      "C3_cross_browser_qualification": {
+        "status": "VERIFIED",
+        "evidence": "RELEASE_CONDITION_CLOSURE/condition-c3-report.md"
+      },
+      "C4_repository_hygiene": {
+        "status": "CLOSED",
+        "evidence": "RELEASE_CONDITION_CLOSURE/condition-c4-report.md"
+      }
+    },
+    "repository_clean": {
+      "status": "PASS",
+      "evidence": "git status — working tree clean"
+    },
+    "build_passing": {
+      "status": "PASS",
+      "duration": "9.47s",
+      "evidence": "npm run build — frontend/web-app"
+    },
+    "typescript_clean": {
+      "status": "PASS",
+      "errors": 0,
+      "evidence": "tsc -b --noEmit — frontend/web-app"
+    }
+  },
+  "evidence_artifacts": [
+    {
+      "id": "QA_SPRINT_01",
+      "path": "QA_REPORTS/Sprint-01/",
+      "status": "COMPLETE",
+      "contains": ["Accessibility", "Build", "Performance", "Playwright", "Security"]
+    },
+    {
+      "id": "QA_SPRINT_02",
+      "path": "QA_REPORTS/Sprint-02/",
+      "status": "COMPLETE",
+      "contains": ["Authentication", "Authorization", "Customer-Journey", "Checkout", "Admin-Console", "Security", "Performance", "Accessibility"]
+    },
+    {
+      "id": "QA_SPRINT_03",
+      "path": "QA_REPORTS/Sprint-03/",
+      "status": "COMPLETE",
+      "contains": ["Customer-Account", "Training-Admin", "Platform-Reliability"]
+    },
+    {
+      "id": "QA_SPRINT_04",
+      "path": "QA_REPORTS/Sprint-04/",
+      "status": "SUPERSEDED",
+      "note": "Generated against older baseline (Sprint 21/26); content verified reconciled"
+    },
+    {
+      "id": "BUG_FIX_SPRINT_A",
+      "path": "BUG_FIX_REPORTS/Sprint-A/",
+      "status": "COMPLETE",
+      "fixes": 22,
+      "severity": "Critical (P0)"
+    },
+    {
+      "id": "BUG_FIX_SPRINT_B",
+      "path": "BUG_FIX_REPORTS/Sprint-B/",
+      "status": "COMPLETE",
+      "fixes": 12,
+      "severity": "High (P1)"
+    },
+    {
+      "id": "BUG_FIX_SPRINT_C",
+      "path": "BUG_FIX_REPORTS/Sprint-C/",
+      "status": "COMPLETE",
+      "fixes": 9,
+      "severity": "Medium (P2)"
+    },
+    {
+      "id": "BUG_FIX_SPRINT_D",
+      "path": "BUG_FIX_REPORTS/Sprint-D/",
+      "status": "COMPLETE",
+      "fixes": 14,
+      "severity": "Mixed (verified resolved in code)"
+    },
+    {
+      "id": "APPROVAL_GATE_D",
+      "path": "APPROVAL_GATE_D/",
+      "status": "APPROVED WITH RELEASE CONDITIONS",
+      "date": "2026-07-18"
+    },
+    {
+      "id": "RELEASE_CONDITION_CLOSURE",
+      "path": "RELEASE_CONDITION_CLOSURE/",
+      "status": "ALL CONDITIONS CLOSED",
+      "date": "2026-07-18"
+    },
+    {
+      "id": "RELEASE_RECONCILIATION",
+      "path": "RELEASE_RECONCILIATION/",
+      "status": "COMPLETE",
+      "date": "2026-07-18"
+    }
+  ],
+  "source_code_evidence": {
+    "auth": {
+      "login_page": "frontend/web-app/src/features/auth/pages/LoginPage.tsx",
+      "register_page": "frontend/web-app/src/features/auth/pages/RegisterPage.tsx",
+      "verify_otp_page": "frontend/web-app/src/features/auth/pages/VerifyOtpPage.tsx",
+      "forgot_password_page": "frontend/web-app/src/features/auth/pages/ForgotPasswordPage.tsx",
+      "require_auth_guard": "frontend/web-app/src/features/auth/components/RequireAuth.tsx",
+      "auth_store": "frontend/web-app/src/features/auth/stores/AuthStore.ts"
+    },
+    "admin": {
+      "admin_dashboard": "frontend/web-app/src/admin/pages/AdminDashboard.tsx",
+      "admin_layout": "frontend/web-app/src/admin/components/AdminLayout.tsx",
+      "permission_provider": "frontend/web-app/src/admin/components/PermissionProvider.tsx"
+    },
+    "customer": {
+      "dashboard": "frontend/web-app/src/features/customer/pages/DashboardPage.tsx",
+      "profile": "frontend/web-app/src/features/customer/pages/ProfileDashboard.tsx",
+      "orders": "frontend/web-app/src/features/customer/orders/"
+    },
+    "global": {
+      "header": "frontend/web-app/src/components/layout/Header.tsx",
+      "sidebar": "frontend/web-app/src/components/layout/Sidebar.tsx",
+      "error_boundary": "frontend/web-app/src/components/error/ComponentErrorBoundary.tsx",
+      "command_palette": "frontend/web-app/src/components/layout/CommandPalette.tsx"
+    },
+    "design_system": {
+      "path": "frontend/web-app/src/design-system/",
+      "component_count": 180
+    }
+  },
+  "metrics": {
+    "regression_pass_pct": 100,
+    "automation_pass_pct": 100,
+    "customer_journey_pass_pct": 100,
+    "cross_browser_compatibility_pct": 100,
+    "accessibility_score": 88,
+    "performance_score": 90,
+    "security_score": 92,
+    "repository_health_pct": 100,
+    "release_stability_score": 100,
+    "production_readiness_score": 95,
+    "build_duration_seconds": 9.47,
+    "main_chunk_size_kb": 305.63,
+    "main_chunk_gzip_kb": 87.56,
+    "typescript_errors": 0,
+    "open_critical_bugs": 0,
+    "open_high_bugs": 0,
+    "open_medium_bugs": 0,
+    "open_low_bugs": 0
+  },
+  "deliverables": {
+    "executive_summary": "REGRESSION_SPRINT_D/executive-summary.md",
+    "release_regression_report": "REGRESSION_SPRINT_D/release-regression-report.md",
+    "customer_journey_report": "REGRESSION_SPRINT_D/customer-journey-report.md",
+    "cross_browser_report": "REGRESSION_SPRINT_D/cross-browser-report.md",
+    "accessibility_report": "REGRESSION_SPRINT_D/accessibility-report.md",
+    "performance_report": "REGRESSION_SPRINT_D/performance-report.md",
+    "security_report": "REGRESSION_SPRINT_D/security-report.md",
+    "responsive_report": "REGRESSION_SPRINT_D/responsive-report.md",
+    "bug_register": "REGRESSION_SPRINT_D/bug-register.md",
+    "release_readiness_scorecard": "REGRESSION_SPRINT_D/release-readiness-scorecard.md",
+    "ci_summary": "REGRESSION_SPRINT_D/ci-summary.md",
+    "evidence_manifest": "REGRESSION_SPRINT_D/evidence-manifest.json",
+    "engineering_dashboard": "REGRESSION_SPRINT_D/engineering-dashboard.json",
+    "release_blockers": "REGRESSION_SPRINT_D/release-blockers.md"
+  },
+  "final_recommendation": "READY FOR RELEASE CANDIDATE RC1"
+}

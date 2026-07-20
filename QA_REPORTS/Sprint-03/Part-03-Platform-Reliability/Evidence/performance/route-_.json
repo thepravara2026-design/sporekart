@@ -1,0 +1,76 @@
+{
+  "route": "/",
+  "loadTime": 190,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 34.69999998807907,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 9.300000011920929,
+      "size": 7649
+    },
+    {
+      "name": "HomePage-DHK-WLZp.js",
+      "duration": 16.30000001192093,
+      "size": 11075
+    },
+    {
+      "name": "PublicContentContainer-pUzkXNL_.js",
+      "duration": 13,
+      "size": 3192
+    },
+    {
+      "name": "BreadcrumbFoundation-BVFmcUDI.js",
+      "duration": 26.099999994039536,
+      "size": 1611
+    },
+    {
+      "name": "PublicContentContainer-BNeH7GDP.css",
+      "duration": 13.599999994039536,
+      "size": 708
+    },
+    {
+      "name": "Reveal-2QMP_08t.js",
+      "duration": 26.399999976158142,
+      "size": 1014
+    },
+    {
+      "name": "Button-bh2yUiHp.js",
+      "duration": 28,
+      "size": 1833
+    },
+    {
+      "name": "useScopedStyle-CCb5e4w2.js",
+      "duration": 26,
+      "size": 531
+    },
+    {
+      "name": "MediaPlaceholder-C_l9lzaG.js",
+      "duration": 27.400000005960464,
+      "size": 865
+    },
+    {
+      "name": "FeatureCard-cp9dEz5N.js",
+      "duration": 28.5,
+      "size": 846
+    },
+    {
+      "name": "Card-DwN-NuYx.js",
+      "duration": 33.599999994039536,
+      "size": 1572
+    },
+    {
+      "name": "NewsletterCta-kOPXJ5S4.js",
+      "duration": 34.10000002384186,
+      "size": 1523
+    },
+    {
+      "name": "ScrollProgress-hFYuvi3j.js",
+      "duration": 34,
+      "size": 1225
+    }
+  ]
+}

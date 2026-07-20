@@ -1,0 +1,193 @@
+{
+  "dashboard_title": "SporeKart Mobile Responsive Dashboard",
+  "report_date": "2026-07-17",
+  "overall_status": "FAIL",
+  "breakpoint_coverage": {
+    "xs_0_479": {
+      "status": "FAIL",
+      "pass_rate": 35,
+      "issues": [
+        "Admin tables overflow",
+        "Profile buttons overlap",
+        "Touch targets undersized",
+        "KPI grid single column",
+        "Breakpoint mismatch at 400-479px"
+      ]
+    },
+    "sm_480_639": {
+      "status": "WARNING",
+      "pass_rate": 55,
+      "issues": [
+        "Breakpoint mismatch with CSS --bp-xs: 480px",
+        "Sidebar overlay race condition",
+        "Tables may overflow on narrow sm viewports"
+      ]
+    },
+    "md_640_767": {
+      "status": "WARNING",
+      "pass_rate": 65,
+      "issues": [
+        "Sidebar drawer transition may jank",
+        "Overlay may persist after navigation"
+      ]
+    },
+    "lg_768_1023": {
+      "status": "PASS",
+      "pass_rate": 85,
+      "issues": [
+        "Icon rail sidebar rendering minor alignment issues"
+      ]
+    },
+    "xl_1024_1535": {
+      "status": "PASS",
+      "pass_rate": 90,
+      "issues": []
+    },
+    "2xl_1536+": {
+      "status": "PASS",
+      "pass_rate": 90,
+      "issues": []
+    }
+  },
+  "page_responsive_status": {
+    "home": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "login": {"desktop": "PASS", "tablet": "PASS", "mobile": "PASS", "foldable": "NOT_TESTED"},
+    "register": {"desktop": "PASS", "tablet": "PASS", "mobile": "PASS", "foldable": "NOT_TESTED"},
+    "verify_otp": {"desktop": "PASS", "tablet": "PASS", "mobile": "PASS", "foldable": "NOT_TESTED"},
+    "admin_dashboard": {"desktop": "PASS", "tablet": "PASS", "mobile": "FAIL", "foldable": "NOT_TESTED"},
+    "admin_orders": {"desktop": "PASS", "tablet": "WARNING", "mobile": "FAIL", "foldable": "NOT_TESTED"},
+    "admin_products": {"desktop": "PASS", "tablet": "WARNING", "mobile": "FAIL", "foldable": "NOT_TESTED"},
+    "customer_dashboard": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "customer_orders": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "customer_profile": {"desktop": "PASS", "tablet": "PASS", "mobile": "FAIL", "foldable": "NOT_TESTED"},
+    "customer_support": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "tracking": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "returns_refunds": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "training": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"},
+    "browse_products": {"desktop": "PASS", "tablet": "PASS", "mobile": "WARNING", "foldable": "NOT_TESTED"}
+  },
+  "component_responsive_status": {
+    "sidebar": {
+      "desktop": {"variant": "fixed_264px", "status": "PASS"},
+      "tablet": {"variant": "icon_rail_72px", "status": "PASS"},
+      "mobile": {"variant": "overlay_drawer_280px", "status": "FAIL"},
+      "notes": "Overlay bug persists after navigation"
+    },
+    "header": {
+      "desktop": {"variant": "full_with_search", "status": "PASS"},
+      "tablet": {"variant": "search_hidden_palette_only", "status": "PASS"},
+      "mobile": {"variant": "search_hidden_hamburger_only", "status": "WARNING"},
+      "notes": "Hamburger button below 44px touch target"
+    },
+    "responsive_modal": {
+      "desktop": {"variant": "centered_modal", "status": "PASS"},
+      "mobile": {"variant": "bottom_sheet_85vh", "status": "WARNING"},
+      "notes": "isMobile detection may be wrong on initial render"
+    },
+    "responsive_dialog": {
+      "desktop": {"variant": "centered_dialog", "status": "PASS"},
+      "mobile": {"variant": "bottom_sheet_85vh", "status": "WARNING"},
+      "notes": "Same initial render issue as ResponsiveModal"
+    },
+    "grid": {
+      "status": "PASS",
+      "notes": "Fluid auto-fit/auto-fill pattern adapts correctly"
+    },
+    "admin_tables": {
+      "desktop": {"status": "PASS"},
+      "tablet": {"status": "WARNING"},
+      "mobile": {"status": "FAIL"},
+      "notes": "No overflow-x: auto wrapper"
+    },
+    "kpi_grid": {
+      "desktop": {"status": "PASS"},
+      "tablet": {"status": "PASS"},
+      "mobile": {"status": "FAIL"},
+      "notes": "Single column at mobile, should be 2 columns"
+    },
+    "auth_layout": {
+      "desktop": {"variant": "side_by_side", "status": "PASS"},
+      "mobile": {"variant": "single_column", "status": "PASS"},
+      "notes": "Responsive layout works correctly at 900px breakpoint"
+    },
+    "order_card": {
+      "status": "PASS",
+      "notes": "Flexbox layout adapts, no fixed widths"
+    },
+    "order_timeline": {
+      "status": "PASS",
+      "notes": "Vertical layout works at all viewports"
+    },
+    "shipment_tracking": {
+      "desktop": {"variant": "2_columns", "status": "PASS"},
+      "tablet": {"variant": "single_column", "status": "WARNING"},
+      "mobile": {"variant": "single_column", "status": "WARNING"},
+      "notes": "No explicit responsive breakpoint for grid layout"
+    }
+  },
+  "breakpoint_mismatch_details": {
+    "css_breakpoints": {
+      "--bp-xs": "480px",
+      "--bp-sm": "640px",
+      "--bp-md": "768px",
+      "--bp-lg": "1024px",
+      "--bp-xl": "1280px",
+      "--bp-2xl": "1536px"
+    },
+    "react_context_breakpoints": {
+      "xs": "0-479px",
+      "sm": "480-639px",
+      "md": "640-767px",
+      "lg": "768-1023px",
+      "xl": "1024-1535px",
+      "2xl": "1536px+"
+    },
+    "gap_ranges": [
+      {"range": "0-479px", "css_breakpoint": "xs (applies mobile styles)", "react_breakpoint": "xs (isMobile=true)", "match": true},
+      {"range": "480-639px", "css_breakpoint": "--bp-xs meets, so NOT xs (applies sm/desktop styles)", "react_breakpoint": "sm (isMobile=true)", "match": false, "issue": "CSS applies desktop styles, React reports mobile"},
+      {"range": "640-767px", "css_breakpoint": "sm (applies desktop styles)", "react_breakpoint": "md (isTablet=true)", "match": false, "issue": "CSS reports desktop, React reports tablet"},
+      {"range": "768-1023px", "css_breakpoint": "md (tablet)", "react_breakpoint": "lg (isTablet=true)", "match": true},
+      {"range": "1024-1279px", "css_breakpoint": "lg (desktop)", "react_breakpoint": "xl (isDesktop=true)", "match": true},
+      {"range": "1280-1535px", "css_breakpoint": "xl (desktop)", "react_breakpoint": "xl (isDesktop=true)", "match": true},
+      {"range": "1536px+", "css_breakpoint": "2xl (wide)", "react_breakpoint": "2xl (isWide=true)", "match": true}
+    ]
+  },
+  "mobile_native_apps_status": {
+    "customer_app": {
+      "status": "PHASE_0_PLACEHOLDER",
+      "screens_implemented": ["LoginScreen", "BrowseScreen"],
+      "total_screens_expected": 15,
+      "completion_percentage": 13,
+      "missing_screens": ["Cart", "Checkout", "Profile", "Orders", "Training", "Notifications", "Search", "Wishlist", "Settings", "Support", "ProductDetails", "OrderTracking", "Refunds"]
+    },
+    "dealer_app": {
+      "status": "PHASE_0_PLACEHOLDER",
+      "screens_implemented": ["DashboardScreen"],
+      "total_screens_expected": 10,
+      "completion_percentage": 10,
+      "missing_screens": ["Orders", "Inventory", "Quotations", "Customers", "Sales", "Notifications", "Settings", "Support", "Profile"]
+    },
+    "grower_app": {
+      "status": "PHASE_0_PLACEHOLDER",
+      "screens_implemented": ["TrainingScreen"],
+      "total_screens_expected": 10,
+      "completion_percentage": 10,
+      "missing_screens": ["Dashboard", "Orders", "Profile", "Certificates", "KnowledgeBase", "FieldNotes", "Notifications", "Settings", "Support"]
+    },
+    "admin_companion": {
+      "status": "PHASE_0_EMPTY",
+      "screens_implemented": [],
+      "total_screens_expected": 10,
+      "completion_percentage": 0,
+      "missing_screens": ["Dashboard", "Approvals", "Orders", "Inventory", "Support", "Notifications", "Analytics", "Settings", "Users", "Reports"]
+    }
+  },
+  "recommendations": [
+    "Resolve 6 high-severity bugs before mobile Go-Live",
+    "Fix CSS vs React breakpoint alignment (--bp-xs should be 640px)",
+    "Add overflow-x: auto to all admin table-containing sections",
+    "Implement responsive checkout page",
+    "Build out mobile native app screens from Phase 0",
+    "Add foldable viewport to test matrix"
+  ]
+}

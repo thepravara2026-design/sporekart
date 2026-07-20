@@ -1,0 +1,220 @@
+{
+  "revalidation": "Sprint-05-Revalidation",
+  "phase": "Architecture Correction Sprint E Certification",
+  "date": "2026-07-20",
+  "evidence": [
+    {
+      "id": "EVIDENCE-001",
+      "category": "Authentication",
+      "description": "context.ts exports AuthState with no activeRole/setActiveRole",
+      "file": "frontend/web-app/src/context.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Interface has auth (AuthState), logout, paletteOpen, setPaletteOpen. No activeRole/setActiveRole."
+    },
+    {
+      "id": "EVIDENCE-002",
+      "category": "Authentication",
+      "description": "App.tsx derives auth from Supabase session, not sessionStorage",
+      "file": "frontend/web-app/src/App.tsx",
+      "checksum_method": "grep_audit",
+      "result": "PASS",
+      "notes": "deriveAuthState() uses getSession(), getUser(), isAuthenticated(). Zero sessionStorage references."
+    },
+    {
+      "id": "EVIDENCE-003",
+      "category": "Authentication",
+      "description": "RequireAuth uses auth.isAuthenticated and auth.userRole",
+      "file": "frontend/web-app/src/features/auth/RequireAuth.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line 12: const { auth } = useApp(). Checks auth.isAuthenticated, auth.userRole. No activeRole."
+    },
+    {
+      "id": "EVIDENCE-004",
+      "category": "Authentication",
+      "description": "SessionPages.tsx has no sessionStorage writes",
+      "file": "frontend/web-app/src/features/auth/pages/SessionPages.tsx",
+      "checksum_method": "grep_audit",
+      "result": "PASS",
+      "notes": "AuthLoadingPage uses auth.isAuthenticated. No sessionStorage.setItem present."
+    },
+    {
+      "id": "EVIDENCE-005",
+      "category": "Authentication",
+      "description": "VerifyOtpPage navigates to /auth/loading without role state",
+      "file": "frontend/web-app/src/features/auth/pages/VerifyOtpPage.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line 73: navigate('/auth/loading', { replace: true }). No role state passed."
+    },
+    {
+      "id": "EVIDENCE-006",
+      "category": "Authentication",
+      "description": "AuthService.verifyOtp creates mock session via createMockSession",
+      "file": "frontend/web-app/src/features/auth/AuthService.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line 35: createMockSession(_destination, 'customer') after mock verification."
+    },
+    {
+      "id": "EVIDENCE-007",
+      "category": "Authentication",
+      "description": "Header.tsx uses auth.userRole read-only, no role switcher",
+      "file": "frontend/web-app/src/components/layout/Header.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line 59: {ROLE_LABELS[auth.userRole][0]}. No setActiveRole, no role dropdown."
+    },
+    {
+      "id": "EVIDENCE-008",
+      "category": "Authorization",
+      "description": "No setActiveRole in production code",
+      "file": "frontend/web-app/src/",
+      "checksum_method": "full_grep",
+      "result": "PASS",
+      "notes": "Zero occurrences of setActiveRole in frontend/web-app/src/."
+    },
+    {
+      "id": "EVIDENCE-009",
+      "category": "Authorization",
+      "description": "No sk_session_role in production code",
+      "file": "frontend/web-app/src/",
+      "checksum_method": "full_grep",
+      "result": "PASS",
+      "notes": "Zero occurrences of sk_session_role in production source (docs only)."
+    },
+    {
+      "id": "EVIDENCE-010",
+      "category": "Authorization",
+      "description": "WorkspacePage uses auth.userRole",
+      "file": "frontend/web-app/src/pages/WorkspacePage.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line: const { auth } = useApp(); uses auth.userRole for canView()."
+    },
+    {
+      "id": "EVIDENCE-011",
+      "category": "Authorization",
+      "description": "Sidebar uses auth.userRole",
+      "file": "frontend/web-app/src/components/layout/Sidebar.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Uses auth.userRole for getVisibleWorkspaces()."
+    },
+    {
+      "id": "EVIDENCE-012",
+      "category": "Authorization",
+      "description": "CommandPalette uses auth.userRole",
+      "file": "frontend/web-app/src/components/layout/CommandPalette.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Uses auth.userRole for canView() checks. No activeRole."
+    },
+    {
+      "id": "EVIDENCE-013",
+      "category": "Authorization",
+      "description": "AdminLayout uses auth.userRole",
+      "file": "frontend/web-app/src/admin/AdminLayout.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Uses auth.userRole for getFilteredSidebarItems() and PermissionProvider."
+    },
+    {
+      "id": "EVIDENCE-014",
+      "category": "Authorization",
+      "description": "AdminDashboard uses auth.userRole",
+      "file": "frontend/web-app/src/admin/pages/AdminDashboard.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Uses auth.userRole for role display."
+    },
+    {
+      "id": "EVIDENCE-015",
+      "category": "Payment",
+      "description": "PaymentGateway.ts has no external endpoint calls",
+      "file": "frontend/web-app/src/features/payment/PaymentGateway.ts",
+      "checksum_method": "grep_audit",
+      "result": "PASS",
+      "notes": "Self-contained mock. Zero occurrences of /payment/create-intent or /payment/webhook."
+    },
+    {
+      "id": "EVIDENCE-016",
+      "category": "Payment",
+      "description": "CheckoutPage creates order on payment success",
+      "file": "frontend/web-app/src/pages/CheckoutPage.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Lines 90-97: OrderRecord created with id, items, total, paymentId, status. saveOrder() persists."
+    },
+    {
+      "id": "EVIDENCE-017",
+      "category": "Payment",
+      "description": "CheckoutPage has idempotency key",
+      "file": "frontend/web-app/src/pages/CheckoutPage.tsx",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "generateIdempotencyKey(), loadUsedKeys(), markKeyUsed(). Duplicate key prevention at line 76."
+    },
+    {
+      "id": "EVIDENCE-018",
+      "category": "Security",
+      "description": "CSRF utility exists",
+      "file": "frontend/web-app/src/lib/csrf.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "fetchCsrfToken(), getCsrfToken(), csrfHeader(), ensureCsrfToken(). crypto.getRandomValues for mock."
+    },
+    {
+      "id": "EVIDENCE-019",
+      "category": "Security",
+      "description": "CSRF integrated into httpClient",
+      "file": "frontend/web-app/src/lib/httpClient.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Lines 47-52: X-CSRF-Token header added to all POST/PUT/PATCH/DELETE requests."
+    },
+    {
+      "id": "EVIDENCE-020",
+      "category": "Build",
+      "description": "TypeScript zero errors",
+      "command": "npx tsc --noEmit",
+      "result": "PASS",
+      "notes": "Zero errors reported."
+    },
+    {
+      "id": "EVIDENCE-021",
+      "category": "Build",
+      "description": "Build passes",
+      "command": "npm run build",
+      "result": "PASS",
+      "notes": "Build completed in 13.23s with no errors."
+    },
+    {
+      "id": "EVIDENCE-022",
+      "category": "Precondition",
+      "description": "Repository clean on sprint-e-architecture branch",
+      "command": "git status --short && git branch --show-current",
+      "result": "PASS",
+      "notes": "Branch: sprint-e-architecture. No modified/untracked files. Commit 89d7002."
+    },
+    {
+      "id": "EVIDENCE-023",
+      "category": "Session",
+      "description": "useSession.ts no longer reads/writes sk_session_role",
+      "file": "frontend/web-app/src/admin/session/useSession.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Sk_session_role removed. Only navigates to /session-expired on expiry."
+    },
+    {
+      "id": "EVIDENCE-024",
+      "category": "Supabase",
+      "description": "Supabase client has onAuthStateChange listener",
+      "file": "frontend/web-app/src/lib/supabase.ts",
+      "checksum_method": "visual_inspection",
+      "result": "PASS",
+      "notes": "Line 77-86: onAuthStateChange updates _session, _user, calls notify()."
+    }
+  ]
+}

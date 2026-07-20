@@ -1,0 +1,64 @@
+{
+  "manifestVersion": "1.0",
+  "gate": "Approval Gate D",
+  "phase": "Release Condition Closure (C1-C4)",
+  "generatedAt": "2026-07-18",
+  "branch": "bugfix/sprint-b-high-priority",
+  "commits": {
+    "base": "12429b0",
+    "deliverables": "f19e795",
+    "evidence": "PENDING (Set C commit after report generation)"
+  },
+  "stashes": {
+    "stash@0": "GateD-C4: pre-existing prior-sprint UNTRACKED production WIP",
+    "stash@1": "GateD-C4: pre-existing prior-sprint production WIP"
+  },
+  "changedFiles": {
+    "C1": [
+      "shared-testing/tests/rbac-authorization.spec.ts",
+      "shared-testing/tests/protected-routes.spec.ts",
+      "shared-testing/tests/customer-journey-product-details.spec.ts"
+    ],
+    "C2": [".github/workflows/playwright-regression.yml"]
+  },
+  "evidenceArtifacts": {
+    "reports": [
+      "RELEASE_CONDITION_CLOSURE/executive-summary.md",
+      "RELEASE_CONDITION_CLOSURE/condition-c1-report.md",
+      "RELEASE_CONDITION_CLOSURE/condition-c2-report.md",
+      "RELEASE_CONDITION_CLOSURE/condition-c3-report.md",
+      "RELEASE_CONDITION_CLOSURE/condition-c4-report.md",
+      "RELEASE_CONDITION_CLOSURE/ci-validation.md",
+      "RELEASE_CONDITION_CLOSURE/playwright-validation.md",
+      "RELEASE_CONDITION_CLOSURE/repository-health.md",
+      "RELEASE_CONDITION_CLOSURE/release-readiness.md"
+    ],
+    "dashboards": [
+      "RELEASE_CONDITION_CLOSURE/engineering-dashboard.json",
+      "RELEASE_CONDITION_CLOSURE/evidence-manifest.json"
+    ],
+    "playwrightEvidence": [
+      "QA_REPORTS/Release-Condition-Closure/C3-cross-browser/html-report/",
+      "QA_REPORTS/Release-Condition-Closure/C3-cross-browser/results.json",
+      "QA_REPORTS/Release-Condition-Closure/C3-cross-browser/junit.xml"
+    ],
+    "priorGateEvidence": [
+      "APPROVAL_GATE_D/release-decision.md",
+      "APPROVAL_GATE_REPORTS/",
+      "BUG_FIX_REPORTS/Sprint-C+D/",
+      "QA_REPORTS/Sprint-02/Evidence",
+      "QA_REPORTS/Sprint-03",
+      "QA_REPORTS/Sprint-04",
+      "RELEASE_RECONCILIATION/",
+      "shared-testing/tests/aria-landmarks.spec.ts"
+    ]
+  },
+  "validationCommands": {
+    "typecheck": "cd frontend/web-app && npx tsc -b --noEmit",
+    "build": "cd frontend/web-app && npm run build",
+    "playwrightCrossBrowser": "cd shared-testing && npx playwright test --project=chromium --project=webkit --project=mobile-chrome --project=mobile-safari --project=tablet",
+    "ciStructural": "node validate-ci.js .github/workflows/playwright-regression.yml",
+    "firefoxCI": "npx playwright install --with-deps chromium firefox webkit && npx playwright test --project=firefox"
+  },
+  "note": "Set C evidence committed as a separate commit per user authorization (Commit A+C, stash B)."
+}

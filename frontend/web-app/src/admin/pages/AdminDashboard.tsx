@@ -22,7 +22,7 @@ const QUICK_ACTIONS = [
 ];
 
 export default function AdminDashboard() {
-  const { activeRole } = useApp();
+  const { auth } = useApp();
 
   return (
     <div>
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-stack-sm)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-caption)' }}>
               <span style={{ color: 'var(--color-text-secondary)' }}>Active Role</span>
-              <span style={{ fontWeight: 'var(--weight-medium)' }}>{activeRole}</span>
+              <span style={{ fontWeight: 'var(--weight-medium)' }}>{auth.userRole}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-caption)' }}>
               <span style={{ color: 'var(--color-text-secondary)' }}>Environment</span>

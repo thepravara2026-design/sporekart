@@ -1,0 +1,51 @@
+{
+  "route": "/training",
+  "loadTime": 189,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 34.20000001788139,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 10.899999976158142,
+      "size": 7649
+    },
+    {
+      "name": "TrainingPage-DqV-bX39.js",
+      "duration": 7.699999988079071,
+      "size": 2118
+    },
+    {
+      "name": "PublicContentContainer-pUzkXNL_.js",
+      "duration": 13.599999994039536,
+      "size": 3192
+    },
+    {
+      "name": "BreadcrumbFoundation-BVFmcUDI.js",
+      "duration": 24,
+      "size": 1611
+    },
+    {
+      "name": "PublicContentContainer-BNeH7GDP.css",
+      "duration": 13.699999988079071,
+      "size": 708
+    },
+    {
+      "name": "Reveal-2QMP_08t.js",
+      "duration": 25.299999982118607,
+      "size": 1014
+    },
+    {
+      "name": "MediaPlaceholder-C_l9lzaG.js",
+      "duration": 27.900000005960464,
+      "size": 865
+    },
+    {
+      "name": "PageShell-DhtecBAt.js",
+      "duration": 35.400000005960464,
+      "size": 1215
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "sprint": "Bug Fix Sprint D",
+  "date": "2026-07-18",
+  "type": "Implementation (Re-baseline Verification)",
+  "generated_by": "Enterprise Release Engineering — Sprint D",
+  "codebase_baseline": {
+    "branch": "bugfix/sprint-b-high-priority",
+    "app_version_markers": "Sprint 27+ (per file headers and git log)",
+    "typecheck": "0 errors",
+    "build": "PASS 12.97s",
+    "main_bundle": "307 KB (88 KB gzip)"
+  },
+  "source_reports_reviewed": [
+    "BUG_FIX_REPORTS/Sprint-D/bug-register.md",
+    "BUG_FIX_REPORTS/Sprint-D/escalation-report.md",
+    "BUG_FIX_REPORTS/Sprint-D/decision-log.md",
+    "BUG_FIX_REPORTS/Sprint-D/executive-summary.md",
+    "QA_REPORTS/Sprint-04/executive-summary.md",
+    "QA_REPORTS/Sprint-04/bug-register.md",
+    "QA_REPORTS/Sprint-04/stability-scorecard.md",
+    "QA_REPORTS/Sprint-04/risk-register.md"
+  ],
+  "code_evidence_collected": {
+    "route_guards": "frontend/web-app/src/features/auth/RequireAuth.tsx",
+    "rbac_enforcement": "frontend/web-app/src/pages/WorkspacePage.tsx (canView + /access-denied redirect)",
+    "role_switcher": "frontend/web-app/src/components/layout/Header.tsx (aria-label=Preview role)",
+    "otp_navigation": "frontend/web-app/src/features/auth/pages/VerifyOtpPage.tsx (state fallback + /login redirect)",
+    "login_navigation": "frontend/web-app/src/features/auth/pages/LoginPage.tsx (state passed)",
+    "search_case_insensitive": "frontend/web-app/src/public-website/blog/data.ts (searchArticles lowercases both sides)",
+    "social_login_aria": "frontend/web-app/src/features/auth/components/SocialLogin.tsx",
+    "training_title": "frontend/web-app/src/public-website/pages/TrainingPage.tsx (seo.title)",
+    "footer_contrast": "frontend/web-app/src/public-website/PublicFooter.tsx (rgba white on green-900)",
+    "auth_styles": "frontend/web-app/src/features/auth/auth.css (no :has())",
+    "sidebar_rbac": "frontend/web-app/src/components/layout/Sidebar.tsx (getVisibleWorkspaces + group labels)",
+    "products_page": "frontend/web-app/src/public-website/pages/ProductsPage.tsx (placeholder category grid)"
+  },
+  "test_execution_evidence": {
+    "chromium_smoke": { "spec": "tests/smoke.spec.ts", "result": "6/6 pass" },
+    "rbac_spec": { "spec": "tests/rbac-authorization.spec.ts", "result": "22 fail", "root_cause": "selector/routes not in build" },
+    "protected_routes_spec": { "spec": "tests/protected-routes.spec.ts", "result": "3 fail", "root_cause": "selector/routes not in build" },
+    "product_details_spec": { "spec": "tests/customer-journey-product-details.spec.ts", "result": "3 fail", "root_cause": "no /product/:slug route" },
+    "firefox_smoke": { "result": "ENV_HANG", "note": "firefox-1532 installed; launch hangs in this env" },
+    "webkit_smoke": { "result": "ENV_HANG", "note": "webkit-2311 installed; launch hangs in this env" }
+  },
+  "grep_evidence": {
+    "has_pseudo_class": { "pattern": ":has(", "matches_in_src": 0 },
+    "deprecated_component_prop": { "pattern": "component= on <Route>", "matches": 0 },
+    "switch_review_role": { "pattern": "Switch review role", "matches_in_src": 0, "note": "tests expect this; code has 'Preview role'" },
+    "access_restricted_panel": { "pattern": "Access restricted (panel text)", "matches_in_src": 0, "note": "code uses /access-denied redirect instead" }
+  },
+  "deliverables": [
+    "BUG_FIX_REPORTS/Sprint-D/implementation-summary.md",
+    "BUG_FIX_REPORTS/Sprint-D/fixed-bugs.md",
+    "BUG_FIX_REPORTS/Sprint-D/remaining-backlog.md",
+    "BUG_FIX_REPORTS/Sprint-D/technical-debt.md",
+    "BUG_FIX_REPORTS/Sprint-D/performance-improvements.md",
+    "BUG_FIX_REPORTS/Sprint-D/accessibility-improvements.md",
+    "BUG_FIX_REPORTS/Sprint-D/responsive-improvements.md",
+    "BUG_FIX_REPORTS/Sprint-D/implementation-log.md",
+    "BUG_FIX_REPORTS/Sprint-D/engineering-dashboard.json",
+    "BUG_FIX_REPORTS/Sprint-D/evidence-manifest.json",
+    "BUG_FIX_REPORTS/Sprint-D/release-hardening-report.md"
+  ],
+  "conclusion": "All register-listed bugs verified already resolved in code. No production code changed. Primary RC1 risk is test-suite/architecture mismatch, escalated to Approval Gate D."
+}

@@ -1,0 +1,43 @@
+{
+  "report": "SporeKart QA Sprint 2 — Evidence Manifest: Part 1 Authentication",
+  "date": "2026-07-17",
+  "totalFiles": 146,
+  "evidence": {
+    "screenshots_png": 40,
+    "videos_webm": 54,
+    "traces_zip": 52
+  },
+  "byTestSuite": {
+    "auth_validation": {
+      "screenshots": 20,
+      "videos": 22,
+      "traces": 22
+    },
+    "session_management": {
+      "screenshots": 10,
+      "videos": 20,
+      "traces": 18
+    },
+    "rbac_authorization": {
+      "screenshots": 0,
+      "videos": 0,
+      "traces": 0
+    },
+    "accessibility": {
+      "screenshots": 6,
+      "videos": 6,
+      "traces": 6
+    },
+    "performance": {
+      "screenshots": 2,
+      "videos": 4,
+      "traces": 4
+    },
+    "security_validation": {
+      "screenshots": 2,
+      "videos": 2,
+      "traces": 2
+    }
+  },
+  "storageLocation": "shared-testing/test-results/"
+}

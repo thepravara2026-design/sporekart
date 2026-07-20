@@ -1,0 +1,7 @@
+# SporeKart — robots.txt
+# Allow all crawlers, point to sitemap
+
+User-agent: *
+Allow: /
+
+Sitemap: https://sporekart.com/sitemap.xml

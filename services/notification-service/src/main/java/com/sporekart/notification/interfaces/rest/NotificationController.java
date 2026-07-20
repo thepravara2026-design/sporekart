@@ -5,6 +5,7 @@ import com.sporekart.notification.domain.model.NotificationChannel;
 import com.sporekart.notification.domain.model.NotificationMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class NotificationController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<NotificationMessage>> list() {
         return ResponseEntity.ok(notificationService.listAll());
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<NotificationMessage> send(@RequestBody SendNotificationRequest request) {
         NotificationMessage message = notificationService.send(request.recipient(), request.subject(), request.body(),
                 request.channel());

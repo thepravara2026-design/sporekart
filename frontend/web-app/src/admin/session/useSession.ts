@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { SessionState, SessionConfig, SessionInfo } from './types';
 
 const DEFAULT_CONFIG: SessionConfig = {
@@ -7,6 +8,7 @@ const DEFAULT_CONFIG: SessionConfig = {
 };
 
 export function useSession(config: SessionConfig = DEFAULT_CONFIG) {
+  const navigate = useNavigate();
   const [state, setState] = useState<SessionState>('active');
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [savedPage, setSavedPage] = useState<string | null>(() => {
@@ -58,7 +60,8 @@ export function useSession(config: SessionConfig = DEFAULT_CONFIG) {
     clearTimeout(warningTimer.current);
     clearTimeout(expireTimer.current);
     setState('expired');
-  }, []);
+    navigate('/session-expired', { replace: true });
+  }, [navigate]);
 
   const getSessionInfo = useCallback((): SessionInfo => ({
     state,

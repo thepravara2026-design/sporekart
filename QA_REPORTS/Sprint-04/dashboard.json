@@ -1,0 +1,40 @@
+{
+  "sprint": "QA Sprint 4",
+  "date": "2026-07-18",
+  "overallStatus": "PASS_WITH_CONDITIONS",
+  "qualityScore": 72,
+  "healthScore": 74,
+  "summary": {
+    "totalTests": 520,
+    "passed": 450,
+    "failed": 49,
+    "flaky": 21,
+    "passRate": 86.5
+  },
+  "categories": {
+    "auth": { "score": 65, "status": "PASS_WITH_ISSUES" },
+    "customerJourney": { "score": 75, "status": "PASS" },
+    "adminConsole": { "score": 15, "status": "FAIL" },
+    "accessibility": { "score": 92, "status": "PASS" },
+    "performance": { "score": 88, "status": "PASS" },
+    "security": { "score": 70, "status": "PASS_WITH_ISSUES" },
+    "crossBrowser": { "score": 78, "status": "PASS" },
+    "responsive": { "score": 82, "status": "PASS" },
+    "apiValidation": { "score": 85, "status": "PASS" },
+    "regressionStability": { "score": 80, "status": "PASS" }
+  },
+  "bugs": {
+    "critical": 2,
+    "high": 3,
+    "medium": 8,
+    "low": 5,
+    "total": 18
+  },
+  "gates": {
+    "criticalRegression": false,
+    "authBroken": true,
+    "buildFailure": false,
+    "securityVulnerability": false,
+    "dataCorruption": false
+  }
+}

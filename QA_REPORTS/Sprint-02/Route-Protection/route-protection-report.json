@@ -1,0 +1,241 @@
+{
+  "report": {
+    "id": "SK-RPR-002-004",
+    "title": "Route Protection Validation Report",
+    "sprint": "QA Sprint 2 – Part 4",
+    "release": "v1.0.0-rc1",
+    "date": "2026-07-17",
+    "classification": "CONFIDENTIAL",
+    "status": "FAIL"
+  },
+  "executiveSummary": {
+    "overallStatus": "FAIL",
+    "securityReadinessScore": 15,
+    "totalChecks": 19,
+    "passed": 2,
+    "failed": 17,
+    "critical": 8,
+    "high": 6,
+    "medium": 2,
+    "low": 1,
+    "summary": "Navigation security validation reveals CRITICAL gaps. No ProtectedRoute component exists. Every protected route (customer dashboard, admin panel, training admin) is accessible without authentication. Role-based content gating exists only in the enterprise workspace shell via WorkspacePage.canView(), which shows a placeholder rather than redirecting. The default role is 'administrator', granting full access by default. The application is NOT safe for production deployment from a navigation security standpoint."
+  },
+  "routeGuardValidation": {
+    "status": "FAIL",
+    "finding": "CRITICAL — No ProtectedRoute component exists",
+    "details": {
+      "guardComponentExists": false,
+      "guardFile": "N/A",
+      "guardImplementation": "MISSING",
+      "evidence": "Searched entire codebase for: ProtectedRoute, RequireAuth, AuthGuard, PrivateRoute, AuthenticatedRoute. None found.",
+      "impact": "Every route in the application can be accessed by typing the URL directly, regardless of authentication status.",
+      "risk": "Unauthenticated users can access customer dashboards, admin panels, order management, financial data, customer PII, and system configuration."
+    },
+    "recommendation": "Implement a <ProtectedRoute> component that checks authentication state and redirects to /login if unauthenticated. Wrap all protected routes with this component."
+  },
+  "navigationGuardValidation": {
+    "status": "FAIL",
+    "finding": "CRITICAL — Navigation guards exist ONLY in sidebar filtering, not at route level",
+    "details": {
+      "sidebarFiltering": "Works — canView() filters getVisibleWorkspaces()",
+      "adminSidebarFiltering": "Works — getFilteredSidebarItems() filters by admin role",
+      "routeLevelGuards": "MISSING — No React Router guards on any route",
+      "workspacePageRoleCheck": "PRESENT BUT INSUFFICIENT — WorkspacePage.tsx line 25 checks canView() but only renders a placeholder panel, does NOT redirect or block rendering",
+      "bypassRisk": "Any user can type any URL in the browser and see the page (or a placeholder) — sidebar filtering is purely cosmetic"
+    },
+    "recommendation": "Implement route-level navigation guards with actual redirect behavior (Navigate to /access-denied or /login). Replace placeholder-only role checks with proper blocking + redirect."
+  },
+  "browserHistoryValidation": {
+    "status": "WARNING",
+    "finding": "HIGH — Browser history is fully managed by React Router with no session-aware history management",
+    "details": {
+      "backButton": "Works — React Router hash-based history",
+      "forwardButton": "Works — React Router hash-based history",
+      "historyAfterLogout": "NO PROTECTION — No history clearing on logout",
+      "historyAfterTimeout": "NO PROTECTION — No history clearing on session timeout",
+      "protectedPageLeakage": "POSSIBLE — Back/forward can navigate to previously accessed protected pages after logout",
+      "sessionStorage": "last_admin_page saved but no clearing mechanism on logout"
+    },
+    "recommendation": "Implement history.replace() with /login on logout. Clear sessionStorage entries on logout and session expiry."
+  },
+  "redirectValidation": {
+    "status": "FAIL",
+    "finding": "HIGH — Redirect logic is limited and not enforced for unauthorized access",
+    "details": {
+      "loginRedirect": "Present — navigate('/verify-otp') -> navigate('/auth/loading') -> navigate('/')",
+      "logoutRedirect": "PARTIAL — /session-expired exists but no programmatic logout flow",
+      "expiredSessionRedirect": "Present — Session state 'expired' renders SessionExpired with 'Sign in again' link to /login",
+      "unauthorizedRedirect": "PARTIAL — WorkspacePage shows placeholder but does NOT redirect",
+      "unknownRouteRedirect": "Present — <Route path=\"*\" element={<NotFound />} />",
+      "404Handling": "Present — Two NotFound routes (line 754 and line 843)",
+      "500Handling": "MISSING — No global error boundary with redirect",
+      "fallbackRouting": "Present — Catch-all routes in both route groups"
+    },
+    "recommendation": "Add automatic redirect to /login when WorkspacePage.canView() returns false. Add global error boundary with redirect for 500-level errors."
+  },
+  "deepLinkValidation": {
+    "status": "FAIL",
+    "finding": "CRITICAL — Deep links bypass all protection",
+    "details": {
+      "checkout": "ACCESSIBLE — /checkout is publicly defined in navigation.ts",
+      "specificOrder": "ACCESSIBLE — /dashboard/orders/:id can be typed directly, no guard",
+      "specificProfile": "ACCESSIBLE — /dashboard/profile can be typed directly, no guard",
+      "trainingPages": "ACCESSIBLE — /admin/training/* can be typed directly, no guard",
+      "adminPages": "ACCESSIBLE — /admin/* can be typed directly, no guard",
+      "analyticsPages": "ACCESSIBLE — /dashboard/analytics can be typed directly, no guard",
+      "reports": "ACCESSIBLE — /admin/reports can be typed directly, no guard",
+      "customerData": "ACCESSIBLE — /admin/customers can be typed directly, no guard",
+      "financialData": "ACCESSIBLE — /admin/finance can be typed directly, no guard"
+    },
+    "evidence": "All routes are defined in App.tsx <Routes> without any guard wrappers. Deep linking directly to these URLs renders the full component.",
+    "recommendation": "Wrap ALL protected routes with a <ProtectedRoute> component. Verify role before rendering any protected content. Redirect to /access-denied on role mismatch."
+  },
+  "urlManipulationValidation": {
+    "status": "WARNING",
+    "finding": "MEDIUM — URL parameter manipulation is not validated at route level",
+    "details": {
+      "parameterTampering": "No validation — Dynamic params like :id are not validated",
+      "invalidIds": "No validation — Any string accepted",
+      "largeIds": "No validation — Overflow possible",
+      "negativeIds": "No validation — Negative values accepted",
+      "sqlStrings": "Partially handled by React Router (URL encoding) but no server-side validation",
+      "scriptInjection": "Partially handled — React escapes XSS in rendering but route params are not sanitized",
+      "unicode": "Accepted — decodeURIComponent used in matchPattern()",
+      "emptyParameters": "Accepted — No required parameter validation",
+      "queryStringModification": "No validation — Query strings are not validated",
+      "hashFragments": "No validation — Hash fragments are ignored by React Router"
+    },
+    "recommendation": "Add parameter validation (parseInt with NaN checks for :id params). Add route-level validation for required parameters. Implement 404 redirect for invalid parameters."
+  },
+  "sessionAwareRoutingValidation": {
+    "status": "FAIL",
+    "finding": "CRITICAL — No session-aware routing exists",
+    "details": {
+      "sessionCheckOnRoute": "MISSING — No route checks if user is authenticated",
+      "expiredSessionHandling": "PRESENT but disconnected — useSession() hook tracks idle timers but does not integrate with routing",
+      "timeoutWarningModal": "PRESENT — SessionTimeoutWarning component exists",
+      "sessionExpiredPage": "PRESENT — /session-expired renders SessionExpiredPage",
+      "authRedirectOnExpiry": "PARTIAL — Session component shows 'Sign in again' but does NOT automatically redirect",
+      "defaultRoleIsAdmin": "CRITICAL — useState<Role>('administrator') means full access by default, no auth check"
+    },
+    "recommendation": "Integrate session state with route guards. Add middleware-level session validation. Change default role to 'guest' and require actual authentication. Automatically redirect to /session-expired on timeout."
+  },
+  "protectedComponentValidation": {
+    "status": "FAIL",
+    "finding": "HIGH — Protected components are rendered regardless of authorization",
+    "details": {
+      "conditionalRendering": "PRESENT but incomplete — PermissionGate exists for action-level gating but route-level component rendering has no guards",
+      "permissionWrappers": "PRESENT — PermissionProvider wraps AdminLayout but provides action-level, not route-level control",
+      "hiddenComponents": "No route-level hidden component protection — All admin components render if route is accessed"
+    },
+    "recommendation": "Create component-level route guards that check authorization before rendering. Register route-to-permission mappings and validate on every navigation."
+  },
+  "lazyLoadingValidation": {
+    "status": "PASS",
+    "finding": "All route components are lazily loaded with React.lazy() + Suspense",
+    "details": {
+      "lazyLoadingImplemented": true,
+      "suspenseFallback": "Present — Skeleton-based fallbacks",
+      "protectedLazyModules": "Lazy modules are loaded but NOT guarded — module code is fetched regardless of authorization",
+      "loadingFallback": "Present — Skeleton page fallback",
+      "unauthorizedLazyLoading": "Possible — Module code is downloaded even for unauthorized users (no code-split protection)"
+    },
+    "recommendation": "Consider dynamic imports inside ProtectedRoute guard to prevent unauthorized code download."
+  },
+  "stateRecoveryValidation": {
+    "status": "WARNING",
+    "finding": "MEDIUM — Limited state recovery mechanisms",
+    "details": {
+      "refreshDuringNavigation": "Works — React Router handles SPA refresh",
+      "logoutDuringRedirect": "NOT TESTED — No concurrent navigation handling",
+      "expiredSessionDuringNavigation": "PARTIAL — Session timers reset on activity but no route interception",
+      "interruptedNavigation": "Not handled — No navigation interception on pending state",
+      "networkInterruption": "Not handled — No offline route protection"
+    },
+    "recommendation": "Implement navigation guards that check session state before completing navigation. Add offline-aware routing."
+  },
+  "multiTabValidation": {
+    "status": "FAIL",
+    "finding": "HIGH — No multi-tab session synchronization",
+    "details": {
+      "navigationSync": "Not implemented — Each tab has independent state",
+      "logoutSync": "Not implemented — Logging out in one tab does not affect others",
+      "roleSync": "Not implemented — Role changes in one tab do not propagate",
+      "sessionSync": "Not implemented — Session expiry is per-tab memory",
+      "mechanism": "sessionStorage is used for last_admin_page but no BroadcastChannel or storage event listeners exist"
+    },
+    "recommendation": "Use BroadcastChannel API or storage event listeners to synchronize auth state, role changes, and logout across tabs."
+  },
+  "mobileValidation": {
+    "status": "WARNING",
+    "finding": "LOW — Route definitions are viewport-agnostic",
+    "details": {
+      "desktop": "Works — Full layout with sidebar navigation",
+      "tablet": "Partial — Responsive layout exists but no tablet-specific route protection",
+      "mobile": "Partial — Responsive layout exists but no mobile-specific route protection",
+      "portrait": "Supported via responsive CSS",
+      "landscape": "Supported via responsive CSS",
+      "navigationDrawer": "Present — Sidebar with hamburger toggle on mobile",
+      "bottomNavigation": "Not implemented — Desktop sidebar pattern used for all viewports",
+      "responsiveRedirects": "Not implemented — No viewport-based route redirects"
+    },
+    "recommendation": "Add mobile-specific route protection considerations. Ensure navigation drawer properly hides protected routes on mobile."
+  },
+  "accessibilityValidation": {
+    "status": "PASS",
+    "finding": "Good accessibility foundations with skip-to-content and ARIA",
+    "details": {
+      "keyboardNavigation": "Command palette with Ctrl+K, skip-to-content link present",
+      "focusAfterRedirects": "NOT verified — Focus management after route transitions not implemented",
+      "ariaLabels": "Present in layout components (role=contentinfo, etc.)",
+      "404Accessibility": "NotFound component accessible",
+      "errorAnnouncements": "Not implemented — No live region announcements for route errors"
+    },
+    "recommendation": "Add focus management after route transitions. Implement aria-live regions for route error announcements."
+  },
+  "performanceValidation": {
+    "status": "PASS",
+    "finding": "Good — All routes are lazy-loaded",
+    "details": {
+      "routeLoading": "Lazy loading with Suspense — all routes are code-split",
+      "protectedRouteLatency": "Not measured — No performance profiling done",
+      "redirectLatency": "Not measured — React Navigation is client-side",
+      "navigationLatency": "Not measured — Lazy loading adds slight delay on first access"
+    }
+  },
+  "qualityGates": {
+    "totalGates": 14,
+    "passed": 2,
+    "failed": 12,
+    "gates": [
+      { "gate": "Every route discovered", "status": "PASS", "detail": "337 routes discovered" },
+      { "gate": "Every route classified", "status": "PASS", "detail": "All routes classified as public/customer/admin/enterprise" },
+      { "gate": "Every protected page validated", "status": "FAIL", "detail": "Protected pages have NO route guards" },
+      { "gate": "Redirects validated", "status": "FAIL", "detail": "No unauthorized redirect mechanism" },
+      { "gate": "Deep links validated", "status": "FAIL", "detail": "All deep links bypass protection" },
+      { "gate": "Browser history validated", "status": "FAIL", "detail": "Protected pages can be accessed from history after logout" },
+      { "gate": "URL manipulation validated", "status": "FAIL", "detail": "No parameter validation" },
+      { "gate": "Mobile validated", "status": "WARNING", "detail": "Responsive but no mobile-specific protection" },
+      { "gate": "Accessibility validated", "status": "PASS", "detail": "Basic accessibility present" },
+      { "gate": "Reports generated", "status": "PASS", "detail": "All reports generated" },
+      { "gate": "Evidence generated", "status": "PASS", "detail": "Static code analysis evidence collected" },
+      { "gate": "Repository remains clean", "status": "PASS", "detail": "No changes to source code" },
+      { "gate": "Multi-tab validated", "status": "FAIL", "detail": "No session synchronization across tabs" },
+      { "gate": "State recovery validated", "status": "FAIL", "detail": "No session-aware route recovery" }
+    ]
+  },
+  "stopConditions": {
+    "triggered": true,
+    "conditions": [
+      { "condition": "Guest accesses protected route", "result": "POSSIBLE — All protected routes are accessible without auth", "severity": "CRITICAL" },
+      { "condition": "Customer accesses admin page", "result": "POSSIBLE — No role check on admin routes", "severity": "CRITICAL" },
+      { "condition": "Grower accesses admin page", "result": "POSSIBLE — No role check on admin routes", "severity": "CRITICAL" },
+      { "condition": "Route guard bypass", "result": "NO ROUTE GUARD EXISTS — Bypass is the default state", "severity": "CRITICAL" },
+      { "condition": "Deep-link bypass", "result": "CONFIRMED — All deep links bypass protection", "severity": "CRITICAL" },
+      { "condition": "Redirect bypass", "result": "CONFIRMED — No redirect mechanism for unauthorized access", "severity": "CRITICAL" },
+      { "condition": "Authentication skipped", "result": "CONFIRMED — No authentication check on any route", "severity": "CRITICAL" },
+      { "condition": "Protected page cached after logout", "result": "PROBABLE — No history clearing on logout", "severity": "HIGH" }
+    ],
+    "incidentReportGenerated": true
+  }
+}

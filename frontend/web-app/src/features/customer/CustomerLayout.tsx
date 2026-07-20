@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { useApp } from '../../context';
 import { AuthenticatedLayout } from '../../design-system/components/layout/AuthenticatedLayout';
 import { Sidebar } from '../../design-system/components/navigation/Sidebar';
 import { TopNav } from '../../design-system/components/navigation/TopNav';
@@ -72,6 +73,7 @@ function buildBreadcrumbs(pathname: string): Crumb[] {
 
 export default function CustomerLayout() {
   const navigate = useNavigate();
+  const { logout } = useApp();
   const location = useLocation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -87,7 +89,7 @@ export default function CustomerLayout() {
     if (item.href) navigate(item.href);
     if (item.id === 'logout') {
       setSidebarOpen(false);
-      setTimeout(() => navigate('/login'), 200);
+      logout('user');
     }
   };
 

@@ -1,0 +1,86 @@
+{
+  "dashboard_title": "SporeKart Enterprise Performance Dashboard",
+  "report_date": "2026-07-17",
+  "overall_status": "FAIL",
+  "performance_score": 45,
+
+  "category_scores": {
+    "application_performance": 55,
+    "ui_performance": 60,
+    "resource_utilization": 25,
+    "memory_leak_risk": 40,
+    "network_performance": 30,
+    "scalability": 15,
+    "bundle_optimization": 65,
+    "rendering_efficiency": 50,
+    "long_session_stability": 35,
+    "stress_tolerance": 50
+  },
+
+  "metrics_tracker": {
+    "bundle_size_js_estimated_kb": "~1500-2000",
+    "bundle_size_css_kb": "~25",
+    "lazy_loaded_routes": 210,
+    "eager_loaded_routes": 0,
+    "code_splitting_points": 1,
+    "virtualization_usage": 0,
+    "pagination_usage": 0,
+    "service_worker": false,
+    "performance_monitoring": false,
+    "react_memo_usage": 12,
+    "use_memo_usage": 42,
+    "use_callback_usage": 89,
+    "suspense_boundaries": 2,
+    "error_boundaries": 0,
+    "debounced_inputs": 5,
+    "image_lazy_loading": true,
+    "font_optimization": true,
+    "css_animations": true,
+    "prefers_reduced_motion": true,
+    "skip_link": true
+  },
+
+  "performance_budget_status": {
+    "budget_configured": false,
+    "first_paint_budget_ms": "N/A",
+    "fcp_budget_ms": "N/A",
+    "lcp_budget_ms": "N/A",
+    "tti_budget_ms": "N/A",
+    "tbt_budget_ms": "N/A",
+    "cls_budget": "N/A",
+    "bundle_size_budget_kb": "N/A",
+    "api_latency_budget_ms": "N/A"
+  },
+
+  "worst_performers": [
+    {"category": "Scalability", "score": 15, "reason": "No pagination, virtualization, or infinite scroll"},
+    {"category": "Network", "score": 30, "reason": "No caching, service worker, or API integration"},
+    {"category": "Long Session", "score": 35, "reason": "Timer leaks, no runtime validation"},
+    {"category": "Memory", "score": 40, "reason": "Timer leaks detected, context re-render risk"}
+  ],
+
+  "best_performers": [
+    {"category": "Bundle Optimization", "score": 65, "reason": "System fonts, tree-shakable, lazy routes"},
+    {"category": "UI Performance", "score": 60, "reason": "CSS animations, passive scroll, Suspense fallbacks"}
+  ],
+
+  "lighthouse_estimated_scores": {
+    "performance": 55,
+    "accessibility": 80,
+    "best_practices": 85,
+    "seo": 90,
+    "notes": "Estimates based on code review. Requires actual Lighthouse run for accurate scores."
+  },
+
+  "critical_metrics": {
+    "total_routes": "~210",
+    "total_components": "~350",
+    "total_stylesheets": "~4",
+    "event_listeners_analyzed": 47,
+    "timer_instances_analyzed": 63,
+    "timer_leaks_detected": 6,
+    "observer_leaks_detected": 0,
+    "context_providers": 8,
+    "context_consumers_per_provider_avg": 15
+  }
+}

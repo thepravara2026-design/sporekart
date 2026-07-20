@@ -1,7 +1,9 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-import { AppContext } from './context';
-import type { Role } from './config/roles';
+import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { CartProvider } from './features/cart/CartContext';
+import CartDrawer from './features/cart/components/CartDrawer';
+import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { AppContext, type AuthState } from './context';
+
 import { getAllPages } from './config/navigation';
 import { isPublicWebsiteRoute } from './public-website/config';
 import Header from './components/layout/Header';
@@ -11,6 +13,11 @@ import CommandPalette from './components/layout/CommandPalette';
 import WorkspacePage from './pages/WorkspacePage';
 import NotFound from './pages/NotFound';
 import { Icon } from './design-system/icons/Icon';
+import { RequireAuth } from './features/auth/RequireAuth';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { onAuthChange, signOut, getSession, getUser, isAuthenticated, getSupabaseClient } from './lib/supabase';
+import { logger } from './lib/logger';
+import type { Role } from './config/roles';
 
 const DemoIndex = lazy(() => import('./pages/DemoIndex'));
 const ResponsiveDemo = lazy(() => import('./pages/ResponsiveDemo'));
@@ -122,6 +129,9 @@ const InnerPagesPreview = lazy(() => import('./public-website/preview/InnerPages
 const ExperiencePreview = lazy(() => import('./public-website/preview/ExperiencePreview'));
 
 // ---- Authentication Experience (Phase 6 · Sprint 21 · Part 7) ----
+const HealthPage = lazy(() => import('./pages/HealthPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const CartPage = lazy(() => import('./features/cart/components/CartPage'));
 const LoginPage = lazy(() => import('./features/auth/pages/LoginPage'));
 const RegisterPage = lazy(() => import('./features/auth/pages/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('./features/auth/pages/ForgotPasswordPage'));
@@ -422,10 +432,51 @@ function isNonEnterpriseRoute(pathname: string): boolean {
   return false;
 }
 
+function deriveAuthState(): AuthState {
+  const session = getSession();
+  const user = getUser();
+  const loading = getSupabaseClient() === null && session === null;
+  const isAuth = isAuthenticated();
+  let userRole: Role = 'guest';
+  if (isAuth && user?.user_metadata?.role) {
+    const r = user.user_metadata.role as string;
+    if (['customer', 'grower', 'trainer', 'distributor', 'support', 'administrator', 'business_owner', 'governance_manager'].includes(r)) {
+      userRole = r as Role;
+    } else {
+      userRole = 'customer';
+    }
+  }
+  return { session, user, loading, isAuthenticated: isAuth, userRole };
+}
+
 export default function App() {
-  const [activeRole, setActiveRole] = useState<Role>('administrator');
+  const [auth, setAuth] = useState<AuthState>(() => deriveAuthState());
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsub = onAuthChange(() => {
+      setAuth(deriveAuthState());
+    });
+    return unsub;
+  }, []);
+
+  const logout = useCallback(
+    async (reason: 'user' | 'expired' = 'user') => {
+      try {
+        await signOut();
+      } catch (err) {
+        logger.error('[auth] Sign out error:', err);
+      }
+      if (reason === 'expired') {
+        navigate('/session-expired', { replace: true });
+      } else {
+        navigate('/login', { replace: true });
+      }
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -444,8 +495,11 @@ export default function App() {
 
   if (nonEnterprise) {
     return (
-      <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen }}>
+      <AppContext.Provider value={{ auth, logout, paletteOpen, setPaletteOpen }}>
+        <CartProvider>
         <a href="#main" className="sk-skip">Skip to content</a>
+        <CartDrawer />
+        <ErrorBoundary>
         <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -473,6 +527,9 @@ export default function App() {
             <Route path="/shipping-policy" element={<LegalPage />} />
             <Route path="/cookie-policy" element={<LegalPage />} />
             <Route path="/disclaimer" element={<LegalPage />} />
+            <Route path="/health" element={<HealthPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/auth" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -487,7 +544,7 @@ export default function App() {
             <Route path="/preview/otp" element={<AuthOtpPreview />} />
             <Route path="/preview/session" element={<SessionPreview />} />
             <Route path="/preview/auth-errors" element={<AuthErrorsPreview />} />
-            <Route path="/dashboard" element={<CustomerLayout />}>
+            <Route path="/dashboard" element={<RequireAuth><CustomerLayout /></RequireAuth>}>
               <Route index element={<DashboardPage />} />
               <Route path="orders" element={<OrdersDashboard />} />
               <Route path="orders/:id" element={<OrderDetailsPage />} />
@@ -533,7 +590,7 @@ export default function App() {
               <Route path="settings" element={<PlaceholderPage title="Settings" description="Configure notifications, privacy, and preferences." icon={<Icon name="settings" size={32} color="currentColor" />} />} />
             </Route>
 
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<RequireAuth allowedRoles={['administrator', 'business_owner', 'governance_manager']}><AdminLayout /></RequireAuth>}>
               <Route index element={<Navigate to="/admin/dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="products" element={<AdminProductsPage />} />
@@ -754,14 +811,18 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
+      </CartProvider>
       </AppContext.Provider>
     );
   }
 
 
   return (
-    <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen }}>
+    <AppContext.Provider value={{ auth, logout, paletteOpen, setPaletteOpen }}>
+      <CartProvider>
       <a href="#main" className="sk-skip">Skip to content</a>
+      <CartDrawer />
       <div className="sk-shell">
         <Header onToggleSidebar={() => setSidebarOpen((v) => !v)} />
         <div className="sk-shell__body">
@@ -769,6 +830,7 @@ export default function App() {
           <div className="sk-shell__main">
             <BreadcrumbBar />
 <main id="main" className="sk-content" tabIndex={-1}>
+                <ErrorBoundary>
                 <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
 <Routes>
                   {pages.map((p) => (
@@ -840,23 +902,25 @@ export default function App() {
                   <Route path="/design-system/calendars" element={<CalendarsPreview />} />
                   <Route path="/design-system/data-filters" element={<DataFiltersPreview />} />
                    <Route path="/design-system/export" element={<ExportPreview />} />
-                   <Route path="*" element={<NotFound />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
+                </ErrorBoundary>
             </main>
           </div>
         </div>
         <footer className="sk-footer" role="contentinfo">
-          <span>SporeKart Enterprise · Navigation Prototype (Sprint 19 Part 1B)</span>
+          <span>SporeKart Enterprise Platform &copy; {new Date().getFullYear()}</span>
           <span className="sk-footer__links">
             <a href="/support/kb">Help</a>
-            <a href="/">Terms</a>
-            <a href="/">Privacy</a>
-            <a href="/">Status</a>
+            <a href="/terms-and-conditions">Terms</a>
+            <a href="/privacy-policy">Privacy</a>
+            <a href="/status">Status</a>
           </span>
         </footer>
       </div>
       <CommandPalette />
+      </CartProvider>
     </AppContext.Provider>
   );
 }

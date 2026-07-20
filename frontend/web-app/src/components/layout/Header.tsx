@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useApp } from '../../context';
-import { ALL_ROLES, ROLE_LABELS, type Role } from '../../config/roles';
+import { ROLE_LABELS } from '../../config/roles';
 import { buildBreadcrumb } from '../../config/navigation';
 
 export default function Header({ onToggleSidebar }: { onToggleSidebar: () => void }) {
-  const { activeRole, setActiveRole, setPaletteOpen } = useApp();
+  const { auth, setPaletteOpen } = useApp();
   const location = useLocation();
   const { workspace } = buildBreadcrumb(location.pathname);
 
@@ -55,23 +55,8 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar: () => voi
           <span aria-hidden="true">✨</span>
         </button>
 
-        <label className="sk-role-switch">
-          <span className="sk-visually-hidden">Review role</span>
-          <select
-            value={activeRole}
-            onChange={(e) => setActiveRole(e.target.value as Role)}
-            aria-label="Switch review role"
-          >
-            {ALL_ROLES.map((r) => (
-              <option key={r} value={r}>
-                {ROLE_LABELS[r]}
-              </option>
-            ))}
-          </select>
-        </label>
-
         <button className="sk-profile" aria-label="Account menu">
-          <span className="sk-avatar" aria-hidden="true">{(ROLE_LABELS[activeRole][0])}</span>
+          <span className="sk-avatar" aria-hidden="true">{ROLE_LABELS[auth.userRole][0]}</span>
         </button>
       </div>
     </header>

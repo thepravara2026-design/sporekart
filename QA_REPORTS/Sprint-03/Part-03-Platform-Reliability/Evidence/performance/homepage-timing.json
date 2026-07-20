@@ -1,0 +1,9 @@
+{
+  "timings": {
+    "domContentLoaded": 125.10000002384186,
+    "domComplete": 126.90000000596046,
+    "loadEvent": 127,
+    "responseTime": 125.10000002384186
+  },
+  "url": "/"
+}

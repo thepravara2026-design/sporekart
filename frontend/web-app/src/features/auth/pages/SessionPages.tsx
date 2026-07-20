@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StatusScreen from '../components/StatusScreen';
+import { useApp } from '../../../context';
 import '../auth.css';
 
 export function SessionExpiredPage() {
@@ -33,11 +34,19 @@ export function LoggedOutPage() {
 
 export function AuthLoadingPage() {
   const navigate = useNavigate();
+  const { auth } = useApp();
 
   useEffect(() => {
-    const t = window.setTimeout(() => navigate('/', { replace: true }), 1600);
-    return () => window.clearTimeout(t);
-  }, [navigate]);
+    if (auth.isAuthenticated) {
+      const t = window.setTimeout(() => navigate('/dashboard', { replace: true }), 800);
+      return () => window.clearTimeout(t);
+    }
+  }, [auth.isAuthenticated, navigate]);
+
+  if (!auth.isAuthenticated && !auth.loading) {
+    navigate('/login', { replace: true });
+    return null;
+  }
 
   return (
     <div className="auth-status">

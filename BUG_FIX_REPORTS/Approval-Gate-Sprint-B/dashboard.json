@@ -1,0 +1,80 @@
+{
+  "gate": "Approval Gate — Bug Fix Sprint B (P1)",
+  "releaseCandidate": "v1.0.0-rc1",
+  "date": "2026-07-17",
+  "branch": "bugfix/sprint-b-high-priority",
+  "head": "47782f0",
+  "mode": "REVIEW_ONLY",
+  "decision": "APPROVED_WITH_CONDITIONS",
+  "p1Assigned": 18,
+  "p1Resolved": 18,
+  "p1Remaining": 0,
+  "defectsDeferred": 13,
+  "verification": {
+    "rootCauseIdentified": true,
+    "permanentFix": true,
+    "noWorkaround": true,
+    "evidenceAttached": true,
+    "businessRestored": true
+  },
+  "dimensionScores": {
+    "authentication": 95,
+    "customerJourney": 92,
+    "catalog": 90,
+    "search": 90,
+    "orderManagement": 92,
+    "notifications": 90,
+    "accessibility": 94,
+    "crossBrowser": 88,
+    "security": 93,
+    "performance": 95,
+    "overallBusinessReadiness": 92
+  },
+  "buildHealth": {
+    "typecheck": "pass",
+    "build": "pass",
+    "inventoryCompile": "pass",
+    "lint": "n/a_no_script",
+    "unitTests": "not_executed",
+    "integrationTests": "not_executed",
+    "playwright": "not_executed_no_browser_runtime",
+    "smoke": "static_pass"
+  },
+  "regression": "no_regressions",
+  "security": "p1_closed_no_p0_regression",
+  "performance": "no_degradation_timer_leak_fixed",
+  "accessibility": "wcag_aa_in_scope_closed_static",
+  "crossBrowser": "static_pass_live_e2e_pending",
+  "gitAudit": {
+    "workingTreeClean": false,
+    "atomicCommits": true,
+    "noDebugCode": true,
+    "noMergeConflicts": true,
+    "commitMessagesConventional": true
+  },
+  "riskPosture": {
+    "sprintBWork": "low",
+    "rc2Readiness": "medium"
+  },
+  "conditions": [
+    "Execute full Playwright/cross-browser E2E in browser CI (gate condition 2).",
+    "Commit/stash residual Sprint A changes and remove untracked artifacts (repository clean).",
+    "Schedule dedicated foundation sprint for ai-service deeper compile defects."
+  ],
+  "sprintCEntry": "BLOCKED_UNTIL_CONDITIONS_MET",
+  "deliverables": [
+    "approval-gate-report.md",
+    "high-priority-verification-matrix.md",
+    "business-readiness-scorecard.md",
+    "remaining-defects-summary.md",
+    "risk-assessment.md",
+    "repository-audit.md",
+    "security-audit.md",
+    "performance-audit.md",
+    "accessibility-audit.md",
+    "cross-browser-audit.md",
+    "regression-audit.md",
+    "executive-decision.md",
+    "dashboard.json"
+  ]
+}

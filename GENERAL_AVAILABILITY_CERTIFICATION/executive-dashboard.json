@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "GA Executive Dashboard",
+    "program": "SporeKart Enterprise Release Program",
+    "release": "v1.0.0 (RC2)",
+    "certification": "GA_APPROVED_WITH_ACCEPTED_RISKS",
+    "certificateId": "SPK-GA-20260720-001",
+    "date": "20-Jul-2026",
+    "board": "Executive Production Governance Board"
+  },
+  "governanceChain": {
+    "rc2ExecutiveAudit": {
+      "decision": "GO_WITH_CONDITIONS",
+      "vote": "10/10",
+      "status": "COMPLETE"
+    },
+    "productionReadinessReview": {
+      "decision": "READY_WITH_OPERATIONAL_CONDITIONS",
+      "vote": "11/11",
+      "status": "COMPLETE"
+    },
+    "regressionSprintE": {
+      "suitesPassed": 15,
+      "suitesFailed": 0,
+      "status": "COMPLETE"
+    },
+    "readinessClosureSprint": {
+      "conditionsClosed": 8,
+      "conditionsOpen": 0,
+      "status": "COMPLETE"
+    },
+    "productionDeployment": {
+      "phasesCompleted": 7,
+      "smokeTestsPassed": 13,
+      "smokeTestsFailed": 0,
+      "status": "SUCCESSFUL"
+    },
+    "gaReview": {
+      "decision": "GA_APPROVED_WITH_ACCEPTED_RISKS",
+      "vote": "9/9",
+      "status": "COMPLETE"
+    }
+  },
+  "successCriteria": {
+    "deploymentSuccessful": true,
+    "hypercareCompleted": true,
+    "noCriticalIncidents": true,
+    "noHighIncidents": true,
+    "monitoringOperational": true,
+    "rollbackAvailable": true,
+    "businessOperationsStable": true,
+    "executiveGovernanceSatisfied": true
+  },
+  "incidents": {
+    "p0Critical": 0,
+    "p1High": 0,
+    "p2Medium": 0,
+    "p3Low": 0,
+    "total": 0
+  },
+  "riskClosure": {
+    "resolved": 14,
+    "accepted": 15,
+    "deferred": 1,
+    "productionBlocking": 0,
+    "totalRiskItems": 31
+  },
+  "acceptedRiskSummary": {
+    "infrastructureNotProvisioned": true,
+    "paymentGatewayIsMock": true,
+    "operationalRisksOpen": 7,
+    "knownIssuesLow": 7,
+    "allAccepted": true
+  },
+  "gaConditions": {
+    "total": 8,
+    "ownerInfrastructure": 6,
+    "ownerSRE": 1,
+    "ownerQA": 1,
+    "targetSprint": "Sprint F"
+  },
+  "releaseArtifact": {
+    "buildTimeSec": 14.60,
+    "typescriptErrors": 0,
+    "mainJsGzipKb": 239.49,
+    "mainCssKb": 34.50,
+    "codeSplitting": true,
+    "seoAssets": 6,
+    "operationalArtifacts": 20
+  },
+  "boardComposition": {
+    "totalRoles": 9,
+    "approve": 9,
+    "reject": 0,
+    "abstain": 0,
+    "unanimous": true
+  }
+}

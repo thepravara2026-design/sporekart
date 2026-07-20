@@ -1,0 +1,46 @@
+{
+  "route": "/products",
+  "loadTime": 123,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 20.900000005960464,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 6.4000000059604645,
+      "size": 7649
+    },
+    {
+      "name": "ProductsPage-Cma6wiup.js",
+      "duration": 7.5999999940395355,
+      "size": 1857
+    },
+    {
+      "name": "PublicContentContainer-pUzkXNL_.js",
+      "duration": 7.5999999940395355,
+      "size": 3192
+    },
+    {
+      "name": "BreadcrumbFoundation-BVFmcUDI.js",
+      "duration": 15.599999994039536,
+      "size": 1611
+    },
+    {
+      "name": "PublicContentContainer-BNeH7GDP.css",
+      "duration": 13.900000005960464,
+      "size": 708
+    },
+    {
+      "name": "Reveal-2QMP_08t.js",
+      "duration": 16.599999994039536,
+      "size": 1014
+    },
+    {
+      "name": "PageShell-DhtecBAt.js",
+      "duration": 16.700000017881393,
+      "size": 1215
+    }
+  ]
+}

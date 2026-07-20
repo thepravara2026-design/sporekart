@@ -1,0 +1,151 @@
+{
+  "sprint": "QA Sprint 3",
+  "date": "2026-07-18",
+  "environment": {
+    "baseUrl": "http://localhost:4173",
+    "buildType": "vite preview (production build)",
+    "browser": "Chromium (Desktop Chrome)",
+    "playwrightVersion": "1.61.1",
+    "nodeVersion": "v24.16.0"
+  },
+  "testSummary": {
+    "total": 60,
+    "passed": 51,
+    "failed": 9,
+    "passRate": "85%"
+  },
+  "deliverables": [
+    {
+      "file": "dashboard-report.md",
+      "description": "Full test results by area with pass/fail breakdown",
+      "size": "~8KB"
+    },
+    {
+      "file": "bug-register.md",
+      "description": "All 7 defects classified with severity, priority, reproduction steps, root cause",
+      "size": "~12KB"
+    },
+    {
+      "file": "executive-summary.md",
+      "description": "Executive-level findings, impact, and recommendations",
+      "size": "~5KB"
+    },
+    {
+      "file": "readiness-scorecard.md",
+      "description": "Sectional scoring (1-5) with weighted overall score",
+      "size": "~6KB"
+    },
+    {
+      "file": "risk-assessment.md",
+      "description": "10 risks identified with RPN scoring and dependency graph",
+      "size": "~5KB"
+    },
+    {
+      "file": "feature-coverage.md",
+      "description": "67 feature coverage entries across 12 areas with status",
+      "size": "~8KB"
+    },
+    {
+      "file": "evidence-manifest.json",
+      "description": "This file — inventory of all evidence artifacts",
+      "size": "~3KB"
+    }
+  ],
+  "evidences": {
+    "screenshots": {
+      "description": "Test failure screenshots captured by Playwright",
+      "files": [
+        {
+          "path": "../shared-testing/test-results/sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium/test-failed-1.png",
+          "test": "Dashboard page loads with key elements",
+          "size": "16KB"
+        }
+      ],
+      "note": "Additional screenshots embedded in Playwright HTML report at Sprint-3-Validation/html-report/"
+    },
+    "traces": {
+      "description": "Playwright traces with full DOM snapshots, network, and console logs",
+      "files": [
+        {
+          "path": "../shared-testing/test-results/sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium/trace.zip",
+          "test": "Dashboard page loads with key elements",
+          "size": "75KB"
+        }
+      ],
+      "viewerCommand": "npx playwright show-trace <path-to-trace.zip>"
+    },
+    "videos": {
+      "description": "Test execution videos",
+      "files": [
+        {
+          "path": "../shared-testing/test-results/sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium/video.webm",
+          "test": "Dashboard page loads with key elements",
+          "size": "20KB"
+        }
+      ]
+    },
+    "htmlReport": {
+      "description": "Full interactive Playwright HTML report with all test results, screenshots, traces, and videos",
+      "path": "Sprint-3-Validation/html-report/index.html"
+    },
+    "jsonReport": {
+      "path": "Sprint-3-Validation/results.json",
+      "format": "JSON"
+    },
+    "junitReport": {
+      "path": "Sprint-3-Validation/junit.xml",
+      "format": "JUnit XML"
+    },
+    "investigationScripts": [
+      {
+        "file": "investigate-console.js",
+        "description": "Captures detailed console errors from login and homepage"
+      },
+      {
+        "file": "investigate-admin.js",
+        "description": "Checks ErrorBoundary status across admin, dashboard, profile, wishlist"
+      }
+    ],
+    "sprint3TestSpec": {
+      "file": "sprint-03-validation.spec.ts",
+      "description": "60-test comprehensive Playwright validation spec for Sprint 3",
+      "coverage": [
+        "Customer Dashboard",
+        "User Profile",
+        "Address Management",
+        "Notifications",
+        "Wishlist",
+        "Training Module",
+        "Grower Dashboard",
+        "Admin Dashboard",
+        "RBAC / Route Protection",
+        "Error States",
+        "Empty States",
+        "Loading States",
+        "Session Management",
+        "Mobile Responsiveness",
+        "Accessibility",
+        "Keyboard Navigation",
+        "Security",
+        "Input Validation",
+        "Cross-Page Navigation"
+      ]
+    }
+  },
+  "defectIds": [
+    "BUG-S3-CRIT-001",
+    "BUG-S3-CRIT-002",
+    "BUG-S3-HIGH-003",
+    "BUG-S3-HIGH-004",
+    "BUG-S3-MED-005",
+    "BUG-S3-MED-006",
+    "BUG-S3-LOW-007"
+  ],
+  "knownGapsInherited": [
+    "BUG-ADM-001: No auth guard on admin routes",
+    "BUG-CHK-001: No auth guard on checkout routes",
+    "BUG-API-013..020: Backend API placeholders",
+    "SEC-006..008: Missing security headers",
+    "SEC-012: No rate limiting"
+  ]
+}

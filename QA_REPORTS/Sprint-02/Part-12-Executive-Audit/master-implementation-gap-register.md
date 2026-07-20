@@ -1,0 +1,98 @@
+# Master Implementation Gap Register — SporeKart RC1
+
+**QA Sprint 2 — Part 12 — Executive Release Readiness Audit**
+**Date:** 2026-07-17
+**Status:** COMPLETED (Consolidated)
+
+---
+
+## 1. Consolidation Sources
+
+- `Governance/feature-implementation-register.md` (8 feature gaps)
+- `Part-11-Accessibility-UX/implementation-gap-register.md` (8 design-system gaps)
+- `Part-10-Performance/Reports/implementation-gap-register.md` (performance gaps)
+- `Part-09-Security/Reports/implementation-gap-register.md` (security gaps)
+
+Gaps were merged where overlapping (e.g., pagination appears in both feature and performance registers — listed once under Feature).
+
+---
+
+## 2. Feature Gaps (GAP-Fxx)
+
+| ID | Feature | Current State | Expected State | Priority | Deps | Sprint |
+|----|---------|---------------|----------------|----------|------|--------|
+| GAP-F001 | Product Catalog | `/products` shows 6 category cards only | Full product grid + pagination | P0 Critical | Product API | RC2 |
+| GAP-F002 | Product Detail Page | No detail route; 404 on `/product/*` | `/products/:slug` with gallery, price, add-to-cart | P0 Critical | Catalog | RC2 |
+| GAP-F003 | Shopping Cart | No `/cart`, no cart state | Cart context + page + summary + badge | P0 Critical | Product detail | RC2 |
+| GAP-F004 | Product Search | Blog-only search (14 articles) | Product search results | P1 High | Search index | RC2 |
+| GAP-F005 | Product Filters | No filter controls on catalog | Category/price/availability filters | P1 High | Catalog | RC2 |
+| GAP-F006 | Product Sorting | No sort controls | Price + newest sorting | P1 High | Catalog | RC2 |
+| GAP-F007 | Role Switcher (QA) | `activeRole` in context, no UI | RoleSwitcher select in mock mode | P1 High | QA tooling | RC2 |
+| GAP-F008 | Loading Skeletons | Category cards render w/o loader | Skeleton states on products page | P2 Medium | Catalog | RC2 |
+
+---
+
+## 3. Design System Gaps (GAP-DSxx)
+
+| ID | Feature | Current State | Expected State | Priority | Sprint |
+|----|---------|---------------|----------------|----------|--------|
+| GAP-DS-001 | MultiSelect SR announcement | Tag removal not announced | Announce removal + remaining count | Medium | Sprint 27 |
+| GAP-DS-002 | FileUpload drag-over | Visual only, not announced | Announce drop-target active | Medium | Sprint 27 |
+| GAP-DS-003 | Table sort SR | Inconsistent sort announcement | Consistent across browsers | Low | Sprint 27 |
+| GAP-DS-004 | ProductCard alt text | Sometimes generic | Descriptive alt text always | Medium | Sprint 27 |
+| GAP-DS-005 | MultiStepForm keyboard | Keyboard nav incomplete | Full keyboard nav across steps | High | Sprint 27 |
+| GAP-DS-006 | MultiStepForm mobile | Needs mobile refinement | Usable on 320px+ | Medium | Sprint 27 |
+| GAP-DS-007 | Skeleton reduced-motion | Shimmer ignores reduced-motion | Disable shimmer on reduced-motion | Low | Sprint 27 |
+| GAP-DS-008 | EmptyState illustrations | Limited to 7 categories | Expanded set | Low | Sprint 28 |
+
+---
+
+## 4. Security Gaps (GAP-SECxx)
+
+| ID | Feature | Current State | Expected State | Priority | Sprint |
+|----|---------|---------------|----------------|----------|--------|
+| GAP-SEC-001 | Real Authentication | Mock auth only | Supabase/own identity provider | Critical | RC2 |
+| GAP-SEC-002 | API Authentication | 17.4% endpoints secured | 100% endpoints secured | Critical | RC2 |
+| GAP-SEC-003 | Session Management | No tokens | JWT with expiry + refresh | Critical | RC2 |
+| GAP-SEC-004 | Security Headers | 0/8 configured | All 8 headers | Critical | RC2 |
+| GAP-SEC-005 | CSRF Protection | None | Synchronizer token / SameSite | High | RC2 |
+| GAP-SEC-006 | Rate Limiting | None | Per-IP/per-user limits | High | RC2 |
+| GAP-SEC-007 | Server-side Validation | None | Validate on every endpoint | High | RC2 |
+| GAP-SEC-008 | Audit Trail | None | Security event logging | Medium | RC2 |
+
+---
+
+## 5. Performance Gaps (GAP-PERFxx)
+
+| ID | Feature | Current State | Expected State | Priority | Sprint |
+|----|---------|---------------|----------------|----------|--------|
+| GAP-PERF-001 | Data Virtualization | Unbounded admin tables | react-window virtualization | High | RC2 |
+| GAP-PERF-002 | Pagination | None on data pages | Pagination on all lists | High | RC2 |
+| GAP-PERF-003 | Service Worker | None | Workbox SW + offline | High | RC2 |
+| GAP-PERF-004 | Performance Budget | None | Bundle/lighthouse budget + CI | Medium | RC2 |
+| GAP-PERF-005 | Context Re-renders | AppContext re-render storm | Split contexts | Medium | RC2 |
+| GAP-PERF-006 | Timer Cleanup | Leaks in 3 components | Proper ref cleanup | High | RC2 |
+
+---
+
+## 6. Gap Summary
+
+| Category | Count |
+|----------|-------|
+| Feature Gaps | 8 |
+| Design System Gaps | 8 |
+| Security Gaps | 8 |
+| Performance Gaps | 6 |
+| **Total** | **30** |
+
+| Priority | Count |
+|----------|-------|
+| Critical | 4 (SEC) + 3 (Feature) = 7 |
+| High | 13 |
+| Medium | 8 |
+| Low | 2 |
+
+---
+
+**Report generated by:** Principal QA Architect
+**Date:** 2026-07-17

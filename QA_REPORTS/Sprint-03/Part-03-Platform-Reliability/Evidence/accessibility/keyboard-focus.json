@@ -1,0 +1,12 @@
+{
+  "route": "/login",
+  "focusOrder": [
+    "a#.sk-skip",
+    "button#.",
+    "a#.sk-skip",
+    "button#.",
+    "a#.sk-skip",
+    "button#.",
+    "a#.sk-skip"
+  ]
+}

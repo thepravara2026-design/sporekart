@@ -1,0 +1,60 @@
+{
+  "gate": "D",
+  "date": "2026-07-18",
+  "authority": "Independent Enterprise Release Governance Board",
+  "decision": "APPROVED_WITH_RELEASE_CONDITIONS",
+  "evidence_reviewed": [
+    "QA_REPORTS/Sprint-01",
+    "QA_REPORTS/Sprint-02",
+    "QA_REPORTS/Sprint-03",
+    "QA_REPORTS/Sprint-04 (superseded)",
+    "BUG_FIX_REPORTS/Sprint-A",
+    "BUG_FIX_REPORTS/Sprint-B",
+    "BUG_FIX_REPORTS/Sprint-C",
+    "BUG_FIX_REPORTS/Sprint-D (reconciled)",
+    "RELEASE_RECONCILIATION (12 deliverables)",
+    "APPROVAL_GATE_REPORTS/Approval-Gate-A",
+    "APPROVAL_GATE_REPORTS/Approval-Gate-B",
+    "APPROVAL_GATE_REPORTS/Approval-Gate-C/executive-dashboard.json",
+    "frontend/web-app/src/features/auth/RequireAuth.tsx",
+    "frontend/web-app/src/pages/WorkspacePage.tsx",
+    "shared-testing/tests/rbac-authorization.spec.ts",
+    "shared-testing/tests/protected-routes.spec.ts",
+    "shared-testing/tests/customer-journey-product-details.spec.ts",
+    ".github/workflows/playwright-regression.yml",
+    ".github/workflows/build.yml"
+  ],
+  "live_verification": {
+    "typescript": "tsc -b --noEmit => 0 errors (PASS)",
+    "build": "npm run build => completes (PASS)",
+    "firefox_has_pseudoclass": "0 matches in src (PASS)",
+    "requireauth_present": true,
+    "access_denied_redirect": "4 references (PASS)",
+    "product_slug_route": "0 matches (feature gap confirmed)",
+    "spec_mismatch_routes": ["/settings","/account","/catalog","/cms","/governance","/ai","Switch review role","Access restricted"]
+  },
+  "deliverables_generated": [
+    "APPROVAL_GATE_D/executive-summary.md",
+    "APPROVAL_GATE_D/release-readiness-review.md",
+    "APPROVAL_GATE_D/engineering-scorecard.md",
+    "APPROVAL_GATE_D/quality-scorecard.md",
+    "APPROVAL_GATE_D/security-scorecard.md",
+    "APPROVAL_GATE_D/performance-scorecard.md",
+    "APPROVAL_GATE_D/accessibility-scorecard.md",
+    "APPROVAL_GATE_D/risk-register.md",
+    "APPROVAL_GATE_D/known-limitations.md",
+    "APPROVAL_GATE_D/release-decision.md",
+    "APPROVAL_GATE_D/approval-dashboard.json",
+    "APPROVAL_GATE_D/approval-certificate.md",
+    "APPROVAL_GATE_D/rc1-readiness.md",
+    "APPROVAL_GATE_D/decision-log.md",
+    "APPROVAL_GATE_D/evidence-manifest.json"
+  ],
+  "release_conditions": [
+    "C1_reconcile_3_playwright_specs",
+    "C2_parameterize_ci_report_dir",
+    "C3_execute_crossbrowser_in_ci",
+    "C4_commit_or_stash_wip"
+  ],
+  "source_code_modified": false
+}

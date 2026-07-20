@@ -70,9 +70,7 @@ export default function VerifyOtpPage() {
         setStatus('success');
         if (demo) return;
         window.setTimeout(() => {
-          navigate('/auth/loading', {
-            state: { flow: state.flow ?? 'login', profile: state.profile, remember: state.remember },
-          });
+          navigate('/auth/loading', { replace: true });
         }, 1400);
       } catch (err) {
         verifyingRef.current = false;

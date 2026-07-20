@@ -1,0 +1,125 @@
+{
+  "report": "SporeKart QA Sprint 2 — Governance Override: Updated QA Dashboard",
+  "date": "2026-07-17",
+  "rc": "v1.0.0-rc1",
+  "mode": "mock",
+  "governanceDecision": "GO WITH RISKS",
+  "overallReadiness": 35,
+  "infrastructureReadiness": {
+    "status": "operational",
+    "devServer": "running (5174)",
+    "browserProjects": 5,
+    "chromium": "healthy",
+    "firefox": "blocked — mock API incompatibility",
+    "webkit": "healthy — minor timeout issue",
+    "mobileChrome": "healthy",
+    "mobileSafari": "healthy — minor OTP flakiness",
+    "mockMode": "operational",
+    "globalSetup": "passing"
+  },
+  "readinessTrend": [
+    { "phase": "Part 1 — Authentication", "score": 43 },
+    { "phase": "Part 2 — Customer Journey", "score": 42 },
+    { "phase": "Interim Review", "score": 35 },
+    { "phase": "Governance Override", "score": 35, "note": "GO WITH RISKS — Sprint continues" }
+  ],
+  "separatedCounts": {
+    "realBugs": 7,
+    "implementationGaps": 8,
+    "testingLimitations": 5,
+    "total": 20
+  },
+  "realBugs": {
+    "total": 7,
+    "byPriority": { "P0": 1, "P1": 4, "P2": 2, "P3": 0 },
+    "byClassification": {
+      "browserCompatibility": 1,
+      "accessibility": 3,
+      "ux": 2,
+      "security": 0,
+      "performance": 0
+    },
+    "ids": ["BUG-001", "BUG-009", "BUG-010", "BUG-011", "BUG-012", "BUG-015", "BUG-016"]
+  },
+  "implementationGaps": {
+    "total": 8,
+    "byPriority": { "P0": 3, "P1": 4, "P2": 1 },
+    "byModule": {
+      "productsCatalog": 1,
+      "productDetails": 1,
+      "cart": 1,
+      "search": 1,
+      "filters": 1,
+      "sorting": 1,
+      "rbac": 1,
+      "ux": 1
+    },
+    "ids": ["GAP-001", "GAP-002", "GAP-003", "GAP-004", "GAP-005", "GAP-006", "GAP-007", "GAP-008"]
+  },
+  "testingLimitations": {
+    "total": 5,
+    "items": [
+      { "id": "BUG-013", "description": "WebKit viewport iteration timeout", "workaround": "Reduce iteration or increase timeout" },
+      { "id": "BUG-014", "description": "Broken links test timeout (dynamic content)", "workaround": "Use waitForSelector before iteration" },
+      { "id": "BUG-018", "description": "ENOENT artifact cleanup race condition", "workaround": "Monitor; low priority" },
+      { "id": "BUG-019", "description": "networkidle timeout on polling/SSE pages", "workaround": "Use load or domcontentloaded" },
+      { "id": "BUG-020", "description": "OTP input fill flaky on WebKit/iOS", "workaround": "Add { force: true } or use combined input" }
+    ]
+  },
+  "moduleHealth": {
+    "authentication": { "score": 65, "status": "needs-improvement" },
+    "rbac": { "score": 90, "status": "healthy" },
+    "session": { "score": 95, "status": "healthy" },
+    "catalog": { "score": 15, "status": "implementation-gap" },
+    "search": { "score": 5, "status": "implementation-gap" },
+    "filters": { "score": 0, "status": "implementation-gap" },
+    "sorting": { "score": 0, "status": "implementation-gap" },
+    "productDetails": { "score": 0, "status": "implementation-gap" },
+    "cart": { "score": 0, "status": "implementation-gap" },
+    "checkout": { "score": 0, "status": "implementation-gap", "note": "Not yet tested" },
+    "orders": { "score": 80, "status": "healthy" },
+    "payments": { "score": 0, "status": "implementation-gap", "note": "Not yet tested" },
+    "training": { "score": 90, "status": "healthy" },
+    "admin": { "score": 85, "status": "healthy" },
+    "dashboard": { "score": 85, "status": "healthy" },
+    "analytics": { "score": 0, "status": "implementation-gap", "note": "Not yet tested" },
+    "accessibility": { "score": 30, "status": "needs-improvement" },
+    "performance": { "score": 95, "status": "healthy" }
+  },
+  "featureCompleteness": {
+    "implementedAndPassing": 18,
+    "implementedWithDefects": 8,
+    "partiallyImplemented": 1,
+    "implementationGap": 7,
+    "blocked": 1,
+    "unknown": 0,
+    "total": 35
+  },
+  "implementationProgress": {
+    "percentComplete": 51,
+    "percentWithDefects": 23,
+    "percentGap": 20,
+    "percentBlocked": 3
+  },
+  "criticalRisks": [
+    "BUG-001: Firefox 0% pass rate — critical browser unsupported (P0)",
+    "GAP-001: No product catalog — core e-commerce missing (P0)",
+    "GAP-002: No product details — users cannot view products (P0)",
+    "GAP-003: No shopping cart — users cannot purchase (P0)"
+  ],
+  "knownLimitations": [
+    "Firefox mock API interception incompatible — all Firefox tests will report timeout",
+    "WebKit viewport testing limited — some iterations timeout",
+    "OTP input flaky on WebKit and iOS Safari — may need retry",
+    "networkidle causes false failures on polling pages",
+    "ENOENT cleanup errors are cosmetic — test results valid",
+    "Broken links test unreliable on dynamic content pages"
+  ],
+  "evidenceTotals": {
+    "part1": { "screenshots": 40, "videos": 54, "traces": 52 },
+    "part2": { "screenshots": 197, "videos": 186, "traces": 198 },
+    "combined": { "screenshots": 237, "videos": 240, "traces": 250, "total": 727 }
+  },
+  "qaPart3Authorized": true,
+  "part3ExecutionPolicy": "GO WITH RISKS — Test what exists. Record gaps. Do not block on missing features."
+}

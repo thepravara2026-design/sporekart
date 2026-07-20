@@ -1,0 +1,119 @@
+{
+  "scorecard_title": "SporeKart RC1 — Enterprise Quality Scorecard",
+  "report_date": "2026-07-17",
+  "sprint": "QA Sprint 2 — Part 12",
+  "overall_quality_score": 36,
+
+  "quality_dimensions": {
+    "architecture": {
+      "score": 25,
+      "grade": "D",
+      "status": "FAIL",
+      "strengths": ["React + Vite + TypeScript stack", "Lazy-loaded routes", "Microservice architecture pattern"],
+      "weaknesses": ["No route guard boundary", "No auth boundary", "Monolithic AppContext", "Context coupling between UI and auth state"],
+      "recommendations": ["Define clear security boundary at router level", "Split AppContext into UI/Auth contexts", "Add API Gateway layer"]
+    },
+    "maintainability": {
+      "score": 55,
+      "grade": "C",
+      "status": "WARNING",
+      "strengths": ["TypeScript throughout", "Consistent folder structure", "Component-based architecture"],
+      "weaknesses": ["200+ inline styles", "Monolithic context providers", "Duplicated breakpoint definitions"],
+      "recommendations": ["Extract inline styles to CSS classes", "Split large contexts", "Centralize breakpoints"]
+    },
+    "reliability": {
+      "score": 30,
+      "grade": "D",
+      "status": "FAIL",
+      "strengths": ["Suspense boundaries on lazy routes"],
+      "weaknesses": ["No error boundary anywhere", "Timer leaks in 3 components", "No recovery mechanisms", "No retry logic"],
+      "recommendations": ["Add ErrorBoundary wrapping Routes", "Fix all timer cleanup", "Add retry/fallback patterns"]
+    },
+    "security": {
+      "score": 25,
+      "grade": "F",
+      "status": "FAIL",
+      "strengths": ["No SQL injection vectors identified", "No SSRF vectors identified"],
+      "weaknesses": ["No authentication", "No authorization", "No route guards", "No session management", "No security headers", "No input validation", "Mock OTP", "Default admin role", "Role UI switch", "IDOR on all controllers"],
+      "recommendations": ["Implement auth-first architecture", "Add route guards", "Add API auth", "Add security headers", "Replace all mock security"]
+    },
+    "performance": {
+      "score": 45,
+      "grade": "C",
+      "status": "FAIL",
+      "strengths": ["Lazy route loading (335/337 routes)", "System fonts (no web font latency)", "Tree-shakable Vite build", "CSS animations"],
+      "weaknesses": ["No data virtualization", "No pagination", "No service worker", "Timer leaks", "Context re-render storms", "Inline style allocation"],
+      "recommendations": ["Add react-window virtualization", "Add pagination to all data pages", "Add Workbox service worker", "Fix timer cleanup"]
+    },
+    "accessibility": {
+      "score": 40,
+      "grade": "D",
+      "status": "WARNING",
+      "strengths": ["Semantic HTML structure", "Skip link present", "Prefers-reduced-motion support"],
+      "weaknesses": ["Empty Accessibility directory — no tests run", "WCAG 2.5.8 touch target violations", "Modal focus trap missing", "No aria-live for errors"],
+      "recommendations": ["Run axe-core audit on all pages", "Fix touch targets to 44px", "Add focus trap to modals", "Add screen reader announcements"]
+    },
+    "scalability": {
+      "score": 15,
+      "grade": "F",
+      "status": "FAIL",
+      "strengths": ["Microservice architecture pattern"],
+      "weaknesses": ["No pagination", "No data virtualization", "No caching", "No service worker", "No performance monitoring", "Unbounded DOM growth"],
+      "recommendations": ["Add pagination to all APIs and frontend", "Implement virtualization", "Add CDN caching strategy", "Set performance budgets"]
+    },
+    "ux": {
+      "score": 35,
+      "grade": "D",
+      "status": "FAIL",
+      "strengths": ["Clean visual design", "Consistent color system", "Responsive shell structure"],
+      "weaknesses": ["Breakpoint system mismatch", "Mobile sidebar overlay bug", "Admin tables unusable on mobile", "No checkout flow", "Touch targets too small", "No orientation handling"],
+      "recommendations": ["Fix breakpoint alignment", "Fix sidebar overlay bug", "Build responsive checkout", "Meet WCAG touch targets"]
+    },
+    "developer_experience": {
+      "score": 60,
+      "grade": "C",
+      "status": "WARNING",
+      "strengths": ["Vite with HMR", "TypeScript strict mode", "ESLint + Prettier", "Consistent project structure"],
+      "weaknesses": ["Playwright tests not runnable in sandbox", "No test watch mode", "No API documentation", "No local development seed data"],
+      "recommendations": ["Fix test runner sandbox issues", "Add Swagger/OpenAPI docs", "Add seed data scripts"]
+    },
+    "testability": {
+      "score": 40,
+      "grade": "D",
+      "status": "FAIL",
+      "strengths": ["Playwright framework configured", "Test specs written for all parts"],
+      "weaknesses": ["0 tests executed (sandbox limitation)", "No unit tests", "No integration tests", "No contract tests", "No visual regression tests"],
+      "recommendations": ["Set up CI test runner", "Add Jest/Vitest unit tests", "Add contract tests for APIs"]
+    },
+    "documentation": {
+      "score": 55,
+      "grade": "C",
+      "status": "WARNING",
+      "strengths": ["Comprehensive QA reports across 9 parts", "docs/ directory with authentication specs"],
+      "weaknesses": ["No OpenAPI/Swagger docs for any endpoint", "No architecture decision records", "No onboarding guide", "No API documentation"],
+      "recommendations": ["Generate OpenAPI specs", "Create ADR for auth/route decisions", "Write developer onboarding guide"]
+    }
+  },
+
+  "module_health_summary": {
+    "authentication": 15,
+    "authorization": 10,
+    "session_management": 30,
+    "route_protection": 17,
+    "api_integration": 32,
+    "catalog_products": 25,
+    "cart_checkout": 0,
+    "orders": 20,
+    "payments": 10,
+    "training": 30,
+    "admin_panel": 20,
+    "users_profile": 25,
+    "search": 0,
+    "notifications": 15,
+    "settings": 30,
+    "analytics": 35
+  },
+
+  "overall_grade": "D",
+  "overall_status": "FAIL"
+}

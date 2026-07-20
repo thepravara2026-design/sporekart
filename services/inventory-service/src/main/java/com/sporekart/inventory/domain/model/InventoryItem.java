@@ -13,6 +13,10 @@ public class InventoryItem {
         this.availableQuantity = availableQuantity;
     }
 
+    public String getId() {
+        return productId;
+    }
+
     public String getProductId() {
         return productId;
     }

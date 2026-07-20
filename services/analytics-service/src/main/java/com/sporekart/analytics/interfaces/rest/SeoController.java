@@ -4,6 +4,7 @@ import com.sporekart.analytics.application.service.AnalyticsService;
 import com.sporekart.analytics.domain.model.SeoMetadata;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,11 +33,13 @@ public class SeoController {
     }
 
     @GetMapping("/metadata")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<SeoMetadata>> metadata() {
         return ResponseEntity.ok(analyticsService.getSeoMetadata());
     }
 
     @PostMapping("/metadata")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SeoMetadata> createMetadata(@RequestBody CreateMetadataRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(analyticsService.createSeoMetadata(request.path(), request.title(), request.description()));

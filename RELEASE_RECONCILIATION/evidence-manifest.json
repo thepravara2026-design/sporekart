@@ -1,0 +1,107 @@
+{
+  "sprint": "Release-Reconciliation",
+  "date": "2026-07-18",
+  "purpose": "Evidence manifest for Release Reconciliation deliverables (Approval Gate D)",
+  "evidence_artifacts": [
+    {
+      "path": "APPROVAL_GATE_REPORTS/Approval-Gate-C/executive-dashboard.json",
+      "type": "gate_dashboard",
+      "role": "authoritative_healthy_state",
+      "verifies": "score 87.9, 0 P0/P1 defects, APPROVED WITH OBSERVATIONS"
+    },
+    {
+      "path": "BUG_FIX_REPORTS/Sprint-D/fixed-bugs.md",
+      "type": "bug_resolution_report",
+      "role": "code_verified_resolutions",
+      "verifies": "all 14 register bugs resolved in code"
+    },
+    {
+      "path": "BUG_FIX_REPORTS/Sprint-D/implementation-summary.md",
+      "type": "implementation_summary",
+      "role": "rebaseline_finding",
+      "verifies": "codebase is Sprint 27+, register was stale"
+    },
+    {
+      "path": "BUG_FIX_REPORTS/Sprint-D/bug-register.md",
+      "type": "bug_register",
+      "role": "reconciled_in_place",
+      "verifies": "superseded header + 0 open verified"
+    },
+    {
+      "path": "BUG_FIX_REPORTS/Sprint-D/dashboard.json",
+      "type": "dashboard",
+      "role": "reconciled_in_place",
+      "verifies": "status reconciled_verified_resolved, rc1 READY_PENDING_TEST_RECONCILIATION"
+    },
+    {
+      "path": "BUG_FIX_REPORTS/Sprint-D/evidence-manifest.json",
+      "type": "evidence_manifest",
+      "role": "sprint_d_evidence",
+      "verifies": "implementation artifacts present"
+    },
+    {
+      "path": "QA_REPORTS/Sprint-04/executive-summary.md",
+      "type": "qa_report",
+      "role": "historical_superseded",
+      "verifies": "stale Sprint 4 baseline (NOT READY) - not for RC1"
+    },
+    {
+      "path": "QA_REPORTS/Sprint-04/dashboard.json",
+      "type": "qa_dashboard",
+      "role": "historical_superseded",
+      "verifies": "stale counts (2C/3H/18 total)"
+    },
+    {
+      "path": "frontend/web-app/src/features/auth/RequireAuth.tsx",
+      "type": "source",
+      "role": "code_evidence",
+      "verifies": "BUG-S3-CRIT-001 route guards present"
+    },
+    {
+      "path": "frontend/web-app/src/pages/WorkspacePage.tsx",
+      "type": "source",
+      "role": "code_evidence",
+      "verifies": "canView + /access-denied redirect (RBAC resolved)"
+    },
+    {
+      "path": "shared-testing/tests/rbac-authorization.spec.ts",
+      "type": "test_spec",
+      "role": "mismatch_evidence",
+      "verifies": "asserts non-existent 'Switch review role' selector + legacy routes"
+    },
+    {
+      "path": "shared-testing/tests/protected-routes.spec.ts",
+      "type": "test_spec",
+      "role": "mismatch_evidence",
+      "verifies": "asserts non-existent routes (/settings, /account)"
+    },
+    {
+      "path": "shared-testing/tests/customer-journey-product-details.spec.ts",
+      "type": "test_spec",
+      "role": "mismatch_evidence",
+      "verifies": "asserts /product/:slug route absent from build"
+    },
+    {
+      "path": ".github/workflows/playwright-regression.yml",
+      "type": "ci_config",
+      "role": "ci_risk_evidence",
+      "verifies": "hardcoded PLAYWRIGHT_REPORT_DIR=Regression/Sprint-B/RC2"
+    }
+  ],
+  "deliverables_generated": [
+    "RELEASE_RECONCILIATION/executive-summary.md",
+    "RELEASE_RECONCILIATION/release-consistency-report.md",
+    "RELEASE_RECONCILIATION/bug-register-reconciliation.md",
+    "RELEASE_RECONCILIATION/dashboard-validation.md",
+    "RELEASE_RECONCILIATION/artifact-validation.md",
+    "RELEASE_RECONCILIATION/repository-validation.md",
+    "RELEASE_RECONCILIATION/report-integrity.md",
+    "RELEASE_RECONCILIATION/release-readiness-scorecard.md",
+    "RELEASE_RECONCILIATION/risk-register.md",
+    "RELEASE_RECONCILIATION/decision-log.md",
+    "RELEASE_RECONCILIATION/engineering-dashboard.json",
+    "RELEASE_RECONCILIATION/evidence-manifest.json"
+  ],
+  "verification_method": "code_inspection + build/typecheck/smoke + cross_artifact_tally",
+  "recommendation": "READY FOR APPROVAL GATE D (conditional): reconcile 3 mismatched Playwright specs + re-run cross-browser in capable CI. No production code changes required."
+}

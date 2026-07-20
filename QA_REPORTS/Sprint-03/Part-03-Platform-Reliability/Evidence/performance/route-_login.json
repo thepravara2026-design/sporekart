@@ -1,0 +1,51 @@
+{
+  "route": "/login",
+  "loadTime": 156,
+  "resources": [
+    {
+      "name": "index-BcNh8cT_.js",
+      "duration": 35.5,
+      "size": 87864
+    },
+    {
+      "name": "index-CTUG3leP.css",
+      "duration": 10.599999994039536,
+      "size": 7649
+    },
+    {
+      "name": "LoginPage-CcrOWyDo.js",
+      "duration": 7.9000000059604645,
+      "size": 2774
+    },
+    {
+      "name": "authClient-D86OGCOl.js",
+      "duration": 7.9000000059604645,
+      "size": 1713
+    },
+    {
+      "name": "auth-ZlrjPwVd.css",
+      "duration": 16.700000017881393,
+      "size": 2713
+    },
+    {
+      "name": "Button-bh2yUiHp.js",
+      "duration": 18.19999998807907,
+      "size": 1833
+    },
+    {
+      "name": "useScopedStyle-CCb5e4w2.js",
+      "duration": 16.5,
+      "size": 531
+    },
+    {
+      "name": "Input-Cr-tXMp2.js",
+      "duration": 17.899999976158142,
+      "size": 2196
+    },
+    {
+      "name": "Checkbox-B1zexuST.js",
+      "duration": 17.700000017881393,
+      "size": 1724
+    }
+  ]
+}

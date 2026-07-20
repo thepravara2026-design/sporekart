@@ -1,0 +1,139 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: customer-journey-a11y-perf.spec.ts >> Part 2 — Customer Journey: Phase 11 — Accessibility & Performance >> Homepage has semantic heading structure
+- Location: tests\customer-journey-a11y-perf.spec.ts:13:7
+
+# Error details
+
+```
+Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/
+Call log:
+  - navigating to "http://localhost:5173/", waiting until "load"
+
+```
+
+# Test source
+
+```ts
+  1   | import { test, expect } from '@playwright/test';
+  2   | 
+  3   | test.describe('Part 2 — Customer Journey: Phase 11 — Accessibility & Performance', () => {
+  4   | 
+  5   |   // === ACCESSIBILITY ===
+  6   | 
+  7   |   test('Skip to content link exists on homepage', async ({ page }) => {
+  8   |     await page.goto('/');
+  9   |     const skipLink = page.locator('a[href="#main-content"], a[href="#content"], a:has-text("Skip"), [class*="skip"]').first();
+  10  |     await expect(skipLink).toBeVisible({ timeout: 5000 });
+  11  |   });
+  12  | 
+  13  |   test('Homepage has semantic heading structure', async ({ page }) => {
+> 14  |     await page.goto('/');
+      |                ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5173/
+  15  |     const h1 = page.locator('h1');
+  16  |     await expect(h1.first()).toBeVisible({ timeout: 5000 });
+  17  |     const h2s = page.locator('h2');
+  18  |     const h2Count = await h2s.count();
+  19  |     expect(h2Count).toBeGreaterThanOrEqual(1);
+  20  |   });
+  21  | 
+  22  |   test('Interactive elements have accessible labels', async ({ page }) => {
+  23  |     await page.goto('/');
+  24  |     const buttons = page.locator('button, a[role="button"]');
+  25  |     const count = await buttons.count();
+  26  |     let missingLabel = 0;
+  27  |     for (let i = 0; i < Math.min(count, 20); i++) {
+  28  |       const label = await buttons.nth(i).getAttribute('aria-label');
+  29  |       const text = await buttons.nth(i).innerText();
+  30  |       if (!label && !text.trim()) missingLabel++;
+  31  |     }
+  32  |     expect(missingLabel).toBeLessThan(count);
+  33  |   });
+  34  | 
+  35  |   test('Images have alt text', async ({ page }) => {
+  36  |     await page.goto('/');
+  37  |     const images = page.locator('img');
+  38  |     const count = await images.count();
+  39  |     let missingAlt = 0;
+  40  |     for (let i = 0; i < count; i++) {
+  41  |       const alt = await images.nth(i).getAttribute('alt');
+  42  |       if (alt === null || alt === undefined) missingAlt++;
+  43  |     }
+  44  |     expect(missingAlt).toBe(0);
+  45  |   });
+  46  | 
+  47  |   test('Focus order is logical on homepage', async ({ page }) => {
+  48  |     await page.goto('/');
+  49  |     await page.keyboard.press('Tab');
+  50  |     const focused = page.locator(':focus');
+  51  |     const focusedTag = await focused.evaluate(el => el.tagName.toLowerCase());
+  52  |     expect(['a', 'button', 'input', 'select', 'textarea']).toContain(focusedTag);
+  53  |   });
+  54  | 
+  55  |   test('Color contrast is sufficient on text elements', async ({ page }) => {
+  56  |     await page.goto('/');
+  57  |     const textElements = page.locator('p, h1, h2, h3, h4, h5, h6, span, a');
+  58  |     const count = await textElements.count();
+  59  |     const sampleSize = Math.min(count, 30);
+  60  |     for (let i = 0; i < sampleSize; i++) {
+  61  |       const color = await textElements.nth(i).evaluate(el => getComputedStyle(el).color);
+  62  |       expect(color).toBeTruthy();
+  63  |     }
+  64  |   });
+  65  | 
+  66  |   test('ARIA landmarks are present', async ({ page }) => {
+  67  |     await page.goto('/');
+  68  |     const main = page.locator('main, [role="main"]');
+  69  |     const nav = page.locator('nav, [role="navigation"]');
+  70  |     const footer = page.locator('footer, [role="contentinfo"]');
+  71  |     await expect(main.first()).toBeVisible({ timeout: 5000 });
+  72  |     await expect(nav.first()).toBeVisible({ timeout: 5000 });
+  73  |     await expect(footer.first()).toBeVisible({ timeout: 5000 });
+  74  |   });
+  75  | 
+  76  |   test('Form inputs have associated labels', async ({ page }) => {
+  77  |     await page.goto('/login');
+  78  |     const inputs = page.locator('input:not([type="hidden"])');
+  79  |     const count = await inputs.count();
+  80  |     let missingLabel = 0;
+  81  |     for (let i = 0; i < count; i++) {
+  82  |       const id = await inputs.nth(i).getAttribute('id');
+  83  |       if (id) {
+  84  |         const label = page.locator(`label[for="${id}"]`);
+  85  |         if (await label.count() === 0) missingLabel++;
+  86  |       } else {
+  87  |         const ariaLabel = await inputs.nth(i).getAttribute('aria-label');
+  88  |         if (!ariaLabel) missingLabel++;
+  89  |       }
+  90  |     }
+  91  |     expect(missingLabel).toBeLessThanOrEqual(count);
+  92  |   });
+  93  | 
+  94  |   test('Keyboard navigation works on products page', async ({ page }) => {
+  95  |     await page.goto('/products');
+  96  |     await page.waitForLoadState('networkidle');
+  97  |     await page.keyboard.press('Tab');
+  98  |     const focused = page.locator(':focus');
+  99  |     await expect(focused).toBeVisible();
+  100 |     for (let i = 0; i < 5; i++) {
+  101 |       await page.keyboard.press('Tab');
+  102 |       await page.waitForTimeout(100);
+  103 |     }
+  104 |   });
+  105 | 
+  106 |   // === PERFORMANCE ===
+  107 | 
+  108 |   test('Performance: Homepage load completes under 5s', async ({ page }) => {
+  109 |     const start = Date.now();
+  110 |     await page.goto('/');
+  111 |     await page.waitForLoadState('networkidle');
+  112 |     const loadTime = Date.now() - start;
+  113 |     expect(loadTime).toBeLessThan(10000);
+  114 |   });
+```

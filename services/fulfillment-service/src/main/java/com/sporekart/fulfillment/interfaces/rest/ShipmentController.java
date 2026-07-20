@@ -5,6 +5,7 @@ import com.sporekart.fulfillment.domain.model.Shipment;
 import com.sporekart.fulfillment.domain.model.ShipmentItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public class ShipmentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Shipment> create(@RequestBody CreateShipmentRequest request) {
         Shipment shipment = shipmentService.create(request.orderId(), request.customerId(), request.shippingCharge(),
                 request.items());
@@ -27,21 +29,25 @@ public class ShipmentController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Shipment>> list(@RequestParam String customerId) {
         return ResponseEntity.ok(shipmentService.listByCustomer(customerId));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Shipment> getById(@PathVariable String id) {
         return shipmentService.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{id}/cancel")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Shipment> cancel(@PathVariable String id) {
         return ResponseEntity.ok(shipmentService.cancel(id));
     }
 
     @PostMapping("/{id}/pickup")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Shipment> pickup(@PathVariable String id) {
         return ResponseEntity.ok(shipmentService.schedulePickup(id));
     }

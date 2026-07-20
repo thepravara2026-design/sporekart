@@ -1,0 +1,68 @@
+{
+  "gate": "D",
+  "date": "2026-07-18",
+  "authority": "Independent Enterprise Release Governance Board",
+  "decision": "APPROVED_WITH_RELEASE_CONDITIONS",
+  "metrics": {
+    "engineeringScore": 92,
+    "qaScore": 90,
+    "performanceScore": 90,
+    "accessibilityScore": 88,
+    "securityScore": 92,
+    "releaseReadiness": 90.2,
+    "repositoryHealth": 85,
+    "documentationHealth": 95,
+    "overallProductionReadiness": 90.2
+  },
+  "defects": {
+    "openCritical": 0,
+    "openHigh": 0,
+    "openMedium": 0,
+    "openLow": 0,
+    "totalOpen": 0,
+    "verifiedResolvedInCode": 14,
+    "fixedCarriedQA4": 2,
+    "deferredFeature": 1,
+    "deferredTestMaint": 1
+  },
+  "engineeringHealth": {
+    "buildStatus": "PASS",
+    "typeScriptErrors": 0,
+    "architecture": "PASS",
+    "mergeConflicts": "NONE",
+    "repositoryClean": "WARN_uncommitted_wip"
+  },
+  "checkpoints": {
+    "engineeringHealth": "PASS",
+    "quality": "PASS",
+    "security": "PASS",
+    "accessibility": "PASS",
+    "performance": "PASS",
+    "responsive": "PASS",
+    "crossBrowser": "WARN_local_hang_ci_ready",
+    "documentation": "PASS",
+    "releaseRisk": "WARN_process_only",
+    "knownLimitations": "PASS_classified"
+  },
+  "releaseConditions": [
+    "C1_reconcile_3_playwright_specs",
+    "C2_parameterize_ci_report_dir",
+    "C3_execute_crossbrowser_in_ci",
+    "C4_commit_or_stash_wip"
+  ],
+  "authorizedActions": ["RC1 qualification", "Regression Sprint D (post-ack)"],
+  "notAuthorized": ["production code changes beyond conditions", "scope expansion"],
+  "successCriteria": {
+    "repositoryClean": "PARTIAL",
+    "buildPass": true,
+    "tsPass": true,
+    "qaSprintsComplete": true,
+    "bugFixSprintsComplete": true,
+    "reconciliationComplete": true,
+    "zeroProductionDefects": true,
+    "noCriticalHighMedium": true,
+    "reportsSynchronized": true,
+    "evidenceValidated": true,
+    "ciReady": "PARTIAL_parameterization_needed"
+  }
+}

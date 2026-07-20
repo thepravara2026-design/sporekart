@@ -1,0 +1,148 @@
+{
+  "report": "Session Management Validation Report",
+  "sprint": "QA Sprint 2 — Part 2",
+  "timestamp": "2026-07-16T21:36:00Z",
+  "summary": {
+    "totalTests": 8,
+    "pass": 7,
+    "fail": 1,
+    "blocked": 0,
+    "passRate": 87.5
+  },
+  "results": [
+    {
+      "testCaseId": "TC-SESS-001",
+      "title": "AuthLoadingPage resolves and redirects to home",
+      "preconditions": "User navigates to /auth/loading.",
+      "steps": [
+        "Load /auth/loading page.",
+        "Verify loader animations and establishing status are displayed.",
+        "Wait 1.6 seconds and verify automatic redirect to home page."
+      ],
+      "expectedResult": "Page resolves transition and redirects user safely to home.",
+      "actualResult": "Redirected successfully to home page.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:35:00Z"
+    },
+    {
+      "testCaseId": "TC-SESS-002",
+      "title": "SessionExpiredPage warning and re-auth link",
+      "preconditions": "User navigates to /session-expired directly.",
+      "steps": [
+        "Load /session-expired.",
+        "Check that clock warning status icon and text are visible.",
+        "Click on 'Sign in again' and check redirect to /login."
+      ],
+      "expectedResult": "Warning message displayed and sign in link routes to /login.",
+      "actualResult": "Rendered successfully and redirected to /login.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:35:10Z"
+    },
+    {
+      "testCaseId": "TC-SESS-003",
+      "title": "LoggedOutPage info and back home actions",
+      "preconditions": "User is signed out and redirected to /session-expired or preview/session.",
+      "steps": [
+        "View LoggedOutPage rendering.",
+        "Check redirect back to home page works."
+      ],
+      "expectedResult": "Sign out success title visible and home link redirects.",
+      "actualResult": "Successfully completed redirection.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:35:20Z"
+    },
+    {
+      "testCaseId": "TC-SESS-004",
+      "title": "AccessDeniedPage redirects and 403 indicators",
+      "preconditions": "User navigates to /access-denied.",
+      "steps": [
+        "Verify warning status screens.",
+        "Verify primary action goes back to home page."
+      ],
+      "expectedResult": "Access denied warning appears and routes back to homepage.",
+      "actualResult": "Redirection completed.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:35:30Z"
+    },
+    {
+      "testCaseId": "TC-SESS-005",
+      "title": "Manual logout navigation",
+      "preconditions": "User is signed in and on customer dashboard `/dashboard`.",
+      "steps": [
+        "Click on the Logout menu item in the TopNav.",
+        "Verify navigation to `/login` occurs."
+      ],
+      "expectedResult": "Navigates to `/login` and destroys session reference.",
+      "actualResult": "Redirected to login successfully.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:35:45Z"
+    },
+    {
+      "testCaseId": "TC-SESS-006",
+      "title": "SessionTimeoutWarning focus management and accessibility",
+      "preconditions": "User session is idle and warning opens.",
+      "steps": [
+        "Trigger isWarning state on useSession.",
+        "Verify alertdialog mounts.",
+        "Try pressing Tab key to check if focus is trapped or automatically moved to the primary action button."
+      ],
+      "expectedResult": "Focus moves to primary action 'Stay signed in' button and user cannot tab outside modal content.",
+      "actualResult": "Focus remains on page background; keyboard focus is not trapped, allowing tab navigation behind the dialog overlay.",
+      "status": "FAIL",
+      "defectId": "BUG-QA-2-003",
+      "severity": "Medium",
+      "priority": "High",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:36:00Z"
+    },
+    {
+      "testCaseId": "TC-SESS-007",
+      "title": "Session state persistence on page reload",
+      "preconditions": "User is active on admin workspace.",
+      "steps": [
+        "Trigger session activity.",
+        "Reload the browser tab.",
+        "Check that session status remains 'active'."
+      ],
+      "expectedResult": "Session persists across page reloads.",
+      "actualResult": "Session active state persisted.",
+      "status": "PASS",
+      "severity": "High",
+      "priority": "Medium",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:36:15Z"
+    },
+    {
+      "testCaseId": "TC-SESS-008",
+      "title": "Last active page restoration on re-authentication",
+      "preconditions": "User session has expired on active page.",
+      "steps": [
+        "Store active page path in sessionStorage.",
+        "Redirect to SessionExpired page.",
+        "Verify stored page details exist in component state."
+      ],
+      "expectedResult": "Stores last admin path correctly.",
+      "actualResult": "Stored path read successfully from sessionStorage.",
+      "status": "PASS",
+      "severity": "Medium",
+      "priority": "Low",
+      "browser": "Chromium, Firefox, WebKit",
+      "timestamp": "2026-07-16T21:36:30Z"
+    }
+  ]
+}

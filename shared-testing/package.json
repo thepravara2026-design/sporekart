@@ -1,0 +1,39 @@
+{
+  "name": "shared-testing",
+  "version": "1.0.0",
+  "description": "Shared package placeholder.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:mobile": "npx playwright test --project=mobile-chrome --project=mobile-safari",
+    "test:tablet": "npx playwright test --project=tablet",
+    "test:smoke": "npx playwright test smoke.spec.ts",
+    "test:regression": "npx playwright test regression.spec.ts",
+    "test:cross-browser": "npx playwright test cross-browser.spec.ts customer-journey-cross-browser.spec.ts",
+    "test:accessibility": "npx playwright test accessibility.spec.ts ux-accessibility-validation.spec.ts customer-journey-a11y-perf.spec.ts checkout-security-a11y-perf.spec.ts",
+    "test:security": "npx playwright test security-validation.spec.ts auth-validation.spec.ts auth-apis.spec.ts rbac-authorization.spec.ts session-management.spec.ts protected-routes.spec.ts",
+    "test:performance": "npx playwright test performance.spec.ts performance-validation.spec.ts checkout-security-a11y-perf.spec.ts",
+    "test:customer-journey": "npx playwright test customer-journey-*.spec.ts",
+    "test:checkout": "npx playwright test checkout-*.spec.ts",
+    "test:admin": "npx playwright test admin-console.spec.ts",
+    "test:ci": "npx playwright test",
+    "test:ci:shard": "npx playwright test --shard=$SHARD_INDEX/$SHARD_COUNT",
+    "typecheck": "npx tsc -b --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "axe-core": "^4.12.1",
+    "eslint": "^10.7.0",
+    "lighthouse": "^13.4.0",
+    "prettier": "^3.9.5",
+    "typescript": "^7.0.2"
+  }
+}

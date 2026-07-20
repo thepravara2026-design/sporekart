@@ -1,0 +1,13 @@
+{
+  "url": "/",
+  "headers": {
+    "cache-control": "no-cache",
+    "connection": "keep-alive",
+    "content-type": "text/html",
+    "date": "Sat, 18 Jul 2026 05:45:10 GMT",
+    "etag": "W/\"1b4-QABQr7WENCRf13lLgYraKu9CYqg\"",
+    "keep-alive": "timeout=5",
+    "transfer-encoding": "chunked",
+    "vary": "Origin"
+  }
+}

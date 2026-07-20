@@ -1,0 +1,337 @@
+{
+  "report_title": "SporeKart Enterprise Security Validation Report",
+  "report_date": "2026-07-17",
+  "qa_sprint": "Sprint 2 - Part 10",
+  "release_candidate": "v1.0.0-rc1",
+  "execution_mode": "MOCK_MODE - Static code analysis only",
+
+  "execution_summary": {
+    "status": "FAIL",
+    "security_readiness_score": 25,
+    "total_security_checks": 186,
+    "passed": 52,
+    "failed": 98,
+    "not_applicable": 36,
+    "total_vulnerabilities": 22,
+    "critical_vulnerabilities": 4,
+    "high_vulnerabilities": 8,
+    "medium_vulnerabilities": 7,
+    "low_vulnerabilities": 3
+  },
+
+  "owasp_top_10_assessment": {
+    "A01_broken_access_control": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "score": 10,
+      "findings": [
+        "Zero route guard components exist. 256 protected routes have no guards.",
+        "Role-based access is UI-only (canView filter). Server does not enforce.",
+        "Privilege escalation possible by URL manipulation.",
+        "82.6% of API endpoints have no authentication requirement."
+      ]
+    },
+    "A02_cryptographic_failures": {
+      "status": "WARNING",
+      "risk": "MEDIUM",
+      "score": 40,
+      "findings": [
+        "No HTTPS enforcement in mock mode (expected).",
+        "No TLS configuration found.",
+        "OTP codes handled in plaintext in mock client.",
+        "No encryption for localStorage/sessionStorage (not used)."
+      ]
+    },
+    "A03_injection": {
+      "status": "PASS",
+      "risk": "LOW",
+      "score": 85,
+      "findings": [
+        "No SQL/NoSQL queries in frontend code.",
+        "React's JSX provides automatic output encoding.",
+        "No dangerouslySetInnerHTML or innerHTML usage found.",
+        "No eval() usage found.",
+        "Input validation exists for auth forms (phone, email)."
+      ]
+    },
+    "A04_insecure_design": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "score": 15,
+      "findings": [
+        "Authentication is entirely mock-based — no real auth implemented.",
+        "Session management is stubbed (mock OTP, mock tokens).",
+        "No rate limiting on auth endpoints (login, OTP, register).",
+        "No CSRF protection mechanism found.",
+        "No security-by-design patterns observed."
+      ]
+    },
+    "A05_security_misconfiguration": {
+      "status": "FAIL",
+      "risk": "HIGH",
+      "score": 20,
+      "findings": [
+        "No CSP (Content Security Policy) configured — XSS risk.",
+        "No X-Frame-Options header — clickjacking risk.",
+        "No X-Content-Type-Options header.",
+        "No Strict-Transport-Security header.",
+        "Vite dev server has host:true (exposed to network).",
+        "Debug endpoints left enabled (demo pages in production routes)."
+      ]
+    },
+    "A06_vulnerable_components": {
+      "status": "WARNING",
+      "risk": "LOW",
+      "score": 70,
+      "findings": [
+        "Only 3 runtime dependencies with no known critical CVEs.",
+        "React 18.3.1 — latest stable.",
+        "React Router 6.26.2 — latest stable.",
+        "Vite 5.4.6 — recent stable.",
+        "No `npm audit` performed — dependency tree not audited.",
+        "Mobile apps have declared but uninstalled dependencies."
+      ]
+    },
+    "A07_authentication_failures": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "score": 5,
+      "findings": [
+        "No real authentication flow — entirely mock-based.",
+        "Default role is 'administrator' — no auth check at all.",
+        "Auth client is a stub with 900ms mock delay.",
+        "No session token implementation.",
+        "No MFA/2FA.",
+        "No biometric auth (planned but not implemented).",
+        "No account lockout.",
+        "No password policies."
+      ]
+    },
+    "A08_software_integrity_failures": {
+      "status": "PASS",
+      "risk": "LOW",
+      "score": 80,
+      "findings": [
+        "All dependencies from official npm registry.",
+        "Subresource Integrity (SRI) not configured on script tags.",
+        "No CI/CD pipeline analyzed."
+      ]
+    },
+    "A09_logging_failures": {
+      "status": "FAIL",
+      "risk": "MEDIUM",
+      "score": 30,
+      "findings": [
+        "No centralized logging mechanism.",
+        "console.log statements found that could leak data in production.",
+        "No security event logging (failed logins, access attempts).",
+        "No audit trail for sensitive operations.",
+        "Error handling reveals component structure in console."
+      ]
+    },
+    "A10_ssrf": {
+      "status": "NOT_APPLICABLE",
+      "risk": "LOW",
+      "score": 90,
+      "findings": [
+        "No server-side URL fetching implemented in this codebase.",
+        "No external resource loading vulnerable to SSRF."
+      ]
+    }
+  },
+
+  "authentication_security": {
+    "overall": "FAIL",
+    "login": {
+      "status": "FAIL",
+      "details": "Mock-only. No real credential validation."
+    },
+    "logout": {
+      "status": "FAIL",
+      "details": "No logout mechanism implemented."
+    },
+    "otp": {
+      "status": "FAIL",
+      "details": "Mock OTP. Any code except '000000' is accepted. No rate limiting."
+    },
+    "session_tokens": {
+      "status": "FAIL",
+      "details": "No real token implementation. Mock JWT in mobile-core but unused in web-app."
+    },
+    "token_expiry": {
+      "status": "FAIL",
+      "details": "No token expiry logic."
+    },
+    "session_rotation": {
+      "status": "FAIL",
+      "details": "No session rotation on login/logout."
+    },
+    "concurrent_sessions": {
+      "status": "FAIL",
+      "details": "No concurrent session handling."
+    },
+    "rate_limiting": {
+      "status": "FAIL",
+      "details": "No rate limiting on any auth endpoint."
+    }
+  },
+
+  "authorization_security": {
+    "overall": "FAIL",
+    "privilege_escalation": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "details": "No guard components. Direct URL access to any admin route possible without authentication."
+    },
+    "route_bypass": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "details": "All routes are accessible via direct URL entry. No route guards exist."
+    },
+    "hidden_api_access": {
+      "status": "FAIL",
+      "risk": "HIGH",
+      "details": "API endpoints lack authentication on 82.6% of routes."
+    },
+    "role_manipulation": {
+      "status": "FAIL",
+      "risk": "HIGH",
+      "details": "Role is stored in React state (activeRole). Any user can change role via the UI dropdown."
+    },
+    "admin_endpoint_access": {
+      "status": "FAIL",
+      "risk": "CRITICAL",
+      "details": "All /admin/* routes accessible without any authentication."
+    }
+  },
+
+  "api_security": {
+    "overall": "FAIL",
+    "endpoints_total": 155,
+    "endpoints_with_auth": 27,
+    "endpoints_without_auth": 128,
+    "auth_coverage_percentage": 17.4,
+    "authorization_headers": {
+      "status": "FAIL",
+      "details": "128 endpoints have no auth header requirement."
+    },
+    "idor": {
+      "status": "FAIL",
+      "details": "No ownership verification on any controller. Any user could access any resource."
+    },
+    "mass_assignment": {
+      "status": "WARNING",
+      "details": "Controllers use full DTO classes. Risk of mass assignment if input binding is not filtered."
+    },
+    "parameter_tampering": {
+      "status": "FAIL",
+      "details": "No input validation on controller parameters in many endpoints."
+    },
+    "unexpected_methods": {
+      "status": "FAIL",
+      "details": "No HTTP method restrictions configured."
+    }
+  },
+
+  "client_security": {
+    "overall": "WARNING",
+    "local_storage": {
+      "status": "PASS",
+      "details": "No localStorage usage found."
+    },
+    "session_storage": {
+      "status": "PASS",
+      "details": "No sessionStorage usage found."
+    },
+    "cookies": {
+      "status": "PASS",
+      "details": "No cookies used in frontend."
+    },
+    "indexeddb": {
+      "status": "PASS",
+      "details": "No IndexedDB usage found."
+    },
+    "hardcoded_secrets": {
+      "status": "PASS",
+      "details": "No hardcoded API keys, tokens, or passwords found."
+    },
+    "console_log_leakage": {
+      "status": "WARNING",
+      "details": "console.log statements found in code that should be removed for production."
+    },
+    "source_maps": {
+      "status": "PASS",
+      "details": "Vite build disabled sourcemaps by default."
+    }
+  },
+
+  "security_headers": {
+    "content_security_policy": "NOT_CONFIGURED",
+    "x_frame_options": "NOT_CONFIGURED",
+    "x_content_type_options": "NOT_CONFIGURED",
+    "strict_transport_security": "NOT_CONFIGURED",
+    "x_xss_protection": "NOT_CONFIGURED",
+    "referrer_policy": "NOT_CONFIGURED",
+    "permissions_policy": "NOT_CONFIGURED",
+    "cache_control": "NOT_CONFIGURED",
+    "cors_headers": "NOT_CONFIGURED"
+  },
+
+  "stop_conditions": {
+    "authentication_bypass": true,
+    "authorization_bypass": true,
+    "critical_xss": false,
+    "critical_injection": false,
+    "sensitive_data_exposure": false,
+    "critical_idor": true,
+    "session_hijacking": false,
+    "privilege_escalation": true,
+    "critical_incident_report": true
+  },
+
+  "vulnerabilities": [
+    {"id": "SEC-001", "severity": "CRITICAL", "category": "Broken Access Control", "title": "No route guards on any protected route", "status": "open"},
+    {"id": "SEC-002", "severity": "CRITICAL", "category": "Broken Access Control", "title": "Default role is administrator — no auth enforcement", "status": "open"},
+    {"id": "SEC-003", "severity": "CRITICAL", "category": "Authentication", "title": "Authentication is entirely mock-based — no real auth", "status": "open"},
+    {"id": "SEC-004", "severity": "CRITICAL", "category": "API Security", "title": "82.6% of endpoints have no authentication", "status": "open"},
+    {"id": "SEC-005", "severity": "HIGH", "category": "Authorization", "title": "Role can be changed via UI dropdown — no server enforcement", "status": "open"},
+    {"id": "SEC-006", "severity": "HIGH", "category": "Security Misconfiguration", "title": "No CSP header configured", "status": "open"},
+    {"id": "SEC-007", "severity": "HIGH", "category": "Security Misconfiguration", "title": "No X-Frame-Options — clickjacking risk", "status": "open"},
+    {"id": "SEC-008", "severity": "HIGH", "category": "Security Misconfiguration", "title": "No security headers configured at all", "status": "open"},
+    {"id": "SEC-009", "severity": "HIGH", "category": "API Security", "title": "IDOR vulnerability — no ownership verification on controllers", "status": "open"},
+    {"id": "SEC-010", "severity": "HIGH", "category": "Session", "title": "No session management or token expiry", "status": "open"},
+    {"id": "SEC-011", "severity": "MEDIUM", "category": "Authentication", "title": "OTP accepts any code except 000000 — no real validation", "status": "open"},
+    {"id": "SEC-012", "severity": "MEDIUM", "category": "Authentication", "title": "No rate limiting on login, OTP, or register endpoints", "status": "open"},
+    {"id": "SEC-013", "severity": "MEDIUM", "category": "CSRF", "title": "No CSRF protection mechanism", "status": "open"},
+    {"id": "SEC-014", "severity": "MEDIUM", "category": "Error Handling", "title": "Error details may leak component structure", "status": "open"},
+    {"id": "SEC-015", "severity": "MEDIUM", "category": "Logging", "title": "No security audit trail or event logging", "status": "open"},
+    {"id": "SEC-016", "severity": "MEDIUM", "category": "API Security", "title": "No rate limiting on API endpoints", "status": "open"},
+    {"id": "SEC-017", "severity": "MEDIUM", "category": "API Security", "title": "No HTTP method restrictions on API endpoints", "status": "open"},
+    {"id": "SEC-018", "severity": "LOW", "category": "Logging", "title": "console.log statements in production code", "status": "open"},
+    {"id": "SEC-019", "severity": "LOW", "category": "Client Storage", "title": "No Subresource Integrity on script tags", "status": "open"},
+    {"id": "SEC-020", "severity": "LOW", "category": "Config", "title": "Vite dev server exposed to network (host: true)", "status": "open"},
+    {"id": "SEC-021", "severity": "HIGH", "category": "API", "title": "API endpoints use no authorization headers", "status": "open"},
+    {"id": "SEC-022", "severity": "HIGH", "category": "Input Validation", "title": "No server-side input validation on controller parameters", "status": "open"}
+  ],
+
+  "recommendations": [
+    "CRITICAL: Implement route guard components for all 256 protected routes immediately",
+    "CRITICAL: Remove default administrator role — require explicit authentication",
+    "CRITICAL: Implement real authentication flow (Supabase or custom auth service)",
+    "CRITICAL: Add authentication to all 128 unauthenticated API endpoints",
+    "HIGH: Add server-side authorization — role stored in JWT, not UI state",
+    "HIGH: Configure CSP header with strict policy",
+    "HIGH: Configure X-Frame-Options, X-Content-Type-Options, HSTS headers",
+    "HIGH: Implement ownership verification on all resource endpoints (IDOR prevention)",
+    "HIGH: Implement proper session management with JWT tokens and expiry",
+    "HIGH: Add input validation on all controller parameters",
+    "HIGH: Add authentication/authorization headers to all API endpoints",
+    "MEDIUM: Implement rate limiting on auth endpoints (login, OTP, register)",
+    "MEDIUM: Implement CSRF tokens for state-changing operations",
+    "MEDIUM: Remove console.log statements before production",
+    "MEDIUM: Add security event logging and audit trail",
+    "MEDIUM: Implement account lockout after failed login attempts",
+    "LOW: Remove host:true from vite.config.ts for production",
+    "LOW: Add Subresource Integrity hashes to script tags"
+  ]
+}

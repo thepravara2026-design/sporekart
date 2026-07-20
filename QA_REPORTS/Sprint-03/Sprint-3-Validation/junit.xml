@@ -1,0 +1,1013 @@
+<testsuites id="" name="" tests="60" failures="8" skipped="0" errors="1" time="101.1155">
+<testsuite name="sprint-03-validation.spec.ts" timestamp="2026-07-18T04:28:42.186Z" hostname="chromium" tests="60" failures="8" skipped="0" time="88.134" errors="1">
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 1. Customer Dashboard (/dashboard) › Dashboard page loads with key elements" classname="sprint-03-validation.spec.ts" time="1.108">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:43:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 1. Customer Dashboard (/dashboard) › Dashboard page loads with key elements 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 14
+
+      47 |       const bodyText = await body.innerText();
+      48 |       expect(bodyText.length).toBeGreaterThan(20);
+    > 49 |       expect(errors.length).toBe(0);
+         |                             ^
+      50 |     });
+      51 |
+      52 |     test('Dashboard navigation links are present', async ({ page }) => {
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:49:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-dfc46-age-loads-with-key-elements-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 1. Customer Dashboard (/dashboard) › Dashboard navigation links are present" classname="sprint-03-validation.spec.ts" time="1.105">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBeGreaterThanOrEqual(expected)" type="expect.toBeGreaterThanOrEqual">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:52:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 1. Customer Dashboard (/dashboard) › Dashboard navigation links are present 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 2
+    Received:    0
+
+      57 |       const hrefs = await links.evaluateAll((els) => els.map((el) => (el as HTMLAnchorElement).href));
+      58 |       const dashboardRoutes = hrefs.filter((h) => h.includes('/dashboard/'));
+    > 59 |       expect(dashboardRoutes.length).toBeGreaterThanOrEqual(2);
+         |                                      ^
+      60 |     });
+      61 |
+      62 |     test('Dashboard quick actions render', async ({ page }) => {
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:59:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b1036-avigation-links-are-present-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 1. Customer Dashboard (/dashboard) › Dashboard quick actions render" classname="sprint-03-validation.spec.ts" time="0.998">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-75743-hboard-quick-actions-render-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 2. User Profile (/dashboard/profile) › Profile overview page renders" classname="sprint-03-validation.spec.ts" time="0.968">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:71:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 2. User Profile (/dashboard/profile) › Profile overview page renders 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 14
+
+      72 |       const { status, errors } = await navigateAndCapture(page, '/dashboard/profile', '02-profile-overview');
+      73 |       expect(status).toBeLessThan(500);
+    > 74 |       expect(errors.length).toBe(0);
+         |                             ^
+      75 |     });
+      76 |
+      77 |     test('Profile edit page renders', async ({ page }) => {
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:74:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-af822-ofile-overview-page-renders-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 2. User Profile (/dashboard/profile) › Profile edit page renders" classname="sprint-03-validation.spec.ts" time="0.993">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-11af9-e-Profile-edit-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 2. User Profile (/dashboard/profile) › Security settings page renders" classname="sprint-03-validation.spec.ts" time="1.089">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d9b24-urity-settings-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 2. User Profile (/dashboard/profile) › Preferences page renders" classname="sprint-03-validation.spec.ts" time="1.157">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-db615-le-Preferences-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 3. Address Management (/dashboard/addresses) › Address list page renders" classname="sprint-03-validation.spec.ts" time="1.201">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a53fe-s-Address-list-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 3. Address Management (/dashboard/addresses) › Add address page renders" classname="sprint-03-validation.spec.ts" time="0.953">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bd97a-es-Add-address-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 4. Notifications (/dashboard/notifications) › Notification center loads" classname="sprint-03-validation.spec.ts" time="0.926">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:108:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 4. Notifications (/dashboard/notifications) › Notification center loads 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 14
+
+      109 |       const { status, errors } = await navigateAndCapture(page, '/dashboard/notifications', '04-notifications');
+      110 |       expect(status).toBeLessThan(500);
+    > 111 |       expect(errors.length).toBe(0);
+          |                             ^
+      112 |     });
+      113 |   });
+      114 |
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:111:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-713d8-s-Notification-center-loads-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 5. Wishlist (/dashboard/wishlist) › Wishlist page loads" classname="sprint-03-validation.spec.ts" time="0.984">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-f7ec6-ishlist-Wishlist-page-loads-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 5. Wishlist (/dashboard/wishlist) › Wishlist has sort controls if content present" classname="sprint-03-validation.spec.ts" time="0.965">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5ee29-controls-if-content-present-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 6. Training Module (/dashboard/training) › Training dashboard loads" classname="sprint-03-validation.spec.ts" time="0.936">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e470-ng-Training-dashboard-loads-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 6. Training Module (/dashboard/training) › Course library renders" classname="sprint-03-validation.spec.ts" time="1">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-451e6-ning-Course-library-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 6. Training Module (/dashboard/training) › My Learning page renders" classname="sprint-03-validation.spec.ts" time="0.947">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-9ba6f-ng-My-Learning-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 6. Training Module (/dashboard/training) › Certificates page renders" classname="sprint-03-validation.spec.ts" time="1.027">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-de270-g-Certificates-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 6. Training Module (/dashboard/training) › Course detail page renders" classname="sprint-03-validation.spec.ts" time="0.927">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4b4e--Course-detail-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 7. Grower Dashboard › Grower view loads with role switcher" classname="sprint-03-validation.spec.ts" time="1.775">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4d201-ew-loads-with-role-switcher-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin dashboard loads" classname="sprint-03-validation.spec.ts" time="0.986">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-10448-admin-Admin-dashboard-loads-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin sidebar navigation renders" classname="sprint-03-validation.spec.ts" time="0.925">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-46bac--sidebar-navigation-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin profile page renders" classname="sprint-03-validation.spec.ts" time="0.951">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78fd1--Admin-profile-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin settings page renders" classname="sprint-03-validation.spec.ts" time="0.935">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-287d0-Admin-settings-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin system page renders" classname="sprint-03-validation.spec.ts" time="1.018">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-018d4-n-Admin-system-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin help page renders" classname="sprint-03-validation.spec.ts" time="0.957">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-734fb-min-Admin-help-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin products page renders" classname="sprint-03-validation.spec.ts" time="1.001">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5690c-Admin-products-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin orders page renders" classname="sprint-03-validation.spec.ts" time="0.954">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-d7542-n-Admin-orders-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 8. Admin Dashboard (/admin) › Admin customers page renders" classname="sprint-03-validation.spec.ts" time="0.941">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b4586-dmin-customers-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Homepage role switcher exists with expected roles" classname="sprint-03-validation.spec.ts" time="6.635">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:226:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Homepage role switcher exists with expected roles 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('select[aria-label="Switch review role"]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('select[aria-label="Switch review role"]')
+
+
+      227 |       await page.goto('/', { waitUntil: 'networkidle' });
+      228 |       const select = page.locator('select[aria-label="Switch review role"]');
+    > 229 |       await expect(select).toBeVisible();
+          |                            ^
+      230 |       const options = await select.locator('option').allTextContents();
+      231 |       expect(options.length).toBeGreaterThanOrEqual(3);
+      232 |     });
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:229:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a7039--exists-with-expected-roles-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Admin routes accessible without auth guard" classname="sprint-03-validation.spec.ts" time="1.106">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-a3281-cessible-without-auth-guard-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Unauthenticated guest redirected from /dashboard" classname="sprint-03-validation.spec.ts" time="2.039">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:239:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Unauthenticated guest redirected from /dashboard 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      249 |       const isBlocked = bodyText.includes('Access restricted') || bodyText.includes('sign in') || bodyText.includes('login');
+      250 |       if (resp?.status() === 200) {
+    > 251 |         expect(isBlocked).toBe(true);
+          |                           ^
+      252 |       }
+      253 |     });
+      254 |
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:251:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2092b-t-redirected-from-dashboard-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Role switcher state persists after SPA navigation" classname="sprint-03-validation.spec.ts" time="17.362">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\trace.zip]]
+]]>
+</system-out>
+<error message="locator.selectOption: Timeout 15000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:255:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 9. RBAC / Route Protection › Role switcher state persists after SPA navigation 
+
+    TimeoutError: locator.selectOption: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for locator('select[aria-label="Switch review role"]')
+
+
+      256 |       await page.goto('/', { waitUntil: 'networkidle' });
+      257 |       const select = page.locator('select[aria-label="Switch review role"]');
+    > 258 |       await select.selectOption('grower');
+          |                    ^
+      259 |       await page.waitForTimeout(300);
+      260 |       await page.goto('/products', { waitUntil: 'networkidle' });
+      261 |       const currentRole = await select.inputValue();
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:258:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-98bba-rsists-after-SPA-navigation-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 10. Error States › 404 page renders for unknown route" classname="sprint-03-validation.spec.ts" time="0.924">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c1a00-e-renders-for-unknown-route-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 10. Error States › Auth error gallery renders" classname="sprint-03-validation.spec.ts" time="1.126">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-cc389--Auth-error-gallery-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 11. Empty States › Empty wishlist state is handled" classname="sprint-03-validation.spec.ts" time="0.931">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa779-y-wishlist-state-is-handled-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 11. Empty States › Empty notifications state is handled" classname="sprint-03-validation.spec.ts" time="0.933">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d8d3-ifications-state-is-handled-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 12. Loading States › Loading indicators present on data-dependent pages" classname="sprint-03-validation.spec.ts" time="0.893">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-70810-ent-on-data-dependent-pages-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 13. Session Management › Session expired page renders with actions" classname="sprint-03-validation.spec.ts" time="0.995">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-30b64-d-page-renders-with-actions-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 13. Session Management › Access denied page renders with status indicators" classname="sprint-03-validation.spec.ts" time="0.904">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fbc94-ders-with-status-indicators-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 13. Session Management › Auth loading page renders" classname="sprint-03-validation.spec.ts" time="1.078">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-0242d-t-Auth-loading-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 14. Mobile Responsiveness › Dashboard renders at mobile viewport (375px)" classname="sprint-03-validation.spec.ts" time="0.873">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-524f8-s-at-mobile-viewport-375px--chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 14. Mobile Responsiveness › Products page renders at mobile viewport" classname="sprint-03-validation.spec.ts" time="1.097">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-ef09b--renders-at-mobile-viewport-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 14. Mobile Responsiveness › Dashboard renders at tablet viewport (768px)" classname="sprint-03-validation.spec.ts" time="0.86">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-435cc-s-at-tablet-viewport-768px--chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 14. Mobile Responsiveness › No horizontal scroll on dashboard at mobile" classname="sprint-03-validation.spec.ts" time="0.951">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-5e6eb-roll-on-dashboard-at-mobile-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 15. Accessibility › Skip to content link is present" classname="sprint-03-validation.spec.ts" time="1.413">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4fc94--to-content-link-is-present-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 15. Accessibility › ARIA landmarks present on dashboard pages" classname="sprint-03-validation.spec.ts" time="0.952">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBeGreaterThanOrEqual(expected)" type="expect.toBeGreaterThanOrEqual">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:365:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 15. Accessibility › ARIA landmarks present on dashboard pages 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 2
+    Received:    0
+
+      371 |       const navCount = await navigation.count();
+      372 |       const bannerCount = await banner.count();
+    > 373 |       expect(mainCount + navCount + bannerCount).toBeGreaterThanOrEqual(2);
+          |                                                  ^
+      374 |     });
+      375 |
+      376 |     test('Images have alt text', async ({ page }) => {
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:373:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-fa88b--present-on-dashboard-pages-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 15. Accessibility › Images have alt text" classname="sprint-03-validation.spec.ts" time="1.51">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-e8d78-bility-Images-have-alt-text-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 15. Accessibility › Semantic heading structure on homepage" classname="sprint-03-validation.spec.ts" time="1.596">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-891d2-ading-structure-on-homepage-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 16. Keyboard Navigation › Skip link is first focusable element" classname="sprint-03-validation.spec.ts" time="1.672">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-96e0d--is-first-focusable-element-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 16. Keyboard Navigation › Login form is keyboard navigable" classname="sprint-03-validation.spec.ts" time="0.934">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-c5756--form-is-keyboard-navigable-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › No console errors on public pages" classname="sprint-03-validation.spec.ts" time="1.341">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-3a1ed-sole-errors-on-public-pages-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › No console errors on login page" classname="sprint-03-validation.spec.ts" time="0.898">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\error-context.md]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › sprint-03-validation.spec.ts:427:9 › QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › No console errors on login page 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 14
+
+      429 |       await page.goto('/login', { waitUntil: 'networkidle' });
+      430 |       const errors = await errorPromise;
+    > 431 |       expect(errors.length).toBe(0);
+          |                             ^
+      432 |     });
+      433 |
+      434 |     test('No sensitive data in dashboard page source', async ({ page }) => {
+        at F:\The Pravara\clients\sporekart\sporekart\QA_REPORTS\Sprint-03\sprint-03-validation.spec.ts:431:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bed7a-onsole-errors-on-login-page-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › No sensitive data in dashboard page source" classname="sprint-03-validation.spec.ts" time="0.965">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-4439c-ta-in-dashboard-page-source-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › No sensitive data in admin page source" classname="sprint-03-validation.spec.ts" time="1.044">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-acd69-e-data-in-admin-page-source-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 17. Security › Auth pages do not expose PII in HTML source" classname="sprint-03-validation.spec.ts" time="1.04">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-2458b-t-expose-PII-in-HTML-source-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 18. Input Validation › Login form validates empty submission" classname="sprint-03-validation.spec.ts" time="1.08">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-7d5a6--validates-empty-submission-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 18. Input Validation › Login form rejects invalid phone number" classname="sprint-03-validation.spec.ts" time="0.961">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-15fb0-ejects-invalid-phone-number-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 18. Input Validation › Forgot password page renders" classname="sprint-03-validation.spec.ts" time="0.913">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-19322-orgot-password-page-renders-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 19. Cross-Page Navigation Integrity › Public website routes are reachable" classname="sprint-03-validation.spec.ts" time="1.237">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-78e86-ebsite-routes-are-reachable-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 19. Cross-Page Navigation Integrity › Dashboard sub-routes are reachable" classname="sprint-03-validation.spec.ts" time="0.776">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-b35f0-rd-sub-routes-are-reachable-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="QA Sprint 3 — Comprehensive Functional Area Validation › 19. Cross-Page Navigation Integrity › Local navigation links do not cause 404s" classname="sprint-03-validation.spec.ts" time="3.368">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\test-finished-1.png]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\video.webm]]
+
+[[ATTACHMENT|..\..\..\shared-testing\test-results\sprint-03-validation-QA-Sp-bbfaa-ion-links-do-not-cause-404s-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
