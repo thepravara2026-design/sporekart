@@ -20,7 +20,7 @@ const QUICK_ACTIONS: Command[] = [
 ];
 
 export default function CommandPalette() {
-  const { paletteOpen, setPaletteOpen, activeRole } = useApp();
+  const { paletteOpen, setPaletteOpen, auth } = useApp();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
@@ -29,10 +29,10 @@ export default function CommandPalette() {
   const commands = useMemo<Command[]>(() => {
     const nav: Command[] = [];
     for (const ws of WORKSPACES) {
-      if (!canView(ws.roles, activeRole as Role)) continue;
+      if (!canView(ws.roles, auth.userRole as Role)) continue;
       for (const page of ws.children) {
         if (page.path === '/') continue;
-        if (!canView(page.roles, activeRole as Role)) continue;
+        if (!canView(page.roles, auth.userRole as Role)) continue;
         nav.push({
           id: `nav-${page.path}`,
           label: `Go to ${ws.label} › ${page.label}`,
@@ -52,10 +52,10 @@ export default function CommandPalette() {
         ticket: '/support/tickets',
       };
       const page = WORKSPACES.flatMap((w) => w.children).find((p) => p.path === map[target]);
-      return page ? canView(page.roles, activeRole as Role) : true;
+      return page ? canView(page.roles, auth.userRole as Role) : true;
     });
     return [...nav, ...quick];
-  }, [activeRole]);
+  }, [auth.userRole]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

@@ -1,0 +1,21 @@
+{
+  "name": "SporeKart Enterprise Platform",
+  "short_name": "SporeKart",
+  "description": "Enterprise platform for cultivar ordering, training management, and supply chain operations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#166534",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "education", "ecommerce"],
+  "lang": "en",
+  "scope": "/"
+}

@@ -1,7 +1,9 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { CartProvider } from './features/cart/CartContext';
+import CartDrawer from './features/cart/components/CartDrawer';
 import { Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { AppContext } from './context';
-import type { Role } from './config/roles';
+import { AppContext, type AuthState } from './context';
+
 import { getAllPages } from './config/navigation';
 import { isPublicWebsiteRoute } from './public-website/config';
 import Header from './components/layout/Header';
@@ -13,6 +15,9 @@ import NotFound from './pages/NotFound';
 import { Icon } from './design-system/icons/Icon';
 import { RequireAuth } from './features/auth/RequireAuth';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { onAuthChange, signOut, getSession, getUser, isAuthenticated, getSupabaseClient } from './lib/supabase';
+import { logger } from './lib/logger';
+import type { Role } from './config/roles';
 
 const DemoIndex = lazy(() => import('./pages/DemoIndex'));
 const ResponsiveDemo = lazy(() => import('./pages/ResponsiveDemo'));
@@ -124,6 +129,9 @@ const InnerPagesPreview = lazy(() => import('./public-website/preview/InnerPages
 const ExperiencePreview = lazy(() => import('./public-website/preview/ExperiencePreview'));
 
 // ---- Authentication Experience (Phase 6 · Sprint 21 · Part 7) ----
+const HealthPage = lazy(() => import('./pages/HealthPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const CartPage = lazy(() => import('./features/cart/components/CartPage'));
 const LoginPage = lazy(() => import('./features/auth/pages/LoginPage'));
 const RegisterPage = lazy(() => import('./features/auth/pages/RegisterPage'));
 const ForgotPasswordPage = lazy(() => import('./features/auth/pages/ForgotPasswordPage'));
@@ -424,43 +432,43 @@ function isNonEnterpriseRoute(pathname: string): boolean {
   return false;
 }
 
-export default function App() {
-  const [activeRole, setActiveRole] = useState<Role>(() => {
-    try {
-      const persisted = sessionStorage.getItem('sk_session_role');
-      if (persisted && persisted !== 'guest') return persisted as Role;
-    } catch {
-      /* ignore */
+function deriveAuthState(): AuthState {
+  const session = getSession();
+  const user = getUser();
+  const loading = getSupabaseClient() === null && session === null;
+  const isAuth = isAuthenticated();
+  let userRole: Role = 'guest';
+  if (isAuth && user?.user_metadata?.role) {
+    const r = user.user_metadata.role as string;
+    if (['customer', 'grower', 'trainer', 'distributor', 'support', 'administrator', 'business_owner', 'governance_manager'].includes(r)) {
+      userRole = r as Role;
+    } else {
+      userRole = 'customer';
     }
-    return 'guest';
-  });
+  }
+  return { session, user, loading, isAuthenticated: isAuth, userRole };
+}
+
+export default function App() {
+  const [auth, setAuth] = useState<AuthState>(() => deriveAuthState());
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
-  /**
-   * Central session termination (BUG-RT-008 / BUG-RT-011).
-   *
-   * Root cause: there was no single place that cleared the persisted session
-   * or redirected on logout / expiry, so the previous role survived in
-   * sessionStorage and the browser back button could return to a protected
-   * view. `logout` clears the stored role and resets to 'guest', then replaces
-   * history so the protected route cannot be reached via back navigation.
-   *
-   * A 'storage' event is dispatched manually so other tabs observing the same
-   * key (BUG-RT-009 multi-tab session synchronisation) pick up the change.
-   */
+  useEffect(() => {
+    const unsub = onAuthChange(() => {
+      setAuth(deriveAuthState());
+    });
+    return unsub;
+  }, []);
+
   const logout = useCallback(
-    (reason: 'user' | 'expired' = 'user') => {
+    async (reason: 'user' | 'expired' = 'user') => {
       try {
-        sessionStorage.removeItem('sk_session_role');
-        window.dispatchEvent(
-          new StorageEvent('storage', { key: 'sk_session_role', newValue: null }),
-        );
-      } catch {
-        /* storage unavailable — in-memory reset still applies */
+        await signOut();
+      } catch (err) {
+        logger.error('[auth] Sign out error:', err);
       }
-      setActiveRole('guest');
       if (reason === 'expired') {
         navigate('/session-expired', { replace: true });
       } else {
@@ -481,32 +489,16 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  /**
-   * BUG-RT-009: multi-tab session synchronisation. When another tab signs in
-   * or out (writing 'sk_session_role'), mirror that role into this tab so all
-   * open tabs share one session state.
-   */
-  useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key !== 'sk_session_role') return;
-      if (e.newValue && e.newValue !== 'guest') {
-        setActiveRole(e.newValue as Role);
-      } else {
-        setActiveRole('guest');
-      }
-    };
-    window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
-  }, []);
-
   const pages = getAllPages();
   const location = useLocation();
   const nonEnterprise = isNonEnterpriseRoute(location.pathname);
 
   if (nonEnterprise) {
     return (
-      <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen, logout }}>
+      <AppContext.Provider value={{ auth, logout, paletteOpen, setPaletteOpen }}>
+        <CartProvider>
         <a href="#main" className="sk-skip">Skip to content</a>
+        <CartDrawer />
         <ErrorBoundary>
         <Suspense fallback={<div className="sk-skeleton-page"><div className="sk-skeleton-header"></div><div className="sk-skeleton-title-row"><div className="sk-skeleton-title"></div></div></div>}>
           <Routes>
@@ -535,6 +527,9 @@ export default function App() {
             <Route path="/shipping-policy" element={<LegalPage />} />
             <Route path="/cookie-policy" element={<LegalPage />} />
             <Route path="/disclaimer" element={<LegalPage />} />
+            <Route path="/health" element={<HealthPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/auth" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -817,14 +812,17 @@ export default function App() {
           </Routes>
         </Suspense>
         </ErrorBoundary>
+      </CartProvider>
       </AppContext.Provider>
     );
   }
 
 
   return (
-    <AppContext.Provider value={{ activeRole, setActiveRole, paletteOpen, setPaletteOpen, logout }}>
+    <AppContext.Provider value={{ auth, logout, paletteOpen, setPaletteOpen }}>
+      <CartProvider>
       <a href="#main" className="sk-skip">Skip to content</a>
+      <CartDrawer />
       <div className="sk-shell">
         <Header onToggleSidebar={() => setSidebarOpen((v) => !v)} />
         <div className="sk-shell__body">
@@ -912,16 +910,17 @@ export default function App() {
           </div>
         </div>
         <footer className="sk-footer" role="contentinfo">
-          <span>SporeKart Enterprise · Navigation Prototype (Sprint 19 Part 1B)</span>
+          <span>SporeKart Enterprise Platform &copy; {new Date().getFullYear()}</span>
           <span className="sk-footer__links">
             <a href="/support/kb">Help</a>
-            <a href="/">Terms</a>
-            <a href="/">Privacy</a>
-            <a href="/">Status</a>
+            <a href="/terms-and-conditions">Terms</a>
+            <a href="/privacy-policy">Privacy</a>
+            <a href="/status">Status</a>
           </span>
         </footer>
       </div>
       <CommandPalette />
+      </CartProvider>
     </AppContext.Provider>
   );
 }

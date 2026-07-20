@@ -5,7 +5,7 @@ import PlaceholderPanel from '../components/ui/PlaceholderPanel';
 
 export default function WorkspacePage() {
   const location = useLocation();
-  const { activeRole } = useApp();
+  const { auth } = useApp();
   const resolved = resolveRoute(location.pathname);
 
   if (!resolved) {
@@ -22,7 +22,7 @@ export default function WorkspacePage() {
 
   const { page, workspace, params } = resolved;
 
-  if (!canView(page.roles, activeRole)) {
+  if (!canView(page.roles, auth.userRole)) {
     /**
      * BUG-RT-007: the workspace shell previously rendered a static
      * "Access restricted" placeholder instead of enforcing the restriction.

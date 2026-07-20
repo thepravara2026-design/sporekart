@@ -1,35 +1,6 @@
-/* ==========================================================================
-   SporeKart — Authentication client (UX stub)
-   --------------------------------------------------------------------------
-   IMPORTANT: This module is a UI-ONLY stub for the Authentication Experience.
-   It simulates network latency and outcomes so the screens, flows, validation,
-   loading and error states can be built and reviewed end-to-end.
-
-   It MUST be replaced by the real Supabase Auth + RBAC integration. No backend
-   logic, OTP logic, or session handling is implemented or modified here. The
-   real implementation belongs in the platform auth service; this file only
-   satisfies the "premium experience" surface described in Sprint 21 Part 7.
-   ========================================================================== */
-
-export type AuthChannel = 'phone' | 'email';
-
-export interface SendOtpResult {
-  channel: AuthChannel;
-  destination: string;
-  expiresInSeconds: number;
-  resendInSeconds: number;
-}
-
-export interface AuthResult {
-  ok: boolean;
-  message?: string;
-}
-
-const LATENCY = 900;
-
-function delay<T>(value: T, ms = LATENCY): Promise<T> {
-  return new Promise((resolve) => setTimeout(() => resolve(value), ms));
-}
+import { useEnv } from '../../config/env';
+import { authService } from './AuthService';
+import type { AuthChannel, AuthResult, SendOtpResult } from './types';
 
 function isValidPhone(value: string): boolean {
   return /^[+]?[\d\s()-]{8,15}$/.test(value.trim());
@@ -39,96 +10,93 @@ function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 }
 
+function validateStub(channel: AuthChannel, destination: string): void {
+  if (channel === 'phone' && !isValidPhone(destination)) {
+    throw new Error('Please enter a valid phone number.');
+  }
+  if (channel === 'email' && !isValidEmail(destination)) {
+    throw new Error('Please enter a valid email address.');
+  }
+}
+
+const LATENCY = 900;
+
+function delay<T>(value: T, ms = LATENCY): Promise<T> {
+  return new Promise((resolve) => setTimeout(() => resolve(value), ms));
+}
+
+async function stubOrReal<T>(stub: () => T, real: () => Promise<T>): Promise<T> {
+  const env = useEnv();
+  if (env.featureFlags.authProvider === 'mock') {
+    return delay(stub());
+  }
+  return real();
+}
+
 export const authClient = {
-  /** Request an OTP to the given channel (phone or email). */
   async sendOtp(channel: AuthChannel, destination: string): Promise<SendOtpResult> {
-    if (channel === 'phone' && !isValidPhone(destination)) {
-      return delay(
-        { channel, destination, expiresInSeconds: 0, resendInSeconds: 0 },
-        LATENCY,
-      ).then(() => {
-        throw new Error('Please enter a valid phone number.');
-      });
-    }
-    if (channel === 'email' && !isValidEmail(destination)) {
-      return delay(
-        { channel, destination, expiresInSeconds: 0, resendInSeconds: 0 },
-        LATENCY,
-      ).then(() => {
-        throw new Error('Please enter a valid email address.');
-      });
-    }
-    return delay({
-      channel,
-      destination,
-      expiresInSeconds: 300,
-      resendInSeconds: 30,
-    });
+    validateStub(channel, destination);
+    return stubOrReal(
+      () => ({
+        channel,
+        destination,
+        expiresInSeconds: 300,
+        resendInSeconds: 30,
+      }),
+      () => authService.sendOtp(channel, destination),
+    );
   },
 
-  /** Verify the OTP code. */
-  async verifyOtp(_channel: AuthChannel, _destination: string, code: string): Promise<AuthResult> {
-    if (code.length < 4) {
-      return delay({ ok: false, message: 'Enter the full code.' }).then(() => {
-        throw new Error('Enter the full code.');
-      });
-    }
-    // UX stub: a real OTP check is performed by the platform auth service. To
-    // avoid the previous "any code is accepted" behaviour (BUG-SEC-011), the
-    // stub now requires a specific demo PIN so the flow cannot be bypassed
-    // with an arbitrary value. This remains a front-end simulation only.
-    if (code !== '123456') {
-      return delay({ ok: false, message: 'Incorrect code. Please try again.' }).then(() => {
-        throw new Error('Incorrect code. Please try again.');
-      });
-    }
-    return delay({ ok: true, message: 'Verified' });
+  async verifyOtp(channel: AuthChannel, destination: string, code: string): Promise<AuthResult> {
+    return stubOrReal(
+      () => {
+        if (code.length < 4) throw new Error('Enter the full code.');
+        if (code !== '123456') throw new Error('Incorrect code. Please try again.');
+        return { ok: true, message: 'Verified' };
+      },
+      () => authService.verifyOtp(channel, destination, code),
+    );
   },
 
-  /** Complete registration with collected profile. */
-  async register(payload: {
-    fullName: string;
-    phone: string;
-    email?: string;
-    role?: string;
-  }): Promise<AuthResult> {
-    if (!payload.fullName.trim()) {
-      return delay({ ok: false }).then(() => {
-        throw new Error('Full name is required.');
-      });
-    }
-    return delay({ ok: true, message: 'Registration submitted' });
+  async register(payload: { fullName: string; phone: string; email?: string; role?: string }): Promise<AuthResult> {
+    return stubOrReal(
+      () => {
+        if (!payload.fullName.trim()) throw new Error('Full name is required.');
+        return { ok: true, message: 'Registration submitted' };
+      },
+      () => authService.register(payload),
+    );
   },
 
-  /** Passwordless / OTP login. */
-  async login(_channel: AuthChannel, destination: string): Promise<AuthResult> {
-    if (!destination.trim()) {
-      return delay({ ok: false }).then(() => {
-        throw new Error('Enter your identifier to continue.');
-      });
-    }
-    return delay({ ok: true, message: 'Login successful' });
+  async login(channel: AuthChannel, destination: string): Promise<AuthResult> {
+    return stubOrReal(
+      () => {
+        if (!destination.trim()) throw new Error('Enter your identifier to continue.');
+        return { ok: true, message: 'Login successful' };
+      },
+      () => authService.login(channel, destination),
+    );
   },
 
-  /** Request a password / recovery reset link. */
   async forgotPassword(channel: AuthChannel, destination: string): Promise<AuthResult> {
-    if (channel === 'email' && !isValidEmail(destination)) {
-      return delay({ ok: false }).then(() => {
-        throw new Error('Enter a valid email address.');
-      });
-    }
-    if (channel === 'phone' && !isValidPhone(destination)) {
-      return delay({ ok: false }).then(() => {
-        throw new Error('Enter a valid phone number.');
-      });
-    }
-    return delay({ ok: true, message: 'Recovery instructions sent' });
+    return stubOrReal(
+      () => {
+        if (channel === 'email' && !isValidEmail(destination)) throw new Error('Enter a valid email address.');
+        if (channel === 'phone' && !isValidPhone(destination)) throw new Error('Enter a valid phone number.');
+        return { ok: true, message: 'Recovery instructions sent' };
+      },
+      () => authService.forgotPassword(channel, destination),
+    );
   },
 
-  /** Placeholder for future social providers (Google / Apple / Facebook). */
-  async socialLogin(_provider: 'google' | 'apple' | 'facebook'): Promise<AuthResult> {
-    return delay({ ok: false, message: 'Social login is not enabled yet.' }).then(() => {
-      throw new Error('Social login is not enabled yet.');
-    });
+  async socialLogin(provider: 'google' | 'apple' | 'facebook'): Promise<AuthResult> {
+    return stubOrReal(
+      () => {
+        throw new Error('Social login is not enabled yet.');
+      },
+      () => authService.socialLogin(provider),
+    );
   },
 };
+
+export type { AuthChannel, AuthResult, SendOtpResult };

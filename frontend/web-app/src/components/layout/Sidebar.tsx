@@ -13,8 +13,8 @@ const GROUP_LABELS: Record<WorkspaceGroup, string> = {
 const GROUP_ORDER: WorkspaceGroup[] = ['discover', 'operate', 'intelligence', 'platform'];
 
 export default function Sidebar({ open, onNavigate }: { open: boolean; onNavigate: () => void }) {
-  const { activeRole } = useApp();
-  const workspaces = getVisibleWorkspaces(activeRole);
+  const { auth } = useApp();
+  const workspaces = getVisibleWorkspaces(auth.userRole);
 
   return (
     <nav

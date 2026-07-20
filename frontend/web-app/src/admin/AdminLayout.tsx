@@ -22,12 +22,12 @@ import './admin.css';
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { activeRole } = useApp();
+  const { auth } = useApp();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pinnedIds, setPinnedIds] = useState<string[]>([]);
 
-  const sidebarItems = getFilteredSidebarItems(activeRole);
+  const sidebarItems = getFilteredSidebarItems(auth.userRole);
 
   const handleSidebarNavigate = useCallback((item: SidebarItemData) => {
     if (item.href) {
@@ -50,7 +50,7 @@ export default function AdminLayout() {
   const activeId = getAdminActiveId(location.pathname);
 
   return (
-    <PermissionProvider initialRole={activeRole || 'viewer'}>
+    <PermissionProvider initialRole={auth.userRole || 'viewer'}>
     <AuthenticatedLayout
       header={
         <div className="admin-header" style={{

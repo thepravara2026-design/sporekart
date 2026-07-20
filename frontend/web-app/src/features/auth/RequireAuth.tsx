@@ -8,26 +8,19 @@ interface RequireAuthProps {
   allowedRoles?: Role[];
 }
 
-/**
- * Guards protected route subtrees.
- *
- * Root cause (BUG-RT-001..006): no route-level authentication or
- * authorization existed; every <Route> in App.tsx rendered without any
- * guard, so guests could reach /dashboard and /admin.
- *
- * Fix: derive authentication from the active session role. A 'guest' role
- * means unauthenticated and is redirected to /login. When role-specific
- * access is required (admin areas), the caller passes allowedRoles.
- */
 export function RequireAuth({ children, allowedRoles }: RequireAuthProps) {
-  const { activeRole } = useApp();
+  const { auth } = useApp();
   const location = useLocation();
 
-  if (activeRole === 'guest') {
+  if (auth.loading) {
+    return null;
+  }
+
+  if (!auth.isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(activeRole)) {
+  if (allowedRoles && !allowedRoles.includes(auth.userRole)) {
     return <Navigate to="/access-denied" replace />;
   }
 

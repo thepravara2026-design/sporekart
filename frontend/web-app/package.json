@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "SporeKart Enterprise Web Application — Sprint 19 Part 1B navigation prototype (layout shell, workspaces, navigation, breadcrumbs, command palette). No business functionality.",
+  "description": "SporeKart Enterprise Platform — cultivar ordering, training management, and supply chain operations.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,6 +11,10 @@
     "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
+    "@sentry/browser": "^10.66.0",
+    "@sentry/react": "^10.66.0",
+    "@sentry/tracing": "^7.120.4",
+    "@supabase/supabase-js": "^2.110.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"

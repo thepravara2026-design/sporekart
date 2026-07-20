@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { captureError } from '../lib/sentry';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -9,14 +10,6 @@ interface ErrorBoundaryState {
   message: string;
 }
 
-/**
- * BUG-RT-010: the application had no global error boundary, so an unhandled
- * render exception would blank the entire shell with no recovery path.
- *
- * This boundary catches errors thrown during render of any route subtree and
- * shows an accessible fallback with a route back to safety, instead of an
- * unmounted white screen.
- */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = { hasError: false, message: '' };
 
@@ -25,8 +18,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    // Surface for diagnostics without leaking internals to the UI.
-    console.error('Unhandled UI error:', error, info.componentStack);
+    captureError(error, { componentStack: info.componentStack });
   }
 
   handleReset = () => {

@@ -60,20 +60,6 @@ export function useSession(config: SessionConfig = DEFAULT_CONFIG) {
     clearTimeout(warningTimer.current);
     clearTimeout(expireTimer.current);
     setState('expired');
-    /**
-     * BUG-RT-011: previously the session only flipped an internal state and
-     * relied on a preview component to surface it. Now expiry redirects to the
-     * dedicated /session-expired route so the user is unambiguously signed out
-     * of the view regardless of which screen they are on.
-     */
-    try {
-      sessionStorage.removeItem('sk_session_role');
-      window.dispatchEvent(
-        new StorageEvent('storage', { key: 'sk_session_role', newValue: null }),
-      );
-    } catch {
-      /* storage unavailable */
-    }
     navigate('/session-expired', { replace: true });
   }, [navigate]);
 

@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useApp } from '../../context';
-import { ALL_ROLES, ROLE_LABELS, type Role } from '../../config/roles';
+import { ROLE_LABELS } from '../../config/roles';
 import { buildBreadcrumb } from '../../config/navigation';
 
 export default function Header({ onToggleSidebar }: { onToggleSidebar: () => void }) {
-  const { activeRole, setActiveRole, setPaletteOpen } = useApp();
+  const { auth, setPaletteOpen } = useApp();
   const location = useLocation();
   const { workspace } = buildBreadcrumb(location.pathname);
 
@@ -55,32 +55,8 @@ export default function Header({ onToggleSidebar }: { onToggleSidebar: () => voi
           <span aria-hidden="true">✨</span>
         </button>
 
-        {/*
-          BUG-SEC-005: the header previously exposed a free role switcher that
-          let any visitor escalate to privileged roles (administrator, etc.)
-          by mutating the session role in client storage. Role is now derived
-          from the authenticated session, so the switcher is only shown on the
-          public site as a design preview and is hidden once a session exists.
-        */}
-        {activeRole === 'guest' && (
-          <label className="sk-role-switch">
-            <span className="sk-visually-hidden">Preview role</span>
-            <select
-              value={activeRole}
-              onChange={(e) => setActiveRole(e.target.value as Role)}
-              aria-label="Preview role"
-            >
-              {ALL_ROLES.map((r) => (
-                <option key={r} value={r}>
-                  {ROLE_LABELS[r]}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-
         <button className="sk-profile" aria-label="Account menu">
-          <span className="sk-avatar" aria-hidden="true">{(ROLE_LABELS[activeRole][0])}</span>
+          <span className="sk-avatar" aria-hidden="true">{ROLE_LABELS[auth.userRole][0]}</span>
         </button>
       </div>
     </header>

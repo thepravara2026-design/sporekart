@@ -1,14 +1,21 @@
+import { createContext, useContext } from 'react';
+import type { User, Session } from '@supabase/supabase-js';
 import type { Role } from './config/roles';
 
-export interface AppContextValue {
-  activeRole: Role;
-  setActiveRole: (r: Role) => void;
-  paletteOpen: boolean;
-  setPaletteOpen: (b: boolean) => void;
-  logout: (reason?: 'user' | 'expired') => void;
+export interface AuthState {
+  user: User | null;
+  session: Session | null;
+  loading: boolean;
+  isAuthenticated: boolean;
+  userRole: Role;
 }
 
-import { createContext, useContext } from 'react';
+export interface AppContextValue {
+  auth: AuthState;
+  logout: (reason?: 'user' | 'expired') => void;
+  paletteOpen: boolean;
+  setPaletteOpen: (b: boolean) => void;
+}
 
 export const AppContext = createContext<AppContextValue | null>(null);
 
