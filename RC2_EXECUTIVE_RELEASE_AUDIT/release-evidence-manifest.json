@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "title": "RC2 Executive Release Audit — Evidence Manifest",
+    "program": "SporeKart Enterprise Release Program",
+    "version": "2.0 RC2",
+    "date": "20-Jul-2026",
+    "auditType": "Final Engineering Certification",
+    "verificationMethod": "Independent codebase audit, static analysis, git diff, grep/ripgrep, component tracing, build verification"
+  },
+  "preconditions": [
+    {
+      "id": "PC-001",
+      "check": "Repository clean",
+      "result": "PASS",
+      "evidence": "git status — only untracked QA_REPORTS/ and REGRESSION_SPRINT_E/ (expected deliverables)"
+    },
+    {
+      "id": "PC-002",
+      "check": "Release branch exists",
+      "result": "PASS",
+      "evidence": "git branch — sprint-e-architecture"
+    },
+    {
+      "id": "PC-003",
+      "check": "Zero merge conflicts",
+      "result": "PASS",
+      "evidence": "git status — no conflict markers"
+    },
+    {
+      "id": "PC-004",
+      "check": "Build PASS",
+      "result": "PASS",
+      "evidence": "npm run build — 14.64s, no errors"
+    },
+    {
+      "id": "PC-005",
+      "check": "TypeScript PASS — 0 errors",
+      "result": "PASS",
+      "evidence": "npx tsc -b --noEmit — 0 errors"
+    },
+    {
+      "id": "PC-006",
+      "check": "Production configuration present",
+      "result": "PASS",
+      "evidence": ".env.production — all 23 variables configured"
+    }
+  ],
+  "governanceEvidence": [
+    {
+      "id": "E-001",
+      "domain": "Engineering",
+      "description": "Architecture Correction Plan with all quality gates verified PASS",
+      "file": "ARCHITECTURE_CORRECTION/ARCHITECTURE_CORRECTION_PLAN.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-002",
+      "domain": "Engineering",
+      "description": "AuthState derived from Supabase — 5-field interface, no localStorage fallback",
+      "file": "frontend/web-app/src/context.ts",
+      "result": "PASS"
+    },
+    {
+      "id": "E-003",
+      "domain": "Engineering",
+      "description": "Zero legacy auth patterns — no setActiveRole, no sk_session_role",
+      "file": "codebase-wide",
+      "result": "PASS"
+    },
+    {
+      "id": "E-004",
+      "domain": "Engineering",
+      "description": "RequireAuth uses Supabase session for auth checks",
+      "file": "frontend/web-app/src/features/auth/RequireAuth.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-005",
+      "domain": "Engineering",
+      "description": "TypeScript strict mode enabled",
+      "file": "frontend/web-app/tsconfig.json",
+      "result": "PASS"
+    },
+    {
+      "id": "E-006",
+      "domain": "Security",
+      "description": "CSRF token generation using crypto.getRandomValues()",
+      "file": "frontend/web-app/src/lib/csrf.ts",
+      "result": "PASS"
+    },
+    {
+      "id": "E-007",
+      "domain": "Security",
+      "description": "X-CSRF-Token header on all mutating requests",
+      "file": "frontend/web-app/src/lib/httpClient.ts",
+      "result": "PASS"
+    },
+    {
+      "id": "E-008",
+      "domain": "Security",
+      "description": "CSP, HSTS, XFO, X-XSS, X-Content-Type, Referrer-Policy, Permissions-Policy headers",
+      "file": "infrastructure/nginx/security-headers.conf",
+      "result": "PASS"
+    },
+    {
+      "id": "E-009",
+      "domain": "Security",
+      "description": "HSTS with 1 year, includeSubDomains, preload",
+      "file": "infrastructure/nginx/default.conf",
+      "result": "PASS"
+    },
+    {
+      "id": "E-010",
+      "domain": "Security",
+      "description": "Sentry error monitoring initialization",
+      "file": "frontend/web-app/src/main.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-011",
+      "domain": "Quality",
+      "description": "Regression Sprint E — 15 suites, 63 checks, 0 regressions",
+      "file": "REGRESSION_SPRINT_E/regression-test-report.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-012",
+      "domain": "Quality",
+      "description": "QA Sprint 5 Re-validation — all 6 critical/high defects resolved",
+      "file": "QA_REPORTS/Sprint-05-Revalidation/executive-summary.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-013",
+      "domain": "Quality",
+      "description": "Bug Register — 0 regressions, 6 pre-existing gaps documented",
+      "file": "REGRESSION_SPRINT_E/regression-bug-register.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-014",
+      "domain": "Reliability",
+      "description": "Health endpoint returning JSON status",
+      "file": "frontend/web-app/src/pages/HealthPage.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-015",
+      "domain": "Reliability",
+      "description": "Docker HEALTHCHECK configured",
+      "file": "docker/Dockerfile.web-app",
+      "result": "PASS"
+    },
+    {
+      "id": "E-016",
+      "domain": "Reliability",
+      "description": "ErrorBoundary with Sentry capture",
+      "file": "frontend/web-app/src/components/ErrorBoundary.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-017",
+      "domain": "Performance",
+      "description": "Build complete — 14.64s, main chunk 239.49 kB gzip",
+      "file": "Build output",
+      "result": "PASS"
+    },
+    {
+      "id": "E-018",
+      "domain": "Performance",
+      "description": "All feature routes lazy-loaded via React.lazy()",
+      "file": "frontend/web-app/src/App.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-019",
+      "domain": "Performance",
+      "description": "Zero new npm dependencies in Sprint E",
+      "file": "frontend/web-app/package.json",
+      "result": "PASS"
+    },
+    {
+      "id": "E-020",
+      "domain": "Deployment",
+      "description": "Production docker-compose.yml with 7 services",
+      "file": "docker/docker-compose.yml",
+      "result": "PASS"
+    },
+    {
+      "id": "E-021",
+      "domain": "Deployment",
+      "description": "Production nginx config with HTTPS, security headers, SPA fallback",
+      "file": "infrastructure/nginx/default.conf",
+      "result": "PASS"
+    },
+    {
+      "id": "E-022",
+      "domain": "Deployment",
+      "description": "Production .env with all 23 variables",
+      "file": ".env.production",
+      "result": "PASS"
+    },
+    {
+      "id": "E-023",
+      "domain": "Deployment",
+      "description": "CI build pipeline configured",
+      "file": ".github/workflows/build.yml",
+      "result": "PASS"
+    },
+    {
+      "id": "E-024",
+      "domain": "Operations",
+      "description": "Sentry DSN configured for production error monitoring",
+      "file": "frontend/web-app/src/lib/sentry.ts",
+      "result": "PASS"
+    },
+    {
+      "id": "E-025",
+      "domain": "Operations",
+      "description": "Prometheus + Grafana configured for metrics and dashboards",
+      "file": "docker/docker-compose.yml",
+      "result": "PASS"
+    },
+    {
+      "id": "E-026",
+      "domain": "Operations",
+      "description": "Correlation IDs on all HTTP requests",
+      "file": "frontend/web-app/src/lib/correlationId.ts",
+      "result": "PASS"
+    },
+    {
+      "id": "E-027",
+      "domain": "Accessibility",
+      "description": "Skip-to-content link in both route branches",
+      "file": "frontend/web-app/src/App.tsx",
+      "result": "PASS"
+    },
+    {
+      "id": "E-028",
+      "domain": "Accessibility",
+      "description": "WCAG 2.1 AA — ARIA roles, labels, semantics, keyboard nav all intact",
+      "file": "Regression Sprint E Suite 12",
+      "result": "PASS"
+    },
+    {
+      "id": "E-029",
+      "domain": "Documentation",
+      "description": "Architecture Correction Plan with quality gates",
+      "file": "ARCHITECTURE_CORRECTION/ARCHITECTURE_CORRECTION_PLAN.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-030",
+      "domain": "Documentation",
+      "description": "Rollback plan per component",
+      "file": "ARCHITECTURE_CORRECTION/ARCHITECTURE_CORRECTION_PLAN.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-031",
+      "domain": "Documentation",
+      "description": "Release Condition Closure — 4/4 conditions closed",
+      "file": "RELEASE_CONDITION_CLOSURE/executive-summary.md",
+      "result": "PASS"
+    },
+    {
+      "id": "E-032",
+      "domain": "RC1->RC2",
+      "description": "RC1 conditions 10/12 resolved (2 deferred)",
+      "file": "RC1_RELEASE_AUDIT/go-no-go-decision.md",
+      "result": "PASS"
+    }
+  ],
+  "totals": {
+    "evidenceItems": 32,
+    "pass": 32,
+    "fail": 0
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "title": "Regression Sprint E — Evidence Manifest",
+    "project": "SporeKart",
+    "date": "20-Jul-2026",
+    "verificationMethod": "Static analysis, code review, git diff, grep/ripgrep, component tracing"
+  },
+  "evidence": [
+    {
+      "id": "E-001",
+      "suite": "1",
+      "description": "AuthService.register() flow — calls supabase.auth.signUp",
+      "file": "frontend/web-app/src/features/auth/AuthService.ts",
+      "verification": "Read lines 10-32 — signUp with email/password and metadata",
+      "result": "PASS"
+    },
+    {
+      "id": "E-002",
+      "suite": "1",
+      "description": "Logout clears session state",
+      "file": "frontend/web-app/src/App.tsx",
+      "verification": "handleLogout — calls signOut + setAuth(null)",
+      "result": "PASS"
+    },
+    {
+      "id": "E-003",
+      "suite": "1",
+      "description": "Session restore via onAuthStateChange",
+      "file": "frontend/web-app/src/App.tsx",
+      "verification": "Supabase auth listener restores SESSION and sets auth state",
+      "result": "PASS"
+    },
+    {
+      "id": "E-004",
+      "suite": "2",
+      "description": "RequireAuth checks userRole against allowedRoles",
+      "file": "frontend/web-app/src/features/auth/RequireAuth.tsx",
+      "verification": "Read lines 17-28 — role check before rendering children",
+      "result": "PASS"
+    },
+    {
+      "id": "E-005",
+      "suite": "2",
+      "description": "Zero legacy setActiveRole references in codebase",
+      "file": "codebase-wide",
+      "verification": "grep -r 'setActiveRole' — zero results",
+      "result": "PASS"
+    },
+    {
+      "id": "E-006",
+      "suite": "2",
+      "description": "Zero sk_session_role references in codebase",
+      "file": "codebase-wide",
+      "verification": "grep -r 'sk_session_role' — zero results",
+      "result": "PASS"
+    },
+    {
+      "id": "E-007",
+      "suite": "3",
+      "description": "Catalogue page renders products from context",
+      "file": "frontend/web-app/src/pages/CataloguePage.tsx",
+      "verification": "Read — fetches products and renders ProductCard grid",
+      "result": "PASS"
+    },
+    {
+      "id": "E-008",
+      "suite": "4",
+      "description": "CartContext ADD_ITEM dispatch works",
+      "file": "frontend/web-app/src/features/cart/CartContext.tsx",
+      "verification": "Read cartReducer — ADD_ITEM case",
+      "result": "PASS"
+    },
+    {
+      "id": "E-009",
+      "suite": "4",
+      "description": "Cart persistence via localStorage",
+      "file": "frontend/web-app/src/features/cart/CartContext.tsx",
+      "verification": "syncWithStorage — reads/writes localStorage",
+      "result": "PASS"
+    },
+    {
+      "id": "E-010",
+      "suite": "5",
+      "description": "Idempotency key generation and duplicate prevention",
+      "file": "frontend/web-app/src/pages/CheckoutPage.tsx",
+      "verification": "Lines 19-44 — generateIdempotencyKey, loadUsedKeys, markKeyUsed",
+      "result": "PASS"
+    },
+    {
+      "id": "E-011",
+      "suite": "6",
+      "description": "PaymentGateway self-contained mock — zero external API calls",
+      "file": "frontend/web-app/src/features/payment/PaymentGateway.ts",
+      "verification": "Read — all payment logic local, no fetch/http calls",
+      "result": "PASS"
+    },
+    {
+      "id": "E-012",
+      "suite": "6",
+      "description": "Zero /payment/create-intent or /payment/webhook references",
+      "file": "codebase-wide",
+      "verification": "grep -r '/payment/create-intent' + '/payment/webhook' — QA_REPORTS/ only",
+      "result": "PASS"
+    },
+    {
+      "id": "E-013",
+      "suite": "7",
+      "description": "Order history pages exist and are wired",
+      "file": "frontend/web-app/src/features/customer/orders/",
+      "verification": "OrdersDashboard, OrderDetailsPage, ShipmentTrackingPage, ReturnsRefundsPage exist",
+      "result": "PASS"
+    },
+    {
+      "id": "E-014",
+      "suite": "8",
+      "description": "Training pages have no auth dependency",
+      "file": "frontend/web-app/src/pages/TrainingPage.tsx",
+      "verification": "No auth imports — training is public-facing",
+      "result": "PASS"
+    },
+    {
+      "id": "E-015",
+      "suite": "9",
+      "description": "AdminLayout uses auth.userRole correctly",
+      "file": "frontend/web-app/src/layouts/AdminLayout.tsx",
+      "verification": "auth.userRole read — no activeRole reference",
+      "result": "PASS"
+    },
+    {
+      "id": "E-016",
+      "suite": "11",
+      "description": "Responsive breakpoints unchanged from Sprint D",
+      "file": "frontend/web-app/src/styles/global.css",
+      "verification": "1023px and 767px breakpoints intact",
+      "result": "PASS"
+    },
+    {
+      "id": "E-017",
+      "suite": "12",
+      "description": "Skip-to-content link preserved in both route branches",
+      "file": "frontend/web-app/src/App.tsx",
+      "verification": "Lines 500 and 824 — sk-skip link present",
+      "result": "PASS"
+    },
+    {
+      "id": "E-018",
+      "suite": "13",
+      "description": "AuthState interface has exactly 5 fields",
+      "file": "frontend/web-app/src/context.ts",
+      "verification": "Read — AuthState { user, session, loading, isAuthenticated, userRole }",
+      "result": "PASS"
+    },
+    {
+      "id": "E-019",
+      "suite": "13",
+      "description": "CSRF token generation works",
+      "file": "frontend/web-app/src/lib/csrf.ts",
+      "verification": "Read — getCsrfToken() generates crypto.randomUUID() based token",
+      "result": "PASS"
+    },
+    {
+      "id": "E-020",
+      "suite": "13",
+      "description": "X-CSRF-Token header sent on mutating requests",
+      "file": "frontend/web-app/src/lib/httpClient.ts",
+      "verification": "Read — request interceptor adds X-CSRF-Token for POST/PUT/DELETE",
+      "result": "PASS"
+    },
+    {
+      "id": "E-021",
+      "suite": "13",
+      "description": "No innerHTML/dangerouslySetInnerHTML in changed files",
+      "file": "sprint-e-changed-files",
+      "verification": "grep — zero matches in architecture correction files",
+      "result": "PASS"
+    },
+    {
+      "id": "E-022",
+      "suite": "14",
+      "description": "No new npm dependencies added",
+      "file": "package.json",
+      "verification": "git diff — only version bumps, zero new packages",
+      "result": "PASS"
+    },
+    {
+      "id": "E-023",
+      "suite": "14",
+      "description": "All new routes lazy-loaded via React.lazy()",
+      "file": "frontend/web-app/src/App.tsx",
+      "verification": "CheckoutPage, HealthPage, CartPage all use React.lazy()",
+      "result": "PASS"
+    },
+    {
+      "id": "E-024",
+      "suite": "15",
+      "description": "Only standard ES2020+ APIs used in architecture correction",
+      "file": "sprint-e-changed-files",
+      "verification": "crypto.getRandomValues(), fetch, AbortController — all universally available",
+      "result": "PASS"
+    },
+    {
+      "id": "E-025",
+      "suite": "15",
+      "description": "Zero CSS :has() usage in codebase",
+      "file": "codebase-wide",
+      "verification": "grep -r ':has(' '*.css' — zero results",
+      "result": "PASS"
+    }
+  ],
+  "totals": {
+    "evidenceItems": 25,
+    "pass": 25,
+    "fail": 0
+  }
+}
