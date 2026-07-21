@@ -28,6 +28,8 @@ sporekart:
   ai:
     enabled: true
     default-provider: MOCK
+    memory-enabled: true
+    runtime-enabled: true
     max-retries: 3
     request-timeout: 30s
     max-prompt-length: 32000
@@ -48,6 +50,14 @@ sporekart:
       provider-ollama: false
       provider-mistral: false
       provider-local-llm: false
+      memory-enabled: true
+      memory-caching: true
+      memory-audit: true
+      memory-indexing: true
+      runtime-enabled: true
+      runtime-caching: true
+      runtime-audit: true
+      runtime-scheduling: true
       prompt-enabled: true
       prompt-caching: true
       prompt-audit: true
@@ -315,6 +325,48 @@ sporekart:
         enabled: true
       capability-discovery:
         enabled: true
+      memory:
+        enabled: true
+        default-max-results: 50
+        default-ttl: 30d
+        consolidation:
+          enabled: true
+          schedule: "0 0 2 * * ?"
+          retention-days: 90
+        indexing:
+          enabled: true
+          vector-dimension: 1536
+          index-type: HNSW
+        cache:
+          entry-ttl-seconds: 300
+          query-ttl-seconds: 120
+          stats-ttl-seconds: 600
+        kafka:
+          topic: ai-memory-events
+          partitions: 3
+          replication-factor: 1
+      agent-runtime:
+        enabled: true
+        max-agents: 100
+        execution-timeout: 5m
+        max-iterations: 25
+        execution:
+          async-enabled: true
+          max-concurrent-executions: 50
+          retry-enabled: true
+          max-retries: 3
+        scheduling:
+          enabled: true
+          thread-pool-size: 4
+        cache:
+          definition-ttl-seconds: 300
+          execution-ttl-seconds: 600
+          schedule-ttl-seconds: 300
+          metrics-ttl-seconds: 120
+        kafka:
+          topic: ai-runtime-events
+          partitions: 3
+          replication-factor: 1
     provider:
       providers:
         GEMINI:

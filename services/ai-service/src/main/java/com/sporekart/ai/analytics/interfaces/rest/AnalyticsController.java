@@ -29,7 +29,10 @@ public class AnalyticsController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardDto> getDashboard() {
-        GovernanceDashboard dashboard = dashboardService.getDashboard();
+        var dashboards = dashboardService.getAllDashboards();
+        GovernanceDashboard dashboard = dashboards.isEmpty()
+            ? new GovernanceDashboard(UUID.randomUUID(), "default", "Default Dashboard", List.of(), Map.of(), Instant.now(), Instant.now())
+            : dashboards.get(0);
         List<WidgetDto> widgets = dashboard.widgets().stream()
             .map(w -> new WidgetDto(
                 w.id().toString(), w.title(), w.type(), w.metricName(),
