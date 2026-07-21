@@ -1,0 +1,33 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/ai_service
+    username: ai_user
+    password: ai_pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  redis:
+    host: redis
+    port: 6379
+  kafka:
+    bootstrap-servers: kafka:9092
+  flyway:
+    enabled: true
+
+sporekart:
+  ai:
+    configuration:
+      environment-override-enabled: true
+      secret-management-enabled: true
+    cache:
+      enabled: true
+      default-ttl: 5m
+    observability:
+      logging-level: INFO
+      sentry-enabled: false
+      prometheus-enabled: true

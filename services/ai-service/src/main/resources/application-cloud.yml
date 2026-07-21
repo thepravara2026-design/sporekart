@@ -4,40 +4,18 @@ sporekart:
       environment-override-enabled: true
       secret-management-enabled: true
       multi-tenant-enabled: true
-      audit-enabled: true
-    features:
-      ai-enabled: true
-      gateway-enabled: true
-      provider-failover-enabled: true
-      rate-limiter-enabled: true
-      streaming-enabled: true
-      analytics-enabled: true
-      monitoring-enabled: true
-      image-generation-enabled: true
-      audio-enabled: true
-      vision-enabled: true
-      reasoning-models-enabled: true
-    observability:
-      logging-level: INFO
-      sentry-enabled: true
-      prometheus-enabled: true
-      grafana-enabled: true
-      open-telemetry-enabled: true
     cache:
       enabled: true
       default-ttl: 2m
       refresh-strategy: REFRESH_AHEAD
+    observability:
+      logging-level: INFO
+      sentry-enabled: true
+      prometheus-enabled: true
+      open-telemetry-enabled: true
     runtime:
       hot-reload-enabled: true
       hot-reload-interval: 15s
-      emergency-disable-enabled: true
-      maintenance-mode: false
-    security:
-      rate-limiter-enabled: true
-      content-moderation-enabled: true
-      csrf-enabled: true
-      encryption-enabled: true
-      mfa-enabled: false
     provider:
       failover-enabled: true
       health-check-interval-seconds: 15
@@ -80,8 +58,9 @@ spring:
     producer:
       acks: all
       compression-type: snappy
+      retries: 3
     consumer:
-      group-id: ai-service-prod
+      group-id: ai-service-cloud
       auto-offset-reset: latest
 
 management:
@@ -97,5 +76,5 @@ management:
       prometheus:
         enabled: true
     tags:
-      environment: production
+      environment: cloud
       service: ai-service

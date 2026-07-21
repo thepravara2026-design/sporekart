@@ -1,33 +1,46 @@
-server:
-  port: 0
-
 spring:
   datasource:
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    url: jdbc:h2:mem:ai-service-test;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
     username: sa
     password:
-    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
-    properties:
-      hibernate:
-        format_sql: false
-  flyway:
-    enabled: false
+    show-sql: false
   redis:
     host: localhost
     port: 6379
   kafka:
     bootstrap-servers: localhost:9092
-
-logging:
-  level:
-    com.sporekart.ai: WARN
-    org.springframework: WARN
+  flyway:
+    enabled: false
 
 sporekart:
   ai:
-    enabled: true
-    default-provider: MOCK
-    mode: DEVELOPMENT
+    configuration:
+      environment-override-enabled: false
+      secret-management-enabled: false
+      validation-enabled: true
+    features:
+      ai-enabled: true
+      gateway-enabled: true
+      provider-failover-enabled: false
+      rate-limiter-enabled: false
+      streaming-enabled: false
+      analytics-enabled: false
+      monitoring-enabled: false
+    observability:
+      logging-level: WARN
+      sentry-enabled: false
+      prometheus-enabled: false
+      grafana-enabled: false
+      open-telemetry-enabled: false
+    cache:
+      enabled: false
+    runtime:
+      hot-reload-enabled: false
+    security:
+      rate-limiter-enabled: false
+      content-moderation-enabled: false
+      csrf-enabled: false
+      rbac-enabled: false

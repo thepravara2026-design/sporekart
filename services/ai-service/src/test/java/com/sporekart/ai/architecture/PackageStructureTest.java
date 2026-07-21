@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,11 +44,25 @@ class PackageStructureTest {
     }
 
     @Test
+    void verifyConfigurationPackageStructure() {
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/api")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/domain")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/model/provider")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/model/feature")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/model/environment")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/model/secret")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/validation")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/config")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/configuration/binder")));
+    }
+
+    @Test
     void verifyTestPackageStructure() {
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/memory")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/runtime")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/shared")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/architecture")));
+        assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/configuration")));
     }
 
     @Test
@@ -59,5 +72,21 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("src/main/resources/application-dev.yml")));
         assertTrue(Files.exists(Paths.get("src/main/resources/application-test.yml")));
         assertTrue(Files.exists(Paths.get("src/main/resources/application-prod.yml")));
+        assertTrue(Files.exists(Paths.get("src/main/resources/application-stage.yml")));
+        assertTrue(Files.exists(Paths.get("src/main/resources/application-docker.yml")));
+        assertTrue(Files.exists(Paths.get("src/main/resources/application-cloud.yml")));
+    }
+
+    @Test
+    void verifyPhase13Docs() {
+        assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-platform.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/feature-flag-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/environment-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/provider-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/secret-management-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/deployment-configuration-guide.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-matrix.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-lifecycle.md")));
     }
 }

@@ -2,37 +2,46 @@ server:
   port: 8088
 
 spring:
-  devtools:
-    restart:
-      enabled: true
   datasource:
     url: jdbc:h2:mem:ai-service;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
     username: sa
     password:
-    driver-class-name: org.h2.Driver
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: true
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+    show-sql: true
   redis:
     host: localhost
     port: 6379
   kafka:
     bootstrap-servers: localhost:9092
 
-logging:
-  level:
-    com.sporekart.ai: DEBUG
-    org.springframework: INFO
-
 sporekart:
   ai:
-    mode: DEVELOPMENT
-    governance:
-      mode: DEVELOPMENT
+    configuration:
+      environment-override-enabled: false
+      secret-management-enabled: false
+    features:
+      ai-enabled: true
+      gateway-enabled: true
+      provider-failover-enabled: false
+      rate-limiter-enabled: false
+      streaming-enabled: true
+      analytics-enabled: false
+      monitoring-enabled: false
+    observability:
+      logging-level: DEBUG
+      sentry-enabled: false
+      prometheus-enabled: false
+      grafana-enabled: false
+      open-telemetry-enabled: false
+    cache:
+      enabled: true
+      default-ttl: 30m
+    runtime:
+      hot-reload-enabled: false
+      maintenance-mode: false
+    security:
+      rate-limiter-enabled: false
+      content-moderation-enabled: false
+      csrf-enabled: false

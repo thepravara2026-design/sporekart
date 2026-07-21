@@ -1,30 +1,45 @@
-server:
-  port: 8088
-
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ai_service_dev}
-    username: ${SPRING_DATASOURCE_USERNAME:ai_service}
-    password: ${SPRING_DATASOURCE_PASSWORD:CHANGE-ME}
+    url: jdbc:postgresql://dev-db:5432/ai_service
+    username: ${AI_DB_USERNAME}
+    password: ${AI_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: validate
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+    show-sql: true
   redis:
-    host: ${SPRING_REDIS_HOST:localhost}
-    port: ${SPRING_REDIS_PORT:6379}
+    host: dev-redis
+    port: 6379
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-
-logging:
-  level:
-    com.sporekart.ai: DEBUG
-    org.springframework: INFO
+    bootstrap-servers: dev-kafka:9092
 
 sporekart:
   ai:
-    mode: DEVELOPMENT
+    configuration:
+      environment-override-enabled: true
+      secret-management-enabled: true
+    features:
+      ai-enabled: true
+      gateway-enabled: true
+      provider-failover-enabled: true
+      rate-limiter-enabled: true
+      streaming-enabled: true
+      analytics-enabled: true
+      monitoring-enabled: true
+    observability:
+      logging-level: DEBUG
+      sentry-enabled: false
+      prometheus-enabled: true
+      grafana-enabled: false
+      open-telemetry-enabled: false
+    cache:
+      enabled: true
+      default-ttl: 10m
+    runtime:
+      hot-reload-enabled: true
+      hot-reload-interval: 60s
+    security:
+      rate-limiter-enabled: true
+      content-moderation-enabled: false
+      csrf-enabled: true
