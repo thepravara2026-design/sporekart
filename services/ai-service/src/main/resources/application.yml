@@ -33,6 +33,7 @@ sporekart:
     max-retries: 3
     request-timeout: 30s
     max-prompt-length: 32000
+
     features:
       platform-enabled: true
       gateway-enabled: true
@@ -121,6 +122,257 @@ sporekart:
       automation-caching: true
       automation-audit: true
       automation-monitoring: true
+      ai-enabled: true
+      gateway-enabled: true
+      prompt-registry-enabled: true
+      conversation-enabled: true
+      knowledge-enabled: true
+      semantic-search-enabled: true
+      embeddings-enabled: true
+      copilots-enabled: true
+      analytics-enabled: true
+      monitoring-enabled: true
+      provider-failover-enabled: true
+      rate-limiter-enabled: true
+      streaming-enabled: true
+      image-generation-enabled: true
+      audio-enabled: true
+      vision-enabled: true
+      reasoning-models-enabled: true
+
+    gateway:
+      enabled: true
+      base-path: /api/v1/ai
+      request-timeout: 60s
+      max-request-size: 32000
+      rate-limiter-enabled: true
+      rate-limit-requests-per-minute: 100
+      rate-limit-burst: 20
+      circuit-breaker-enabled: true
+      circuit-breaker-threshold: 5
+      circuit-breaker-reset-timeout: 30s
+      audit-enabled: true
+      caching-enabled: true
+      cache-ttl: 5m
+      streaming-enabled: true
+      max-streaming-duration: 120
+
+    runtime:
+      enabled: true
+      max-agent-executions: 1000
+      max-execution-duration-seconds: 300
+      dynamic-model-switching: true
+      provider-priority-enabled: true
+      traffic-routing-enabled: false
+      canary-rollout-enabled: false
+      canary-traffic-percent: 10.0
+      emergency-disable-enabled: true
+      maintenance-mode: false
+      request-timeout: 60s
+      circuit-breaker-threshold: 5
+      circuit-breaker-reset-timeout: 30s
+      max-retries: 3
+      retry-backoff: 1s
+      max-concurrency: 50
+      batch-size: 10
+      streaming-mode: true
+      hot-reload-enabled: true
+      hot-reload-interval: 30s
+
+    prompt:
+      enabled: true
+      caching-enabled: true
+      cache-ttl: 1h
+      versioning-enabled: true
+      approval-workflow-enabled: true
+      audit-enabled: true
+      template-validation-enabled: true
+      injection-detection-enabled: true
+      max-prompt-length: 32000
+      max-template-variables: 50
+      import-export-enabled: true
+
+    embedding:
+      enabled: true
+      default-provider: openai
+      default-model: text-embedding-3-small
+      embedding-dimension: 1536
+      batch-size: 20
+      cache-ttl: 24h
+      normalize-embeddings: true
+      caching-enabled: true
+      fallback-enabled: true
+      fallback-provider: gemini
+      fallback-model: embedding-001
+
+    semantic:
+      enabled: true
+      default-search-type: HYBRID
+      default-limit: 10
+      rrf-constant: 60
+      semantic-weight: 0.7
+      keyword-weight: 0.3
+      hybrid-search-enabled: true
+      cross-encoder-enabled: false
+      multi-vector-enabled: false
+      contextual-search-enabled: true
+      caching-enabled: true
+      search-cache-ttl: 5m
+      embedding-cache-ttl: 24h
+      rate-limit-per-minute: 100
+      audit-enabled: true
+
+    conversation:
+      enabled: true
+      caching-enabled: true
+      session-cache-ttl: 30m
+      message-cache-ttl: 15m
+      context-cache-ttl: 10m
+      session-timeout-minutes: 30
+      max-context-entries: 50
+      max-message-length: 10000
+      streaming-enabled: true
+      memory-enabled: true
+      short-term-memory-ttl: 24h
+      audit-enabled: true
+      input-sanitization-enabled: true
+      rate-limiter-enabled: true
+      rate-limit-per-minute: 60
+
+    memory:
+      enabled: true
+      caching-enabled: true
+      cache-ttl: 30m
+      vector-indexing-enabled: true
+      consolidation-enabled: true
+      short-term-ttl: 24h
+      long-term-ttl: 90d
+      max-short-term-entries: 100
+      max-long-term-entries: 10000
+      importance-scoring-enabled: true
+      importance-threshold: 0.3
+      pruning-enabled: true
+      pruning-interval: 6h
+      audit-enabled: true
+
+    analytics:
+      enabled: true
+      metrics-enabled: true
+      tracing-enabled: true
+      audit-logging-enabled: true
+      usage-tracking-enabled: true
+      cost-tracking-enabled: true
+      metrics-export-interval: 30s
+      trace-export-interval: 60s
+      anomaly-detection-enabled: false
+      dashboard-enabled: true
+      realtime-enabled: false
+      data-retention-days: 90
+      metrics-backend: prometheus
+      tracing-backend: jaeger
+
+    security:
+      enabled: true
+      rate-limiter-enabled: true
+      rate-limit-requests-per-minute: 100
+      rate-limit-burst: 20
+      input-validation-enabled: true
+      content-moderation-enabled: true
+      audit-enabled: true
+      encryption-enabled: false
+      secret-management-enabled: true
+      secret-provider-type: environment
+      token-expiry: 1h
+      cors-enabled: true
+      csrf-enabled: true
+      rbac-enabled: true
+      mfa-enabled: false
+
+    monitoring:
+      enabled: true
+      metrics-enabled: true
+      tracing-enabled: true
+      health-check-enabled: true
+      logging-enabled: true
+      audit-enabled: true
+      alerting-enabled: true
+      metrics-provider: prometheus
+      tracing-provider: jaeger
+      logging-provider: logback
+      alerting-provider: pagerduty
+      metrics-export-interval: 30s
+      trace-export-interval: 60s
+      health-check-interval: 30s
+      sentry-enabled: true
+      prometheus-enabled: true
+      grafana-enabled: true
+      open-telemetry-enabled: true
+
+    observability:
+      logging-enabled: true
+      metrics-enabled: true
+      tracing-enabled: true
+      health-enabled: true
+      audit-enabled: true
+      sentry-enabled: true
+      prometheus-enabled: true
+      grafana-enabled: true
+      open-telemetry-enabled: true
+      metrics-export-interval: 30s
+      trace-export-interval: 60s
+      health-check-interval: 30s
+      logging-level: INFO
+      metrics-backend: prometheus
+      tracing-backend: jaeger
+
+    cache:
+      enabled: true
+      default-ttl: 30m
+      key-prefix: "ai:"
+      versioning-enabled: true
+      refresh-strategy: CACHE_ASIDE
+      ttl-overrides:
+        config: 5m
+        feature: 10m
+        provider: 5m
+        secret: 1m
+
+    provider:
+      default-provider: openai
+      failover-enabled: true
+      health-check-interval-seconds: 30
+      provider-order: openai, gemini, claude, azure, bedrock, ollama, openrouter
+      providers:
+        GEMINI:
+          enabled: true
+          endpoint: https://generativelanguage.googleapis.com
+          model: gemini-pro
+          max-tokens: 2048
+          temperature: 0.7
+        OPENAI:
+          enabled: true
+          endpoint: https://api.openai.com
+          model: gpt-4
+          max-tokens: 2048
+          temperature: 0.7
+        CLAUDE:
+          enabled: true
+          endpoint: https://api.anthropic.com
+          model: claude-3-sonnet
+          max-tokens: 2048
+          temperature: 0.7
+
+    configuration:
+      enabled: true
+      validation-enabled: true
+      cache-enabled: true
+      cache-ttl: 5m
+      secret-management-enabled: true
+      multi-tenant-enabled: false
+      hot-reload-enabled: true
+      environment-override-enabled: true
+      audit-enabled: true
+
     modules:
       core:
         enabled: true
@@ -367,26 +619,6 @@ sporekart:
           topic: ai-runtime-events
           partitions: 3
           replication-factor: 1
-    provider:
-      providers:
-        GEMINI:
-          enabled: true
-          endpoint: https://generativelanguage.googleapis.com
-          model: gemini-pro
-          max-tokens: 2048
-          temperature: 0.7
-        OPENAI:
-          enabled: true
-          endpoint: https://api.openai.com
-          model: gpt-4
-          max-tokens: 2048
-          temperature: 0.7
-        CLAUDE:
-          enabled: true
-          endpoint: https://api.anthropic.com
-          model: claude-3-sonnet
-          max-tokens: 2048
-          temperature: 0.7
 
 management:
   endpoints:

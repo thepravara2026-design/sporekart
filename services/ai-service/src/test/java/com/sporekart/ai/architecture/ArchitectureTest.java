@@ -47,4 +47,44 @@ class ArchitectureTest {
             .resideInAnyPackage("..infrastructure..");
         rule.check(classes);
     }
+
+    @Test
+    void verifyConfigurationDomainHasNoSpringDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.configuration.domain");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("com.sporekart.ai.configuration.domain..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("org.springframework..");
+        rule.check(classes);
+    }
+
+    @Test
+    void verifyConfigurationApiHasNoInfrastructureDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.configuration");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("..configuration.api..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("..infrastructure..");
+        rule.check(classes);
+    }
+
+    @Test
+    void verifyConfigurationModelHasNoSpringDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.configuration.model");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("com.sporekart.ai.configuration.model..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("org.springframework..");
+        rule.check(classes);
+    }
+
+    @Test
+    void verifyConfigurationBinderHasNoInfrastructureDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.configuration");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("..configuration.binder..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("..infrastructure..");
+        rule.check(classes);
+    }
 }
