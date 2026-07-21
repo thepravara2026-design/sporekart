@@ -1,6 +1,7 @@
 package com.sporekart.ai.compliance.api;
 
 import com.sporekart.ai.compliance.domain.*;
+import com.sporekart.ai.compliance.engine.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

@@ -1,0 +1,38 @@
+server:
+  port: 8088
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:ai-service;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  redis:
+    host: localhost
+    port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    com.sporekart.ai: DEBUG
+    org.springframework: INFO
+
+sporekart:
+  ai:
+    mode: DEVELOPMENT
+    governance:
+      mode: DEVELOPMENT

@@ -1,0 +1,16 @@
+package com.sporekart.ai.shared.enums;
+
+public enum AiModelCapability {
+    CHAT_COMPLETION,
+    EMBEDDING,
+    IMAGE_GENERATION,
+    CODE_GENERATION,
+    SUMMARIZATION,
+    CLASSIFICATION,
+    EXTRACTION,
+    TRANSLATION,
+    SENTIMENT_ANALYSIS,
+    TOOL_USE,
+    FUNCTION_CALLING,
+    STREAMING
+}
