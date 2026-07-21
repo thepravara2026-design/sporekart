@@ -5,7 +5,7 @@ import com.sporekart.ai.core.domain.AiModuleStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GatewayHealthIndicator implements AIHealthService {
+public class GatewayHealthService implements AIHealthService {
     private boolean degraded = false;
     private String details = "AI Gateway is operational";
 
