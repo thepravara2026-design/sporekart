@@ -57,6 +57,27 @@ class PackageStructureTest {
     }
 
     @Test
+    void verifyProviderPackageStructure() {
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/adapter")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/client")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/model")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/capability")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/registry")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/factory")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/selector")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/selector/strategies")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/validator")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/discovery")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/metadata")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/monitoring")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/exception")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/contracts")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/config")));
+    }
+
+    @Test
     void verifyGatewayPackageStructure() {
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/pipeline/stages")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/pipeline")));
@@ -82,6 +103,7 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/architecture")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/configuration")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/gateway")));
+        assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/providers")));
     }
 
     @Test
@@ -117,5 +139,10 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-lifecycle.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-health.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/README.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/provider-architecture.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/provider-lifecycle.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/provider-selection.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/provider-contracts.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/README.md")));
     }
 }
