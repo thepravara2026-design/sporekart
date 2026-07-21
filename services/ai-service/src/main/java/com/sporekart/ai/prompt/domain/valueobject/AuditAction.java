@@ -1,0 +1,20 @@
+package com.sporekart.ai.prompt.domain.valueobject;
+
+public enum AuditAction {
+    PROMPT_CREATED,
+    PROMPT_UPDATED,
+    PROMPT_DELETED,
+    VERSION_CREATED,
+    VERSION_PUBLISHED,
+    STATUS_CHANGED,
+    METADATA_UPDATED,
+    POLICY_CHANGED,
+    VARIABLE_ADDED,
+    VARIABLE_REMOVED,
+    OWNER_CHANGED,
+    APPROVED,
+    REVIEWED,
+    DEPRECATED,
+    ARCHIVED,
+    ROLLED_BACK
+}
