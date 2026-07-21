@@ -83,6 +83,28 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/selector")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/selector/strategies")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle/manager")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle/state")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle/transition")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle/policy")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/lifecycle/validation")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health/checker")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health/readiness")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health/liveness")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health/diagnostics")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/health/monitoring")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/circuit")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/circuit/breaker")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/circuit/policy")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/circuit/recovery")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/availability")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/recovery")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/maintenance")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/heartbeat")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/metrics")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/audit")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/failover")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/validator")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/discovery")));
         assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/providers/metadata")));
@@ -119,6 +141,7 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/configuration")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/gateway")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/providers")));
+        assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/providers/ProviderLifecycleHealthTest.java")));
     }
 
     @Test
@@ -171,5 +194,13 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("docs/phase-13/providers/registry/registry-health.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/providers/registry/registry-audit.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/providers/registry/registry-validator.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/lifecycle-architecture.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/lifecycle-state-machine.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/health-management.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/circuit-breaker.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/availability-recovery.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/heartbeat-maintenance.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/observability.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/providers/lifecycle-health/operational-playbook.md")));
     }
 }
