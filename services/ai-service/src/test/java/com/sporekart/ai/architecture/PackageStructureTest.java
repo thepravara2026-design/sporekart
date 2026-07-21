@@ -57,12 +57,31 @@ class PackageStructureTest {
     }
 
     @Test
+    void verifyGatewayPackageStructure() {
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/pipeline/stages")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/pipeline")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/router")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/router/strategies")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/contract/request")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/contract/response")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/contract/message")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/security/hooks")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/exception")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/health")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/observability")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/facade")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/config")));
+        assertTrue(Files.exists(Paths.get("src/main/java/com/sporekart/ai/gateway/domain")));
+    }
+
+    @Test
     void verifyTestPackageStructure() {
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/memory")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/runtime")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/shared")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/architecture")));
         assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/configuration")));
+        assertTrue(Files.exists(Paths.get("src/test/java/com/sporekart/ai/gateway")));
     }
 
     @Test
@@ -88,5 +107,15 @@ class PackageStructureTest {
         assertTrue(Files.exists(Paths.get("docs/phase-13/deployment-configuration-guide.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-matrix.md")));
         assertTrue(Files.exists(Paths.get("docs/phase-13/configuration-lifecycle.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-architecture.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-pipeline.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-routing.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-contracts.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-error-handling.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-security.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-observability.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-lifecycle.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/gateway-health.md")));
+        assertTrue(Files.exists(Paths.get("docs/phase-13/gateway/README.md")));
     }
 }

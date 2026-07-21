@@ -87,4 +87,34 @@ class ArchitectureTest {
             .resideInAnyPackage("..infrastructure..");
         rule.check(classes);
     }
+
+    @Test
+    void verifyGatewayDomainHasNoFrameworkDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.gateway.domain");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("com.sporekart.ai.gateway.domain..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("org.springframework..");
+        rule.check(classes);
+    }
+
+    @Test
+    void verifyGatewayContractHasNoInfrastructureDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.gateway.contract");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("..gateway.contract..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("..infrastructure..");
+        rule.check(classes);
+    }
+
+    @Test
+    void verifyGatewayExceptionHasNoSpringDependencies() {
+        JavaClasses classes = new ClassFileImporter().importPackages("com.sporekart.ai.gateway.exception");
+        ArchRule rule = noClasses()
+            .that().resideInAnyPackage("com.sporekart.ai.gateway.exception..")
+            .should().dependOnClassesThat()
+            .resideInAnyPackage("org.springframework..");
+        rule.check(classes);
+    }
 }
