@@ -7,12 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,71 +22,54 @@ public class AggregatedHealthIndicator implements ReactiveHealthIndicator {
 
     private final GatewayConfig gatewayConfig;
     private final ServiceRegistry serviceRegistry;
-    private final HttpClient httpClient;
+    private final WebClient webClient;
 
-    public AggregatedHealthIndicator(GatewayConfig gatewayConfig, ServiceRegistry serviceRegistry) {
+    public AggregatedHealthIndicator(GatewayConfig gatewayConfig, ServiceRegistry serviceRegistry, WebClient.Builder webClientBuilder) {
         this.gatewayConfig = gatewayConfig;
         this.serviceRegistry = serviceRegistry;
-        this.httpClient = HttpClient.newBuilder()
-            .connectTimeout(Duration.ofSeconds(3))
-            .build();
+        this.webClient = webClientBuilder.build();
     }
 
     @Override
     public Mono<Health> health() {
-        return Mono.fromCallable(() -> {
-            var builder = Health.up();
-            var services = serviceRegistry.getAll();
+        var services = serviceRegistry.getAll();
 
-            if (services.isEmpty()) {
+        if (services.isEmpty()) {
+            return Mono.just(Health.up()
+                .withDetail("services", Map.of())
+                .withDetail("totalServices", 0)
+                .build());
+        }
+
+        var details = new ConcurrentHashMap<String, Object>();
+        var totalServices = services.size();
+
+        return Flux.fromIterable(services.entrySet())
+            .flatMap(entry -> checkService(entry.getKey(), entry.getValue())
+                .doOnNext(healthy -> details.put(entry.getKey(), healthy ? "UP" : "DOWN")))
+            .filter(h -> h)
+            .count()
+            .map(healthyCount -> {
+                var builder = healthyCount == totalServices ? Health.up() : Health.down();
                 return builder
-                    .withDetail("services", Map.of())
-                    .withDetail("totalServices", 0)
+                    .withDetail("services", details)
+                    .withDetail("totalServices", totalServices)
+                    .withDetail("healthyServices", healthyCount)
+                    .withDetail("unhealthyServices", totalServices - healthyCount)
                     .build();
-            }
-
-            var details = new ConcurrentHashMap<String, Object>();
-            var totalServices = services.size();
-            var healthyCount = services.entrySet().stream()
-                .map(entry -> {
-                    try {
-                        var healthy = checkService(entry.getKey(), entry.getValue());
-                        details.put(entry.getKey(), healthy ? "UP" : "DOWN");
-                        return healthy;
-                    } catch (Exception e) {
-                        details.put(entry.getKey(), "DOWN");
-                        return false;
-                    }
-                })
-                .filter(h -> h)
-                .count();
-
-            builder.withDetail("services", details)
-                .withDetail("totalServices", totalServices)
-                .withDetail("healthyServices", healthyCount)
-                .withDetail("unhealthyServices", totalServices - healthyCount);
-
-            if (healthyCount < totalServices) {
-                builder.down();
-            }
-
-            return builder.build();
-        });
+            });
     }
 
-    private boolean checkService(String name, ServiceRegistry.ServiceInstance instance) {
-        try {
-            var healthUrl = instance.url().replaceAll("/+$", "") + "/" + instance.healthPath().replaceAll("^/+", "");
-            var request = HttpRequest.newBuilder()
-                .uri(URI.create(healthUrl))
-                .timeout(Duration.parse("PT" + instance.timeout()))
-                .GET()
-                .build();
-            var response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-            return response.statusCode() == 200;
-        } catch (Exception e) {
-            log.debug("Health check failed for service {}: {}", name, e.getMessage());
-            return false;
-        }
+    private Mono<Boolean> checkService(String name, ServiceRegistry.ServiceInstance instance) {
+        var healthUrl = instance.url().replaceAll("/+$", "") + "/" + instance.healthPath().replaceAll("^/+", "");
+        return webClient.get()
+            .uri(healthUrl)
+            .retrieve()
+            .toBodilessEntity()
+            .map(response -> response.getStatusCode().is2xxSuccessful())
+            .onErrorResume(e -> {
+                log.debug("Health check failed for service {}: {}", name, e.getMessage());
+                return Mono.just(false);
+            });
     }
 }

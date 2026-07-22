@@ -18,10 +18,12 @@ public class ValidationFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         var request = exchange.getRequest();
-        var path = request.getURI().getPath();
 
-        validateMethod(request);
-        validateContentLength(request);
+        var methodError = validateMethod(request);
+        if (methodError != null) return Mono.error(methodError);
+
+        var contentError = validateContentLength(request);
+        if (contentError != null) return Mono.error(contentError);
 
         return chain.filter(exchange);
     }
@@ -31,18 +33,19 @@ public class ValidationFilter implements GlobalFilter, Ordered {
         return Ordered.HIGHEST_PRECEDENCE + 4;
     }
 
-    private void validateMethod(ServerHttpRequest request) {
-        var method = request.getMethod();
-        if (method == null) {
-            throw new GatewayException(HttpStatus.BAD_REQUEST, "INVALID_METHOD", "HTTP method is required");
+    private GatewayException validateMethod(ServerHttpRequest request) {
+        if (request.getMethod() == null) {
+            return new GatewayException(HttpStatus.BAD_REQUEST, "INVALID_METHOD", "HTTP method is required");
         }
+        return null;
     }
 
-    private void validateContentLength(ServerHttpRequest request) {
+    private GatewayException validateContentLength(ServerHttpRequest request) {
         var contentLength = request.getHeaders().getContentLength();
         if (contentLength > MAX_CONTENT_LENGTH) {
-            throw new GatewayException(HttpStatus.REQUEST_ENTITY_TOO_LARGE,
+            return new GatewayException(HttpStatus.REQUEST_ENTITY_TOO_LARGE,
                 "PAYLOAD_TOO_LARGE", "Request body exceeds maximum allowed size of 10MB");
         }
+        return null;
     }
 }

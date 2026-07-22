@@ -33,7 +33,6 @@ public class SecurityConfig {
                 .hsts(hsts -> hsts
                     .includeSubdomains(true)
                     .maxAge(java.time.Duration.ofDays(365)))
-                .contentTypeOptions(ServerHttpSecurity.HeaderSpec.ContentTypeOptionsSpec::disable)
                 .frameOptions(frame -> frame.mode(
                     org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode.DENY))
                 .xssProtection(ServerHttpSecurity.HeaderSpec.XssProtectionSpec::disable)
