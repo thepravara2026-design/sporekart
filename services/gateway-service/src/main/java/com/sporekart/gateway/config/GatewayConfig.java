@@ -57,6 +57,8 @@ public class GatewayConfig {
         private boolean jwtEnabled = true;
         private boolean requireAuthentication = true;
         private List<String> publicPaths = new ArrayList<>();
+        private String jwtSecret;
+        private String jwkSetUri;
 
         public boolean isJwtEnabled() { return jwtEnabled; }
         public void setJwtEnabled(boolean v) { this.jwtEnabled = v; }
@@ -64,6 +66,10 @@ public class GatewayConfig {
         public void setRequireAuthentication(boolean v) { this.requireAuthentication = v; }
         public List<String> getPublicPaths() { return publicPaths; }
         public void setPublicPaths(List<String> v) { this.publicPaths = v; }
+        public String getJwtSecret() { return jwtSecret; }
+        public void setJwtSecret(String v) { this.jwtSecret = v; }
+        public String getJwkSetUri() { return jwkSetUri; }
+        public void setJwkSetUri(String v) { this.jwkSetUri = v; }
     }
 
     public static class RateLimiterConfig {

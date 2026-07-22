@@ -1,13 +1,13 @@
 package com.sporekart.gateway.filter;
 
 import com.sporekart.gateway.error.GatewayException;
-import com.sporekart.gateway.security.JwtValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -23,13 +23,14 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         "/api/public", "/webjars", "/v3/api-docs", "/swagger-ui"
     );
 
-    private final JwtValidator jwtValidator;
+    private final ReactiveJwtDecoder jwtDecoder;
 
-    public AuthenticationFilter(JwtValidator jwtValidator) {
-        this.jwtValidator = jwtValidator;
+    public AuthenticationFilter(ReactiveJwtDecoder jwtDecoder) {
+        this.jwtDecoder = jwtDecoder;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         var request = exchange.getRequest();
         var path = request.getURI().getPath();
@@ -45,23 +46,27 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         }
 
         var token = authHeader.substring(7);
-        try {
-            var claims = jwtValidator.validate(token);
-            if (claims == null) {
+        return jwtDecoder.decode(token)
+            .flatMap(jwt -> {
+                var claims = jwt.getClaims();
+                var subject = jwt.getSubject() != null ? jwt.getSubject() : "unknown";
+                var roles = claims.containsKey("roles")
+                    ? (List<String>) claims.get("roles")
+                    : List.<String>of();
+                var rolesStr = String.join(",", roles);
+                var mutatedRequest = request.mutate()
+                    .header("X-User-Id", subject)
+                    .header("X-User-Roles", rolesStr)
+                    .build();
+                var mutatedExchange = exchange.mutate().request(mutatedRequest).build();
+                return chain.filter(mutatedExchange);
+            })
+            .onErrorResume(GatewayException.class, e -> Mono.error(e))
+            .onErrorResume(e -> {
+                log.warn("Authentication failed: {}", e.getMessage());
                 return Mono.error(new GatewayException(
-                    HttpStatus.UNAUTHORIZED, "INVALID_TOKEN", "Token validation failed"));
-            }
-            var mutatedRequest = request.mutate()
-                .header("X-User-Id", claims.subject())
-                .header("X-User-Roles", String.join(",", claims.roles()))
-                .build();
-            var mutatedExchange = exchange.mutate().request(mutatedRequest).build();
-            return chain.filter(mutatedExchange);
-        } catch (Exception e) {
-            log.warn("Authentication failed: {}", e.getMessage());
-            return Mono.error(new GatewayException(
-                HttpStatus.UNAUTHORIZED, "AUTH_FAILED", "Authentication failed: " + e.getMessage()));
-        }
+                    HttpStatus.UNAUTHORIZED, "AUTH_FAILED", "Authentication failed: " + e.getMessage()));
+            });
     }
 
     @Override

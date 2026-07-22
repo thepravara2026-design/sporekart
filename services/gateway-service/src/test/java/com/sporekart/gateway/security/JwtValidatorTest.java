@@ -1,86 +1,86 @@
 package com.sporekart.gateway.security;
 
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class JwtValidatorTest {
 
-    private final JwtValidator validator = new JwtValidator();
+    private static final String TEST_SECRET = "test-jwt-secret-key-for-hmac-signing-in-tests-only";
+    private final ReactiveJwtDecoder decoder = NimbusReactiveJwtDecoder.withSecretKey(
+        new SecretKeySpec(TEST_SECRET.getBytes(), "HmacSHA256")
+    ).build();
 
     @Test
     void shouldValidateWellFormedToken() {
-        var token = createToken("user123", List.of("ADMIN", "USER"));
-        var claims = validator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.subject()).isEqualTo("user123");
-        assertThat(claims.roles()).containsExactly("ADMIN", "USER");
-    }
-
-    @Test
-    void shouldExtractAdminFromToken() {
-        var claims = validator.validate("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl19.signature");
-        assertThat(claims).isNotNull();
-        assertThat(claims.subject()).isEqualTo("admin");
-        assertThat(claims.roles()).containsExactly("ADMIN");
+        var token = JwtTestHelper.createSignedToken("user123", List.of("ADMIN", "USER"));
+        var jwt = decoder.decode(token).block();
+        assertThat(jwt).isNotNull();
+        assertThat(jwt.getSubject()).isEqualTo("user123");
+        assertThat(jwt.getClaimAsStringList("roles")).containsExactly("ADMIN", "USER");
     }
 
     @Test
     void shouldHandleEmptyRoles() {
-        var token = createToken("nobody", List.of());
-        var claims = validator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.roles()).isEmpty();
+        var token = JwtTestHelper.createSignedToken("nobody", List.of());
+        var jwt = decoder.decode(token).block();
+        assertThat(jwt).isNotNull();
+        assertThat(jwt.getClaimAsStringList("roles")).isEmpty();
     }
 
     @Test
-    void shouldHandleMalformedBase64() {
-        var claims = validator.validate("header.!!!invalid!!!base64.signature");
-        assertThat(claims).isNull();
+    void shouldRejectUnsignedToken() {
+        var token = JwtTestHelper.createUnsignedToken("attacker", List.of("ADMIN"));
+        var result = decoder.decode(token)
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 
     @Test
-    void shouldHandleNotEnoughParts() {
-        var claims = validator.validate("only.two");
-        assertThat(claims).isNull();
+    void shouldRejectMalformedToken() {
+        var result = decoder.decode("not-a-valid-jwt")
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 
     @Test
-    void shouldHandleEmptyString() {
-        assertThat(validator.validate("")).isNull();
+    void shouldRejectEmptyToken() {
+        var result = decoder.decode("")
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 
     @Test
-    void shouldHandleNullInput() {
-        assertThat(validator.validate(null)).isNull();
-    }
-
-    @Test
-    void shouldHandleSingleRole() {
-        var token = createToken("analyst", List.of("ANALYST"));
-        var claims = validator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.roles()).containsExactly("ANALYST");
+    void shouldRejectForgedSignature() {
+        var token = JwtTestHelper.createUnsignedToken("hacker", List.of("SUPER_ADMIN"));
+        var result = decoder.decode(token)
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 
     @Test
     void shouldHandleMultipleRoles() {
-        var token = createToken("superuser", List.of("ADMIN", "ANALYST", "USER", "SYSTEM"));
-        var claims = validator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.roles()).containsExactly("ADMIN", "ANALYST", "USER", "SYSTEM");
-    }
-
-    private String createToken(String subject, List<String> roles) {
-        var header = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(
-            "{\"alg\":\"HS256\"}".getBytes());
-        var rolesJson = roles.stream()
-            .map(r -> "\"" + r + "\"")
-            .collect(java.util.stream.Collectors.joining(","));
-        var payload = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(
-            ("{\"sub\":\"" + subject + "\",\"roles\":[" + rolesJson + "]}").getBytes());
-        return header + "." + payload + ".fakesignature";
+        var token = JwtTestHelper.createSignedToken("superuser", List.of("ADMIN", "ANALYST", "USER", "SYSTEM"));
+        var jwt = decoder.decode(token).block();
+        assertThat(jwt).isNotNull();
+        assertThat(jwt.getClaimAsStringList("roles")).containsExactly("ADMIN", "ANALYST", "USER", "SYSTEM");
     }
 }

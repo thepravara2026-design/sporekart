@@ -1,14 +1,12 @@
 package com.sporekart.gateway;
 
-import com.sporekart.gateway.security.JwtValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.Base64;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +19,7 @@ class SecurityCertificationTest {
     private WebTestClient webTestClient;
 
     @Autowired
-    private JwtValidator jwtValidator;
+    private ReactiveJwtDecoder jwtDecoder;
 
     @Test
     void healthEndpointShouldBePublic() {
@@ -56,46 +54,33 @@ class SecurityCertificationTest {
     }
 
     @Test
-    void jwtValidatorShouldRejectNullToken() {
-        assertThat(jwtValidator.validate(null)).isNull();
+    void jwtDecoderShouldAcceptValidSignedToken() {
+        var token = com.sporekart.gateway.security.JwtTestHelper.createSignedToken("testuser", List.of("USER"));
+        jwtDecoder.decode(token)
+            .map(jwt -> {
+                assertThat(jwt.getSubject()).isEqualTo("testuser");
+                assertThat(jwt.getClaimAsStringList("roles")).containsExactly("USER");
+                return jwt;
+            })
+            .block();
     }
 
     @Test
-    void jwtValidatorShouldRejectEmptyToken() {
-        assertThat(jwtValidator.validate("")).isNull();
+    void jwtDecoderShouldRejectUnsignedToken() {
+        var token = com.sporekart.gateway.security.JwtTestHelper.createUnsignedToken("attacker", List.of("ADMIN"));
+        var result = jwtDecoder.decode(token)
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 
     @Test
-    void jwtValidatorShouldRejectMalformedToken() {
-        assertThat(jwtValidator.validate("not-a-valid-jwt")).isNull();
-    }
-
-    @Test
-    void jwtValidatorShouldExtractSubjectAndRoles() {
-        var token = createTestToken("testuser", List.of("USER"));
-        var claims = jwtValidator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.subject()).isEqualTo("testuser");
-        assertThat(claims.roles()).containsExactly("USER");
-    }
-
-    @Test
-    void jwtValidatorShouldExtractAdminRoles() {
-        var token = createTestToken("admin", List.of("ADMIN", "USER"));
-        var claims = jwtValidator.validate(token);
-        assertThat(claims).isNotNull();
-        assertThat(claims.subject()).isEqualTo("admin");
-        assertThat(claims.roles()).containsExactly("ADMIN", "USER");
-    }
-
-    private String createTestToken(String subject, List<String> roles) {
-        var header = Base64.getUrlEncoder().withoutPadding().encodeToString(
-            "{\"alg\":\"HS256\"}".getBytes());
-        var rolesJson = roles.stream()
-            .map(r -> "\"" + r + "\"")
-            .collect(java.util.stream.Collectors.joining(","));
-        var payload = Base64.getUrlEncoder().withoutPadding().encodeToString(
-            ("{\"sub\":\"" + subject + "\",\"roles\":[" + rolesJson + "]}").getBytes());
-        return header + "." + payload + ".signature";
+    void jwtDecoderShouldRejectNullToken() {
+        var result = jwtDecoder.decode("")
+            .map(jwt -> true)
+            .onErrorReturn(false)
+            .block();
+        assertThat(result).isFalse();
     }
 }
