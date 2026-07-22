@@ -1,0 +1,473 @@
+openapi: 3.0.3
+info:
+  title: SporeKart Enterprise Prompt Management Platform API
+  version: 1.0.0
+  description: Enterprise Prompt Management — Registry, Versioning, Templates, Approval, Playground, Governance
+  contact:
+    name: SporeKart Platform Team
+
+servers:
+  - url: http://localhost:8090
+    description: Local development
+
+paths:
+  /api/v1/prompts:
+    post:
+      summary: Create a new prompt template
+      tags: [Prompt Templates]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePromptRequest'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptTemplateResponse'
+    get:
+      summary: List all prompt templates
+      tags: [Prompt Templates]
+      responses:
+        '200':
+          description: List of templates
+
+  /api/v1/prompts/{id}:
+    get:
+      summary: Get a prompt template by ID
+      tags: [Prompt Templates]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Template found
+        '404':
+          description: Template not found
+    put:
+      summary: Update a prompt template
+      tags: [Prompt Templates]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePromptRequest'
+      responses:
+        '200':
+          description: Template updated
+    delete:
+      summary: Delete a prompt template (soft delete)
+      tags: [Prompt Templates]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: performedBy
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Template deleted
+
+  /api/v1/prompts/{id}/versions:
+    post:
+      summary: Create a new version for a prompt template
+      tags: [Prompt Versions]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVersionRequest'
+      responses:
+        '201':
+          description: Version created
+    get:
+      summary: List all versions for a prompt template
+      tags: [Prompt Versions]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of versions
+
+  /api/v1/prompts/{id}/versions/latest:
+    get:
+      summary: Get the latest version of a prompt template
+      tags: [Prompt Versions]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Latest version
+        '404':
+          description: No versions found
+
+  /api/v1/prompts/{id}/versions/published:
+    get:
+      summary: Get the published version of a prompt template
+      tags: [Prompt Versions]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Published version
+        '404':
+          description: No published version
+
+  /api/v1/prompts/{id}/versions/{version}:
+    get:
+      summary: Get a specific version of a prompt template
+      tags: [Prompt Versions]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Version found
+        '404':
+          description: Version not found
+
+  /api/v1/prompts/publish:
+    post:
+      summary: Publish a prompt version
+      tags: [Prompt Publishing]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        '200':
+          description: Prompt published
+
+  /api/v1/prompts/rollback:
+    post:
+      summary: Rollback to a previous version
+      tags: [Prompt Publishing]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RollbackRequest'
+      responses:
+        '200':
+          description: Rollback completed
+
+  /api/v1/prompts/approvals:
+    post:
+      summary: Request approval for a prompt version
+      tags: [Prompt Approvals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalRequest'
+      responses:
+        '201':
+          description: Approval requested
+
+  /api/v1/prompts/approvals/{approvalId}/decision:
+    post:
+      summary: Approve or reject a prompt approval request
+      tags: [Prompt Approvals]
+      parameters:
+        - name: approvalId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalDecisionRequest'
+      responses:
+        '200':
+          description: Decision recorded
+
+  /api/v1/prompts/approvals/pending:
+    get:
+      summary: Get pending approvals for an approver
+      tags: [Prompt Approvals]
+      parameters:
+        - name: approver
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of pending approvals
+
+  /api/v1/prompts/preview:
+    post:
+      summary: Preview a rendered prompt with variables
+      tags: [Prompt Playground]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequest'
+      responses:
+        '200':
+          description: Preview rendered
+
+  /api/v1/prompts/execute-test:
+    post:
+      summary: Execute a test prompt against a provider
+      tags: [Prompt Playground]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestExecutionRequest'
+      responses:
+        '200':
+          description: Test executed
+
+  /api/v1/prompts/{id}/compare:
+    get:
+      summary: Compare two versions of a prompt template
+      tags: [Prompt Comparison]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: versionA
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: versionB
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Comparison result
+
+  /api/v1/prompts/{id}/metrics:
+    get:
+      summary: Get usage metrics for a prompt template
+      tags: [Prompt Metrics]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Metrics
+
+  /api/v1/prompts/{id}/audit:
+    get:
+      summary: Get audit log for a prompt template
+      tags: [Prompt Audit]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Audit log
+
+  /api/v1/prompts/search:
+    get:
+      summary: Search prompt templates
+      tags: [Prompt Templates]
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+
+  /api/v1/prompts/dashboard:
+    get:
+      summary: Get prompt management dashboard
+      tags: [Prompt Dashboard]
+      responses:
+        '200':
+          description: Dashboard data
+
+  /api/v1/prompts/filter/category/{category}:
+    get:
+      summary: Filter prompt templates by category
+      tags: [Prompt Templates]
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Filtered results
+
+  /api/v1/prompts/filter/status/{status}:
+    get:
+      summary: Filter prompt templates by status
+      tags: [Prompt Templates]
+      parameters:
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Filtered results
+
+  /api/v1/prompts/filter/owner/{owner}:
+    get:
+      summary: Filter prompt templates by owner
+      tags: [Prompt Templates]
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Filtered results
+
+components:
+  schemas:
+    CreatePromptRequest:
+      type: object
+      required: [name, slug, category, scope, owner, createdBy]
+      properties:
+        name: { type: string, maxLength: 255 }
+        slug: { type: string, maxLength: 255 }
+        description: { type: string }
+        category: { type: string, enum: [COMMERCE, INVENTORY, TRAINING, CRM, HRMS, ANALYTICS, MARKETING, KNOWLEDGE, SUPPORT, VISION, SPEECH, RAG, COPILOT, AUTOMATION, GOVERNANCE] }
+        scope: { type: string, enum: [GLOBAL, WORKSPACE, TENANT, DEPARTMENT, FEATURE, USER, ROLE, ORGANIZATION] }
+        owner: { type: string, format: uuid }
+        createdBy: { type: string, format: uuid }
+        tags: { type: array, items: { type: string } }
+
+    UpdatePromptRequest:
+      type: object
+      properties:
+        name: { type: string }
+        slug: { type: string }
+        description: { type: string }
+        category: { type: string }
+        scope: { type: string }
+        owner: { type: string, format: uuid }
+        updatedBy: { type: string, format: uuid }
+        tags: { type: array, items: { type: string } }
+
+    CreateVersionRequest:
+      type: object
+      required: [promptBody, createdBy]
+      properties:
+        promptBody: { type: string }
+        systemPrompt: { type: string }
+        developerPrompt: { type: string }
+        userPrompt: { type: string }
+        fewShotExamples: { type: string }
+        conversationInstructions: { type: string }
+        safetyConstraints: { type: string }
+        providerMetadata: { type: string }
+        variablesJson: { type: string }
+        providerConstraints: { type: string }
+        temperature: { type: number, format: float }
+        topP: { type: number, format: float }
+        maxTokens: { type: integer }
+        createdBy: { type: string, format: uuid }
+        changeNotes: { type: string }
+
+    PromptTemplateResponse:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        description: { type: string }
+        category: { type: string }
+        scope: { type: string }
+        status: { type: string }
+        owner: { type: string, format: uuid }
+        createdBy: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        isActive: { type: boolean }
+        tags: { type: array, items: { type: string } }
+        latestVersion: { type: integer }
+        isPublished: { type: boolean }

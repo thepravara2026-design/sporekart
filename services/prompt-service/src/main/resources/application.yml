@@ -1,0 +1,60 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: prompt-service
+  datasource:
+    url: jdbc:h2:mem:prompt-service;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+sporekart:
+  prompt:
+    enabled: true
+    cache:
+      enabled: true
+      default-ttl: 30m
+    validation:
+      max-prompt-length: 100000
+      max-variables: 100
+      max-template-name-length: 255
+    preview:
+      enabled: true
+    playground:
+      enabled: true
+      test-timeout-seconds: 60
+    approval:
+      required: true
+      auto-approve: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+springdoc:
+  api-docs:
+    path: /api/v1/prompts/docs
+  swagger-ui:
+    path: /api/v1/prompts/swagger-ui.html
