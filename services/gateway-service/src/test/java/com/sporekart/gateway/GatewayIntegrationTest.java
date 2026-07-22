@@ -24,9 +24,9 @@ class GatewayIntegrationTest {
         webTestClient.get()
             .uri("/actuator/health")
             .exchange()
-            .expectStatus().is5xxServerError()
+            .expectStatus().isOk()
             .expectBody()
-            .jsonPath("$.status").isEqualTo("DOWN");
+            .jsonPath("$.status").isEqualTo("UP");
     }
 
     @Test

@@ -27,7 +27,7 @@ class PerformanceCertificationTest {
         webTestClient.get()
             .uri("/actuator/health")
             .exchange()
-            .expectStatus().is5xxServerError();
+            .expectStatus().isOk();
         var duration = System.currentTimeMillis() - start;
         log.info("Health endpoint latency: {}ms", duration);
         assertThat(duration).isLessThan(MAX_ACCEPTABLE_LATENCY_MS);

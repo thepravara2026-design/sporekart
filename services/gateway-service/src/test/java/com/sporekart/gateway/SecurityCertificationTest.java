@@ -26,7 +26,7 @@ class SecurityCertificationTest {
         webTestClient.get()
             .uri("/actuator/health")
             .exchange()
-            .expectStatus().is5xxServerError();
+            .expectStatus().isOk();
     }
 
     @Test
