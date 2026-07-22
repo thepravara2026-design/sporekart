@@ -15,7 +15,11 @@ The Conversation Platform manages the full lifecycle of user-AI conversations in
 
 - **Session Management** — Create, suspend, resume, close, and delete conversation sessions
 - **Message Management** — Send/receive messages, paginated history, status tracking
-- **Memory Management** — Short-term (24h TTL) and long-term memory with relevance scoring
+- **Memory Management** — Six-layer memory (IMMEDIATE→CONVERSATION→SESSION→WORKSPACE→BUSINESS→LONG_TERM) with TTL, promotion, and cross-layer querying
+- **Context Window Management** — Build, compress (sliding window at 80% maxTokens), trim, and prioritize context windows
+- **Session Lifecycle** — Full lifecycle (Created→Active→Archived→Closed→Deleted) with token usage tracking
+- **Observability** — 8 atomic counters for conversations, messages, memory retrievals, summarizations, sessions, and compressions
+- **Memory Retrieval Engine** — Cross-layer search with content query across user, workspace, and conversation scopes
 - **Context Assembly** — Fuses conversation history, stored context, and user queries
 - **Streaming Foundation** — Backend support for SSE streaming (provider SDK calls excluded)
 - **Security** — Input sanitization, rate limiting, user suspension, owner verification
@@ -29,6 +33,47 @@ The Conversation Platform manages the full lifecycle of user-AI conversations in
 User → Conversation API → Security → Session Manager → Message Manager →
   Context Builder → Memory Manager → Kafka Event → Monitoring → Response
 ```
+
+---
+
+## Multi-Layer Memory
+
+The platform supports six memory layers:
+
+| Layer | Scope | TTL | Promotion |
+|-------|-------|-----|-----------|
+| IMMEDIATE | Current turn | None | Manual |
+| CONVERSATION | Single conversation | 24h | Automatic |
+| SESSION | Multi-turn session | 7d | Automatic |
+| WORKSPACE | Workspace-wide | 30d | Manual |
+| BUSINESS | Cross-workspace | 90d | Manual |
+| LONG_TERM | Indefinite | None | Manual |
+
+The `MemoryManager` provides: store (with/without TTL), retrieve by key+layer, retrieve by layer, retrieve by layer+workspace, query by content, clear, and promote.
+
+## Context Window Management
+
+The `ContextWindowManager` builds context windows from active messages, compresses via sliding window (>80% maxTokens triggers compression), trims to token limits, and prioritizes by recency and relevance. Token estimation uses `chars/4 + 3`.
+
+## Session Lifecycle
+
+```
+Created → Active → Archived (suspend) → Active (resume) → Closed → Deleted
+```
+
+Each `Session` tracks `tokenUsage`, `messageCount`, `lastActiveAt`, `startedAt`, and `endedAt`.
+
+## Summarization
+
+The `ConversationSummarizer` compresses conversation history into `Summary` entities and restores context from summaries for continued conversations.
+
+## Observability
+
+`ConversationMetricsService` maintains atomic counters: activeConversations, totalMessages, totalTokenUsage, totalMemoryRetrievals (with avg latency), totalSummarizations (with avg latency), activeSessions, totalContextCompressions. Exposed via `getMetrics()` and `reset()`.
+
+## Memory Retrieval Engine
+
+The `MemoryRetrievalEngine` enables cross-layer search: retrieve by user, by workspace, or query by content across layers, returning relevant entries with context.
 
 ---
 

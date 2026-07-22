@@ -59,6 +59,70 @@ The Enterprise AI Conversation Platform provides session management, message man
 
 ---
 
+## Implemented Subsystems (Phase 13)
+
+### Multi-Layer Memory Architecture
+
+The memory system is organized in six layers with increasing scope and retention:
+
+| Layer | Scope | TTL | Promotion |
+|-------|-------|-----|-----------|
+| IMMEDIATE | Current turn | None (volatile) | Manual |
+| CONVERSATION | Single conversation | 24h | Automatic |
+| SESSION | Across multi-turn session | 7d | Automatic |
+| WORKSPACE | Workspace-wide | 30d | Manual |
+| BUSINESS | Cross-workspace (tenant) | 90d | Manual |
+| LONG_TERM | Indefinite retention | None | Manual |
+
+Each `MemoryEntry` has a key-value structure with metadata, `createdAt`, and `expiresAt`. The `MemoryManager` supports store (with/without TTL), retrieve by key+layer, retrieve by layer, retrieve by layer and workspace, content query, clear, and promote (move entry to a higher layer).
+
+### Context Window Management
+
+The `ContextWindowManager` manages the active context for a conversation:
+
+- **Build** — Assembles context from active messages and history
+- **Compress** — Sliding window: drops oldest messages when `needsCompression()` returns true (>80% of `maxTokens` used)
+- **Trim** — Removes messages beyond `maxTokens` limit
+- **Prioritize** — Orders messages by recency and relevance
+- **Token Estimation** — `estimateTokens(content)` uses `chars / 4 + 3` heuristic
+
+### Session Management Lifecycle
+
+```
+Created → Active → Archived → Active (resume) → Closed → Deleted
+```
+
+The `SessionManager` handles create, get, list active, update, close, and delete. Each `Session` tracks `tokenUsage`, `messageCount`, `lastActiveAt`, and workspace/user associations.
+
+### Summarization Flow
+
+The `ConversationSummarizer` supports:
+- **Summarize** — Compresses conversation history into a `Summary` entity (content, tokenCount, summaryType, modelVersion)
+- **Restore** — Reconstructs context from a stored summary for continued conversations
+
+Summaries are stored via `SummaryRepository` and linked to conversations via `summaryId` on the `Message` aggregate root.
+
+### Service Layer Breakdown
+
+| Layer | Class | Responsibility |
+|-------|-------|----------------|
+| Application Service | `ConversationManager` | Conversation CRUD, status transitions, lifecycle |
+| Application Service | `MessageEngine` | Message CRUD, citations, attachments, tool calls |
+| Application Service | `MemoryManager` | Multi-layer memory with TTL, query, promote |
+| Application Service | `ContextWindowManager` | Window build, compress, trim, prioritize |
+| Application Service | `ConversationSummarizer` | Summarize and restore conversations |
+| Application Service | `MemoryRetrievalEngine` | Cross-user/workspace retrieval with context |
+| Application Service | `SessionManager` | Session lifecycle management |
+| Repository | `InMemoryConversationRepository` | In-memory conversation storage |
+| Repository | `InMemoryMessageRepository` | In-memory message storage |
+| Repository | `InMemoryMemoryRepository` | In-memory memory entry storage |
+| Repository | `InMemorySessionRepository` | In-memory session storage |
+| Repository | `InMemorySummaryRepository` | In-memory summary storage |
+| Config | `ConversationEngineConfig` | Spring wiring of all services and repositories |
+| Observability | `ConversationMetricsService` | Atomic counters and avg latency metrics |
+
+---
+
 ## Component Map
 
 | Module | Package | Purpose |

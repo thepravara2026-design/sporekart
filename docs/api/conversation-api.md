@@ -201,6 +201,214 @@
 
 ---
 
+## AI Conversation API v2
+
+**Base URL:** `/api/v1/ai`
+
+Endpoints for conversation, memory, and session management.
+
+### Conversations
+
+`POST /api/v1/ai/conversations`
+Create a new conversation.
+
+**Request Body:** `CreateConversationRequest`
+```json
+{
+  "title": "Customer Inquiry",
+  "workspaceId": "ws-1",
+  "userId": "user-1"
+}
+```
+
+**Response (200):** `ConversationResponse`
+
+---
+
+`GET /api/v1/ai/conversations/{id}`
+Get a conversation by ID.
+
+**Response (200):** `ConversationResponse`
+
+---
+
+`GET /api/v1/ai/conversations?status=ACTIVE&workspaceId=ws-1&userId=user-1`
+List conversations, optionally filtered by status, workspaceId, and/or userId.
+
+**Response (200):** List of `ConversationResponse`
+
+---
+
+`PUT /api/v1/ai/conversations/{id}/close`
+Close a conversation.
+
+**Response (200):** `ConversationResponse`
+
+---
+
+`PUT /api/v1/ai/conversations/{id}/archive`
+Archive a conversation.
+
+**Response (200):** `ConversationResponse`
+
+---
+
+`PUT /api/v1/ai/conversations/{id}/restore`
+Restore an archived or closed conversation.
+
+**Response (200):** `ConversationResponse`
+
+---
+
+`DELETE /api/v1/ai/conversations/{id}`
+Soft-delete a conversation.
+
+**Response (200):** `ConversationResponse`
+
+### Messages
+
+`GET /api/v1/ai/conversations/{id}/messages`
+List messages in a conversation.
+
+**Response (200):** List of `MessageResponse`
+
+---
+
+`POST /api/v1/ai/conversations/{id}/messages`
+Add a message to a conversation.
+
+**Request Body:** `MessageRequest`
+```json
+{
+  "type": "USER",
+  "content": "What is the status of my order?",
+  "metadata": {}
+}
+```
+
+**Response (200):** `MessageResponse`
+
+---
+
+`GET /api/v1/ai/conversations/{id}/messages/{messageId}`
+Get a specific message by ID.
+
+**Response (200):** `MessageResponse`
+
+### Memory
+
+`POST /api/v1/ai/memory`
+Store a memory entry.
+
+**Request Body:**
+```json
+{
+  "key": "user-preference",
+  "value": "dark-mode",
+  "layer": "SESSION",
+  "ttlSeconds": 604800
+}
+```
+
+**Response (200):** `MemoryEntryResponse`
+
+---
+
+`GET /api/v1/ai/memory/query?key=user-preference&query=dark&layer=SESSION`
+Query memory entries by key, content, and/or layer.
+
+**Response (200):** List of `MemoryEntryResponse`
+
+---
+
+`GET /api/v1/ai/memory/{layer}`
+Get all memory entries for a specific layer.
+
+**Response (200):** List of `MemoryEntryResponse`
+
+---
+
+`DELETE /api/v1/ai/memory/{layer}`
+Clear all memory entries in a layer.
+
+**Response (204):** No content.
+
+---
+
+`DELETE /api/v1/ai/memory/workspace/{workspaceId}`
+Clear all memory entries for a workspace across all layers.
+
+**Response (204):** No content.
+
+---
+
+`POST /api/v1/ai/memory/promote`
+Promote a memory entry to a higher layer.
+
+**Request Body:**
+```json
+{
+  "memoryId": "mem-123",
+  "targetLayer": "LONG_TERM"
+}
+```
+
+**Response (200):** `MemoryEntryResponse`
+
+### Sessions
+
+`GET /api/v1/ai/sessions/{id}`
+Get a session by ID.
+
+**Response (200):** `SessionResponse`
+
+---
+
+`POST /api/v1/ai/sessions`
+Create a new session.
+
+**Request Body:** `CreateSessionRequest`
+```json
+{
+  "userId": "user-1",
+  "workspaceId": "ws-1"
+}
+```
+
+**Response (200):** `SessionResponse`
+
+---
+
+`POST /api/v1/ai/sessions/{id}/summarize`
+Summarize a conversation in a session.
+
+**Request Body:** `SummarizeRequest`
+```json
+{
+  "conversationId": "conv-123",
+  "summaryType": "CONCISE"
+}
+```
+
+**Response (200):** `SummarizeResponse`
+
+---
+
+`POST /api/v1/ai/sessions/{id}/restore`
+Restore a conversation from a summary.
+
+**Request Body:** `RestoreRequest`
+```json
+{
+  "conversationId": "conv-123",
+  "summaryId": "sum-456"
+}
+```
+
+**Response (200):** `RestoreResponse`
+
+---
+
 ## Error Responses
 
 | Status | Description |
