@@ -1,15 +1,14 @@
 package com.sporekart.ai.conversation.domain;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import java.time.Instant;
+import java.util.Map;
 
 public record MemoryEntry(
-    UUID id,
-    UUID sessionId,
-    MemoryType type,
-    String summary,
-    String keywords,
-    double relevanceScore,
-    OffsetDateTime createdAt,
-    OffsetDateTime expiresAt
-) {}
+        String id,
+        MemoryLayer layer,
+        String key,
+        String value,
+        Map<String, String> metadata,
+        Instant createdAt,
+        Instant expiresAt) {
+}

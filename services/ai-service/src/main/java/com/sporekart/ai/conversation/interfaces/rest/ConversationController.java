@@ -1,227 +1,417 @@
 package com.sporekart.ai.conversation.interfaces.rest;
 
-import com.sporekart.ai.conversation.api.ContextBuilder;
-import com.sporekart.ai.conversation.api.MemoryManager;
-import com.sporekart.ai.conversation.api.MessageService;
-import com.sporekart.ai.conversation.api.SessionManager;
-import com.sporekart.ai.conversation.application.ConversationException;
-import com.sporekart.ai.conversation.application.ConversationSecurityService;
-import com.sporekart.ai.conversation.domain.MemoryType;
-import com.sporekart.ai.conversation.domain.MessageRole;
-import com.sporekart.ai.conversation.infrastructure.kafka.ConversationKafkaEventPublisher;
-import com.sporekart.ai.conversation.infrastructure.monitoring.ConversationMonitoringService;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationMemoryRequest;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationMemoryResponse;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationMessageRequest;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationMessageResponse;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationSessionRequest;
-import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationSessionResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.sporekart.ai.conversation.api.ConversationService;
+import com.sporekart.ai.conversation.api.ContextWindowService;
+import com.sporekart.ai.conversation.api.MemoryService;
+import com.sporekart.ai.conversation.api.SessionService;
+import com.sporekart.ai.conversation.api.SummarizerService;
+import com.sporekart.ai.conversation.application.MessageEngine;
+import com.sporekart.ai.conversation.application.MemoryRetrievalEngine;
+import com.sporekart.ai.conversation.domain.Conversation;
+import com.sporekart.ai.conversation.domain.ConversationId;
+import com.sporekart.ai.conversation.domain.ConversationStatus;
+import com.sporekart.ai.conversation.domain.MemoryEntry;
+import com.sporekart.ai.conversation.domain.MemoryLayer;
+import com.sporekart.ai.conversation.domain.Message;
+import com.sporekart.ai.conversation.domain.MessageType;
+import com.sporekart.ai.conversation.domain.Session;
+import com.sporekart.ai.conversation.domain.SessionId;
+import com.sporekart.ai.conversation.domain.Summary;
+import com.sporekart.ai.conversation.domain.WorkspaceId;
+import com.sporekart.ai.conversation.interfaces.rest.dto.AttachmentResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.CitationResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.ConversationResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.CreateConversationRequest;
+import com.sporekart.ai.conversation.interfaces.rest.dto.CreateSessionRequest;
+import com.sporekart.ai.conversation.interfaces.rest.dto.MemoryEntryResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.MemoryQueryRequest;
+import com.sporekart.ai.conversation.interfaces.rest.dto.MessageRequest;
+import com.sporekart.ai.conversation.interfaces.rest.dto.MessageResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.RestoreRequest;
+import com.sporekart.ai.conversation.interfaces.rest.dto.RestoreResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.SessionResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.SummarizeResponse;
+import com.sporekart.ai.conversation.interfaces.rest.dto.ToolCallResponse;
+
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/v1/conversation")
-@Tag(name = "Conversation API", description = "Enterprise AI conversation management endpoints")
+@RequestMapping("/api/v1/ai")
+@CrossOrigin(origins = "*")
 public class ConversationController {
 
     private static final Logger log = LoggerFactory.getLogger(ConversationController.class);
 
-    private final SessionManager sessionManager;
-    private final MessageService messageService;
-    private final MemoryManager memoryManager;
-    private final ContextBuilder contextBuilder;
-    private final ConversationSecurityService securityService;
-    private final ConversationMonitoringService monitoringService;
-    private final ConversationKafkaEventPublisher kafkaPublisher;
+    private final ConversationService conversationService;
+    private final MessageEngine messageEngine;
+    private final SummarizerService summarizerService;
+    private final MemoryService memoryService;
+    private final MemoryRetrievalEngine memoryRetrievalEngine;
+    private final SessionService sessionService;
+    private final ContextWindowService contextWindowService;
 
-    public ConversationController(SessionManager sessionManager,
-                                  MessageService messageService,
-                                  MemoryManager memoryManager,
-                                  ContextBuilder contextBuilder,
-                                  ConversationSecurityService securityService,
-                                  ConversationMonitoringService monitoringService,
-                                  ConversationKafkaEventPublisher kafkaPublisher) {
-        this.sessionManager = sessionManager;
-        this.messageService = messageService;
-        this.memoryManager = memoryManager;
-        this.contextBuilder = contextBuilder;
-        this.securityService = securityService;
-        this.monitoringService = monitoringService;
-        this.kafkaPublisher = kafkaPublisher;
+    public ConversationController(ConversationService conversationService,
+                                  MessageEngine messageEngine,
+                                  SummarizerService summarizerService,
+                                  MemoryService memoryService,
+                                  MemoryRetrievalEngine memoryRetrievalEngine,
+                                  SessionService sessionService,
+                                  ContextWindowService contextWindowService) {
+        this.conversationService = conversationService;
+        this.messageEngine = messageEngine;
+        this.summarizerService = summarizerService;
+        this.memoryService = memoryService;
+        this.memoryRetrievalEngine = memoryRetrievalEngine;
+        this.sessionService = sessionService;
+        this.contextWindowService = contextWindowService;
     }
 
-    @PostMapping("/sessions")
-    @Operation(summary = "Create a new conversation session")
-    public ResponseEntity<ConversationSessionResponse> createSession(@Valid @RequestBody ConversationSessionRequest request) {
-        if (!securityService.checkRateLimit(request.userId())) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+    @PostMapping("/conversations")
+    public ResponseEntity<ConversationResponse> createConversation(
+            @Valid @RequestBody CreateConversationRequest request) {
+        var sessionId = SessionId.fromString(request.getSessionId());
+        var workspaceId = request.getWorkspaceId() != null
+                ? WorkspaceId.fromString(request.getWorkspaceId()) : null;
+        var conv = conversationService.createConversation(
+                request.getTitle(), sessionId, workspaceId, null);
+        log.info("Created conversation: {}", conv.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(toConversationResponse(conv));
+    }
+
+    @GetMapping("/conversations")
+    public ResponseEntity<List<ConversationResponse>> listConversations(
+            @RequestParam(required = false) String userId,
+            @RequestParam(required = false) String workspaceId,
+            @RequestParam(required = false) String status) {
+        var wsId = workspaceId != null ? WorkspaceId.fromString(workspaceId) : null;
+        var convStatus = status != null ? ConversationStatus.valueOf(status.toUpperCase()) : null;
+        var convs = conversationService.listConversations(userId, wsId, convStatus);
+        var response = convs.stream().map(this::toConversationResponse).toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/conversations/{id}")
+    public ResponseEntity<ConversationResponse> getConversation(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        var conv = conversationService.getConversation(convId);
+        return ResponseEntity.ok(toConversationResponse(conv));
+    }
+
+    @DeleteMapping("/conversations/{id}")
+    public ResponseEntity<Void> deleteConversation(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        conversationService.deleteConversation(convId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/conversations/{id}/messages")
+    public ResponseEntity<MessageResponse> addMessage(
+            @PathVariable String id,
+            @Valid @RequestBody MessageRequest request) {
+        var convId = ConversationId.fromString(id);
+        var messageType = MessageType.valueOf(request.getType().toUpperCase());
+        var msg = messageEngine.createMessage(convId, messageType, request.getContent(),
+                request.getRole(), request.getMetadata());
+        conversationService.addMessage(convId, msg);
+        log.info("Added message {} to conversation {}", msg.getId(), id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(toMessageResponse(msg));
+    }
+
+    @GetMapping("/conversations/{id}/messages")
+    public ResponseEntity<List<MessageResponse>> getMessages(
+            @PathVariable String id,
+            @RequestParam(required = false) String after) {
+        var convId = ConversationId.fromString(id);
+        List<Message> messages;
+        if (after != null) {
+            var afterInstant = Instant.parse(after);
+            messages = messageEngine.getConversationMessagesAfter(convId, afterInstant);
+        } else {
+            messages = messageEngine.getConversationMessages(convId);
         }
-        var session = monitoringService.recordSessionLatency(() ->
-                sessionManager.createSession(request.userId(), request.title()));
-        monitoringService.recordSessionCreated();
-        kafkaPublisher.publishSessionCreated(session.id(), session.userId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(ConversationSessionResponse.from(session));
+        var response = messages.stream().map(this::toMessageResponse).toList();
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/sessions/{sessionId}")
-    @Operation(summary = "Get a conversation session by ID")
-    public ResponseEntity<ConversationSessionResponse> getSession(@PathVariable UUID sessionId) {
-        var session = monitoringService.recordSessionLatency(() ->
-                sessionManager.getSession(sessionId)
-                        .orElseThrow(() -> new ConversationException("Session not found: " + sessionId)));
-        return ResponseEntity.ok(ConversationSessionResponse.from(session));
+    @PostMapping("/conversations/{id}/summarize")
+    public ResponseEntity<SummarizeResponse> summarizeConversation(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        var messages = messageEngine.getConversationMessages(convId);
+        var summary = summarizerService.summarize(convId, messages);
+        log.info("Summarized conversation {} with strategy {}", id, summary.getCompressionStrategy());
+        return ResponseEntity.ok(toSummarizeResponse(summary));
+    }
+
+    @PostMapping("/conversations/{id}/restore")
+    public ResponseEntity<RestoreResponse> restoreConversation(
+            @PathVariable String id,
+            @Valid @RequestBody RestoreRequest request) {
+        var convId = ConversationId.fromString(id);
+        var summaries = summarizerService.getSummaries(convId);
+        var summary = summaries.stream()
+                .filter(s -> s.getId().equals(request.getSummaryId()))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Summary not found: " + request.getSummaryId()));
+        var recentMessages = request.getRecentMessages() != null
+                ? request.getRecentMessages().stream()
+                    .map(r -> messageEngine.createMessage(convId,
+                            r.getType() != null ? MessageType.valueOf(r.getType().toUpperCase()) : MessageType.USER,
+                            r.getContent(), r.getRole(), r.getMetadata()))
+                    .toList()
+                : List.<Message>of();
+        var restored = summarizerService.restoreFromSummary(summary, recentMessages);
+        return ResponseEntity.ok(new RestoreResponse(restored,
+                summary.getOriginalTokenCount() != null ? summary.getOriginalTokenCount() : 0,
+                recentMessages.size()));
+    }
+
+    @PostMapping("/conversations/{id}/close")
+    public ResponseEntity<ConversationResponse> closeConversation(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        var conv = conversationService.closeConversation(convId);
+        log.info("Closed conversation: {}", id);
+        return ResponseEntity.ok(toConversationResponse(conv));
+    }
+
+    @PostMapping("/conversations/{id}/archive")
+    public ResponseEntity<ConversationResponse> archiveConversation(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        var conv = conversationService.archiveConversation(convId);
+        log.info("Archived conversation: {}", id);
+        return ResponseEntity.ok(toConversationResponse(conv));
+    }
+
+    @PostMapping("/conversations/{id}/restore-from-archive")
+    public ResponseEntity<ConversationResponse> restoreFromArchive(@PathVariable String id) {
+        var convId = ConversationId.fromString(id);
+        var conv = conversationService.restoreConversation(convId);
+        log.info("Restored conversation from archive: {}", id);
+        return ResponseEntity.ok(toConversationResponse(conv));
+    }
+
+    @GetMapping("/memory")
+    public ResponseEntity<List<MemoryEntryResponse>> getMemory(
+            @RequestParam String layer,
+            @RequestParam(required = false) String key) {
+        var memoryLayer = MemoryLayer.valueOf(layer.toUpperCase());
+        List<MemoryEntry> entries;
+        if (key != null) {
+            var opt = memoryService.retrieve(key, memoryLayer);
+            entries = opt.map(List::of).orElse(List.of());
+        } else {
+            entries = memoryService.retrieveByLayer(memoryLayer);
+        }
+        var response = entries.stream().map(this::toMemoryEntryResponse).toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/memory/query")
+    public ResponseEntity<List<MemoryEntryResponse>> queryMemory(
+            @Valid @RequestBody MemoryQueryRequest request) {
+        var memoryLayer = request.getLayer() != null
+                ? MemoryLayer.valueOf(request.getLayer().toUpperCase()) : null;
+        List<MemoryEntry> entries;
+        if (memoryLayer != null && request.getQuery() != null) {
+            entries = memoryRetrievalEngine.searchMemory(request.getQuery(), memoryLayer);
+        } else if (memoryLayer != null) {
+            entries = memoryService.retrieveByLayer(memoryLayer);
+        } else {
+            entries = List.of();
+        }
+        if (request.getLimit() != null && request.getLimit() > 0) {
+            entries = entries.stream().limit(request.getLimit()).toList();
+        }
+        var response = entries.stream().map(this::toMemoryEntryResponse).toList();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/memory/store")
+    public ResponseEntity<Void> storeMemory(
+            @RequestParam String layer,
+            @RequestParam String key,
+            @RequestParam String value,
+            @RequestParam(required = false) Long ttlSeconds,
+            @RequestParam(required = false) String workspaceId) {
+        var memoryLayer = MemoryLayer.valueOf(layer.toUpperCase());
+        var metadata = workspaceId != null
+                ? Map.of("workspaceId", workspaceId)
+                : Map.<String, String>of();
+        if (ttlSeconds != null && ttlSeconds > 0) {
+            memoryService.store(memoryLayer, key, value, metadata, Duration.ofSeconds(ttlSeconds));
+        } else {
+            memoryService.store(memoryLayer, key, value, metadata);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/memory/clear")
+    public ResponseEntity<Void> clearMemory(
+            @RequestParam String layer,
+            @RequestParam(required = false) String workspaceId) {
+        var memoryLayer = MemoryLayer.valueOf(layer.toUpperCase());
+        if (workspaceId != null) {
+            memoryService.clear(MemoryLayer.valueOf(layer.toUpperCase()));
+        } else {
+            memoryService.clear(memoryLayer);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/sessions")
-    @Operation(summary = "Get all sessions for a user")
-    public ResponseEntity<List<ConversationSessionResponse>> getUserSessions(@RequestParam String userId) {
-        var sessions = monitoringService.recordSessionLatency(() ->
-                sessionManager.getUserSessions(userId));
-        var response = sessions.stream().map(ConversationSessionResponse::from).toList();
+    public ResponseEntity<List<SessionResponse>> listSessions(
+            @RequestParam(required = false) String userId) {
+        var sessions = sessionService.listSessions(userId);
+        var response = sessions.stream().map(this::toSessionResponse).toList();
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/sessions/{sessionId}/suspend")
-    @Operation(summary = "Suspend a conversation session")
-    public ResponseEntity<ConversationSessionResponse> suspendSession(@PathVariable UUID sessionId) {
-        var session = monitoringService.recordSessionLatency(() -> sessionManager.suspendSession(sessionId));
-        return ResponseEntity.ok(ConversationSessionResponse.from(session));
+    @PostMapping("/sessions")
+    public ResponseEntity<SessionResponse> createSession(
+            @Valid @RequestBody CreateSessionRequest request) {
+        var workspaceId = request.getWorkspaceId() != null
+                ? WorkspaceId.fromString(request.getWorkspaceId()) : null;
+        var idleTimeout = request.getIdleTimeoutMinutes() != null
+                ? Duration.ofMinutes(request.getIdleTimeoutMinutes()) : null;
+        var session = sessionService.createSession(request.getUserId(), workspaceId, idleTimeout);
+        log.info("Created session: {}", session.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(toSessionResponse(session));
     }
 
-    @PutMapping("/sessions/{sessionId}/resume")
-    @Operation(summary = "Resume a suspended conversation session")
-    public ResponseEntity<ConversationSessionResponse> resumeSession(@PathVariable UUID sessionId) {
-        var session = monitoringService.recordSessionLatency(() -> sessionManager.resumeSession(sessionId));
-        return ResponseEntity.ok(ConversationSessionResponse.from(session));
-    }
-
-    @PutMapping("/sessions/{sessionId}/close")
-    @Operation(summary = "Close a conversation session")
-    public ResponseEntity<ConversationSessionResponse> closeSession(@PathVariable UUID sessionId) {
-        var session = monitoringService.recordSessionLatency(() -> sessionManager.closeSession(sessionId));
-        monitoringService.recordSessionClosed();
-        kafkaPublisher.publishSessionClosed(session.id(), session.userId());
-        return ResponseEntity.ok(ConversationSessionResponse.from(session));
-    }
-
-    @DeleteMapping("/sessions/{sessionId}")
-    @Operation(summary = "Delete a conversation session")
-    public ResponseEntity<Void> deleteSession(@PathVariable UUID sessionId) {
-        sessionManager.deleteSession(sessionId);
+    @DeleteMapping("/sessions/{id}")
+    public ResponseEntity<Void> deleteSession(@PathVariable String id) {
+        var sessionId = SessionId.fromString(id);
+        sessionService.closeSession(sessionId);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/sessions/{sessionId}/messages")
-    @Operation(summary = "Send a message in a conversation session")
-    public ResponseEntity<ConversationMessageResponse> sendMessage(@PathVariable UUID sessionId,
-                                                                   @Valid @RequestBody ConversationMessageRequest request) {
-        if (!securityService.validateMessage(request.content())) {
-            return ResponseEntity.badRequest().build();
-        }
-        var sanitized = securityService.sanitizeMessage(request.content());
-        var role = MessageRole.valueOf(request.role().toUpperCase());
-        var message = monitoringService.recordMessageLatency(() ->
-                messageService.sendMessage(sessionId, role, sanitized));
-        monitoringService.recordMessageSent(request.role());
-        kafkaPublisher.publishMessageSent(message.id(), sessionId, request.role());
-        return ResponseEntity.status(HttpStatus.CREATED).body(ConversationMessageResponse.from(message));
+    @PostMapping("/sessions/{id}/activity")
+    public ResponseEntity<SessionResponse> recordActivity(@PathVariable String id) {
+        var sessionId = SessionId.fromString(id);
+        var session = sessionService.recordActivity(sessionId);
+        return ResponseEntity.ok(toSessionResponse(session));
     }
 
-    @GetMapping("/sessions/{sessionId}/messages")
-    @Operation(summary = "Get all messages in a session")
-    public ResponseEntity<List<ConversationMessageResponse>> getSessionMessages(@PathVariable UUID sessionId,
-                                                                                @RequestParam(defaultValue = "0") int offset,
-                                                                                @RequestParam(defaultValue = "100") int limit) {
-        var messages = messageService.getSessionMessages(sessionId, limit, offset);
-        var response = messages.stream().map(ConversationMessageResponse::from).toList();
-        return ResponseEntity.ok(response);
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Map<String, String>> handleNotFound(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("error", "Not Found", "message", ex.getMessage()));
     }
 
-    @GetMapping("/messages/{messageId}")
-    @Operation(summary = "Get a message by ID")
-    public ResponseEntity<ConversationMessageResponse> getMessage(@PathVariable UUID messageId) {
-        var message = messageService.getMessage(messageId)
-                .orElseThrow(() -> new ConversationException("Message not found: " + messageId));
-        return ResponseEntity.ok(ConversationMessageResponse.from(message));
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleBadRequest(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", "Bad Request", "message", ex.getMessage()));
     }
 
-    @DeleteMapping("/messages/{messageId}")
-    @Operation(summary = "Delete a message")
-    public ResponseEntity<Void> deleteMessage(@PathVariable UUID messageId) {
-        messageService.deleteMessage(messageId);
-        return ResponseEntity.noContent().build();
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleInternal(Exception ex) {
+        log.error("Unexpected error", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Internal Server Error", "message", ex.getMessage()));
     }
 
-    @PostMapping("/sessions/{sessionId}/memories")
-    @Operation(summary = "Store a memory for a session")
-    public ResponseEntity<ConversationMemoryResponse> storeMemory(@PathVariable UUID sessionId,
-                                                                  @Valid @RequestBody ConversationMemoryRequest request) {
-        var memoryType = MemoryType.valueOf(request.memoryType().toUpperCase());
-        var memory = memoryManager.storeMemory(sessionId, memoryType, request.summary(), request.keywords(), request.relevanceScore());
-        kafkaPublisher.publishMemoryStored(memory.id(), sessionId, request.memoryType());
-        return ResponseEntity.status(HttpStatus.CREATED).body(ConversationMemoryResponse.from(memory));
+    private ConversationResponse toConversationResponse(Conversation conv) {
+        return new ConversationResponse(
+                conv.getId().toString(),
+                conv.getTitle(),
+                conv.getStatus().name(),
+                conv.getSessionId() != null ? conv.getSessionId().toString() : null,
+                conv.getWorkspaceId() != null ? conv.getWorkspaceId().toString() : null,
+                conv.getUserId(),
+                conv.getParticipantIds(),
+                conv.getMetadata(),
+                conv.getCreatedAt(),
+                conv.getUpdatedAt(),
+                conv.getClosedAt(),
+                conv.getMessageCount(),
+                conv.getTotalTokenUsage());
     }
 
-    @GetMapping("/sessions/{sessionId}/memories")
-    @Operation(summary = "Get all memories for a session")
-    public ResponseEntity<List<ConversationMemoryResponse>> getSessionMemories(@PathVariable UUID sessionId) {
-        var memories = memoryManager.getSessionMemories(sessionId);
-        var response = memories.stream().map(ConversationMemoryResponse::from).toList();
-        return ResponseEntity.ok(response);
+    private MessageResponse toMessageResponse(Message msg) {
+        return new MessageResponse(
+                msg.getId().toString(),
+                msg.getConversationId().toString(),
+                msg.getType().name(),
+                msg.getContent(),
+                msg.getRole(),
+                msg.getMetadata(),
+                msg.getCitations() != null
+                        ? msg.getCitations().stream()
+                                .map(c -> new CitationResponse(c.sourceId(), c.sourceType(), c.snippet(), c.relevanceScore()))
+                                .toList()
+                        : null,
+                msg.getAttachments() != null
+                        ? msg.getAttachments().stream()
+                                .map(a -> new AttachmentResponse(a.name(), a.type(), a.url(), a.size()))
+                                .toList()
+                        : null,
+                msg.getToolCall() != null
+                        ? new ToolCallResponse(msg.getToolCall().toolName(), msg.getToolCall().arguments(),
+                                msg.getToolCall().result(), msg.getToolCall().status())
+                        : null,
+                msg.getTokenCount(),
+                msg.getTokenUsage(),
+                msg.getProviderUsed(),
+                msg.getLatencyMs(),
+                msg.getStatus(),
+                msg.getCreatedAt());
     }
 
-    @DeleteMapping("/memories/{memoryId}")
-    @Operation(summary = "Delete a memory")
-    public ResponseEntity<Void> deleteMemory(@PathVariable UUID memoryId) {
-        memoryManager.deleteMemory(memoryId);
-        return ResponseEntity.noContent().build();
+    private SessionResponse toSessionResponse(Session session) {
+        return new SessionResponse(
+                session.getId().toString(),
+                session.getUserId(),
+                session.getWorkspaceId() != null ? session.getWorkspaceId().toString() : null,
+                session.getStatus(),
+                session.getMetadata(),
+                session.getConversationIds() != null
+                        ? session.getConversationIds().stream().map(Object::toString).toList()
+                        : null,
+                session.getCreatedAt(),
+                session.getLastActivityAt(),
+                session.getExpiresAt());
     }
 
-    @GetMapping("/sessions/{sessionId}/context")
-    @Operation(summary = "Get context for a session")
-    public ResponseEntity<List<Map<String, Object>>> getContext(@PathVariable UUID sessionId) {
-        var context = contextBuilder.buildContext(sessionId);
-        var response = context.stream()
-                .map(e -> Map.<String, Object>of("source", e.source(), "content", e.content(), "weight", e.weight()))
-                .toList();
-        return ResponseEntity.ok(response);
+    private SummarizeResponse toSummarizeResponse(Summary summary) {
+        return new SummarizeResponse(
+                summary.getId(),
+                summary.getConversationId().toString(),
+                summary.getSummary(),
+                summary.getCompressionStrategy(),
+                summary.getOriginalTokenCount(),
+                summary.getCompressedTokenCount(),
+                summary.getCompressionRatio(),
+                summary.getCreatedAt());
     }
 
-    @GetMapping("/sessions/{sessionId}/sources")
-    @Operation(summary = "Get context sources for a session")
-    public ResponseEntity<Map<String, Double>> getContextSources(@PathVariable UUID sessionId) {
-        return ResponseEntity.ok(contextBuilder.getContextSources(sessionId));
-    }
-
-    @PostMapping("/sessions/{sessionId}/context/refresh")
-    @Operation(summary = "Refresh context for a session")
-    public ResponseEntity<Void> refreshContext(@PathVariable UUID sessionId) {
-        contextBuilder.refreshContext(sessionId);
-        kafkaPublisher.publishContextRefreshed(sessionId);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/health")
-    @Operation(summary = "Health check for conversation module")
-    public ResponseEntity<ConversationMonitoringService.HealthStatus> health() {
-        return ResponseEntity.ok(monitoringService.checkHealth());
+    private MemoryEntryResponse toMemoryEntryResponse(MemoryEntry entry) {
+        return new MemoryEntryResponse(
+                entry.id(),
+                entry.layer().name(),
+                entry.key(),
+                entry.value(),
+                entry.metadata(),
+                entry.createdAt(),
+                entry.expiresAt());
     }
 }
