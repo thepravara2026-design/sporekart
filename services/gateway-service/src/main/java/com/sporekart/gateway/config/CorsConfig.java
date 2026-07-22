@@ -6,9 +6,12 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -17,22 +20,35 @@ public class CorsConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public CorsWebFilter corsWebFilter() {
-        var config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*"));
-        config.setAllowedMethods(List.of(
-            HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
-            HttpMethod.DELETE.name(), HttpMethod.PATCH.name(), HttpMethod.OPTIONS.name()
-        ));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
-        config.setExposedHeaders(List.of(
-            HttpHeaders.AUTHORIZATION, "X-Request-Id", "X-Correlation-Id", "X-Trace-Id"
-        ));
+    public WebFilter corsFilter() {
+        return (ServerWebExchange exchange, WebFilterChain chain) -> {
+            var request = exchange.getRequest();
+            var headers = request.getHeaders();
+            var origin = headers.getFirst(HttpHeaders.ORIGIN);
 
-        var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return new CorsWebFilter(source);
+            if (origin != null && !origin.isBlank()) {
+                setCorsHeaders(exchange.getResponse(), origin);
+
+                if (request.getMethod() == HttpMethod.OPTIONS
+                    && headers.getFirst("Access-Control-Request-Method") != null) {
+                    exchange.getResponse().setStatusCode(HttpStatus.OK);
+                    return exchange.getResponse().setComplete();
+                }
+            }
+
+            return chain.filter(exchange);
+        };
+    }
+
+    private static void setCorsHeaders(ServerHttpResponse response, String origin) {
+        var h = response.getHeaders();
+        h.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, origin);
+        h.set(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET,POST,PUT,DELETE,PATCH,OPTIONS");
+        h.set(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "*");
+        h.set(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,
+            HttpHeaders.AUTHORIZATION + ",X-Request-Id,X-Correlation-Id,X-Trace-Id");
+        h.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+        h.set(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "3600");
+        h.set(HttpHeaders.VARY, HttpHeaders.ORIGIN);
     }
 }

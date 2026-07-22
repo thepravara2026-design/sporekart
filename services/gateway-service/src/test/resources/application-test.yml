@@ -61,7 +61,6 @@ sporekart:
       metrics-enabled: true
       tracing-enabled: false
       audit-enabled: true
-    services: ~
 
 management:
   endpoints:
