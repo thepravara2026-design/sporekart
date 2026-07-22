@@ -1,0 +1,78 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: gateway-service-test
+  cloud:
+    gateway:
+      enabled: true
+      default-filters: []
+      routes: []
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 1s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+
+sporekart:
+  gateway:
+    enabled: true
+    cors:
+      allowed-origins: "*"
+      allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+      allowed-headers: "*"
+      max-age: 3600
+    security:
+      jwt-enabled: true
+      require-authentication: true
+      public-paths:
+        - /actuator/health/**
+        - /actuator/info
+        - /api/public/**
+        - /webjars/**
+        - /v3/api-docs/**
+        - /swagger-ui/**
+    rate-limiter:
+      enabled: false
+    routing:
+      service-timeout: 5s
+      max-header-size: 8192
+      max-request-size: 1MB
+    security-headers:
+      hsts-enabled: true
+      hsts-max-age: 31536000
+      csp-enabled: true
+      csp-policy: "default-src 'self'"
+      xss-protection: true
+      content-type-options: true
+      frame-options: DENY
+    observability:
+      metrics-enabled: true
+      tracing-enabled: false
+      audit-enabled: false
+    services: {}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.sporekart: DEBUG
+    org.springframework.cloud.gateway: WARN
+    org.springframework.security: WARN

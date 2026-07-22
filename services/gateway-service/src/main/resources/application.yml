@@ -1,0 +1,155 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      enabled: true
+      routes: []
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081
+          jwk-set-uri: http://localhost:8081/.well-known/jwks.json
+
+sporekart:
+  gateway:
+    enabled: true
+    cors:
+      allowed-origins: "*"
+      allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+      allowed-headers: "*"
+      max-age: 3600
+    security:
+      jwt-enabled: true
+      require-authentication: true
+      public-paths:
+        - /actuator/health/**
+        - /actuator/info
+        - /api/public/**
+        - /webjars/**
+        - /v3/api-docs/**
+        - /swagger-ui/**
+    rate-limiter:
+      enabled: true
+      default-permit-per-second: 100
+      default-burst-capacity: 200
+    routing:
+      service-timeout: 30s
+      max-header-size: 8192
+      max-request-size: 10MB
+    security-headers:
+      hsts-enabled: true
+      hsts-max-age: 31536000
+      hsts-include-subdomains: true
+      csp-enabled: true
+      csp-policy: "default-src 'self'"
+      xss-protection: true
+      content-type-options: true
+      frame-options: DENY
+    observability:
+      metrics-enabled: true
+      tracing-enabled: true
+      audit-enabled: true
+    services:
+      identity:
+        url: http://localhost:8081
+        health-path: /actuator/health
+        timeout: 5s
+      catalog:
+        url: http://localhost:8082
+        health-path: /actuator/health
+        timeout: 10s
+      order:
+        url: http://localhost:8083
+        health-path: /actuator/health
+        timeout: 10s
+      inventory:
+        url: http://localhost:8084
+        health-path: /actuator/health
+        timeout: 5s
+      cart:
+        url: http://localhost:8085
+        health-path: /actuator/health
+        timeout: 5s
+      payment:
+        url: http://localhost:8086
+        health-path: /actuator/health
+        timeout: 10s
+      notification:
+        url: http://localhost:8087
+        health-path: /actuator/health
+        timeout: 5s
+      ai:
+        url: http://localhost:8088
+        health-path: /actuator/health
+        timeout: 30s
+      training:
+        url: http://localhost:8089
+        health-path: /actuator/health
+        timeout: 10s
+      analytics:
+        url: http://localhost:8090
+        health-path: /actuator/health
+        timeout: 10s
+      admin:
+        url: http://localhost:8091
+        health-path: /actuator/health
+        timeout: 5s
+      memory:
+        url: http://localhost:8092
+        health-path: /actuator/health
+        timeout: 10s
+      support:
+        url: http://localhost:8093
+        health-path: /actuator/health
+        timeout: 10s
+      fulfillment:
+        url: http://localhost:8094
+        health-path: /actuator/health
+        timeout: 10s
+      risk:
+        url: http://localhost:8095
+        health-path: /actuator/health
+        timeout: 5s
+      content:
+        url: http://localhost:8096
+        health-path: /actuator/health
+        timeout: 10s
+      search:
+        url: http://localhost:8097
+        health-path: /actuator/health
+        timeout: 5s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - url: /v3/api-docs
+        name: Enterprise API Gateway
