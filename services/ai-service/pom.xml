@@ -141,6 +141,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <includes>
+                        <include>com/sporekart/ai/core/**</include>
+                        <include>com/sporekart/ai/prompt/**</include>
+                        <include>com/sporekart/ai/conversation/**</include>
+                        <include>com/sporekart/ai/knowledge/**</include>
+                    </includes>
+                    <testIncludes>
+                        <include>com/sporekart/ai/prompt/**</include>
+                        <include>com/sporekart/ai/conversation/**</include>
+                        <include>com/sporekart/ai/knowledge/**</include>
+                    </testIncludes>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -155,6 +166,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <includes>
+                        <include>**/prompt/**/*Test.java</include>
+                        <include>**/conversation/**/*Test.java</include>
+                        <include>**/knowledge/**/*Test.java</include>
+                    </includes>
                     <useModulePath>false</useModulePath>
                     <systemPropertyVariables>
                         <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
