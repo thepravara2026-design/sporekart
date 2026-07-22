@@ -35,6 +35,7 @@ sporekart:
     security:
       jwt-enabled: true
       require-authentication: true
+      jwt-secret: test-jwt-secret-key-for-hmac-signing-in-tests-only
       public-paths:
         - /actuator/health/**
         - /actuator/info

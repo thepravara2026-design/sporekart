@@ -37,6 +37,7 @@ sporekart:
         - /webjars/**
         - /v3/api-docs/**
         - /swagger-ui/**
+      jwk-set-uri: http://localhost:8081/.well-known/jwks.json
     rate-limiter:
       enabled: true
       default-permit-per-second: 100
