@@ -1,0 +1,57 @@
+server:
+  port: 8092
+
+spring:
+  application:
+    name: ai-memory-service
+  datasource:
+    url: jdbc:h2:mem:memory-service;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+sporekart:
+  memory:
+    enabled: true
+    max-memory-size: 1048576
+    chunk-size: 4096
+    embedding-dimensions: 1536
+    summary-threshold: 5000
+    compression-threshold: 10000
+    cache-ttl: 30m
+    default-retention: 90d
+    vector-provider: MEMORY
+    retrieval:
+      max-results: 20
+      min-score: 0.5
+      hybrid-search: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+springdoc:
+  api-docs:
+    path: /api/v1/memory/docs
+  swagger-ui:
+    path: /api/v1/memory/swagger-ui.html
