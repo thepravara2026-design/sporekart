@@ -59,6 +59,40 @@ sporekart:
       metrics-enabled: true
       tracing-enabled: true
       audit-enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,gateway
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - url: /v3/api-docs
+        name: Enterprise API Gateway
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "!test"
+sporekart:
+  gateway:
     services:
       identity:
         url: http://localhost:8081
@@ -128,29 +162,3 @@ sporekart:
         url: http://localhost:8097
         health-path: /actuator/health
         timeout: 5s
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus,gateway
-  endpoint:
-    health:
-      show-details: always
-      show-components: always
-  tracing:
-    enabled: true
-    sampling:
-      probability: 1.0
-  metrics:
-    tags:
-      application: ${spring.application.name}
-
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - url: /v3/api-docs
-        name: Enterprise API Gateway

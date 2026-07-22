@@ -60,8 +60,8 @@ sporekart:
     observability:
       metrics-enabled: true
       tracing-enabled: false
-      audit-enabled: false
-    services: {}
+      audit-enabled: true
+    services: ~
 
 management:
   endpoints:

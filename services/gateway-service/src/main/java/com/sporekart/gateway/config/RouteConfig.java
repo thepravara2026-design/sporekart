@@ -59,7 +59,7 @@ public class RouteConfig {
     private void registerBuiltinRoutes(RouteLocatorBuilder.Builder routes) {
         routes.route("gateway-health", r -> r
             .path("/actuator/**")
-            .uri("http://localhost:8080"));
+            .uri("forward:/"));
     }
 
     private String resolveRoutePrefix(String serviceName) {
