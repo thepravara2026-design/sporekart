@@ -1,0 +1,1074 @@
+openapi: 3.1.0
+info:
+  title: SporeKart Trainer Copilot Service API
+  version: 1.0.0
+  description: >-
+    REST contract for Trainer Copilot — lesson generation, assessment,
+    analytics, batch management, and certification operations.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+servers:
+  - url: https://api.sporekart.example
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example
+    description: Staging API gateway
+security:
+  - bearerAuth: []
+paths:
+  /v1/trainer-copilot/chat:
+    post:
+      tags:
+        - Chat
+      summary: Send a conversational message to the Trainer Copilot
+      operationId: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Copilot reply returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/lessons/generate:
+    post:
+      tags:
+        - Lessons
+      summary: Generate a structured lesson plan
+      operationId: generateLesson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonRequest'
+      responses:
+        '200':
+          description: Lesson plan generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/assessments/generate:
+    post:
+      tags:
+        - Assessments
+      summary: Generate an assessment with questions
+      operationId: generateAssessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentRequest'
+      responses:
+        '200':
+          description: Assessment generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/assessments/evaluate:
+    post:
+      tags:
+        - Assessments
+      summary: Evaluate submitted answers
+      operationId: evaluateAssessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluationRequest'
+      responses:
+        '200':
+          description: Evaluation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/batches:
+    get:
+      tags:
+        - Batches
+      summary: List all training batches
+      operationId: listBatches
+      responses:
+        '200':
+          description: Batch list returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+        - Batches
+      summary: Create a new training batch
+      operationId: createBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchRequest'
+      responses:
+        '201':
+          description: Batch created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDetailResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/batches/{batchId}:
+    get:
+      tags:
+        - Batches
+      summary: Get batch details
+      operationId: getBatch
+      parameters:
+        - name: batchId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Batch details returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDetailResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v1/trainer-copilot/analytics/batches/{batchId}:
+    get:
+      tags:
+        - Analytics
+      summary: Get batch-level analytics
+      operationId: getBatchAnalytics
+      parameters:
+        - name: batchId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Batch analytics returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchAnalyticsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v1/trainer-copilot/analytics/students/{studentId}:
+    get:
+      tags:
+        - Analytics
+      summary: Get individual student analytics
+      operationId: getStudentAnalytics
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Student analytics returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentAnalyticsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v1/trainer-copilot/analytics/trends:
+    get:
+      tags:
+        - Analytics
+      summary: Get trend analysis for a metric
+      operationId: getTrends
+      parameters:
+        - name: batchId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: metric
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - averageScore
+              - attendanceRate
+              - completionRate
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 30
+      responses:
+        '200':
+          description: Trend data returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/trainer-copilot/analytics/certification/{studentId}:
+    get:
+      tags:
+        - Analytics
+      summary: Get certification status for a student
+      operationId: getCertification
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certification status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v1/trainer-copilot/health:
+    get:
+      tags:
+        - System
+      summary: Service health check
+      operationId: healthCheck
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+  schemas:
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+
+    # ---- Chat ----
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        context:
+          type: object
+          properties:
+            batchId:
+              type: string
+            userId:
+              type: string
+
+    ChatResponse:
+      type: object
+      required:
+        - reply
+      properties:
+        reply:
+          type: string
+        suggestions:
+          type: array
+          items:
+            type: string
+        conversationId:
+          type: string
+
+    # ---- Lessons ----
+    LessonRequest:
+      type: object
+      required:
+        - topic
+        - lessonType
+        - durationMinutes
+        - learningObjectives
+      properties:
+        topic:
+          type: string
+          minLength: 1
+          maxLength: 512
+        lessonType:
+          type: string
+          enum:
+            - LECTURE
+            - DEMONSTRATION
+            - LAB_EXERCISE
+            - WORKSHOP
+            - REVIEW
+        durationMinutes:
+          type: integer
+          minimum: 5
+          maximum: 480
+        difficulty:
+          type: string
+          enum:
+            - BEGINNER
+            - INTERMEDIATE
+            - ADVANCED
+          default: INTERMEDIATE
+        prerequisites:
+          type: array
+          items:
+            type: string
+        learningObjectives:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        materialReferences:
+          type: array
+          items:
+            type: string
+        language:
+          type: string
+          default: en
+
+    LessonResponse:
+      type: object
+      required:
+        - lessonId
+        - topic
+        - lessonType
+        - difficulty
+        - durationMinutes
+        - sections
+      properties:
+        lessonId:
+          type: string
+        topic:
+          type: string
+        lessonType:
+          type: string
+        difficulty:
+          type: string
+        durationMinutes:
+          type: integer
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/LessonSection'
+        totalActivities:
+          type: integer
+        checkpoints:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+
+    LessonSection:
+      type: object
+      required:
+        - title
+        - durationMinutes
+        - activities
+      properties:
+        title:
+          type: string
+        durationMinutes:
+          type: integer
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/LessonActivity'
+        materialRefs:
+          type: array
+          items:
+            type: string
+
+    LessonActivity:
+      type: object
+      required:
+        - type
+        - content
+      properties:
+        type:
+          type: string
+        content:
+          type: string
+
+    # ---- Assessments ----
+    AssessmentRequest:
+      type: object
+      required:
+        - topic
+        - assessmentType
+        - difficulty
+        - questionCount
+        - learningObjectives
+      properties:
+        topic:
+          type: string
+          minLength: 1
+          maxLength: 512
+        assessmentType:
+          type: string
+          enum:
+            - MCQ
+            - SHORT_ANSWER
+            - LONG_ANSWER
+            - SCENARIO
+            - PRACTICAL
+            - LAB
+            - CERTIFICATION
+        difficulty:
+          type: string
+          enum:
+            - BEGINNER
+            - INTERMEDIATE
+            - ADVANCED
+        questionCount:
+          type: integer
+          minimum: 1
+          maximum: 100
+        timeLimitMinutes:
+          type: integer
+          minimum: 1
+        passingScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        learningObjectives:
+          type: array
+          minItems: 1
+          items:
+            type: string
+
+    AssessmentResponse:
+      type: object
+      required:
+        - assessmentId
+        - topic
+        - assessmentType
+        - difficulty
+        - questions
+        - totalQuestions
+      properties:
+        assessmentId:
+          type: string
+        topic:
+          type: string
+        assessmentType:
+          type: string
+        difficulty:
+          type: string
+        timeLimitMinutes:
+          type: integer
+        passingScore:
+          type: integer
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+        totalQuestions:
+          type: integer
+        estimatedDurationMinutes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+
+    Question:
+      type: object
+      required:
+        - id
+        - type
+        - difficulty
+        - text
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        difficulty:
+          type: string
+        text:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionOption'
+        correctAnswer:
+          type: string
+        explanation:
+          type: string
+
+    QuestionOption:
+      type: object
+      required:
+        - key
+        - text
+      properties:
+        key:
+          type: string
+        text:
+          type: string
+
+    EvaluationRequest:
+      type: object
+      required:
+        - assessmentId
+        - studentId
+        - answers
+      properties:
+        assessmentId:
+          type: string
+        studentId:
+          type: string
+        answers:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/AnswerSubmission'
+
+    AnswerSubmission:
+      type: object
+      required:
+        - questionId
+        - response
+      properties:
+        questionId:
+          type: string
+        response:
+          type: string
+
+    EvaluationResponse:
+      type: object
+      required:
+        - assessmentId
+        - studentId
+        - score
+        - passed
+        - totalQuestions
+      properties:
+        assessmentId:
+          type: string
+        studentId:
+          type: string
+        score:
+          type: number
+          format: float
+        passed:
+          type: boolean
+        totalQuestions:
+          type: integer
+        correctCount:
+          type: integer
+        incorrectCount:
+          type: integer
+        partialCount:
+          type: integer
+        sectionResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectionResult'
+        evaluatedAt:
+          type: string
+          format: date-time
+
+    SectionResult:
+      type: object
+      required:
+        - section
+        - score
+        - status
+      properties:
+        section:
+          type: string
+        score:
+          type: number
+          format: float
+        status:
+          type: string
+          enum:
+            - PASSED
+            - FAILED
+
+    # ---- Batches ----
+    CreateBatchRequest:
+      type: object
+      required:
+        - name
+        - trainerId
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        trainerId:
+          type: string
+        studentIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+
+    BatchListResponse:
+      type: object
+      required:
+        - batches
+        - totalCount
+      properties:
+        batches:
+          type: array
+          items:
+            $ref: '#/components/schemas/BatchSummary'
+        totalCount:
+          type: integer
+
+    BatchSummary:
+      type: object
+      required:
+        - batchId
+        - name
+        - trainerId
+        - studentCount
+        - status
+        - startDate
+        - endDate
+      properties:
+        batchId:
+          type: string
+        name:
+          type: string
+        trainerId:
+          type: string
+        studentCount:
+          type: integer
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - CANCELLED
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+
+    BatchDetailResponse:
+      type: object
+      required:
+        - batchId
+        - name
+        - trainerId
+        - status
+        - startDate
+        - endDate
+        - createdAt
+      properties:
+        batchId:
+          type: string
+        name:
+          type: string
+        trainerId:
+          type: string
+        studentIds:
+          type: array
+          items:
+            type: string
+        studentCount:
+          type: integer
+        status:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+
+    # ---- Analytics ----
+    BatchAnalyticsResponse:
+      type: object
+      required:
+        - batchId
+        - batchName
+        - totalStudents
+        - averageAttendance
+        - averageScore
+      properties:
+        batchId:
+          type: string
+        batchName:
+          type: string
+        totalStudents:
+          type: integer
+        averageAttendance:
+          type: number
+          format: float
+        averageScore:
+          type: number
+          format: float
+        strongTopics:
+          type: array
+          items:
+            type: string
+        weakTopics:
+          type: array
+          items:
+            type: string
+        completionRate:
+          type: number
+          format: float
+        certificationReadyCount:
+          type: integer
+        certificationNotReadyCount:
+          type: integer
+        topPerformers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopPerformer'
+        analyticsPeriod:
+          $ref: '#/components/schemas/AnalyticsPeriod'
+
+    TopPerformer:
+      type: object
+      required:
+        - studentId
+        - name
+        - score
+      properties:
+        studentId:
+          type: string
+        name:
+          type: string
+        score:
+          type: number
+          format: float
+
+    AnalyticsPeriod:
+      type: object
+      required:
+        - start
+        - end
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+
+    StudentAnalyticsResponse:
+      type: object
+      required:
+        - studentId
+        - name
+        - batchId
+        - attendanceRate
+        - averageScore
+      properties:
+        studentId:
+          type: string
+        name:
+          type: string
+        batchId:
+          type: string
+        attendanceRate:
+          type: number
+          format: float
+        consecutiveAbsences:
+          type: integer
+        averageScore:
+          type: number
+          format: float
+        highestScore:
+          type: number
+          format: float
+        lowestScore:
+          type: number
+          format: float
+        strongTopics:
+          type: array
+          items:
+            type: string
+        weakTopics:
+          type: array
+          items:
+            type: string
+        topicMastery:
+          type: object
+          additionalProperties:
+            type: number
+        completionRate:
+          type: number
+          format: float
+        pendingLessons:
+          type: integer
+        onTrack:
+          type: boolean
+        certificationReadiness:
+          $ref: '#/components/schemas/CertificationReadiness'
+        scoreTrend:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScoreDataPoint'
+
+    ScoreDataPoint:
+      type: object
+      required:
+        - date
+        - score
+      properties:
+        date:
+          type: string
+          format: date
+        score:
+          type: number
+          format: float
+
+    CertificationReadiness:
+      type: object
+      required:
+        - eligibilityStatus
+        - readinessScore
+      properties:
+        eligibilityStatus:
+          type: string
+          enum:
+            - ELIGIBLE
+            - NEEDS_IMPROVEMENT
+            - NOT_READY
+        readinessScore:
+          type: number
+          format: float
+
+    TrendResponse:
+      type: object
+      required:
+        - batchId
+        - metric
+        - period
+        - dataPoints
+      properties:
+        batchId:
+          type: string
+        metric:
+          type: string
+        period:
+          type: integer
+        dataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrendDataPoint'
+        trendDirection:
+          type: string
+          enum:
+            - IMPROVING
+            - DECLINING
+            - STABLE
+        changePercent:
+          type: number
+          format: float
+
+    TrendDataPoint:
+      type: object
+      required:
+        - date
+        - value
+      properties:
+        date:
+          type: string
+          format: date
+        value:
+          type: number
+          format: float
+
+    # ---- Certification ----
+    CertificationResponse:
+      type: object
+      required:
+        - studentId
+        - name
+        - batchId
+        - attendanceRate
+        - averageAssessmentScore
+        - averagePracticalScore
+        - eligibilityCriteria
+        - certificationScore
+        - recommendation
+        - evaluatedAt
+      properties:
+        studentId:
+          type: string
+        name:
+          type: string
+        batchId:
+          type: string
+        attendanceRate:
+          type: number
+          format: float
+        averageAssessmentScore:
+          type: number
+          format: float
+        averagePracticalScore:
+          type: number
+          format: float
+        eligibilityCriteria:
+          $ref: '#/components/schemas/EligibilityCriteria'
+        certificationScore:
+          type: number
+          format: float
+        recommendation:
+          type: string
+          enum:
+            - CERTIFIED
+            - NEEDS_IMPROVEMENT
+            - NOT_READY
+        evaluatedAt:
+          type: string
+          format: date-time
+
+    EligibilityCriteria:
+      type: object
+      required:
+        - attendanceMet
+        - assessmentMet
+        - practicalMet
+      properties:
+        attendanceMet:
+          type: boolean
+        assessmentMet:
+          type: boolean
+        practicalMet:
+          type: boolean
+
+    # ---- Health ----
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - service
+        - version
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum:
+            - UP
+            - DOWN
+        service:
+          type: string
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
