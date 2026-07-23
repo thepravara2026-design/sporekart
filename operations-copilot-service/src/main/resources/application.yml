@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: operations-copilot-service
+
+server:
+  port: 8108
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+sporekart:
+  operations:
+    copilot:
+      default-warehouse: warehouse-main
+      default-region: all-india
+      low-stock-threshold-days: 14
+      critical-stock-threshold-days: 7
+      dead-stock-days: 180
+      default-shipping-zone: domestic
+      warehouse-capacity-warning-pct: 85.0
+      fulfillment-sla-hours: 24
+      shipping-sla-hours: 48
