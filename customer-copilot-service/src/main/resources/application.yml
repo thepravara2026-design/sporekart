@@ -1,0 +1,18 @@
+server:
+  port: 8099
+
+spring:
+  application:
+    name: customer-copilot-service
+
+customer:
+  copilot:
+    name: "Customer Copilot"
+    version: "0.1.0"
+    description: "Enterprise AI Shopping & Support Assistant"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
