@@ -170,5 +170,7 @@ sporekart:
         url: http://localhost:8102
       workspace:
         url: http://localhost:8103
+      bi-copilot:
+        url: http://localhost:8104
         health-path: /actuator/health
         timeout: 30s

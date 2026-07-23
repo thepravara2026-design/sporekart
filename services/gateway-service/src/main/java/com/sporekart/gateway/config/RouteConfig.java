@@ -89,5 +89,6 @@ public class RouteConfig {
         ROUTE_MAP.put("trainer-copilot", "/api/v1/copilot/trainer");
         ROUTE_MAP.put("grower-copilot", "/api/v1/copilot/grower");
         ROUTE_MAP.put("workspace", "/api/v1/workspace");
+        ROUTE_MAP.put("bi-copilot", "/api/v1/copilot/bi");
     }
 }

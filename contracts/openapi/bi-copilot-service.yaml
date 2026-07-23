@@ -1,0 +1,1229 @@
+openapi: 3.1.0
+info:
+  title: SporeKart BI Copilot API
+  version: 1.0.0
+  description: >-
+    Enterprise Business Intelligence Copilot for cross-domain analytics,
+    dashboards, reporting, forecasting, and insights.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+servers:
+  - url: https://api.sporekart.example
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example
+    description: Staging API gateway
+security:
+  - bearerAuth: []
+paths:
+  /v1/bi/query:
+    post:
+      tags:
+        - BI Query
+      summary: Execute a BI query
+      operationId: biQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BiQueryRequest'
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BiQueryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/chat:
+    post:
+      tags:
+        - Chat
+      summary: Natural-language BI chat
+      operationId: biChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Chat response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/revenue/summary:
+    get:
+      tags:
+        - Revenue
+      summary: Get revenue analytics summary
+      operationId: getRevenueSummary
+      parameters:
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+          description: Period in yyyy-MM format (defaults to latest)
+      responses:
+        '200':
+          description: Revenue metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevenueMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/customer/summary:
+    get:
+      tags:
+        - Customer
+      summary: Get customer analytics summary
+      operationId: getCustomerSummary
+      parameters:
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+      responses:
+        '200':
+          description: Customer analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerAnalytics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/training/summary:
+    get:
+      tags:
+        - Training
+      summary: Get training analytics summary
+      operationId: getTrainingSummary
+      parameters:
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+      responses:
+        '200':
+          description: Training analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingAnalytics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/cultivation/summary:
+    get:
+      tags:
+        - Cultivation
+      summary: Get cultivation analytics summary
+      operationId: getCultivationSummary
+      parameters:
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+      responses:
+        '200':
+          description: Cultivation analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CultivationAnalytics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/insights:
+    get:
+      tags:
+        - Insights
+      summary: Get business insights
+      operationId: getInsights
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - revenue
+              - customer
+              - training
+              - cultivation
+              - cross-domain
+          description: Filter by category
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+      responses:
+        '200':
+          description: List of insights
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/anomalies:
+    get:
+      tags:
+        - Anomalies
+      summary: Get anomaly alerts
+      operationId: getAnomalies
+      parameters:
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: string
+            pattern: ^\d{4}-\d{2}$
+      responses:
+        '200':
+          description: Anomaly alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomaliesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/trends:
+    get:
+      tags:
+        - Trends
+      summary: Get trend data points
+      operationId: getTrends
+      parameters:
+        - name: metric
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Metric identifier
+        - name: months
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 12
+          description: Number of months
+      responses:
+        '200':
+          description: Trend data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/forecast:
+    post:
+      tags:
+        - Forecast
+      summary: Generate a forecast
+      operationId: generateForecast
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForecastRequest'
+      responses:
+        '200':
+          description: Forecast result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/customer/segments:
+    get:
+      tags:
+        - Customer
+      summary: Get customer segments
+      operationId: getCustomerSegments
+      responses:
+        '200':
+          description: Customer segments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerSegmentsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/reports:
+    post:
+      tags:
+        - Reports
+      summary: Generate or schedule a report
+      operationId: createReport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        '200':
+          description: Report result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/dashboards/{dashboardId}:
+    get:
+      tags:
+        - Dashboards
+      summary: Get a dashboard
+      operationId: getDashboard
+      parameters:
+        - name: dashboardId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Dashboard identifier
+      responses:
+        '200':
+          description: Dashboard with widgets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/dashboards/default:
+    get:
+      tags:
+        - Dashboards
+      summary: Get default dashboard
+      operationId: getDefaultDashboard
+      responses:
+        '200':
+          description: Default dashboard (Executive)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/dashboards/executive:
+    get:
+      tags:
+        - Dashboards
+      summary: Get executive dashboard
+      operationId: getExecutiveDashboard
+      responses:
+        '200':
+          description: Executive dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/dashboards/operations:
+    get:
+      tags:
+        - Dashboards
+      summary: Get operations dashboard
+      operationId: getOperationsDashboard
+      responses:
+        '200':
+          description: Operations dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/dashboards/marketing:
+    get:
+      tags:
+        - Dashboards
+      summary: Get marketing dashboard
+      operationId: getMarketingDashboard
+      responses:
+        '200':
+          description: Marketing dashboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/cross-copilot/metrics:
+    get:
+      tags:
+        - Cross-Copilot
+      summary: Get cross-copilot metrics
+      operationId: getCrossCopilotMetrics
+      responses:
+        '200':
+          description: Cross-copilot metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrossCopilotMetricsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/cross-copilot/comparison:
+    get:
+      tags:
+        - Cross-Copilot
+      summary: Get copilot performance comparison
+      operationId: getCopilotPerformanceComparison
+      responses:
+        '200':
+          description: Performance comparison across copilots
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/cross-copilot/health:
+    get:
+      tags:
+        - Cross-Copilot
+      summary: Get unified business health
+      operationId: getUnifiedBusinessHealth
+      responses:
+        '200':
+          description: Unified business health score
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  overallHealthScore:
+                    type: number
+                  status:
+                    type: string
+                    enum:
+                      - healthy
+                      - warning
+                      - critical
+                  componentScores:
+                    type: object
+                    additionalProperties:
+                      type: number
+                  activeAlerts:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /v1/bi/cross-copilot/insights:
+    get:
+      tags:
+        - Cross-Copilot
+      summary: Get cross-copilot correlation insights
+      operationId: getCorrelationInsights
+      responses:
+        '200':
+          description: Correlation insights
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessInsight'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+  schemas:
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+
+    BiQueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Natural-language or structured query
+        dataSource:
+          type: string
+        filters:
+          type: object
+          additionalProperties: true
+        groupBy:
+          type: array
+          items:
+            type: string
+        metrics:
+          type: array
+          items:
+            type: string
+        sortBy:
+          type: string
+        sortOrder:
+          type: string
+          enum:
+            - asc
+            - desc
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+        size:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          default: 10
+
+    BiQueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        total:
+          type: integer
+        page:
+          type: integer
+        size:
+          type: integer
+        queryTimeMs:
+          type: integer
+        queryExplanation:
+          type: string
+
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        sessionId:
+          type: string
+        pageUrl:
+          type: string
+        pageTitle:
+          type: string
+        section:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: string
+        dashboardId:
+          type: string
+        reportType:
+          type: string
+
+    ChatResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Suggestion'
+        context:
+          type: object
+          additionalProperties: true
+        streaming:
+          type: boolean
+
+    Suggestion:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+
+    RevenueMetrics:
+      type: object
+      required:
+        - metricId
+        - period
+      properties:
+        metricId:
+          type: string
+        period:
+          type: string
+        periodStart:
+          type: string
+        periodEnd:
+          type: string
+        totalRevenue:
+          type: number
+        totalOrders:
+          type: number
+        averageOrderValue:
+          type: number
+        revenuePerCustomer:
+          type: number
+        revenueByProduct:
+          type: object
+          additionalProperties:
+            type: number
+        revenueByCategory:
+          type: object
+          additionalProperties:
+            type: number
+        revenueByRegion:
+          type: object
+          additionalProperties:
+            type: number
+        revenueByChannel:
+          type: object
+          additionalProperties:
+            type: number
+        growthRate:
+          type: number
+        previousPeriodRevenue:
+          type: number
+        calculatedAt:
+          type: string
+          format: date-time
+
+    CustomerAnalytics:
+      type: object
+      required:
+        - analyticsId
+        - period
+      properties:
+        analyticsId:
+          type: string
+        period:
+          type: string
+        totalCustomers:
+          type: integer
+        newCustomers:
+          type: integer
+        churnedCustomers:
+          type: integer
+        churnRate:
+          type: number
+        customerLifetimeValue:
+          type: number
+        acquisitionCost:
+          type: number
+        retentionRate:
+          type: number
+        customersBySegment:
+          type: object
+          additionalProperties:
+            type: integer
+        revenueBySegment:
+          type: object
+          additionalProperties:
+            type: number
+        averageSatisfactionScore:
+          type: number
+        activeCustomers:
+          type: integer
+        customersByRegion:
+          type: object
+          additionalProperties:
+            type: integer
+
+    TrainingAnalytics:
+      type: object
+      required:
+        - analyticsId
+        - period
+      properties:
+        analyticsId:
+          type: string
+        period:
+          type: string
+        totalStudents:
+          type: integer
+        totalBatches:
+          type: integer
+        activeBatches:
+          type: integer
+        completedBatches:
+          type: integer
+        averageAttendance:
+          type: number
+        averageScore:
+          type: number
+        totalCertificationsIssued:
+          type: integer
+        pendingCertifications:
+          type: integer
+        completionRate:
+          type: number
+        scoreByModule:
+          type: object
+          additionalProperties:
+            type: number
+        studentsByCourse:
+          type: object
+          additionalProperties:
+            type: integer
+        revenueFromTraining:
+          type: number
+        trainingCost:
+          type: number
+        trainingProfitMargin:
+          type: number
+
+    CultivationAnalytics:
+      type: object
+      required:
+        - analyticsId
+        - period
+      properties:
+        analyticsId:
+          type: string
+        period:
+          type: string
+        totalYieldKg:
+          type: number
+        averageYieldPerBatch:
+          type: number
+        yieldBySpecies:
+          type: object
+          additionalProperties:
+            type: number
+        yieldByRegion:
+          type: object
+          additionalProperties:
+            type: number
+        averageCycleTime:
+          type: number
+        contaminationRate:
+          type: number
+        averageDiseaseIncidence:
+          type: number
+        totalGrowers:
+          type: integer
+        revenueFromGrowers:
+          type: object
+          additionalProperties:
+            type: number
+        growerSatisfactionScore:
+          type: number
+
+    BusinessInsight:
+      type: object
+      properties:
+        insightId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        severity:
+          type: string
+          enum:
+            - critical
+            - high
+            - medium
+            - low
+            - positive
+            - info
+            - warning
+        recommendation:
+          type: string
+        confidenceScore:
+          type: number
+          format: double
+        supportingData:
+          type: object
+          additionalProperties: true
+        relatedMetrics:
+          type: array
+          items:
+            type: string
+        actionable:
+          type: boolean
+        generatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+
+    InsightsResponse:
+      type: object
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessInsight'
+        total:
+          type: integer
+        category:
+          type: string
+        period:
+          type: string
+
+    AnomalyAlert:
+      type: object
+      properties:
+        anomalyId:
+          type: string
+        metric:
+          type: string
+        dimension:
+          type: string
+        observedValue:
+          type: number
+        expectedValue:
+          type: number
+        deviationScore:
+          type: number
+        severity:
+          type: string
+          enum:
+            - anomaly
+            - critical
+        description:
+          type: string
+        impact:
+          type: string
+        recommendedAction:
+          type: string
+        autoResolved:
+          type: boolean
+        detectedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    AnomaliesResponse:
+      type: object
+      properties:
+        anomalies:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyAlert'
+        total:
+          type: integer
+        critical:
+          type: integer
+        unresolved:
+          type: integer
+        period:
+          type: string
+
+    TrendDataPoint:
+      type: object
+      properties:
+        trendId:
+          type: string
+        metric:
+          type: string
+        period:
+          type: string
+        value:
+          type: number
+        movingAverage:
+          type: number
+        seasonalFactor:
+          type: number
+        trendLine:
+          type: number
+        deviation:
+          type: number
+        direction:
+          type: string
+          enum:
+            - up
+            - down
+            - stable
+        changePercent:
+          type: number
+        timestamp:
+          type: string
+          format: date-time
+
+    TrendsResponse:
+      type: object
+      properties:
+        trends:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrendDataPoint'
+        metric:
+          type: string
+        period:
+          type: string
+        dataPoints:
+          type: integer
+        summary:
+          type: object
+          additionalProperties: true
+
+    ForecastRequest:
+      type: object
+      required:
+        - metric
+        - method
+        - horizon
+      properties:
+        metric:
+          type: string
+        method:
+          type: string
+          enum:
+            - moving_average
+            - exponential_smoothing
+            - linear_regression
+            - seasonal
+        horizon:
+          type: integer
+          minimum: 1
+          maximum: 365
+        parameters:
+          type: object
+          additionalProperties: true
+
+    ForecastResponse:
+      type: object
+      properties:
+        forecastId:
+          type: string
+        metric:
+          type: string
+        method:
+          type: string
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastPoint'
+        confidenceInterval:
+          type: number
+        recommendations:
+          type: string
+
+    ForecastPoint:
+      type: object
+      properties:
+        period:
+          type: string
+        predictedValue:
+          type: number
+        lowerBound:
+          type: number
+        upperBound:
+          type: number
+
+    CustomerSegment:
+      type: object
+      properties:
+        segmentId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        customerCount:
+          type: integer
+        totalRevenue:
+          type: number
+        averageRevenue:
+          type: number
+        churnRate:
+          type: number
+        characteristics:
+          type: array
+          items:
+            type: string
+        recommendedStrategies:
+          type: array
+          items:
+            type: string
+
+    CustomerSegmentsResponse:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerSegment'
+        totalCustomers:
+          type: integer
+        totalRevenue:
+          type: number
+        calculatedAt:
+          type: string
+          format: date-time
+
+    ReportRequest:
+      type: object
+      required:
+        - reportType
+        - format
+      properties:
+        reportType:
+          type: string
+          enum:
+            - revenue
+            - customer
+            - training
+            - cultivation
+            - executive_summary
+            - comprehensive
+        format:
+          type: string
+          enum:
+            - PDF
+            - EXCEL
+            - CSV
+            - HTML
+        schedule:
+          type: string
+          description: Cron expression for recurring generation
+        metrics:
+          type: array
+          items:
+            type: string
+        dimensions:
+          type: array
+          items:
+            type: string
+        filters:
+          type: object
+          additionalProperties: true
+        recipients:
+          type: array
+          items:
+            type: string
+            format: email
+
+    ReportResponse:
+      type: object
+      properties:
+        reportId:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        format:
+          type: string
+        downloadUrl:
+          type: string
+        summary:
+          type: object
+          additionalProperties: true
+        generatedAt:
+          type: string
+          format: date-time
+
+    DashboardWidget:
+      type: object
+      properties:
+        widgetId:
+          type: string
+        title:
+          type: string
+        widgetType:
+          type: string
+          enum:
+            - kpi_card
+            - line_chart
+            - bar_chart
+            - pie_chart
+            - donut_chart
+            - gauge
+            - table
+            - list
+            - scatter_plot
+        dataSource:
+          type: string
+        metric:
+          type: string
+        configuration:
+          type: object
+          additionalProperties: true
+        width:
+          type: integer
+        height:
+          type: integer
+        positionX:
+          type: integer
+        positionY:
+          type: integer
+        refreshInterval:
+          type: string
+        enabled:
+          type: boolean
+
+    DashboardResponse:
+      type: object
+      properties:
+        dashboardId:
+          type: string
+        name:
+          type: string
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWidget'
+        summaryData:
+          type: object
+          additionalProperties: true
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessInsight'
+        generatedAt:
+          type: string
+          format: date-time
+
+    CrossCopilotMetric:
+      type: object
+      properties:
+        metricId:
+          type: string
+        copilotType:
+          type: string
+          enum:
+            - Customer Copilot
+            - Admin Copilot
+            - Trainer Copilot
+            - Grower Copilot
+        metricName:
+          type: string
+          enum:
+            - revenue
+            - active_sessions
+            - avg_latency
+            - satisfaction
+        currentValue:
+          type: number
+        previousValue:
+          type: number
+        changePercent:
+          type: number
+        trend:
+          type: string
+          enum:
+            - up
+            - down
+        source:
+          type: string
+        measuredAt:
+          type: string
+          format: date-time
+
+    CrossCopilotMetricsResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/CrossCopilotMetric'
+        timestamp:
+          type: string
+          format: date-time
+        comparison:
+          type: object
+          additionalProperties: true
