@@ -1,0 +1,35 @@
+server:
+  port: 8100
+
+spring:
+  application:
+    name: admin-copilot-service
+
+admin:
+  copilot:
+    name: "Admin Copilot"
+    version: "0.1.0"
+    description: "Enterprise Admin Operations & Analytics Assistant"
+    streaming-enabled: true
+    supported-languages:
+      - en
+      - hi
+      - mr
+      - ta
+      - te
+      - kn
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

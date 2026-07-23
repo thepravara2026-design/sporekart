@@ -1,0 +1,1576 @@
+openapi: 3.0.3
+info:
+  title: SporeKart Admin Copilot Service API
+  version: 1.0.0
+  description: >
+    REST API for the Admin Copilot — an AI-powered operations and analytics assistant.
+    Provides dashboard snapshots, natural language chat, business insights, forecasting,
+    report generation, and operational alerts for administrators and analysts.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+  license:
+    name: Proprietary
+    url: https://sporekart.example/license
+servers:
+  - url: https://api.sporekart.example/api/v1/copilot/admin
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example/api/v1/copilot/admin
+    description: Staging API gateway
+  - url: http://localhost:8100/api/v1/copilot/admin
+    description: Local development
+
+security:
+  - bearerAuth: []
+
+paths:
+  /chat:
+    post:
+      tags:
+        - Chat
+      summary: Send a natural language query to Admin Copilot
+      description: >
+        Sends a natural language message and receives a structured response with
+        natural language reply, optional structured data payload, and suggested
+        follow-up questions.
+      operationId: adminChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful chat response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /stream:
+    post:
+      tags:
+        - Chat
+      summary: Stream a chat response token-by-token
+      description: >
+        Sends a natural language message and receives a Server-Sent Events (SSE)
+        stream of response tokens. The final event includes the complete structured
+        data payload.
+      operationId: adminStreamChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: SSE stream of response tokens
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/StreamEvent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /dashboard:
+    get:
+      tags:
+        - Dashboard
+      summary: Get the admin dashboard snapshot
+      description: >
+        Returns a real-time snapshot of key business metrics including sales,
+        customer activity, inventory status, training performance, and platform
+        health for the current period.
+      operationId: getDashboard
+      parameters:
+        - name: period
+          in: query
+          description: Time period for the dashboard
+          schema:
+            type: string
+            default: today
+            enum:
+              - today
+              - yesterday
+              - this_week
+              - this_month
+          required: false
+        - name: includeHistory
+          in: query
+          description: Include 7-day historical trend data
+          schema:
+            type: boolean
+            default: false
+          required: false
+      responses:
+        '200':
+          description: Dashboard snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminDashboard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /report:
+    post:
+      tags:
+        - Reports
+      summary: Generate a report asynchronously
+      description: >
+        Submits a report generation request. Returns a job ID for polling.
+        Report types include dashboard snapshot, sales, inventory, customer,
+        and training analysis.
+      operationId: generateReport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        '202':
+          description: Report generation job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportJobStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /report/{jobId}:
+    get:
+      tags:
+        - Reports
+      summary: Poll report generation status
+      description: >
+        Returns the current status of a report generation job. When completed,
+        includes the download URL for the generated report.
+      operationId: getReportStatus
+      parameters:
+        - name: jobId
+          in: path
+          description: Report job identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Report job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportJobStatus'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /report/{jobId}/download:
+    get:
+      tags:
+        - Reports
+      summary: Download a generated report
+      description: >
+        Downloads the completed report file. The download URL is time-limited
+        and expires after 24 hours.
+      operationId: downloadReport
+      parameters:
+        - name: jobId
+          in: path
+          description: Report job identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Report file download
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '410':
+          description: Download URL has expired
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /insights:
+    get:
+      tags:
+        - Insights
+      summary: Get business insights
+      description: >
+        Returns generated business insights across all categories (sales, customer,
+        inventory, operational, risk) with severity classifications and recommended
+        actions.
+      operationId: getInsights
+      parameters:
+        - name: category
+          in: query
+          description: Filter by insight category
+          schema:
+            type: string
+            enum:
+              - sales
+              - customer
+              - inventory
+              - operational
+              - risk
+          required: false
+        - name: severity
+          in: query
+          description: Filter by severity level
+          schema:
+            type: string
+            enum:
+              - info
+              - warning
+              - critical
+          required: false
+        - name: since
+          in: query
+          description: Return insights generated after this timestamp
+          schema:
+            type: string
+            format: date-time
+          required: false
+        - name: limit
+          in: query
+          description: Maximum number of insights to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+        - name: includeResolved
+          in: query
+          description: Include resolved or dismissed insights
+          schema:
+            type: boolean
+            default: false
+          required: false
+      responses:
+        '200':
+          description: List of business insights
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /forecast:
+    post:
+      tags:
+        - Forecasting
+      summary: Generate a forecast
+      description: >
+        Generates a time-series forecast for the specified metric using the
+        selected algorithm. Supports 7, 30, and 90-day horizons with confidence
+        intervals.
+      operationId: generateForecast
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForecastRequest'
+      responses:
+        '200':
+          description: Forecast result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          description: Unable to generate forecast due to insufficient data
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /alerts:
+    get:
+      tags:
+        - Alerts
+      summary: Get operational alerts
+      description: >
+        Returns operational alerts triggered by threshold breaches across
+        platform services. Supports filtering by status, severity, and source.
+      operationId: getAlerts
+      parameters:
+        - name: status
+          in: query
+          description: Filter by alert status
+          schema:
+            type: string
+            default: active
+            enum:
+              - active
+              - acknowledged
+              - resolved
+              - all
+          required: false
+        - name: severity
+          in: query
+          description: Filter by severity level
+          schema:
+            type: string
+            enum:
+              - info
+              - warning
+              - critical
+          required: false
+        - name: source
+          in: query
+          description: Filter by alert source service
+          schema:
+            type: string
+          required: false
+        - name: since
+          in: query
+          description: Return alerts generated after this timestamp
+          schema:
+            type: string
+            format: date-time
+          required: false
+      responses:
+        '200':
+          description: List of operational alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        JWT token with roles claim containing one of:
+        - ADMIN (full access)
+        - ANALYST (read-only access)
+
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or the token is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Forbidden:
+      description: The authenticated user lacks the required role
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    InternalError:
+      description: An unexpected internal error occurred
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    UnsupportedMediaType:
+      description: Content-Type must be application/json
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+  schemas:
+    # ======================================================================
+    # Problem Details (RFC 9457)
+    # ======================================================================
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          description: URI identifying the problem type
+          example: https://api.sporekart.example/errors/invalid-request
+        title:
+          type: string
+          description: Short human-readable problem summary
+          example: Invalid Request
+        status:
+          type: integer
+          format: int32
+          description: HTTP status code
+          example: 400
+        detail:
+          type: string
+          description: Human-readable explanation
+          example: The 'message' field must be between 3 and 2000 characters.
+        instance:
+          type: string
+          format: uri-reference
+          description: URI identifying the specific occurrence
+          example: /api/v1/copilot/admin/chat
+
+    # ======================================================================
+    # Chat
+    # ======================================================================
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 3
+          maxLength: 2000
+          description: Natural language query
+          example: What were our sales yesterday?
+        context:
+          type: object
+          description: Optional contextual parameters
+          properties:
+            timezone:
+              type: string
+              description: IANA timezone identifier
+              default: UTC
+              example: America/New_York
+            dashboardId:
+              type: string
+              description: Dashboard context identifier
+              example: default
+            locale:
+              type: string
+              description: Language locale
+              default: en-US
+              example: en-US
+
+    ChatResponse:
+      type: object
+      required:
+        - reply
+        - correlationId
+      properties:
+        reply:
+          type: string
+          description: Natural language response
+          example: Yesterday (July 22, 2026) your total revenue was $38,900 from 128 orders.
+        structuredData:
+          type: object
+          description: Optional structured data payload
+          additionalProperties: true
+        suggestedFollowUps:
+          type: array
+          description: Suggested follow-up questions
+          items:
+            type: string
+          example:
+            - Which products drove the most sales yesterday?
+            - How does this compare to last week?
+        correlationId:
+          type: string
+          description: Trace identifier for support
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+    # ======================================================================
+    # Stream Events
+    # ======================================================================
+    StreamEvent:
+      type: object
+      description: Server-Sent Event for streaming chat responses
+      discriminator:
+        propertyName: event
+      oneOf:
+        - $ref: '#/components/schemas/StreamTokenEvent'
+        - $ref: '#/components/schemas/StreamDoneEvent'
+        - $ref: '#/components/schemas/StreamErrorEvent'
+
+    StreamTokenEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        event:
+          type: string
+          enum:
+            - token
+        data:
+          type: object
+          required:
+            - token
+            - index
+          properties:
+            token:
+              type: string
+              description: A single response token
+              example: Here
+            index:
+              type: integer
+              description: Zero-based token position
+              example: 0
+
+    StreamDoneEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        event:
+          type: string
+          enum:
+            - done
+        data:
+          type: object
+          required:
+            - correlationId
+            - totalTokens
+          properties:
+            correlationId:
+              type: string
+              format: uuid
+            totalTokens:
+              type: integer
+              description: Total token count
+            structuredData:
+              type: object
+              additionalProperties: true
+
+    StreamErrorEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        event:
+          type: string
+          enum:
+            - error
+        data:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: rate_limit_exceeded
+            message:
+              type: string
+              description: Error description
+              example: Rate limit exceeded. Please wait before sending another request.
+
+    # ======================================================================
+    # Dashboard
+    # ======================================================================
+    AdminDashboard:
+      type: object
+      required:
+        - snapshotTime
+        - period
+        - sales
+        - customers
+        - inventory
+        - training
+        - platform
+      properties:
+        snapshotTime:
+          type: string
+          format: date-time
+          description: When the snapshot was captured
+          example: 2026-07-23T09:35:00Z
+        period:
+          $ref: '#/components/schemas/TimePeriod'
+        sales:
+          $ref: '#/components/schemas/SalesSummary'
+        customers:
+          $ref: '#/components/schemas/CustomerSummary'
+        inventory:
+          $ref: '#/components/schemas/InventorySummary'
+        training:
+          $ref: '#/components/schemas/TrainingAnalytics'
+        platform:
+          $ref: '#/components/schemas/PlatformHealth'
+
+    TimePeriod:
+      type: object
+      required:
+        - start
+        - end
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: Period start (inclusive)
+        end:
+          type: string
+          format: date-time
+          description: Period end (exclusive)
+
+    SalesSummary:
+      type: object
+      required:
+        - revenueToday
+        - revenueYesterday
+        - revenueChangePercent
+        - ordersToday
+        - ordersYesterday
+        - ordersChangePercent
+        - averageOrderValue
+        - conversionRate
+      properties:
+        revenueToday:
+          type: number
+          format: double
+          description: Total revenue for today
+          example: 42500.00
+        revenueYesterday:
+          type: number
+          format: double
+          description: Total revenue for yesterday
+          example: 38900.00
+        revenueChangePercent:
+          type: number
+          format: double
+          description: Revenue change from yesterday as percentage
+          example: 9.3
+        ordersToday:
+          type: integer
+          description: Order count for today
+          example: 142
+        ordersYesterday:
+          type: integer
+          description: Order count for yesterday
+          example: 128
+        ordersChangePercent:
+          type: number
+          format: double
+          description: Order count change from yesterday as percentage
+          example: 10.9
+        averageOrderValue:
+          type: number
+          format: double
+          description: Average order value for today
+          example: 47.50
+        conversionRate:
+          type: number
+          format: double
+          description: Conversion rate percentage
+          example: 3.8
+        topProducts:
+          type: array
+          description: Top-selling products by revenue
+          items:
+            $ref: '#/components/schemas/ProductRanking'
+
+    ProductRanking:
+      type: object
+      required:
+        - rank
+        - name
+        - revenue
+      properties:
+        rank:
+          type: integer
+          description: Ranking position
+          example: 1
+        name:
+          type: string
+          description: Product name
+          example: Oyster Mushroom Kit
+        revenue:
+          type: number
+          format: double
+          description: Revenue contributed
+          example: 8500.00
+        units:
+          type: integer
+          description: Units sold
+          example: 180
+
+    CustomerSummary:
+      type: object
+      required:
+        - newToday
+        - activeToday
+        - totalActive
+        - repeatRate
+      properties:
+        newToday:
+          type: integer
+          description: New customer registrations today
+          example: 18
+        newYesterday:
+          type: integer
+          description: New customer registrations yesterday
+          example: 22
+        activeToday:
+          type: integer
+          description: Active unique users today
+          example: 312
+        totalActive:
+          type: integer
+          description: Total active customers
+          example: 8450
+        repeatRate:
+          type: number
+          format: double
+          description: Percentage of orders from returning customers
+          example: 34.2
+
+    InventorySummary:
+      type: object
+      required:
+        - totalSkuCount
+        - lowStockItems
+        - outOfStockItems
+        - inventoryValue
+        - turnoverRate
+      properties:
+        totalSkuCount:
+          type: integer
+          description: Total number of SKUs
+          example: 342
+        lowStockItems:
+          type: integer
+          description: SKUs below reorder threshold
+          example: 11
+        outOfStockItems:
+          type: integer
+          description: SKUs with zero available stock
+          example: 2
+        inventoryValue:
+          type: number
+          format: double
+          description: Total inventory value at cost
+          example: 1240000.00
+        turnoverRate:
+          type: number
+          format: double
+          description: Inventory turnover ratio (trailing 12 months)
+          example: 2.4
+
+    TrainingAnalytics:
+      type: object
+      required:
+        - activeEnrollments
+        - completionRate
+        - revenueMonth
+      properties:
+        activeEnrollments:
+          type: integer
+          description: Currently active enrollments
+          example: 89
+        completionRate:
+          type: number
+          format: double
+          description: Program completion rate percentage
+          example: 92.0
+        revenueMonth:
+          type: number
+          format: double
+          description: Training revenue for the current month
+          example: 28500.00
+        utilizationRate:
+          type: number
+          format: double
+          description: Seat utilization percentage
+          example: 78.5
+
+    PlatformHealth:
+      type: object
+      required:
+        - healthStatus
+        - services
+        - uptimeToday
+        - errorRate
+      properties:
+        healthStatus:
+          type: string
+          description: Aggregate platform health status
+          enum:
+            - HEALTHY
+            - DEGRADED
+            - DOWN
+          example: HEALTHY
+        services:
+          type: array
+          description: Individual service health statuses
+          items:
+            $ref: '#/components/schemas/ServiceHealth'
+        uptimeToday:
+          type: number
+          format: double
+          description: Platform uptime percentage for today
+          example: 99.98
+        errorRate:
+          type: number
+          format: double
+          description: Aggregate error rate percentage
+          example: 0.02
+
+    ServiceHealth:
+      type: object
+      required:
+        - name
+        - status
+        - latencyMs
+      properties:
+        name:
+          type: string
+          description: Service name
+          example: analytics
+        status:
+          type: string
+          description: Service health status
+          enum:
+            - UP
+            - DEGRADED
+            - DOWN
+            - UNKNOWN
+          example: UP
+        latencyMs:
+          type: integer
+          description: Response latency in milliseconds
+          example: 45
+
+    # ======================================================================
+    # Reports
+    # ======================================================================
+    ReportRequest:
+      type: object
+      required:
+        - type
+        - format
+      properties:
+        type:
+          type: string
+          description: Report type
+          enum:
+            - dashboard_snapshot
+            - sales
+            - inventory
+            - customer
+            - training
+          example: sales
+        format:
+          type: string
+          description: Export format
+          enum:
+            - csv
+          example: csv
+        periodStart:
+          type: string
+          format: date-time
+          description: Start of report period (default 30 days ago)
+          example: 2026-07-01T00:00:00Z
+        periodEnd:
+          type: string
+          format: date-time
+          description: End of report period (default now)
+          example: 2026-07-23T23:59:59Z
+        granularity:
+          type: string
+          description: Data granularity
+          default: day
+          enum:
+            - hour
+            - day
+            - week
+            - month
+          example: day
+        metrics:
+          type: array
+          description: Metrics to include (all if omitted)
+          items:
+            type: string
+          example:
+            - revenue
+            - orders
+            - aov
+        dimensions:
+          type: array
+          description: Dimensions to break down by
+          items:
+            type: string
+          example:
+            - product
+            - category
+        filters:
+          type: object
+          description: Dimension filters
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            categoryIds:
+              - kits
+              - logs
+            region:
+              - us-west
+        compareWith:
+          type: string
+          description: Comparison period
+          default: none
+          enum:
+            - none
+            - previous_period
+            - year_over_year
+
+    ReportJobStatus:
+      type: object
+      required:
+        - jobId
+        - status
+      properties:
+        jobId:
+          type: string
+          format: uuid
+          description: Unique report job identifier
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        status:
+          type: string
+          description: Job status
+          enum:
+            - pending
+            - processing
+            - completed
+            - failed
+          example: pending
+        estimatedCompletion:
+          type: string
+          format: date-time
+          description: Estimated completion time
+          example: 2026-07-23T09:35:05Z
+        completedAt:
+          type: string
+          format: date-time
+          description: Actual completion time (when completed)
+          example: 2026-07-23T09:35:04Z
+        downloadUrl:
+          type: string
+          format: uri
+          description: Download URL (when completed, expires in 24h)
+          nullable: true
+          example: /api/v1/copilot/admin/report/3fa85f64-5717-4562-b3fc-2c963f66afa6/download
+        expiresAt:
+          type: string
+          format: date-time
+          description: Download URL expiration time
+          nullable: true
+          example: 2026-07-24T09:35:04Z
+        fileSize:
+          type: integer
+          description: File size in bytes (when completed)
+          nullable: true
+          example: 245000
+        recordCount:
+          type: integer
+          description: Number of records in the report
+          nullable: true
+          example: 3450
+        errorMessage:
+          type: string
+          description: Error message (when failed)
+          nullable: true
+          example: Upstream analytics service returned 502
+
+    # ======================================================================
+    # Insights
+    # ======================================================================
+    InsightList:
+      type: object
+      required:
+        - insights
+        - total
+      properties:
+        insights:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessInsight'
+        total:
+          type: integer
+          description: Total number of insights matching filters
+          example: 15
+        unresolved:
+          type: integer
+          description: Count of unresolved insights
+          example: 12
+        critical:
+          type: integer
+          description: Count of critical insights
+          example: 2
+        warning:
+          type: integer
+          description: Count of warning insights
+          example: 5
+        info:
+          type: integer
+          description: Count of info insights
+          example: 8
+
+    BusinessInsight:
+      type: object
+      required:
+        - id
+        - category
+        - severity
+        - title
+        - summary
+        - currentValue
+        - previousValue
+        - deltaPercentage
+        - trend
+        - generatedAt
+        - expiresAt
+        - resolved
+      properties:
+        id:
+          type: string
+          description: Unique insight identifier
+          example: insight-sales-001
+        category:
+          type: string
+          description: Insight category
+          enum:
+            - SALES
+            - CUSTOMER
+            - INVENTORY
+            - OPERATIONAL
+            - RISK
+          example: SALES
+        severity:
+          type: string
+          description: Severity level
+          enum:
+            - INFO
+            - WARNING
+            - CRITICAL
+          example: WARNING
+        title:
+          type: string
+          description: Short insight title
+          example: Week-over-Week Revenue Decline
+        summary:
+          type: string
+          description: Detailed insight description
+          example: Revenue for the current week is $84,500, 12.3% lower than the previous week.
+        currentValue:
+          type: number
+          format: double
+          description: Current period value
+          example: 84500.00
+        previousValue:
+          type: number
+          format: double
+          description: Comparison period value
+          example: 96300.00
+        deltaPercentage:
+          type: number
+          format: double
+          description: Percentage change
+          example: -12.3
+        trend:
+          type: string
+          description: Detected trend direction
+          enum:
+            - UP
+            - DOWN
+            - STABLE
+            - ACCELERATING
+            - DECLINING
+          example: DECLINING
+        dimensions:
+          type: object
+          description: Relevant dimension context
+          additionalProperties:
+            type: string
+          example:
+            productCategory: Mushroom Kits
+        recommendedActions:
+          type: array
+          description: Suggested actions
+          items:
+            type: string
+          example:
+            - Review pricing and promotion calendar for mushroom kits.
+            - Check inventory availability for top-selling kit variants.
+        generatedAt:
+          type: string
+          format: date-time
+          description: Insight generation timestamp
+        expiresAt:
+          type: string
+          format: date-time
+          description: Insight expiration timestamp
+        resolved:
+          type: boolean
+          description: Whether the insight has been resolved or dismissed
+          example: false
+
+    # ======================================================================
+    # Forecasting
+    # ======================================================================
+    ForecastRequest:
+      type: object
+      required:
+        - metric
+      properties:
+        metric:
+          type: string
+          description: Metric ID to forecast
+          example: revenue
+        horizon:
+          type: integer
+          description: Forecast horizon in days
+          default: 30
+          enum:
+            - 7
+            - 30
+            - 90
+          example: 30
+        periodStart:
+          type: string
+          format: date-time
+          description: Start of historical data (default 30 days ago)
+          example: 2026-06-23T00:00:00Z
+        periodEnd:
+          type: string
+          format: date-time
+          description: End of historical data (default now)
+          example: 2026-07-22T23:59:59Z
+        granularity:
+          type: string
+          description: Data granularity
+          default: day
+          enum:
+            - day
+            - week
+            - month
+          example: day
+        filters:
+          type: object
+          description: Dimension filters
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            region:
+              - us-west
+            categoryIds:
+              - kits
+              - logs
+        confidenceLevels:
+          type: array
+          description: Confidence interval percentages
+          items:
+            type: integer
+            enum:
+              - 80
+              - 95
+          default:
+            - 80
+            - 95
+          example:
+            - 80
+            - 95
+        algorithm:
+          type: string
+          description: Forecasting algorithm
+          default: auto
+          enum:
+            - auto
+            - sma
+            - holt
+            - holtwinters
+            - arima
+            - prophet
+          example: auto
+        adjustForEvents:
+          type: boolean
+          description: Apply known event adjustments
+          default: true
+          example: true
+
+    ForecastResult:
+      type: object
+      required:
+        - metric
+        - horizon
+        - generatedAt
+        - historicalPeriod
+        - dataPoints
+        - summary
+      properties:
+        metric:
+          type: string
+          description: The forecasted metric
+          example: revenue
+        horizon:
+          type: integer
+          description: Forecast horizon in days
+          example: 30
+        generatedAt:
+          type: string
+          format: date-time
+          description: Forecast generation timestamp
+          example: 2026-07-23T09:35:00Z
+        historicalPeriod:
+          $ref: '#/components/schemas/TimePeriod'
+        dataPoints:
+          type: array
+          description: Forecast data points
+          items:
+            $ref: '#/components/schemas/ForecastPoint'
+        summary:
+          $ref: '#/components/schemas/ForecastSummary'
+
+    ForecastPoint:
+      type: object
+      required:
+        - date
+        - forecast
+      properties:
+        date:
+          type: string
+          format: date
+          description: Forecast date
+          example: 2026-07-23
+        forecast:
+          type: number
+          format: double
+          description: Point forecast value
+          example: 41200.00
+        ci80Lower:
+          type: number
+          format: double
+          description: 80% confidence interval lower bound
+          example: 39800.00
+        ci80Upper:
+          type: number
+          format: double
+          description: 80% confidence interval upper bound
+          example: 42600.00
+        ci95Lower:
+          type: number
+          format: double
+          description: 95% confidence interval lower bound
+          example: 38500.00
+        ci95Upper:
+          type: number
+          format: double
+          description: 95% confidence interval upper bound
+          example: 43900.00
+
+    ForecastSummary:
+      type: object
+      required:
+        - algorithm
+        - trendDirection
+        - mapeHistorical
+      properties:
+        totalForecast:
+          type: number
+          format: double
+          description: Sum of all forecast values
+          example: 1245000.00
+        dailyAverage:
+          type: number
+          format: double
+          description: Average daily forecast value
+          example: 41500.00
+        weekOverWeekChange:
+          type: number
+          format: double
+          description: Projected week-over-week change percentage
+          example: 8.3
+        monthOverMonthChange:
+          type: number
+          format: double
+          description: Projected month-over-month change percentage
+          example: 5.2
+        algorithm:
+          type: string
+          description: Algorithm used for the forecast
+          example: Holt-Winters Additive
+        seasonalityDetected:
+          type: array
+          description: Detected seasonal periods in days
+          items:
+            type: integer
+          example:
+            - 7
+        trendDirection:
+          type: string
+          description: Detected trend direction
+          enum:
+            - UP
+            - DOWN
+            - FLAT
+          example: UP
+        mapeHistorical:
+          type: number
+          format: double
+          description: Mean Absolute Percentage Error on historical data
+          example: 4.2
+        peakDayProjected:
+          type: string
+          format: date
+          description: Projected peak day in the forecast period
+          example: 2026-08-15
+        lowDayProjected:
+          type: string
+          format: date
+          description: Projected low day in the forecast period
+          example: 2026-08-03
+        note:
+          type: string
+          description: Additional notes about the forecast
+          example: Forecast does not account for upcoming promotion campaigns.
+
+    # ======================================================================
+    # Alerts
+    # ======================================================================
+    AlertList:
+      type: object
+      required:
+        - alerts
+        - total
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationalAlert'
+        total:
+          type: integer
+          description: Total alerts matching filters
+          example: 8
+        active:
+          type: integer
+          description: Count of active (unacknowledged) alerts
+          example: 5
+        acknowledged:
+          type: integer
+          description: Count of acknowledged alerts
+          example: 2
+        critical:
+          type: integer
+          description: Count of critical alerts
+          example: 1
+
+    OperationalAlert:
+      type: object
+      required:
+        - id
+        - title
+        - message
+        - severity
+        - source
+        - metric
+        - currentValue
+        - threshold
+        - status
+        - generatedAt
+      properties:
+        id:
+          type: string
+          description: Unique alert identifier
+          example: alert-001
+        title:
+          type: string
+          description: Short alert title
+          example: Payment Gateway Degradation
+        message:
+          type: string
+          description: Detailed alert message
+          example: Payment success rate dropped to 88.2% in the last hour (threshold: 95%).
+        severity:
+          type: string
+          description: Alert severity
+          enum:
+            - INFO
+            - WARNING
+            - CRITICAL
+          example: CRITICAL
+        source:
+          type: string
+          description: Service that generated the alert
+          example: payment-service
+        metric:
+          type: string
+          description: Metric that triggered the alert
+          example: payment_success_rate
+        currentValue:
+          type: number
+          format: double
+          description: Current metric value
+          example: 88.2
+        threshold:
+          type: number
+          format: double
+          description: Threshold that was breached
+          example: 95.0
+        status:
+          type: string
+          description: Alert status
+          enum:
+            - ACTIVE
+            - ACKNOWLEDGED
+            - RESOLVED
+          example: ACTIVE
+        acknowledgedBy:
+          type: string
+          description: Who acknowledged the alert
+          nullable: true
+          example: jane@sporekart.example
+        acknowledgedAt:
+          type: string
+          format: date-time
+          description: When the alert was acknowledged
+          nullable: true
+        generatedAt:
+          type: string
+          format: date-time
+          description: When the alert was generated
+        resolvedAt:
+          type: string
+          format: date-time
+          description: When the alert was resolved
+          nullable: true
+
+    # ======================================================================
+    # Common / Shared
+    # ======================================================================
+    MetricValue:
+      type: object
+      required:
+        - metric
+        - value
+        - timestamp
+      properties:
+        metric:
+          type: string
+          description: Metric identifier
+        value:
+          type: number
+          format: double
+          description: Metric value
+        timestamp:
+          type: string
+          format: date-time
+          description: When the value was recorded
+        dimensions:
+          type: object
+          description: Associated dimension values
+          additionalProperties:
+            type: string
+
+    ErrorResponse:
+      type: object
+      deprecated: true
+      description: Legacy error format, use ProblemDetails instead
+      properties:
+        error:
+          type: string
+          example: unauthorized
+        message:
+          type: string
+          example: Invalid or expired JWT token
+        status:
+          type: integer
+          example: 401
