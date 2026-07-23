@@ -162,3 +162,7 @@ sporekart:
         url: http://localhost:8097
         health-path: /actuator/health
         timeout: 5s
+      workspace:
+        url: http://localhost:8103
+        health-path: /actuator/health
+        timeout: 30s
