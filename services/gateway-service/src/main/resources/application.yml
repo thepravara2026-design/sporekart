@@ -162,3 +162,7 @@ sporekart:
         url: http://localhost:8097
         health-path: /actuator/health
         timeout: 5s
+      trainer-copilot:
+        url: http://localhost:8101
+        health-path: /actuator/health
+        timeout: 30s
