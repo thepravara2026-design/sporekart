@@ -1,0 +1,587 @@
+openapi: 3.1.0
+info:
+  title: SporeKart Unified Copilot Workspace API
+  version: 1.0.0
+  description: >-
+    REST API for the Unified Copilot Workspace service that orchestrates
+    Marketing, Sales, Service, and Commerce copilots under a single interface.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+servers:
+  - url: https://api.sporekart.example
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example
+    description: Staging API gateway
+security:
+  - bearerAuth: []
+paths:
+  /v1/workspace:
+    post:
+      tags:
+        - Workspace
+      summary: Create a new workspace
+      operationId: createWorkspace
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceRequest'
+      responses:
+        '201':
+          description: Workspace created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v1/workspace/{workspaceId}:
+    get:
+      tags:
+        - Workspace
+      summary: Get workspace status
+      operationId: getWorkspaceStatus
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workspace status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceStatusResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/workspace/{workspaceId}/chat:
+    post:
+      tags:
+        - Chat
+      summary: Send a message to the active (or auto-routed) copilot
+      operationId: chat
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Chat response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  /v1/workspace/{workspaceId}/collaborate:
+    post:
+      tags:
+        - Collaboration
+      summary: Send a message that triggers multi-copilot collaboration
+      operationId: collaborate
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollaborationRequest'
+      responses:
+        '200':
+          description: Collaboration response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollaborationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '502':
+          $ref: '#/components/responses/BadGateway'
+  /v1/workspace/{workspaceId}/switch:
+    post:
+      tags:
+        - Copilot
+      summary: Switch the active copilot for a workspace
+      operationId: switchCopilot
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwitchCopilotRequest'
+      responses:
+        '200':
+          description: Copilot switched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwitchCopilotResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /v1/workspace/{workspaceId}/handoff:
+    post:
+      tags:
+        - Copilot
+      summary: Initiate a handoff with full context transfer
+      operationId: handoff
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoffRequest'
+      responses:
+        '200':
+          description: Handoff completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandoffResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/workspace/{workspaceId}/context:
+    get:
+      tags:
+        - Context
+      summary: Get the current workspace context
+      operationId: getWorkspaceContext
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workspace context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/workspace/{workspaceId}/history:
+    get:
+      tags:
+        - History
+      summary: Get conversation history for a workspace
+      operationId: getConversationHistory
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 200
+        - name: before
+          in: query
+          schema:
+            type: string
+          description: Message ID cursor for pagination
+      responses:
+        '200':
+          description: Conversation history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/copilots:
+    get:
+      tags:
+        - Copilot
+      summary: List all available copilots
+      operationId: listCopilots
+      responses:
+        '200':
+          description: List of copilots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CopilotListResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Conflict:
+      description: Resource state conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    BadGateway:
+      description: Upstream copilot error or collaboration failure
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        session_id:
+          type: string
+          description: Optional session identifier for continuation
+    ChatResponse:
+      type: object
+      required:
+        - workspace_id
+        - copilot
+        - reply
+        - routed
+      properties:
+        workspace_id:
+          type: string
+        copilot:
+          type: string
+        reply:
+          type: string
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        routed:
+          type: boolean
+        suggestions:
+          type: array
+          items:
+            type: string
+    CollaborationRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        copilots:
+          type: array
+          items:
+            type: string
+          description: Optional explicit list of copilots to engage
+        timeout:
+          type: integer
+          minimum: 1
+          maximum: 60
+          default: 30
+          description: Overall timeout in seconds
+    CollaborationResponse:
+      type: object
+      required:
+        - workspace_id
+        - summary
+        - sections
+        - collaboration_status
+      properties:
+        workspace_id:
+          type: string
+        summary:
+          type: string
+        sections:
+          type: object
+          additionalProperties:
+            type: object
+        collaboration_status:
+          type: string
+          enum:
+            - pending
+            - running
+            - merging
+            - done
+            - partial
+            - all_failed
+        partial:
+          type: boolean
+    CreateWorkspaceRequest:
+      type: object
+      properties:
+        default_copilot:
+          type: string
+          default: commerce
+        user_id:
+          type: string
+    WorkspaceStatusResponse:
+      type: object
+      required:
+        - workspace_id
+        - active_copilot
+        - status
+      properties:
+        workspace_id:
+          type: string
+        active_copilot:
+          type: string
+        default_copilot:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - suspended
+            - archived
+        message_count:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    CopilotListResponse:
+      type: object
+      required:
+        - copilots
+        - active_count
+      properties:
+        copilots:
+          type: array
+          items:
+            $ref: '#/components/schemas/CopilotInfo'
+        active_count:
+          type: integer
+          minimum: 0
+    CopilotInfo:
+      type: object
+      required:
+        - name
+        - display_name
+        - enabled
+      properties:
+        name:
+          type: string
+        display_name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+    SwitchCopilotRequest:
+      type: object
+      required:
+        - target_copilot
+      properties:
+        target_copilot:
+          type: string
+    SwitchCopilotResponse:
+      type: object
+      required:
+        - workspace_id
+        - previous_copilot
+        - active_copilot
+        - handoff_status
+      properties:
+        workspace_id:
+          type: string
+        previous_copilot:
+          type: string
+        active_copilot:
+          type: string
+        handoff_status:
+          type: string
+          enum:
+            - pending
+            - completed
+            - failed
+        context_preserved:
+          type: boolean
+    HandoffRequest:
+      type: object
+      required:
+        - target_copilot
+      properties:
+        target_copilot:
+          type: string
+        reason:
+          type: string
+        context:
+          type: object
+          description: Additional context to pass to the target copilot
+    HandoffResponse:
+      type: object
+      required:
+        - workspace_id
+        - target_copilot
+        - handoff_id
+        - status
+      properties:
+        workspace_id:
+          type: string
+        target_copilot:
+          type: string
+        handoff_id:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - completed
+            - failed
+        context_snapshot:
+          type: object
+    ContextResponse:
+      type: object
+      required:
+        - workspace_id
+        - context
+      properties:
+        workspace_id:
+          type: string
+        context:
+          type: object
+          properties:
+            workspace:
+              type: object
+            session:
+              type: object
+            user:
+              type: object
+            custom:
+              type: object
+    HistoryResponse:
+      type: object
+      required:
+        - workspace_id
+        - messages
+        - total
+      properties:
+        workspace_id:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        total:
+          type: integer
+          minimum: 0
+        has_more:
+          type: boolean
+    Message:
+      type: object
+      required:
+        - message_id
+        - role
+        - content
+        - timestamp
+      properties:
+        message_id:
+          type: string
+        role:
+          type: string
+          enum:
+            - user
+            - assistant
+            - system
+        content:
+          type: string
+        copilot:
+          type: string
+          description: Copilot that generated this message (assistant messages only)
+        timestamp:
+          type: string
+          format: date-time
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
