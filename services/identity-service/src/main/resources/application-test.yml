@@ -14,6 +14,13 @@ spring:
   redis:
     host: localhost
     port: 6379
+app:
+  security:
+    jwt:
+      secret: test-jwt-secret-key-for-hmac-signing-minimum-32-bytes!
+      issuer: https://identity.sporekart.test
+      expiration-minutes: 15
+
 logging:
   level:
     root: WARN

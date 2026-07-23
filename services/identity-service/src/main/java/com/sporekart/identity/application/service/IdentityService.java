@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -20,10 +21,13 @@ import java.util.UUID;
 public class IdentityService {
     private final UserRepositoryPort userRepositoryPort;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public IdentityService(UserRepositoryPort userRepositoryPort, PasswordEncoder passwordEncoder) {
+    public IdentityService(UserRepositoryPort userRepositoryPort, PasswordEncoder passwordEncoder,
+            JwtService jwtService) {
         this.userRepositoryPort = userRepositoryPort;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public Optional<UserAccount> getById(String id) {
@@ -58,6 +62,15 @@ public class IdentityService {
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new BusinessException("Invalid credentials");
         }
-        return new AuthResponse("placeholder-access-token", "placeholder-refresh-token", "Bearer", 900L);
+        if (user.isDeleted() || user.getStatus() == UserStatus.SUSPENDED || user.getStatus() == UserStatus.DEACTIVATED) {
+            throw new BusinessException("Account is not active");
+        }
+        var roles = user.getRoles().stream()
+                .map(RoleType::name)
+                .toList();
+        var accessToken = jwtService.generateAccessToken(user.getId(), roles);
+        var refreshToken = jwtService.generateRefreshToken(user.getId());
+        var expiresIn = 900L;
+        return new AuthResponse(accessToken, refreshToken, "Bearer", expiresIn);
     }
 }
