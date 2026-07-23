@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: CHANGE-ME
-      POSTGRES_USER: CHANGE-ME
-      POSTGRES_PASSWORD: CHANGE-ME
+      POSTGRES_DB: ${POSTGRES_DB:sporekart}
+      POSTGRES_USER: ${POSTGRES_USER:sporekart}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:sporekart}
     ports:
       - "5432:5432"
   redis:
