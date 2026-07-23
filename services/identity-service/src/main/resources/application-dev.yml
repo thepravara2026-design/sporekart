@@ -3,7 +3,7 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/CHANGE-ME}
+    url: ${SPRING_DATASOURCE_URL}
   jpa:
     show-sql: true
 logging:
