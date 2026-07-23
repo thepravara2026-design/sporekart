@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: executive-copilot-service
+
+server:
+  port: 8109
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+sporekart:
+  executive:
+    copilot:
+      company-name: SporeKart
+      default-currency: INR
+      fiscal-year-start: 2026-04-01
+      health-dimensions: revenue,profitability,growth,customer,operations,marketing,inventory,training
+      risk-threshold-critical: 75
+      risk-threshold-high: 50
+      risk-threshold-medium: 25
+      forecast-horizon-months: 12
+      board-report-default-period: quarterly

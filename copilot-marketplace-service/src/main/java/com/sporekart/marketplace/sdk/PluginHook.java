@@ -1,0 +1,14 @@
+package com.sporekart.marketplace.sdk;
+
+public enum PluginHook {
+    BEFORE_CONVERSATION,
+    AFTER_CONVERSATION,
+    BEFORE_QUERY,
+    AFTER_QUERY,
+    BEFORE_ANALYTICS,
+    AFTER_ANALYTICS,
+    ON_ERROR,
+    ON_DASHBOARD_LOAD,
+    ON_REPORT_GENERATE,
+    ON_NOTIFICATION_SEND
+}

@@ -1,0 +1,41 @@
+server:
+  port: 8110
+
+spring:
+  application:
+    name: copilot-marketplace-service
+
+sporekart:
+  marketplace:
+    name: SporeKart Copilot Marketplace
+    version: 1.0.0
+    plugin-store-path: ./plugins
+    max-plugin-size: 100MB
+    max-installed-plugins: 100
+    sandbox:
+      enabled: true
+      max-memory-per-plugin: 256MB
+      max-execution-timeout-ms: 30000
+      max-threads-per-plugin: 5
+    health:
+      check-interval-ms: 60000
+      failure-threshold: 3
+      recovery-threshold: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

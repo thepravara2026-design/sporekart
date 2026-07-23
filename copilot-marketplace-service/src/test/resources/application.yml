@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: copilot-marketplace-service-test
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    enabled: false
+sporekart:
+  marketplace:
+    max-installed-plugins: 10
+    sandbox:
+      enabled: true
+      max-execution-timeout-ms: 5000
+      max-threads-per-plugin: 5
+    health:
+      check-interval-ms: 30000
+      failure-threshold: 3
+    security:
+      permission-timeout-ms: 60000
+      max-permissions-per-plugin: 50
+server:
+  port: 0

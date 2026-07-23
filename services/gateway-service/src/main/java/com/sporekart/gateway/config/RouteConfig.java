@@ -57,9 +57,6 @@ public class RouteConfig {
     }
 
     private void registerBuiltinRoutes(RouteLocatorBuilder.Builder routes) {
-        routes.route("gateway-health", r -> r
-            .path("/actuator/**")
-            .uri("forward:/"));
     }
 
     private String resolveRoutePrefix(String serviceName) {
@@ -86,5 +83,13 @@ public class RouteConfig {
         ROUTE_MAP.put("content", "/api/content");
         ROUTE_MAP.put("search", "/api/search");
         ROUTE_MAP.put("bi-copilot", "/api/v1/copilot/bi");
+        ROUTE_MAP.put("copilot-marketplace", "/api/v1/plugins");
+        ROUTE_MAP.put("customer-copilot", "/api/v1/copilot/customer");
+        ROUTE_MAP.put("admin-copilot", "/api/v1/copilot/admin");
+        ROUTE_MAP.put("trainer-copilot", "/api/v1/copilot/trainer");
+        ROUTE_MAP.put("grower-copilot", "/api/v1/copilot/grower");
+        ROUTE_MAP.put("marketing-copilot", "/api/v1/copilot/marketing");
+        ROUTE_MAP.put("operations-copilot", "/api/v1/copilot/operations");
+        ROUTE_MAP.put("executive-copilot", "/api/v1/copilot/executive");
     }
 }

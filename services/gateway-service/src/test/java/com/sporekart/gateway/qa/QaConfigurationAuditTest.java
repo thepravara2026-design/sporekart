@@ -60,11 +60,11 @@ class QaConfigurationAuditTest {
     }
 
     @Test
-    @DisplayName("QA-08-009: Services are empty in test profile (no downstream deps)")
-    void services_areEmptyInTest() {
+    @DisplayName("QA-08-009: Services are configured in test profile for certification")
+    void services_areConfiguredInTest() {
         var services = gatewayConfig.getServices();
-        assertTrue(services == null || services.isEmpty(),
-            "Services must be empty in test profile to avoid dependency on downstream services");
+        assertFalse(services == null || services.isEmpty(),
+            "Services must be configured in test profile for certification validation");
     }
 
     @Test
