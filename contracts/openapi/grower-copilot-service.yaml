@@ -1,0 +1,1209 @@
+openapi: 3.1.0
+info:
+  title: SporeKart Grower Copilot Service API
+  version: 1.0.0
+  description: >-
+    REST contract for the Grower Copilot service — an AI-powered advisory
+    platform for mushroom growers covering disease diagnosis, yield
+    prediction, cultivation guidance, weather intelligence, and scientific
+    knowledge retrieval.
+  contact:
+    name: SporeKart Platform Engineering
+    email: platform@sporekart.example
+servers:
+  - url: https://api.sporekart.example
+    description: Production API gateway
+  - url: https://staging.api.sporekart.example
+    description: Staging API gateway
+security:
+  - bearerAuth: []
+paths:
+  /v1/grower-copilot/chat:
+    post:
+      tags:
+        - Chat
+      summary: Send a conversational message to the Grower Copilot
+      operationId: chatWithCopilot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Chat response with intent classification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/grower-copilot/recommend:
+    post:
+      tags:
+        - Recommendations
+      summary: Get structured recommendations for cultivation, treatment, or assessment
+      operationId: getRecommendation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendRequest'
+      responses:
+        '200':
+          description: Structured recommendation plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/grower-copilot/disease/analyze:
+    post:
+      tags:
+        - Disease
+      summary: Analyze disease symptoms and return diagnosis with treatment
+      operationId: analyzeDisease
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiseaseRequest'
+      responses:
+        '200':
+          description: Disease analysis results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiseaseResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/grower-copilot/yield/predict:
+    post:
+      tags:
+        - Yield
+      summary: Predict yield for a given cultivation scenario
+      operationId: predictYield
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YieldRequest'
+      responses:
+        '200':
+          description: Yield prediction results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YieldResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/grower-copilot/weather:
+    post:
+      tags:
+        - Weather
+      summary: Get current weather, forecast, and climate advisory for a location
+      operationId: getWeather
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeatherRequest'
+      responses:
+        '200':
+          description: Weather data and advisory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /v1/grower-copilot/plan:
+    post:
+      tags:
+        - Planning
+      summary: Generate a cultivation calendar and resource plan
+      operationId: generatePlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanningRequest'
+      responses:
+        '200':
+          description: Cultivation plan with calendar and resource summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /v1/grower-copilot/knowledge/search:
+    post:
+      tags:
+        - Knowledge
+      summary: Search the scientific knowledge repository
+      operationId: searchKnowledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeSearchRequest'
+      responses:
+        '200':
+          description: Knowledge search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/grower-copilot/health:
+    get:
+      tags:
+        - Health
+      summary: Get service health status and dependency checks
+      operationId: getHealth
+      security: []
+      responses:
+        '200':
+          description: Service health details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: The request payload is invalid
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    Unauthorized:
+      description: Authentication is required or failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    UnprocessableEntity:
+      description: Business logic validation failed
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+    ServiceUnavailable:
+      description: A dependency is unavailable
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+  schemas:
+    # ─── Common ────────────────────────────────────────────────────────
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - detail
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference
+    ApiResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+        error:
+          nullable: true
+          $ref: '#/components/schemas/ProblemDetails'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseMeta:
+      type: object
+      properties:
+        requestId:
+          type: string
+        processingTimeMs:
+          type: integer
+          format: int32
+        engineVersion:
+          type: string
+    # ─── Chat ──────────────────────────────────────────────────────────
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4000
+        context:
+          $ref: '#/components/schemas/ChatContext'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+    ChatContext:
+      type: object
+      properties:
+        species:
+          type: string
+          example: white_button
+        region:
+          type: string
+          example: himachal
+        sessionId:
+          type: string
+          example: sess_xyz789
+        language:
+          type: string
+          enum:
+            - en
+            - hi
+          default: en
+    Attachment:
+      type: object
+      required:
+        - type
+        - url
+      properties:
+        type:
+          type: string
+          enum:
+            - image
+            - document
+        url:
+          type: string
+          format: uri
+        format:
+          type: string
+          example: jpeg
+    ChatResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ChatResponseData'
+    ChatResponseData:
+      type: object
+      required:
+        - reply
+        - intent
+      properties:
+        reply:
+          type: string
+        intent:
+          type: string
+          enum:
+            - disease
+            - yield
+            - cultivation
+            - weather
+            - planning
+            - general
+        enginesUsed:
+          type: array
+          items:
+            type: string
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Suggestion'
+        knowledgeEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeEntryRef'
+    Suggestion:
+      type: object
+      properties:
+        label:
+          type: string
+        action:
+          type: string
+        payload:
+          type: object
+    # ─── Recommend ─────────────────────────────────────────────────────
+    RecommendRequest:
+      type: object
+      required:
+        - type
+        - species
+        - region
+      properties:
+        type:
+          type: string
+          enum:
+            - cultivation_plan
+            - treatment_plan
+            - assessment
+        species:
+          type: string
+        region:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: true
+        season:
+          type: string
+          enum:
+            - kharif
+            - rabi
+            - summer
+            - winter
+    RecommendResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RecommendResponseData'
+    RecommendResponseData:
+      type: object
+      properties:
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationItem'
+        timeline:
+          $ref: '#/components/schemas/Timeline'
+    RecommendationItem:
+      type: object
+      properties:
+        category:
+          type: string
+        priority:
+          type: string
+          enum:
+            - high
+            - medium
+            - low
+        title:
+          type: string
+        description:
+          type: string
+        rationale:
+          type: string
+        references:
+          type: array
+          items:
+            type: string
+    Timeline:
+      type: object
+      properties:
+        spawn_date:
+          type: string
+          format: date
+        first_harvest:
+          type: string
+          format: date
+        total_duration_days:
+          type: integer
+    # ─── Disease ───────────────────────────────────────────────────────
+    DiseaseRequest:
+      type: object
+      required:
+        - symptoms
+        - species
+      properties:
+        symptoms:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        species:
+          type: string
+        region:
+          type: string
+        severity:
+          type: string
+          enum:
+            - mild
+            - moderate
+            - severe
+            - critical
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageAttachment'
+        environment:
+          $ref: '#/components/schemas/EnvironmentReading'
+    ImageAttachment:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: uri
+        format:
+          type: string
+    EnvironmentReading:
+      type: object
+      properties:
+        temperature:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        co2:
+          type: number
+          format: float
+    DiseaseResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/DiseaseResponseData'
+    DiseaseResponseData:
+      type: object
+      required:
+        - matches
+        - severity
+        - treatment
+        - prevention
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiseaseMatch'
+        severity:
+          $ref: '#/components/schemas/SeverityAssessment'
+        treatment:
+          $ref: '#/components/schemas/TreatmentPlan'
+        prevention:
+          type: array
+          items:
+            type: string
+        escalation:
+          $ref: '#/components/schemas/EscalationInfo'
+        references:
+          type: array
+          items:
+            type: string
+    DiseaseMatch:
+      type: object
+      properties:
+        disease:
+          type: string
+        diseaseName:
+          type: string
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        symptomsMatched:
+          type: array
+          items:
+            type: string
+        symptomsUnmatched:
+          type: array
+          items:
+            type: string
+    SeverityAssessment:
+      type: object
+      properties:
+        classification:
+          type: string
+          enum:
+            - mild
+            - moderate
+            - severe
+            - critical
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        affectedPercentageEstimated:
+          type: integer
+          minimum: 0
+          maximum: 100
+    TreatmentPlan:
+      type: object
+      properties:
+        chemical:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChemicalTreatment'
+        biological:
+          type: array
+          items:
+            $ref: '#/components/schemas/BiologicalTreatment'
+        cultural:
+          type: array
+          items:
+            $ref: '#/components/schemas/CulturalMeasure'
+        integratedIdm:
+          type: string
+    ChemicalTreatment:
+      type: object
+      properties:
+        name:
+          type: string
+        dosage:
+          type: string
+        application:
+          type: string
+        withholdingPeriodDays:
+          type: integer
+        ppe:
+          type: string
+    BiologicalTreatment:
+      type: object
+      properties:
+        agent:
+          type: string
+        application:
+          type: string
+        timing:
+          type: string
+    CulturalMeasure:
+      type: object
+      properties:
+        measure:
+          type: string
+        timing:
+          type: string
+        duration:
+          type: string
+    EscalationInfo:
+      type: object
+      properties:
+        required:
+          type: boolean
+        reason:
+          type: string
+          nullable: true
+    # ─── Yield ─────────────────────────────────────────────────────────
+    YieldRequest:
+      type: object
+      required:
+        - species
+        - cultivation_config
+      properties:
+        species:
+          type: string
+        cultivation_config:
+          $ref: '#/components/schemas/CultivationConfig'
+        environment:
+          $ref: '#/components/schemas/YieldEnvironment'
+        quality_factors:
+          $ref: '#/components/schemas/QualityFactors'
+        price_per_kg:
+          type: number
+          format: float
+          minimum: 0
+    CultivationConfig:
+      type: object
+      properties:
+        area_sqm:
+          type: number
+          format: float
+          minimum: 0
+        compost_kg:
+          type: number
+          format: float
+          minimum: 0
+        bags:
+          type: integer
+          minimum: 0
+        flushes_expected:
+          type: integer
+          minimum: 1
+    YieldEnvironment:
+      type: object
+      properties:
+        avg_temperature:
+          type: number
+          format: float
+        avg_humidity:
+          type: number
+          format: float
+        season:
+          type: string
+          enum:
+            - kharif
+            - rabi
+            - summer
+            - winter
+    QualityFactors:
+      type: object
+      properties:
+        compost_quality:
+          type: string
+          enum:
+            - poor
+            - average
+            - good
+            - excellent
+        spawn_quality:
+          type: string
+          enum:
+            - poor
+            - average
+            - good
+            - excellent
+    YieldResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/YieldResponseData'
+    YieldResponseData:
+      type: object
+      properties:
+        predicted_yield_kg:
+          type: number
+          format: float
+        yield_per_sqm:
+          type: number
+          format: float
+        efficiency_percentage:
+          type: number
+          format: float
+        efficiency_label:
+          type: string
+          enum:
+            - Excellent
+            - Good
+            - Average
+            - Needs improvement
+        revenue_estimated:
+          type: number
+          format: float
+        cost_estimated:
+          type: number
+          format: float
+        net_profit_estimated:
+          type: number
+          format: float
+        roi_percentage:
+          type: number
+          format: float
+        risk_score:
+          type: integer
+          minimum: 0
+          maximum: 100
+        risk_level:
+          type: string
+          enum:
+            - low
+            - moderate
+            - high
+            - critical
+        harvest_window:
+          $ref: '#/components/schemas/HarvestWindow'
+        breakdown_by_flush:
+          type: array
+          items:
+            $ref: '#/components/schemas/FlushBreakdown'
+        sensitivity:
+          $ref: '#/components/schemas/SensitivityAnalysis'
+    HarvestWindow:
+      type: object
+      properties:
+        first_flush_earliest:
+          type: string
+          format: date
+        first_flush_latest:
+          type: string
+          format: date
+        total_cycle_days_min:
+          type: integer
+        total_cycle_days_max:
+          type: integer
+    FlushBreakdown:
+      type: object
+      properties:
+        flush:
+          type: integer
+        yield_kg:
+          type: number
+          format: float
+        percentage:
+          type: number
+          format: float
+        estimated_days:
+          type: integer
+    SensitivityAnalysis:
+      type: object
+      properties:
+        temp_plus_2:
+          $ref: '#/components/schemas/SensitivityEntry'
+        temp_minus_2:
+          $ref: '#/components/schemas/SensitivityEntry'
+        compost_minus:
+          $ref: '#/components/schemas/SensitivityEntry'
+    SensitivityEntry:
+      type: object
+      properties:
+        yield_change_percent:
+          type: number
+          format: float
+        risk_change:
+          type: integer
+    # ─── Weather ───────────────────────────────────────────────────────
+    WeatherRequest:
+      type: object
+      required:
+        - location
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocation'
+        species:
+          type: string
+        forecast_days:
+          type: integer
+          minimum: 1
+          maximum: 14
+          default: 7
+    WeatherLocation:
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+        lon:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+        name:
+          type: string
+    WeatherResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WeatherResponseData'
+    WeatherResponseData:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/WeatherLocationResolved'
+        current:
+          $ref: '#/components/schemas/CurrentWeather'
+        forecast:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyForecast'
+        advisory:
+          $ref: '#/components/schemas/WeatherAdvisory'
+        provider:
+          type: string
+    WeatherLocationResolved:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: float
+        lon:
+          type: number
+          format: float
+        name:
+          type: string
+    CurrentWeather:
+      type: object
+      properties:
+        temperature:
+          type: number
+          format: float
+        humidity:
+          type: number
+          format: float
+        precipitation_mm:
+          type: number
+          format: float
+        wind_speed:
+          type: number
+          format: float
+        timestamp:
+          type: string
+          format: date-time
+    DailyForecast:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        temp_high:
+          type: number
+          format: float
+        temp_low:
+          type: number
+          format: float
+        humidity_avg:
+          type: number
+          format: float
+        precipitation_probability:
+          type: integer
+          minimum: 0
+          maximum: 100
+        condition:
+          type: string
+    WeatherAdvisory:
+      type: object
+      properties:
+        risk_level:
+          type: string
+          enum:
+            - low
+            - moderate
+            - high
+            - critical
+        recommendation:
+          type: string
+        action_items:
+          type: array
+          items:
+            type: string
+        affected_species:
+          type: array
+          items:
+            type: string
+    # ─── Planning ──────────────────────────────────────────────────────
+    PlanningRequest:
+      type: object
+      required:
+        - species
+        - start_date
+        - region
+      properties:
+        species:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        total_area_sqm:
+          type: number
+          format: float
+          minimum: 0
+        start_date:
+          type: string
+          format: date
+        region:
+          type: string
+        resource_constraints:
+          $ref: '#/components/schemas/ResourceConstraints'
+        rotation_gap_days:
+          type: integer
+          minimum: 0
+          default: 7
+    ResourceConstraints:
+      type: object
+      properties:
+        max_labor_hours_per_week:
+          type: integer
+          minimum: 0
+        available_compost_kg:
+          type: number
+          format: float
+          minimum: 0
+        available_straw_kg:
+          type: number
+          format: float
+          minimum: 0
+    PlanningResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PlanningResponseData'
+    PlanningResponseData:
+      type: object
+      properties:
+        plan:
+          $ref: '#/components/schemas/PlanOverview'
+        calendar:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarPhase'
+        resource_summary:
+          $ref: '#/components/schemas/ResourceSummary'
+        conflicts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConflictAlert'
+        rotation_plan:
+          $ref: '#/components/schemas/RotationPlan'
+    PlanOverview:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        total_cycles:
+          type: integer
+    CalendarPhase:
+      type: object
+      properties:
+        species:
+          type: string
+        phase:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+    Task:
+      type: object
+      properties:
+        day:
+          type: integer
+        task:
+          type: string
+        labor_hours:
+          type: number
+          format: float
+    ResourceSummary:
+      type: object
+      properties:
+        total_labor_hours:
+          type: number
+          format: float
+        compost_required_kg:
+          type: number
+          format: float
+        straw_required_kg:
+          type: number
+          format: float
+        water_required_liters:
+          type: number
+          format: float
+    ConflictAlert:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        issue:
+          type: string
+        suggestion:
+          type: string
+    RotationPlan:
+      type: object
+      properties:
+        recommended_sequence:
+          type: array
+          items:
+            type: string
+        gap_days:
+          type: integer
+        annual_cycles_possible:
+          type: integer
+    # ─── Knowledge ─────────────────────────────────────────────────────
+    KnowledgeSearchRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          minLength: 1
+        categories:
+          type: array
+          items:
+            type: string
+        species:
+          type: array
+          items:
+            type: string
+        region:
+          type: string
+        language:
+          type: string
+          enum:
+            - en
+            - hi
+          default: en
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 10
+        offset:
+          type: integer
+          minimum: 0
+          default: 0
+    KnowledgeSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/KnowledgeSearchResponseData'
+    KnowledgeSearchResponseData:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnowledgeEntry'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    KnowledgeEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        category:
+          type: string
+        species:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+        citations:
+          type: array
+          items:
+            type: string
+        source:
+          type: string
+        relevance_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+    KnowledgeEntryRef:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+    # ─── Health ────────────────────────────────────────────────────────
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - healthy
+            - degraded
+            - unhealthy
+        version:
+          type: string
+        uptime_seconds:
+          type: integer
+          format: int64
+        engines:
+          type: object
+          additionalProperties:
+            type: string
+            enum:
+              - healthy
+              - degraded
+              - unhealthy
+        dependencies:
+          type: object
+          additionalProperties:
+            type: string
+            enum:
+              - healthy
+              - degraded
+              - unhealthy
