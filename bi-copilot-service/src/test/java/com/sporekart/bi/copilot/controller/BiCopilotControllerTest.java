@@ -1,19 +1,19 @@
 package com.sporekart.bi.copilot.controller;
 
+import com.sporekart.bi.copilot.domain.*;
 import com.sporekart.bi.copilot.dto.*;
 import com.sporekart.bi.copilot.service.BiCopilotOrchestrator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,117 +24,169 @@ class BiCopilotControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockitoBean
+    @MockBean
     private BiCopilotOrchestrator orchestrator;
 
     @Test
-    void processMessage_shouldReturnOk() throws Exception {
-        when(orchestrator.processMessage(any(ChatRequest.class))).thenReturn(new ChatResponse("s1", "reply", List.of(), Map.of(), false));
-        mockMvc.perform(post("/api/v1/bi-copilot/chat")
+    void getDashboardReturnsDashboardResponse() throws Exception {
+        when(orchestrator.getExecutiveDashboard("daily"))
+                .thenReturn(new DashboardResponse(
+                        mockExecutiveSummary(), List.of(), null));
+
+        mockMvc.perform(get("/api/v1/bi/dashboard")
+                        .param("type", "daily"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.summary").exists());
+    }
+
+    @Test
+    void getRevenueAnalyticsReturnsRevenueData() throws Exception {
+        when(orchestrator.getRevenueAnalytics("current"))
+                .thenReturn(mock(RevenueAnalytics.class));
+
+        mockMvc.perform(get("/api/v1/bi/revenue")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.period").exists());
+    }
+
+    @Test
+    void getCustomerAnalyticsReturnsCustomerData() throws Exception {
+        when(orchestrator.getCustomerAnalytics("current"))
+                .thenReturn(mock(CustomerAnalytics.class));
+
+        mockMvc.perform(get("/api/v1/bi/customers")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.period").exists());
+    }
+
+    @Test
+    void getProductAnalyticsReturnsProductData() throws Exception {
+        when(orchestrator.getProductAnalytics("current"))
+                .thenReturn(mock(ProductAnalytics.class));
+
+        mockMvc.perform(get("/api/v1/bi/products")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.period").exists());
+    }
+
+    @Test
+    void getInventoryAnalyticsReturnsInventoryData() throws Exception {
+        when(orchestrator.getInventoryAnalytics("current"))
+                .thenReturn(mock(InventoryAnalytics.class));
+
+        mockMvc.perform(get("/api/v1/bi/inventory")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.period").exists());
+    }
+
+    @Test
+    void getTrainingAnalyticsReturnsTrainingData() throws Exception {
+        when(orchestrator.getTrainingAnalytics("current"))
+                .thenReturn(mock(TrainingAnalytics.class));
+
+        mockMvc.perform(get("/api/v1/bi/training")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.period").exists());
+    }
+
+    @Test
+    void getForecastReturnsForecastResponse() throws Exception {
+        when(orchestrator.getForecast("revenue", "current", 6, "auto"))
+                .thenReturn(mock(BusinessForecast.class));
+
+        mockMvc.perform(get("/api/v1/bi/forecast")
+                        .param("metric", "revenue")
+                        .param("period", "current")
+                        .param("horizon", "6")
+                        .param("method", "auto"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.forecastId").exists());
+    }
+
+    @Test
+    void getRecommendationsReturnsRecommendations() throws Exception {
+        when(orchestrator.getRecommendations("revenue", "current"))
+                .thenReturn(List.of(mock(DecisionRecommendation.class)));
+
+        mockMvc.perform(get("/api/v1/bi/recommendations")
+                        .param("focus", "revenue")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.recommendations").exists());
+    }
+
+    @Test
+    void getRisksReturnsRiskData() throws Exception {
+        when(orchestrator.getRisks("current"))
+                .thenReturn(List.of(mock(RiskAlert.class)));
+
+        mockMvc.perform(get("/api/v1/bi/risks")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.risks").exists());
+    }
+
+    @Test
+    void answerQueryReturnsQueryResponse() throws Exception {
+        when(orchestrator.answerQuery("test query", true, true))
+                .thenReturn(new NaturalLanguageQueryResponse(
+                        "revenue_query", "test explanation",
+                        Map.of("revenue", 100000.0), null, List.of(), "suggested"));
+
+        mockMvc.perform(post("/api/v1/bi/query")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"message\":\"hello\"}"))
+                        .content("""
+                                {
+                                    "query": "test query",
+                                    "generateVisualization": true,
+                                    "includeExplanation": true
+                                }
+                                """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("reply"));
+                .andExpect(jsonPath("$.intent").value("revenue_query"));
     }
 
     @Test
-    void processChat_shouldReturnOk() throws Exception {
-        when(orchestrator.processChat(any(ChatRequest.class))).thenReturn(new ChatResponse("s2", "chat reply", List.of(), Map.of(), true));
-        mockMvc.perform(post("/api/v1/bi-copilot/chat/stream")
+    void getHealthScoreReturnsHealthScore() throws Exception {
+        when(orchestrator.getHealthScore("current"))
+                .thenReturn(mock(CompanyHealthScore.class));
+
+        mockMvc.perform(get("/api/v1/bi/health-score")
+                        .param("period", "current"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.overall").exists());
+    }
+
+    @Test
+    void processChatReturnsChatResponse() throws Exception {
+        when(orchestrator.processMessage(any(ChatRequest.class)))
+                .thenReturn(new ChatResponse("sess-1", "response", List.of(), Map.of(), false));
+
+        mockMvc.perform(post("/api/v1/bi/chat")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"message\":\"hi\"}"))
+                        .content("""
+                                {
+                                    "message": "show dashboard",
+                                    "sessionId": "sess-1"
+                                }
+                                """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("chat reply"));
+                .andExpect(jsonPath("$.message").value("response"));
     }
 
-    @Test
-    void getDashboard_shouldReturnOk() throws Exception {
-        when(orchestrator.getDashboard(eq("default"))).thenReturn(new DashboardResponse("d1", "Default", List.of(), Map.of(), List.of(), null));
-        mockMvc.perform(get("/api/v1/bi-copilot/dashboards/default"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.dashboardId").value("d1"));
-    }
-
-    @Test
-    void queryData_shouldReturnOk() throws Exception {
-        when(orchestrator.queryData(any(BiQueryRequest.class))).thenReturn(new BiQueryResponse(List.of(), 0, 1, 10, 5L, "explanation"));
-        mockMvc.perform(post("/api/v1/bi-copilot/query")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"query\":\"revenue\",\"page\":1,\"size\":10}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.page").value(1));
-    }
-
-    @Test
-    void generateReport_shouldReturnOk() throws Exception {
-        when(orchestrator.generateReport(any(ReportRequest.class))).thenReturn(new ReportResponse("r1", "Report", "completed", "pdf", "/download", Map.of(), null));
-        mockMvc.perform(post("/api/v1/bi-copilot/reports")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"reportType\":\"revenue\",\"format\":\"pdf\",\"metrics\":[],\"dimensions\":[],\"recipients\":[]}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.reportId").value("r1"));
-    }
-
-    @Test
-    void getInsights_shouldReturnOk() throws Exception {
-        when(orchestrator.getInsights(eq("revenue"), eq("2025-06"))).thenReturn(new InsightsResponse(List.of(), 0, "revenue", "2025-06"));
-        mockMvc.perform(get("/api/v1/bi-copilot/insights?category=revenue&period=2025-06"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.category").value("revenue"));
-    }
-
-    @Test
-    void getTrends_shouldReturnOk() throws Exception {
-        when(orchestrator.getTrends(eq("revenue"), eq(12))).thenReturn(new TrendsResponse(List.of(), "revenue", "2025", 12, Map.of()));
-        mockMvc.perform(get("/api/v1/bi-copilot/trends?metric=revenue&months=12"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.metric").value("revenue"));
-    }
-
-    @Test
-    void getAnomalies_shouldReturnOk() throws Exception {
-        when(orchestrator.getAnomalies(eq("2025-06"))).thenReturn(new AnomaliesResponse(List.of(), 0, 0, 0, "2025-06"));
-        mockMvc.perform(get("/api/v1/bi-copilot/anomalies?period=2025-06"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.period").value("2025-06"));
-    }
-
-    @Test
-    void forecast_shouldReturnOk() throws Exception {
-        when(orchestrator.forecast(any(ForecastRequest.class))).thenReturn(new ForecastResponse("f1", "revenue", "seasonal", List.of(), 0.95, "Good"));
-        mockMvc.perform(post("/api/v1/bi-copilot/forecast")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"metric\":\"revenue\",\"method\":\"seasonal\",\"horizon\":6,\"parameters\":{}}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.forecastId").value("f1"));
-    }
-
-    @Test
-    void getCrossCopilotMetrics_shouldReturnOk() throws Exception {
-        when(orchestrator.getCrossCopilotMetrics()).thenReturn(new CrossCopilotMetricsResponse(List.of(), null, Map.of()));
-        mockMvc.perform(get("/api/v1/bi-copilot/cross-copilot/metrics"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void getCustomerSegments_shouldReturnOk() throws Exception {
-        when(orchestrator.getCustomerSegments()).thenReturn(new CustomerSegmentsResponse(List.of(), 0, 0.0, null));
-        mockMvc.perform(get("/api/v1/bi-copilot/customers/segments"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void getScheduledReports_shouldReturnOk() throws Exception {
-        when(orchestrator.getScheduledReports()).thenReturn(List.of());
-        mockMvc.perform(get("/api/v1/bi-copilot/reports/scheduled"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void getUnifiedHealth_shouldReturnOk() throws Exception {
-        when(orchestrator.getUnifiedHealth()).thenReturn(Map.of("status", "healthy"));
-        mockMvc.perform(get("/api/v1/bi-copilot/health/unified"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("healthy"));
+    private ExecutiveSummary mockExecutiveSummary() {
+        return new ExecutiveSummary("sum-1", "daily", "DAILY",
+                mock(CompanyHealthScore.class),
+                mock(RevenueAnalytics.class),
+                mock(CustomerAnalytics.class),
+                mock(ProductAnalytics.class),
+                mock(InventoryAnalytics.class),
+                mock(TrainingAnalytics.class),
+                List.of(), List.of(), List.of(), null);
     }
 }

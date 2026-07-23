@@ -10,11 +10,9 @@ public record BusinessInsight(
     String description,
     String category,
     String severity,
-    String recommendation,
     double confidenceScore,
+    String businessImpact,
+    List<String> actionItems,
     Map<String, Object> supportingData,
-    List<String> relatedMetrics,
-    boolean actionable,
-    OffsetDateTime generatedAt,
-    OffsetDateTime expiresAt
+    OffsetDateTime generatedAt
 ) {}

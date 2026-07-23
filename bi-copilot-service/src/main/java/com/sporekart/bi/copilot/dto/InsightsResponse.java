@@ -1,12 +1,13 @@
 package com.sporekart.bi.copilot.dto;
 
-import java.util.List;
-
 import com.sporekart.bi.copilot.domain.BusinessInsight;
+
+import java.util.List;
 
 public record InsightsResponse(
     List<BusinessInsight> insights,
     int total,
-    String category,
-    String period
+    int critical,
+    int important,
+    int info
 ) {}

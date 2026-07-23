@@ -1,6 +1,6 @@
 package com.sporekart.bi.copilot.engine;
 
-import com.sporekart.bi.copilot.domain.RevenueMetrics;
+import com.sporekart.bi.copilot.domain.RevenueAnalytics;
 import com.sporekart.bi.copilot.domain.TrendDataPoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,109 +20,117 @@ class RevenueAnalyticsEngineTest {
     }
 
     @Test
-    void getRevenueSummary_shouldReturnMetricsForValidPeriod() {
-        RevenueMetrics metrics = engine.getRevenueSummary("2025-06");
-        assertNotNull(metrics);
-        assertEquals("2025-06", metrics.period());
-        assertTrue(metrics.totalRevenue() > 0);
-        assertTrue(metrics.averageOrderValue() > 0);
+    void getRevenueSummaryReturnsValidAnalytics() {
+        RevenueAnalytics result = engine.getRevenueSummary("current");
+        assertNotNull(result);
+        assertNotNull(result.period());
+        assertTrue(result.grossRevenue() > 0);
+        assertTrue(result.netRevenue() > 0);
+        assertTrue(result.averageOrderValue() > 0);
+        assertFalse(result.byCategory().isEmpty());
+        assertFalse(result.byProduct().isEmpty());
+        assertFalse(result.byRegion().isEmpty());
+        assertFalse(result.byCustomerSegment().isEmpty());
+        assertFalse(result.byChannel().isEmpty());
+        assertTrue(result.orderCount() > 0);
     }
 
     @Test
-    void getRevenueSummary_shouldReturnLatestForNullPeriod() {
-        RevenueMetrics metrics = engine.getRevenueSummary(null);
-        assertNotNull(metrics);
-        assertTrue(metrics.totalRevenue() > 0);
+    void getRevenueByCategoryReturnsAllCategories() {
+        Map<String, Object> result = engine.getRevenueByCategory("current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("Mushroom Products"));
+        assertTrue(result.containsKey("Training"));
+        assertTrue(result.containsKey("Equipment"));
     }
 
     @Test
-    void getRevenueByProduct_shouldReturnFilteredByCategory() {
-        Map<String, Double> byProduct = engine.getRevenueByProduct("2025-06", "Oyster");
-        assertNotNull(byProduct);
-        assertFalse(byProduct.isEmpty());
-        assertTrue(byProduct.keySet().stream().anyMatch(k -> k.toLowerCase().contains("oyster")));
+    void getRevenueByProductReturnsProductsForCategory() {
+        Map<String, Double> result = engine.getRevenueByProduct("current", "Mushroom Products");
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        result.values().forEach(v -> assertTrue(v > 0));
     }
 
     @Test
-    void getRevenueByProduct_shouldReturnAllWhenCategoryNull() {
-        Map<String, Double> byProduct = engine.getRevenueByProduct("2025-06", null);
-        assertNotNull(byProduct);
-        assertFalse(byProduct.isEmpty());
+    void getRevenueByProductReturnsAllWhenCategoryNull() {
+        Map<String, Double> all = engine.getRevenueByProduct("current", null);
+        Map<String, Double> filtered = engine.getRevenueByProduct("current", "Mushroom Products");
+        assertTrue(all.size() >= filtered.size());
     }
 
     @Test
-    void getRevenueByRegion_shouldReturnNonEmpty() {
-        Map<String, Double> byRegion = engine.getRevenueByRegion("2025-06");
-        assertNotNull(byRegion);
-        assertEquals(5, byRegion.size());
+    void getRevenueByRegionReturnsRegionData() {
+        Map<String, Object> result = engine.getRevenueByRegion("current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("Maharashtra"));
     }
 
     @Test
-    void getRevenueByRegion_shouldReturnEmptyForUnknownPeriod() {
-        Map<String, Double> byRegion = engine.getRevenueByRegion("2099-01");
-        assertTrue(byRegion.isEmpty());
+    void getRevenueBySegmentReturnsSegmentMap() {
+        Map<String, Double> result = engine.getRevenueBySegment("current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("Home Growers"));
     }
 
     @Test
-    void getRevenueByChannel_shouldReturnFourChannels() {
-        Map<String, Double> byChannel = engine.getRevenueByChannel("2025-06");
-        assertNotNull(byChannel);
-        assertEquals(4, byChannel.size());
+    void getRevenueByChannelReturnsChannelMap() {
+        Map<String, Double> result = engine.getRevenueByChannel("current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("Online Direct"));
     }
 
     @Test
-    void getRevenueTrend_shouldReturnRequestedMonths() {
-        List<TrendDataPoint> trend = engine.getRevenueTrend(6);
-        assertEquals(6, trend.size());
+    void getRevenueByTrainingReturnsTrainingMap() {
+        Map<String, Double> result = engine.getRevenueByTraining("current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("Mushroom Cultivation 101"));
     }
 
     @Test
-    void getRevenueTrend_shouldNotExceedDataSize() {
-        List<TrendDataPoint> trend = engine.getRevenueTrend(100);
-        assertTrue(trend.size() <= 12);
-        assertFalse(trend.isEmpty());
+    void getRevenueGrowthReturnsPercentage() {
+        double growth = engine.getRevenueGrowth("current", "current");
+        assertEquals(0.0, growth, 0.01);
     }
 
     @Test
-    void getAverageOrderValue_shouldReturnPositive() {
-        double aov = engine.getAverageOrderValue("2025-06");
+    void getAverageOrderValueReturnsPositiveValue() {
+        double aov = engine.getAverageOrderValue("current");
         assertTrue(aov > 0);
     }
 
     @Test
-    void getAverageOrderValue_shouldReturnZeroForUnknownPeriod() {
-        double aov = engine.getAverageOrderValue("2099-01");
-        assertEquals(0, aov);
+    void comparePeriodsReturnsComparisonData() {
+        Map<String, Object> result = engine.comparePeriods("current", "current");
+        assertNotNull(result);
+        assertTrue(result.containsKey("period1"));
+        assertTrue(result.containsKey("period2"));
+        assertTrue(result.containsKey("revenue1"));
+        assertTrue(result.containsKey("revenue2"));
+        assertTrue(result.containsKey("growth"));
     }
 
     @Test
-    void getTopProducts_shouldReturnSortedByRevenue() {
-        List<Map<String, Object>> top = engine.getTopProducts(3, "2025-06");
-        assertEquals(3, top.size());
-        assertTrue((Double) top.get(0).get("revenue") >= (Double) top.get(1).get("revenue"));
+    void getRevenueTrendReturnsDataPoints() {
+        List<TrendDataPoint> trend = engine.getRevenueTrend(6);
+        assertNotNull(trend);
+        assertEquals(6, trend.size());
+        trend.forEach(p -> assertTrue(p.value() > 0));
     }
 
     @Test
-    void getTopProducts_shouldHandleLimitGreaterThanProducts() {
-        List<Map<String, Object>> top = engine.getTopProducts(50, "2025-06");
-        assertFalse(top.isEmpty());
+    void getRefundAnalysisReturnsRefundData() {
+        Map<String, Object> result = engine.getRefundAnalysis("current");
+        assertNotNull(result);
+        assertTrue((double) result.get("totalRefunds") >= 0);
+        assertTrue((int) result.get("refundCount") >= 0);
+        assertTrue(result.containsKey("byCategory"));
     }
 
     @Test
-    void getRevenuePerCustomer_shouldReturnPositive() {
-        double rpc = engine.getRevenuePerCustomer("2025-06");
-        assertTrue(rpc > 0);
-    }
-
-    @Test
-    void getGrowthRate_shouldReturnPositiveForLaterPeriod() {
-        double growth = engine.getGrowthRate("2025-06", "2025-01");
-        assertTrue(growth > 0);
-    }
-
-    @Test
-    void getGrowthRate_shouldReturnZeroForUnknownPeriod() {
-        double growth = engine.getGrowthRate("2099-01", "2025-01");
-        assertEquals(0, growth);
+    void getRevenueSummaryBySpecificPeriod() {
+        RevenueAnalytics result = engine.getRevenueSummary("current");
+        assertNotNull(result);
+        assertNotNull(result.period());
     }
 }

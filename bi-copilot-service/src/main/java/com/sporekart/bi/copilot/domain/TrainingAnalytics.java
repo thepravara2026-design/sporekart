@@ -1,22 +1,21 @@
 package com.sporekart.bi.copilot.domain;
 
+import java.util.List;
 import java.util.Map;
 
 public record TrainingAnalytics(
-    String analyticsId,
     String period,
-    int totalStudents,
     int totalBatches,
     int activeBatches,
     int completedBatches,
+    int totalStudents,
     double averageAttendance,
     double averageScore,
-    int totalCertificationsIssued,
-    int pendingCertifications,
     double completionRate,
-    Map<String, Double> scoreByModule,
-    Map<String, Integer> studentsByCourse,
-    double revenueFromTraining,
-    double trainingCost,
-    double trainingProfitMargin
-) {}
+    int certificationsIssued,
+    List<TrainerPerformance> trainerPerformance,
+    Map<String, Double> revenueByTraining,
+    Map<String, Integer> enrollmentByCourse
+) {
+    public record TrainerPerformance(String trainerId, String name, int batches, int students, double avgScore, double completionRate) {}
+}

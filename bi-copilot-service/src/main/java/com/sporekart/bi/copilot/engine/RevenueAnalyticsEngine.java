@@ -1,283 +1,337 @@
 package com.sporekart.bi.copilot.engine;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
+import com.sporekart.bi.copilot.domain.RevenueAnalytics;
+import com.sporekart.bi.copilot.domain.TrendDataPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sporekart.bi.copilot.domain.RevenueMetrics;
-import com.sporekart.bi.copilot.domain.TrendDataPoint;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class RevenueAnalyticsEngine {
 
     private static final Logger log = LoggerFactory.getLogger(RevenueAnalyticsEngine.class);
-    private static final Random RANDOM = new Random(42);
-    private static final DateTimeFormatter PERIOD_FMT = DateTimeFormatter.ofPattern("yyyy-MM");
 
-    private static final List<String> CATEGORIES = List.of("Oyster", "Shiitake", "Button", "King Trumpet", "Enoki", "Lion's Mane", "Maitake", "Reishi");
-    private static final List<String> REGIONS = List.of("North", "South", "East", "West", "Central");
-    private static final List<String> CHANNELS = List.of("Online", "Retail", "Wholesale", "Training");
-
-    private static final double[] MONTHLY_REVENUES = {
-        250000, 275000, 290000, 310000, 335000, 360000,
-        390000, 420000, 450000, 480000, 530000, 580000
+    private static final String[] CATEGORIES = {"Mushroom Products", "Training", "Equipment", "Substrates", "Services"};
+    private static final double[] CATEGORY_WEIGHTS = {0.40, 0.25, 0.20, 0.10, 0.05};
+    private static final String[] PRODUCTS = {
+        "Fresh Oyster Mushroom", "Dried Oyster Mushroom", "Oyster Spawn", "Oyster Mushroom Pickle",
+        "Milky Mushroom Fresh", "Milky Mushroom Dried", "Milky Spawn",
+        "Button Mushroom Fresh", "Button Mushroom Dried", "Button Spawn",
+        "Shiitake Fresh", "Shiitake Dried", "Shiitake Spawn",
+        "Paddy Straw Mushroom", "Paddy Straw Spawn",
+        "Mushroom Cultivation Kit", "Advanced Grow Kit", "Starter Kit",
+        "Wheat Straw Substrate", "Paddy Straw Substrate", "Sawdust Substrate", "Composted Substrate", "Coco Peat Blocks",
+        "Mist Sprayer", "Humidity Controller", "Shelving Unit", "Grow Bags (100)", "Thermometer", "pH Meter", "Sterilizer",
+        "Mushroom Cultivation 101", "Advanced Oyster Farming", "Commercial Farming Program", "Disease Management Course", "Spawn Production Workshop",
+        "Consulting Service", "Farm Setup Service", "Quality Testing", "Packaging Service"
     };
-
-    private static final double[] MONTHLY_ORDERS = {
-        1250, 1375, 1450, 1550, 1675, 1800,
-        1950, 2100, 2250, 2400, 2650, 2900
+    private static final String[] CATEGORY_PRODUCTS = {
+        "Fresh Oyster Mushroom,Dried Oyster Mushroom,Oyster Spawn,Oyster Mushroom Pickle,Milky Mushroom Fresh,Milky Mushroom Dried,Milky Spawn,Button Mushroom Fresh,Button Mushroom Dried,Button Spawn,Shiitake Fresh,Shiitake Dried,Shiitake Spawn,Paddy Straw Mushroom,Paddy Straw Spawn,Mushroom Cultivation Kit,Advanced Grow Kit,Starter Kit",
+        "Mushroom Cultivation 101,Advanced Oyster Farming,Commercial Farming Program,Disease Management Course,Spawn Production Workshop",
+        "Mist Sprayer,Humidity Controller,Shelving Unit,Grow Bags (100),Thermometer,pH Meter,Sterilizer",
+        "Wheat Straw Substrate,Paddy Straw Substrate,Sawdust Substrate,Composted Substrate,Coco Peat Blocks",
+        "Consulting Service,Farm Setup Service,Quality Testing,Packaging Service"
     };
+    private static final String[] REGIONS = {"Maharashtra", "Karnataka", "Tamil Nadu", "Punjab", "Himachal"};
+    private static final double[] REGION_WEIGHTS = {0.30, 0.22, 0.18, 0.17, 0.13};
+    private static final String[] CHANNELS = {"Online Direct", "Online Marketplace", "Retail", "Wholesale", "Training Center"};
+    private static final double[] CHANNEL_WEIGHTS = {0.25, 0.20, 0.20, 0.20, 0.15};
+    private static final String[] SEGMENTS = {"Home Growers", "Hobbyists", "Commercial Farmers", "Enterprise Buyers"};
+    private static final double[] SEGMENT_WEIGHTS = {0.15, 0.20, 0.40, 0.25};
 
-    private static final double[] CUSTOMER_COUNTS = {
-        800, 850, 880, 920, 960, 1000,
-        1050, 1100, 1150, 1200, 1280, 1350
-    };
-
-    private final List<SeedMonth> seedData = generateSeedData();
+    private final List<MonthlySnapshot> history = new ArrayList<>();
 
     public RevenueAnalyticsEngine() {
-        log.info("RevenueAnalyticsEngine initialized with {} months of seed data", seedData.size());
+        generateSeedData();
     }
 
-    public RevenueMetrics getRevenueSummary(String period) {
-        SeedMonth sm = resolvePeriod(period);
-        if (sm == null) return emptyMetrics(period);
+    private record MonthlySnapshot(
+        YearMonth period, double grossRevenue, double netRevenue, double refundAmount,
+        double averageOrderValue, int orderCount, int refundCount,
+        Map<String, Double> byCategory, Map<String, Double> byProduct,
+        Map<String, Double> byRegion, Map<String, Double> bySegment,
+        Map<String, Double> byChannel, Map<String, Double> byTraining
+    ) {}
 
-        SeedMonth prev = findPreviousPeriod(sm.monthIndex);
+    private void generateSeedData() {
+        var rand = new Random(42);
+        YearMonth start = YearMonth.now().minusMonths(23);
 
-        double totalRevenue = sm.totalRevenue;
-        double totalOrders = sm.totalOrders;
-        double aov = totalOrders > 0 ? totalRevenue / totalOrders : 0;
-        double rpc = sm.activeCustomers > 0 ? totalRevenue / sm.activeCustomers : 0;
-        double prevRevenue = prev != null ? prev.totalRevenue : 0;
-        double growth = prevRevenue > 0 ? (totalRevenue - prevRevenue) / prevRevenue * 100 : 0;
+        for (int i = 0; i < 24; i++) {
+            YearMonth ym = start.plusMonths(i);
 
-        return new RevenueMetrics(
-            UUID.randomUUID().toString(),
-            period,
-            sm.periodStart,
-            sm.periodEnd,
-            totalRevenue,
-            totalOrders,
-            aov,
-            rpc,
-            sm.revenueByProduct,
-            sm.revenueByCategory,
-            sm.revenueByRegion,
-            sm.revenueByChannel,
-            growth,
-            prevRevenue,
-            OffsetDateTime.now()
+            double seasonalFactor = getSeasonalFactor(ym.getMonthValue());
+            double baseRevenue = 200_000 + rand.nextDouble() * 450_000;
+            double gross = Math.round(baseRevenue * seasonalFactor * 100.0) / 100.0;
+
+            double refundPct = 0.01 + rand.nextDouble() * 0.04;
+            double refunds = Math.round(gross * refundPct * 100.0) / 100.0;
+            double net = Math.round((gross - refunds) * 100.0) / 100.0;
+
+            int orderCount = (int) (40 + rand.nextInt(60));
+            double aov = Math.round((gross / orderCount) * 100.0) / 100.0;
+            int refundCount = (int) (orderCount * refundPct);
+
+            var byCategory = distribute(gross, CATEGORIES, CATEGORY_WEIGHTS, rand);
+            var byProduct = distributeProducts(gross, rand);
+            var byRegion = distribute(gross, REGIONS, REGION_WEIGHTS, rand);
+            var bySegment = distribute(gross, SEGMENTS, SEGMENT_WEIGHTS, rand);
+            var byChannel = distribute(gross, CHANNELS, CHANNEL_WEIGHTS, rand);
+
+            var byTraining = new HashMap<String, Double>();
+            byTraining.put("Mushroom Cultivation 101", byCategory.get("Training") * 0.30);
+            byTraining.put("Advanced Oyster Farming", byCategory.get("Training") * 0.20);
+            byTraining.put("Commercial Farming Program", byCategory.get("Training") * 0.25);
+            byTraining.put("Disease Management Course", byCategory.get("Training") * 0.15);
+            byTraining.put("Spawn Production Workshop", byCategory.get("Training") * 0.10);
+
+            history.add(new MonthlySnapshot(ym, gross, net, refunds, aov, orderCount, refundCount,
+                byCategory, byProduct, byRegion, bySegment, byChannel, byTraining));
+        }
+        log.info("Generated {} months of revenue seed data", history.size());
+    }
+
+    private double getSeasonalFactor(int month) {
+        return switch (month) {
+            case 10, 11, 12, 1, 2 -> 1.0 + 0.15 * Math.sin((month - 10) * Math.PI / 5);
+            case 6, 7, 8, 9 -> 1.0 + 0.05 * Math.sin((month - 6) * Math.PI / 3);
+            default -> 0.85;
+        };
+    }
+
+    private Map<String, Double> distribute(double total, String[] keys, double[] weights, Random rand) {
+        var result = new LinkedHashMap<String, Double>();
+        double remaining = total;
+        double weightSum = 0;
+        for (int i = 0; i < keys.length - 1; i++) {
+            double variation = 0.9 + rand.nextDouble() * 0.2;
+            double amount = Math.round(total * weights[i] * variation * 100.0) / 100.0;
+            result.put(keys[i], amount);
+            remaining -= amount;
+            weightSum += weights[i];
+        }
+        result.put(keys[keys.length - 1], Math.round(remaining * 100.0) / 100.0);
+        return result;
+    }
+
+    private Map<String, Double> distributeProducts(double total, Random rand) {
+        var result = new LinkedHashMap<String, Double>();
+        var catProducts = Arrays.asList(CATEGORY_PRODUCTS);
+        var catAmounts = distribute(total, CATEGORIES, CATEGORY_WEIGHTS, rand);
+        for (int catIdx = 0; catIdx < CATEGORIES.length; catIdx++) {
+            String[] prods = catProducts.get(catIdx).split(",");
+            double catTotal = catAmounts.get(CATEGORIES[catIdx]);
+            double[] pWeights = new double[prods.length];
+            double wSum = 0;
+            for (int j = 0; j < prods.length; j++) {
+                pWeights[j] = rand.nextDouble() * 10 + 1;
+                wSum += pWeights[j];
+            }
+            double remaining = catTotal;
+            for (int j = 0; j < prods.length - 1; j++) {
+                double amount = Math.round(catTotal * (pWeights[j] / wSum) * 100.0) / 100.0;
+                result.put(prods[j], amount);
+                remaining -= amount;
+            }
+            result.put(prods[prods.length - 1], Math.round(remaining * 100.0) / 100.0);
+        }
+        return result;
+    }
+
+    private MonthlySnapshot resolvePeriod(String period) {
+        if ("current".equalsIgnoreCase(period)) {
+            return history.getLast();
+        }
+        if (period != null && period.length() == 7) {
+            YearMonth ym = YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM"));
+            return history.stream().filter(h -> h.period.equals(ym)).findFirst().orElse(history.getLast());
+        }
+        return history.getLast();
+    }
+
+    private List<MonthlySnapshot> resolveRange(String period) {
+        if ("current".equalsIgnoreCase(period)) {
+            return List.of(history.getLast());
+        }
+        if ("all".equalsIgnoreCase(period)) {
+            return history;
+        }
+        if (period != null && period.length() == 7) {
+            YearMonth ym = YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM"));
+            return history.stream().filter(h -> h.period.equals(ym)).toList();
+        }
+        return history;
+    }
+
+    public RevenueAnalytics getRevenueSummary(String period) {
+        var snaps = resolveRange(period);
+        if (snaps.isEmpty()) snaps = List.of(history.getLast());
+        var snap = snaps.getLast();
+
+        double prevRevenue = history.size() > 1 ? history.get(history.indexOf(snap) - 1).grossRevenue() : snap.grossRevenue();
+        double growth = prevRevenue > 0 ? Math.round(((snap.grossRevenue() - prevRevenue) / prevRevenue) * 10000.0) / 100.0 : 0;
+
+        return new RevenueAnalytics(
+            snap.period().toString(), snap.grossRevenue(), snap.netRevenue(), snap.refundAmount(),
+            snap.averageOrderValue(), growth, snap.byCategory(), snap.byProduct(),
+            snap.byRegion(), snap.bySegment(), snap.byChannel(), snap.byTraining(),
+            prevRevenue, snap.orderCount(), snap.refundCount()
         );
     }
 
-    public Map<String, Double> getRevenueByProduct(String period, String category) {
-        SeedMonth sm = resolvePeriod(period);
-        if (sm == null) return Map.of();
-
-        return sm.revenueByProduct.entrySet().stream()
-            .filter(e -> category == null || category.isBlank() || e.getKey().toLowerCase().contains(category.toLowerCase()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, LinkedHashMap::new));
+    public Map<String, Object> getRevenueByCategory(String period) {
+        var snap = resolvePeriod(period);
+        var result = new LinkedHashMap<String, Object>();
+        double prevTotal = getPreviousRevenue(snap);
+        for (var entry : snap.byCategory().entrySet()) {
+            var catMap = new LinkedHashMap<String, Object>();
+            String prevPeriod = snap.period().minusMonths(1).toString();
+            double prevAmount = history.stream()
+                .filter(h -> h.period.equals(snap.period().minusMonths(1)))
+                .findFirst()
+                .map(h -> h.byCategory().getOrDefault(entry.getKey(), 0.0))
+                .orElse(0.0);
+            double momChange = prevAmount > 0 ? Math.round(((entry.getValue() - prevAmount) / prevAmount) * 10000.0) / 100.0 : 0;
+            catMap.put("revenue", entry.getValue());
+            catMap.put("momChange", momChange);
+            catMap.put("percentage", Math.round((entry.getValue() / snap.grossRevenue()) * 10000.0) / 100.0);
+            result.put(entry.getKey(), catMap);
+        }
+        return result;
     }
 
-    public Map<String, Double> getRevenueByRegion(String period) {
-        SeedMonth sm = resolvePeriod(period);
-        return sm != null ? sm.revenueByRegion : Map.of();
+    public Map<String, Double> getRevenueByProduct(String period, String category) {
+        var snap = resolvePeriod(period);
+        if (category == null || category.isBlank()) return snap.byProduct();
+        var filtered = new LinkedHashMap<String, Double>();
+        int catIdx = -1;
+        for (int i = 0; i < CATEGORIES.length; i++) {
+            if (CATEGORIES[i].equalsIgnoreCase(category)) { catIdx = i; break; }
+        }
+        if (catIdx < 0) return snap.byProduct();
+        String[] catProds = CATEGORY_PRODUCTS[catIdx].split(",");
+        for (String p : catProds) {
+            if (snap.byProduct().containsKey(p)) filtered.put(p, snap.byProduct().get(p));
+        }
+        return filtered;
+    }
+
+    public Map<String, Object> getRevenueByRegion(String period) {
+        var snap = resolvePeriod(period);
+        var result = new LinkedHashMap<String, Object>();
+        for (var entry : snap.byRegion().entrySet()) {
+            var regMap = new LinkedHashMap<String, Object>();
+            double prevAmount = history.stream()
+                .filter(h -> h.period.equals(snap.period().minusMonths(1)))
+                .findFirst()
+                .map(h -> h.byRegion().getOrDefault(entry.getKey(), 0.0))
+                .orElse(0.0);
+            double prevYearAmount = history.stream()
+                .filter(h -> h.period.equals(snap.period().minusMonths(12)))
+                .findFirst()
+                .map(h -> h.byRegion().getOrDefault(entry.getKey(), 0.0))
+                .orElse(0.0);
+            double momGrowth = prevAmount > 0 ? Math.round(((entry.getValue() - prevAmount) / prevAmount) * 10000.0) / 100.0 : 0;
+            double yoyGrowth = prevYearAmount > 0 ? Math.round(((entry.getValue() - prevYearAmount) / prevYearAmount) * 10000.0) / 100.0 : 0;
+            regMap.put("revenue", entry.getValue());
+            regMap.put("momGrowth", momGrowth);
+            regMap.put("yoyGrowth", yoyGrowth);
+            regMap.put("percentage", Math.round((entry.getValue() / snap.grossRevenue()) * 10000.0) / 100.0);
+            result.put(entry.getKey(), regMap);
+        }
+        return result;
+    }
+
+    public Map<String, Double> getRevenueBySegment(String period) {
+        return resolvePeriod(period).bySegment();
     }
 
     public Map<String, Double> getRevenueByChannel(String period) {
-        SeedMonth sm = resolvePeriod(period);
-        return sm != null ? sm.revenueByChannel : Map.of();
+        return resolvePeriod(period).byChannel();
     }
 
-    public List<TrendDataPoint> getRevenueTrend(int months) {
-        int count = Math.min(months, seedData.size());
-        List<SeedMonth> slice = seedData.subList(seedData.size() - count, seedData.size());
-        List<TrendDataPoint> trends = new ArrayList<>();
+    public Map<String, Double> getRevenueByTraining(String period) {
+        return resolvePeriod(period).byTraining();
+    }
 
-        for (int i = 0; i < slice.size(); i++) {
-            SeedMonth sm = slice.get(i);
-            double ma = calculateSimpleMovingAverage(slice, i, 3);
-            double seasonal = calculateSeasonalFactor(seedData, sm.monthIndex % 12);
-            double trendLine = sm.monthIndex * 29000 + 225000;
-
-            trends.add(new TrendDataPoint(
-                UUID.randomUUID().toString(),
-                "revenue",
-                sm.periodLabel,
-                sm.totalRevenue,
-                ma,
-                seasonal,
-                trendLine,
-                sm.totalRevenue - trendLine,
-                sm.totalRevenue >= trendLine ? "up" : "down",
-                i > 0 ? (sm.totalRevenue - slice.get(i - 1).totalRevenue) / slice.get(i - 1).totalRevenue * 100 : 0,
-                OffsetDateTime.now()
-            ));
-        }
-        return trends;
+    public double getRevenueGrowth(String currentPeriod, String previousPeriod) {
+        var curr = resolvePeriod(currentPeriod);
+        var prev = resolvePeriod(previousPeriod);
+        if (prev.grossRevenue() == 0) return 0;
+        return Math.round(((curr.grossRevenue() - prev.grossRevenue()) / prev.grossRevenue()) * 10000.0) / 100.0;
     }
 
     public double getAverageOrderValue(String period) {
-        SeedMonth sm = resolvePeriod(period);
-        if (sm == null || sm.totalOrders == 0) return 0;
-        return sm.totalRevenue / sm.totalOrders;
+        return resolvePeriod(period).averageOrderValue();
     }
 
-    public double getRevenuePerCustomer(String period) {
-        SeedMonth sm = resolvePeriod(period);
-        if (sm == null || sm.activeCustomers == 0) return 0;
-        return sm.totalRevenue / sm.activeCustomers;
+    public Map<String, Object> getGrossVsNetRevenue(String period) {
+        var snap = resolvePeriod(period);
+        var map = new LinkedHashMap<String, Object>();
+        map.put("grossRevenue", snap.grossRevenue());
+        map.put("netRevenue", snap.netRevenue());
+        map.put("refundAmount", snap.refundAmount());
+        map.put("refundRate", Math.round((snap.refundAmount() / snap.grossRevenue()) * 10000.0) / 100.0);
+        map.put("netMargin", Math.round((snap.netRevenue() / snap.grossRevenue()) * 10000.0) / 100.0);
+        return map;
     }
 
-    public double getGrowthRate(String currentPeriod, String previousPeriod) {
-        SeedMonth current = resolvePeriod(currentPeriod);
-        SeedMonth previous = resolvePeriod(previousPeriod);
-        if (current == null || previous == null || previous.totalRevenue == 0) return 0;
-        return (current.totalRevenue - previous.totalRevenue) / previous.totalRevenue * 100;
+    public Map<String, Object> getRefundAnalysis(String period) {
+        var snap = resolvePeriod(period);
+        var map = new LinkedHashMap<String, Object>();
+        map.put("totalRefunds", snap.refundAmount());
+        map.put("refundCount", snap.refundCount());
+        map.put("refundRate", Math.round((snap.refundAmount() / snap.grossRevenue()) * 10000.0) / 100.0);
+        map.put("avgRefundPerOrder", Math.round((snap.refundAmount() / Math.max(snap.refundCount(), 1)) * 100.0) / 100.0);
+        map.put("orderCount", snap.orderCount());
+
+        var byCategoryRefunds = new LinkedHashMap<String, Object>();
+        for (var entry : snap.byCategory().entrySet()) {
+            double catRefundRate = 0.01 + new Random(entry.getKey().hashCode()).nextDouble() * 0.03;
+            byCategoryRefunds.put(entry.getKey(), Math.round(entry.getValue() * catRefundRate * 100.0) / 100.0);
+        }
+        map.put("byCategory", byCategoryRefunds);
+        return map;
     }
 
-    public List<Map<String, Object>> getTopProducts(int limit, String period) {
-        SeedMonth sm = resolvePeriod(period);
-        if (sm == null) return List.of();
-
-        return sm.revenueByProduct.entrySet().stream()
-            .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-            .limit(limit)
-            .map(e -> {
-                Map<String, Object> entry = new LinkedHashMap<>();
-                entry.put("product", e.getKey());
-                entry.put("revenue", e.getValue());
-                entry.put("quantity", Math.round(e.getValue() / 200.0));
-                return entry;
-            })
+    public List<TrendDataPoint> getRevenueTrend(int months) {
+        int m = Math.min(months, history.size());
+        return history.subList(history.size() - m, history.size()).stream()
+            .map(s -> new TrendDataPoint(s.period(), s.grossRevenue(), "Revenue"))
             .collect(Collectors.toList());
     }
 
-    private SeedMonth resolvePeriod(String period) {
-        if (period == null || period.isBlank()) return seedData.getLast();
-        for (SeedMonth sm : seedData) {
-            if (sm.periodLabel.equals(period)) return sm;
-        }
-        return null;
+    public Map<String, Object> comparePeriods(String period1, String period2) {
+        var snap1 = resolvePeriod(period1);
+        var snap2 = resolvePeriod(period2);
+        var map = new LinkedHashMap<String, Object>();
+        map.put("period1", snap1.period().toString());
+        map.put("period2", snap2.period().toString());
+        map.put("revenue1", snap1.grossRevenue());
+        map.put("revenue2", snap2.grossRevenue());
+        map.put("difference", Math.round((snap1.grossRevenue() - snap2.grossRevenue()) * 100.0) / 100.0);
+        map.put("growth", snap2.grossRevenue() > 0
+            ? Math.round(((snap1.grossRevenue() - snap2.grossRevenue()) / snap2.grossRevenue()) * 10000.0) / 100.0
+            : 0);
+        map.put("orders1", snap1.orderCount());
+        map.put("orders2", snap2.orderCount());
+        map.put("aov1", snap1.averageOrderValue());
+        map.put("aov2", snap2.averageOrderValue());
+        map.put("byCategory1", snap1.byCategory());
+        map.put("byCategory2", snap2.byCategory());
+        map.put("byRegion1", snap1.byRegion());
+        map.put("byRegion2", snap2.byRegion());
+        return map;
     }
 
-    private SeedMonth findPreviousPeriod(int currentIndex) {
-        if (currentIndex <= 0) return null;
-        return seedData.get(currentIndex - 1);
+    private double getPreviousRevenue(MonthlySnapshot snap) {
+        int idx = history.indexOf(snap);
+        if (idx > 0) return history.get(idx - 1).grossRevenue();
+        return snap.grossRevenue();
     }
-
-    private RevenueMetrics emptyMetrics(String period) {
-        return new RevenueMetrics(UUID.randomUUID().toString(), period, "", "", 0, 0, 0, 0,
-            Map.of(), Map.of(), Map.of(), Map.of(), 0, 0, OffsetDateTime.now());
-    }
-
-    private double calculateSimpleMovingAverage(List<SeedMonth> data, int index, int window) {
-        int start = Math.max(0, index - window + 1);
-        double sum = 0;
-        int count = 0;
-        for (int i = start; i <= index; i++) {
-            sum += data.get(i).totalRevenue;
-            count++;
-        }
-        return count > 0 ? sum / count : 0;
-    }
-
-    private double calculateSeasonalFactor(List<SeedMonth> fullData, int monthIndex) {
-        double sum = 0;
-        int count = 0;
-        for (SeedMonth sm : fullData) {
-            if (sm.monthIndex % 12 == monthIndex) {
-                sum += sm.totalRevenue;
-                count++;
-            }
-        }
-        double avg = count > 0 ? sum / count : 0;
-        double overallAvg = fullData.stream().mapToDouble(s -> s.totalRevenue).average().orElse(1);
-        return overallAvg > 0 ? avg / overallAvg : 1;
-    }
-
-    private List<SeedMonth> generateSeedData() {
-        List<SeedMonth> data = new ArrayList<>();
-        LocalDate base = LocalDate.of(2025, 1, 1);
-
-        for (int i = 0; i < 12; i++) {
-            LocalDate monthStart = base.plusMonths(i);
-            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
-            String label = monthStart.format(PERIOD_FMT);
-            double totalRevenue = MONTHLY_REVENUES[i] + RANDOM.nextDouble() * 20000 - 10000;
-            double totalOrders = MONTHLY_ORDERS[i] + RANDOM.nextInt(200) - 100;
-            double activeCust = CUSTOMER_COUNTS[i] + RANDOM.nextInt(100) - 50;
-
-            Map<String, Double> revByProduct = new LinkedHashMap<>();
-            double remaining = totalRevenue;
-            for (int p = 0; p < CATEGORIES.size(); p++) {
-                double share = p < CATEGORIES.size() - 1
-                    ? remaining * (0.08 + RANDOM.nextDouble() * 0.06)
-                    : remaining;
-                revByProduct.put(CATEGORIES.get(p), Math.round(share * 100) / 100.0);
-                remaining -= share;
-            }
-
-            Map<String, Double> revByCategory = new LinkedHashMap<>();
-            for (int c = 0; c < Math.min(4, CATEGORIES.size()); c++) {
-                revByCategory.put(CATEGORIES.get(c), revByProduct.getOrDefault(CATEGORIES.get(c), 0.0));
-            }
-
-            Map<String, Double> revByRegion = new LinkedHashMap<>();
-            remaining = totalRevenue;
-            for (int r = 0; r < REGIONS.size(); r++) {
-                double share = r < REGIONS.size() - 1
-                    ? remaining * (0.15 + RANDOM.nextDouble() * 0.08)
-                    : remaining;
-                revByRegion.put(REGIONS.get(r), Math.round(share * 100) / 100.0);
-                remaining -= share;
-            }
-
-            Map<String, Double> revByChannel = new LinkedHashMap<>();
-            double online = totalRevenue * (0.30 + RANDOM.nextDouble() * 0.05);
-            double retail = totalRevenue * (0.25 + RANDOM.nextDouble() * 0.05);
-            double wholesale = totalRevenue * (0.20 + RANDOM.nextDouble() * 0.05);
-            double training = totalRevenue - online - retail - wholesale;
-            revByChannel.put("Online", Math.round(online * 100) / 100.0);
-            revByChannel.put("Retail", Math.round(retail * 100) / 100.0);
-            revByChannel.put("Wholesale", Math.round(wholesale * 100) / 100.0);
-            revByChannel.put("Training", Math.round(training * 100) / 100.0);
-
-            data.add(new SeedMonth(
-                i, label, monthStart.toString(), monthEnd.toString(),
-                totalRevenue, totalOrders, activeCust,
-                revByProduct, revByCategory, revByRegion, revByChannel
-            ));
-        }
-        return data;
-    }
-
-    private record SeedMonth(
-        int monthIndex,
-        String periodLabel,
-        String periodStart,
-        String periodEnd,
-        double totalRevenue,
-        double totalOrders,
-        double activeCustomers,
-        Map<String, Double> revenueByProduct,
-        Map<String, Double> revenueByCategory,
-        Map<String, Double> revenueByRegion,
-        Map<String, Double> revenueByChannel
-    ) {}
 }

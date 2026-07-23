@@ -1,17 +1,5 @@
 package com.sporekart.bi.copilot.domain;
 
-import java.time.OffsetDateTime;
+import java.time.YearMonth;
 
-public record TrendDataPoint(
-    String trendId,
-    String metric,
-    String period,
-    double value,
-    double movingAverage,
-    double seasonalFactor,
-    double trendLine,
-    double deviation,
-    String direction,
-    double changePercent,
-    OffsetDateTime timestamp
-) {}
+public record TrendDataPoint(YearMonth period, double value, String label) {}

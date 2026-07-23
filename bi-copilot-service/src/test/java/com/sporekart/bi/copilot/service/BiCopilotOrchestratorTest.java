@@ -1,10 +1,11 @@
 package com.sporekart.bi.copilot.service;
 
+import com.sporekart.bi.copilot.domain.*;
 import com.sporekart.bi.copilot.dto.*;
 import com.sporekart.bi.copilot.engine.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -13,134 +14,190 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BiCopilotOrchestratorTest {
 
-    @Mock private RevenueAnalyticsEngine revenueAnalyticsEngine;
-    @Mock private CustomerAnalyticsEngine customerAnalyticsEngine;
-    @Mock private TrainingAnalyticsEngine trainingAnalyticsEngine;
-    @Mock private CultivationAnalyticsEngine cultivationAnalyticsEngine;
-    @Mock private CrossCopilotIntelligenceEngine crossCopilotIntelligenceEngine;
-    @Mock private TrendDetectionEngine trendDetectionEngine;
-    @Mock private AnomalyDetectionEngine anomalyDetectionEngine;
-    @Mock private BusinessInsightsEngine businessInsightsEngine;
+    @Mock private RevenueAnalyticsEngine revenueEngine;
+    @Mock private CustomerAnalyticsEngine customerEngine;
+    @Mock private ProductAnalyticsEngine productEngine;
+    @Mock private InventoryAnalyticsEngine inventoryEngine;
+    @Mock private TrainingAnalyticsEngine trainingEngine;
+    @Mock private ExecutiveDashboardEngine dashboardEngine;
     @Mock private ForecastingEngine forecastingEngine;
-    @Mock private CustomerSegmentationEngine customerSegmentationEngine;
-    @Mock private ReportingEngine reportingEngine;
-    @Mock private DashboardEngine dashboardEngine;
+    @Mock private DecisionSupportEngine decisionEngine;
+    @Mock private RiskDetectionEngine riskEngine;
+    @Mock private NaturalLanguageAnalyticsEngine nlEngine;
+    @Mock private VisualizationEngine vizEngine;
+    @Mock private BusinessInsightsEngine insightsEngine;
 
+    @InjectMocks
     private BiCopilotOrchestrator orchestrator;
 
-    @BeforeEach
-    void setUp() {
-        orchestrator = new BiCopilotOrchestrator(
-                revenueAnalyticsEngine, customerAnalyticsEngine, trainingAnalyticsEngine,
-                cultivationAnalyticsEngine, crossCopilotIntelligenceEngine, trendDetectionEngine,
-                anomalyDetectionEngine, businessInsightsEngine, forecastingEngine,
-                customerSegmentationEngine, reportingEngine, dashboardEngine);
-    }
-
     @Test
-    void processMessage_shouldReturnResponse() {
-        ChatRequest request = new ChatRequest("show revenue", "s1", null, null, null, null, null, null, null);
-        when(revenueAnalyticsEngine.getRevenueSummary(any())).thenReturn(null);
-        ChatResponse response = orchestrator.processMessage(request);
+    void processMessageWithDashboardIntentRoutesToDashboardEngine() {
+        when(dashboardEngine.generateDailySnapshot()).thenReturn(mock(ExecutiveSummary.class));
+        when(dashboardEngine.getDashboardVisualizations()).thenReturn(List.of(mock(VisualizationConfig.class)));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("show dashboard", null, null, null, null));
+
         assertNotNull(response);
-        assertNotNull(response.message());
+        verify(dashboardEngine).generateDailySnapshot();
     }
 
     @Test
-    void processChat_shouldReturnChatResponse() {
-        ChatRequest request = new ChatRequest("hello", "s1", null, null, null, null, null, null, null);
-        ChatResponse response = orchestrator.processChat(request);
+    void processMessageWithRevenueIntentRoutesToRevenueEngine() {
+        when(revenueEngine.getRevenueSummary("current"))
+                .thenReturn(mock(RevenueAnalytics.class));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("show revenue", null, null, null, "revenue"));
+
         assertNotNull(response);
+        verify(revenueEngine).getRevenueSummary("current");
     }
 
     @Test
-    void getDashboard_shouldReturnDashboard() {
-        when(dashboardEngine.getDefaultDashboard()).thenReturn(
-                new DashboardResponse("d1", "Default", List.of(), Map.of(), List.of(), null));
-        DashboardResponse response = orchestrator.getDashboard("default");
+    void processMessageWithForecastIntentRoutesToForecastingEngine() {
+        when(forecastingEngine.autoForecast(anyString(), anyString(), anyInt()))
+                .thenReturn(mock(BusinessForecast.class));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("predict sales", null, null, null, "forecast"));
+
         assertNotNull(response);
-        assertEquals("d1", response.dashboardId());
+        verify(forecastingEngine).autoForecast(anyString(), anyString(), anyInt());
     }
 
     @Test
-    void queryData_shouldReturnQueryResult() {
-        BiQueryRequest request = new BiQueryRequest("revenue", "revenue", Map.of(),
-                List.of(), List.of(), null, null, 1, 10);
-        BiQueryResponse response = orchestrator.queryData(request);
+    void processMessageWithRecommendationIntentRoutesToDecisionEngine() {
+        when(decisionEngine.generateRecommendations(anyString(), anyString()))
+                .thenReturn(List.of(mock(DecisionRecommendation.class)));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("what should I do", null, null, null, "recommendations"));
+
         assertNotNull(response);
+        verify(decisionEngine).generateRecommendations(anyString(), anyString());
     }
 
     @Test
-    void generateReport_shouldReturnResponse() {
-        ReportRequest request = new ReportRequest("revenue", "pdf", null,
-                List.of(), List.of(), Map.of(), List.of());
-        when(reportingEngine.generateRevenueReport(anyString(), anyMap())).thenReturn(Map.of("reportId", "r1"));
-        ReportResponse response = orchestrator.generateReport(request);
+    void processMessageWithRiskIntentRoutesToRiskEngine() {
+        when(riskEngine.detectRisks(anyString()))
+                .thenReturn(List.of(mock(RiskAlert.class)));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("what are the risks", null, null, null, "risks"));
+
         assertNotNull(response);
+        verify(riskEngine).detectRisks(anyString());
     }
 
     @Test
-    void getInsights_shouldReturnInsights() {
-        when(businessInsightsEngine.generateInsights(anyString(), anyString())).thenReturn(List.of());
-        InsightsResponse response = orchestrator.getInsights("revenue", "2025-06");
+    void processMessageWithQueryIntentRoutesToNLEngine() {
+        when(nlEngine.answerQuery(anyString(), anyBoolean(), anyBoolean()))
+                .thenReturn(mock(NaturalLanguageQueryResponse.class));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("show revenue of spawn products", null, null, null, null));
+
         assertNotNull(response);
-        assertEquals("revenue", response.category());
+        verify(nlEngine).answerQuery(anyString(), anyBoolean(), anyBoolean());
     }
 
     @Test
-    void getTrends_shouldReturnTrends() {
-        when(trendDetectionEngine.getTopTrends(anyInt())).thenReturn(List.of());
-        TrendsResponse response = orchestrator.getTrends("revenue", 12);
+    void processMessageWithHealthScoreIntentRoutesToDashboardEngine() {
+        when(dashboardEngine.calculateCompanyHealthScore(anyString()))
+                .thenReturn(mock(CompanyHealthScore.class));
+
+        ChatResponse response = orchestrator.processMessage(
+                new ChatRequest("health score", null, null, null, "health"));
+
         assertNotNull(response);
-        assertEquals("revenue", response.metric());
+        verify(dashboardEngine).calculateCompanyHealthScore(anyString());
     }
 
     @Test
-    void getAnomalies_shouldReturnAnomalies() {
-        when(anomalyDetectionEngine.getActiveAnomalies()).thenReturn(List.of());
-        AnomaliesResponse response = orchestrator.getAnomalies("2025-06");
+    void getExecutiveDashboardReturnsDashboardResponse() {
+        when(dashboardEngine.generateDailySnapshot()).thenReturn(mock(ExecutiveSummary.class));
+        when(dashboardEngine.getDashboardVisualizations())
+                .thenReturn(List.of(mock(VisualizationConfig.class)));
+
+        DashboardResponse response = orchestrator.getExecutiveDashboard("daily");
+
         assertNotNull(response);
+        assertNotNull(response.summary());
+        assertNotNull(response.visualizations());
+        verify(dashboardEngine).generateDailySnapshot();
     }
 
     @Test
-    void forecast_shouldReturnForecast() {
-        ForecastRequest request = new ForecastRequest("revenue", "seasonal", 3, Map.of());
-        when(forecastingEngine.forecastRevenue(anyInt())).thenReturn(null);
-        ForecastResponse response = orchestrator.forecast(request);
+    void getRevenueAnalyticsDelegatesToRevenueEngine() {
+        when(revenueEngine.getRevenueSummary("current"))
+                .thenReturn(mock(RevenueAnalytics.class));
+
+        RevenueAnalytics result = orchestrator.getRevenueAnalytics("current");
+
+        assertNotNull(result);
+        verify(revenueEngine).getRevenueSummary("current");
+    }
+
+    @Test
+    void getForecastDelegatesToForecastingEngine() {
+        when(forecastingEngine.autoForecast("revenue", "current", 6))
+                .thenReturn(mock(BusinessForecast.class));
+
+        BusinessForecast result = orchestrator.getForecast("revenue", "current", 6, "auto");
+
+        assertNotNull(result);
+        verify(forecastingEngine).autoForecast("revenue", "current", 6);
+    }
+
+    @Test
+    void getRecommendationsDelegatesToDecisionEngine() {
+        when(decisionEngine.generateRecommendations("revenue", "current"))
+                .thenReturn(List.of(mock(DecisionRecommendation.class)));
+
+        List<DecisionRecommendation> recs = orchestrator.getRecommendations("revenue", "current");
+
+        assertNotNull(recs);
+        assertFalse(recs.isEmpty());
+        verify(decisionEngine).generateRecommendations("revenue", "current");
+    }
+
+    @Test
+    void getRisksDelegatesToRiskEngine() {
+        when(riskEngine.detectRisks("current"))
+                .thenReturn(List.of(mock(RiskAlert.class)));
+
+        List<RiskAlert> risks = orchestrator.getRisks("current");
+
+        assertNotNull(risks);
+        assertFalse(risks.isEmpty());
+        verify(riskEngine).detectRisks("current");
+    }
+
+    @Test
+    void answerQueryDelegatesToNLEngine() {
+        when(nlEngine.answerQuery("test query", true, true))
+                .thenReturn(mock(NaturalLanguageQueryResponse.class));
+
+        NaturalLanguageQueryResponse response = orchestrator.answerQuery("test query", true, true);
+
         assertNotNull(response);
+        verify(nlEngine).answerQuery("test query", true, true);
     }
 
     @Test
-    void getCrossCopilotMetrics_shouldReturnMetrics() {
-        when(crossCopilotIntelligenceEngine.getCrossCopilotMetrics()).thenReturn(List.of());
-        CrossCopilotMetricsResponse response = orchestrator.getCrossCopilotMetrics();
-        assertNotNull(response);
-    }
+    void getHealthScoreDelegatesToDashboardEngine() {
+        when(dashboardEngine.calculateCompanyHealthScore("current"))
+                .thenReturn(mock(CompanyHealthScore.class));
 
-    @Test
-    void getCustomerSegments_shouldReturnSegments() {
-        when(customerSegmentationEngine.segmentCustomers()).thenReturn(List.of());
-        CustomerSegmentsResponse response = orchestrator.getCustomerSegments();
-        assertNotNull(response);
-    }
+        CompanyHealthScore score = orchestrator.getHealthScore("current");
 
-    @Test
-    void getScheduledReports_shouldReturnList() {
-        when(reportingEngine.getScheduledReports()).thenReturn(List.of());
-        List<?> reports = orchestrator.getScheduledReports();
-        assertNotNull(reports);
-        assertTrue(reports.isEmpty());
-    }
-
-    @Test
-    void getUnifiedHealth_shouldReturnHealth() {
-        when(crossCopilotIntelligenceEngine.getUnifiedBusinessHealth()).thenReturn(Map.of("status", "healthy"));
-        Map<String, Object> health = orchestrator.getUnifiedHealth();
-        assertEquals("healthy", health.get("status"));
+        assertNotNull(score);
+        verify(dashboardEngine).calculateCompanyHealthScore("current");
     }
 }

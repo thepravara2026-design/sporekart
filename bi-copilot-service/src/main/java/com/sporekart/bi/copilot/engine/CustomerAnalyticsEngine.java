@@ -1,301 +1,243 @@
 package com.sporekart.bi.copilot.engine;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
+import com.sporekart.bi.copilot.domain.CustomerAnalytics;
+import com.sporekart.bi.copilot.domain.CustomerAnalytics.TopCustomer;
+import com.sporekart.bi.copilot.domain.TrendDataPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sporekart.bi.copilot.domain.CustomerAnalytics;
-import com.sporekart.bi.copilot.domain.CustomerSegment;
-import com.sporekart.bi.copilot.domain.TrendDataPoint;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class CustomerAnalyticsEngine {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerAnalyticsEngine.class);
-    private static final Random RANDOM = new Random(101);
-    private static final DateTimeFormatter PERIOD_FMT = DateTimeFormatter.ofPattern("yyyy-MM");
 
-    private static final String[] SEGMENT_NAMES = {"New Growers", "Active Enthusiasts", "Commercial Farmers", "Enterprise Buyers"};
-    private static final double[] SEGMENT_PERCENTS = {0.40, 0.30, 0.20, 0.10};
-    private static final double[][] SEGMENT_REVENUE_RANGES = {{0, 15000}, {15000, 50000}, {50000, 200000}, {200000, 500000}};
+    private static final String[] SEGMENTS = {"Home Growers", "Hobbyists", "Commercial Farmers", "Enterprise Buyers"};
+    private static final double[] SEGMENT_WEIGHTS = {0.35, 0.25, 0.25, 0.15};
+    private static final double[] SEGMENT_RANGES = {5000, 20000, 100000, 500000};
+    private static final String[] NAMES = {
+        "Amit Sharma", "Priya Patel", "Rahul Verma", "Sneha Reddy", "Vikram Singh",
+        "Anita Desai", "Rajesh Kumar", "Deepa Nair", "Suresh Iyer", "Kavita Joshi",
+        "Manoj Tiwari", "Neha Gupta", "Arun Kapoor", "Pooja Mehta", "Sunil Rao",
+        "Lata Krishnan", "Vijay Chauhan", "Rekha Agarwal", "Anand Menon", "Shweta Pandey"
+    };
+    private static final String[] REGIONS = {"Maharashtra", "Karnataka", "Tamil Nadu", "Punjab", "Himachal"};
+    private static final double[] REGION_WEIGHTS = {0.28, 0.24, 0.20, 0.16, 0.12};
 
-    private static final int BASE_CUSTOMERS = 1000;
-    private static final double[] MONTHLY_NEW_CUSTOMERS = {45, 52, 48, 60, 58, 72, 68, 85, 80, 92, 95, 110};
-    private static final double[] MONTHLY_CHURN_RATES = {0.035, 0.032, 0.030, 0.028, 0.025, 0.022, 0.020, 0.018, 0.017, 0.015, 0.014, 0.012};
-
-    private final List<SeedCustomerMonth> seedData = generateSeedData();
+    private final List<Customer> customers = new ArrayList<>();
+    private static final int TOTAL_CUSTOMERS = 5000;
 
     public CustomerAnalyticsEngine() {
-        log.info("CustomerAnalyticsEngine initialized with {} months of seed data", seedData.size());
+        generateSeedData();
+    }
+
+    record Customer(
+        String customerId, String name, String segment, String region,
+        YearMonth firstPurchase, YearMonth lastPurchase, int orderCount,
+        double totalSpent, boolean active
+    ) {}
+
+    private void generateSeedData() {
+        var rand = new Random(42);
+        YearMonth start = YearMonth.now().minusMonths(12);
+        YearMonth current = YearMonth.now();
+
+        for (int i = 0; i < TOTAL_CUSTOMERS; i++) {
+            String id = "CUST" + String.format("%05d", i + 1);
+            String name = NAMES[rand.nextInt(NAMES.length)] + " " + i;
+            double segmentRand = rand.nextDouble();
+            String segment;
+            if (segmentRand < 0.35) segment = "Home Growers";
+            else if (segmentRand < 0.60) segment = "Hobbyists";
+            else if (segmentRand < 0.85) segment = "Commercial Farmers";
+            else segment = "Enterprise Buyers";
+
+            String region = REGIONS[weightedIndex(rand, REGION_WEIGHTS)];
+
+            int signupMonth = rand.nextInt(12);
+            YearMonth firstPurchase = start.plusMonths(signupMonth);
+
+            int activeMonths = 1 + rand.nextInt(Math.max(1, 12 - signupMonth));
+            YearMonth lastPurchase = firstPurchase.plusMonths(activeMonths - 1);
+            if (lastPurchase.isAfter(current)) lastPurchase = current;
+
+            int orderCount = 1 + rand.nextInt(Math.min(24, activeMonths * 2));
+            double avgOrderValue = getSegmentAvgOrderValue(segment);
+            double totalSpent = Math.round(orderCount * avgOrderValue * (0.7 + rand.nextDouble() * 0.6) * 100.0) / 100.0;
+
+            boolean active = lastPurchase.isAfter(current.minusMonths(3));
+
+            customers.add(new Customer(id, name, segment, region, firstPurchase, lastPurchase, orderCount, totalSpent, active));
+        }
+        log.info("Generated {} customer records", customers.size());
+    }
+
+    private double getSegmentAvgOrderValue(String segment) {
+        return switch (segment) {
+            case "Home Growers" -> 1500;
+            case "Hobbyists" -> 5000;
+            case "Commercial Farmers" -> 25000;
+            case "Enterprise Buyers" -> 75000;
+            default -> 2000;
+        };
+    }
+
+    private int weightedIndex(Random rand, double[] weights) {
+        double r = rand.nextDouble();
+        double cumulative = 0;
+        for (int i = 0; i < weights.length; i++) {
+            cumulative += weights[i];
+            if (r < cumulative) return i;
+        }
+        return weights.length - 1;
     }
 
     public CustomerAnalytics getCustomerSummary(String period) {
-        SeedCustomerMonth sm = resolvePeriod(period);
-        if (sm == null) return emptyAnalytics(period);
+        var periodCustomers = filterByPeriod(period);
+        var all = filterByPeriod(period);
+        int total = all.size();
+        int newC = (int) all.stream().filter(c -> c.firstPurchase().equals(resolveYearMonth(period))).count();
+        int returning = (int) all.stream().filter(c -> c.orderCount() > 1).count();
+        int churned = (int) all.stream().filter(c -> !c.active()).count();
+        double retention = total > 0 ? Math.round((double) returning / total * 10000.0) / 100.0 : 0;
+        double churn = total > 0 ? Math.round((double) churned / total * 10000.0) / 100.0 : 0;
+        double clv = Math.round(customers.stream().mapToDouble(Customer::totalSpent).average().orElse(0) * 100.0) / 100.0;
+        double repeatRate = total > 0 ? Math.round((double) returning / total * 10000.0) / 100.0 : 0;
+        int inactive = (int) all.stream().filter(c -> !c.active()).count();
+
+        var topCustomers = getTopCustomers(10);
+        var bySegment = new LinkedHashMap<String, Integer>();
+        var revenueBySegment = new LinkedHashMap<String, Double>();
+        for (String seg : SEGMENTS) {
+            var segCusts = all.stream().filter(c -> c.segment().equals(seg)).toList();
+            bySegment.put(seg, segCusts.size());
+            revenueBySegment.put(seg, Math.round(segCusts.stream().mapToDouble(Customer::totalSpent).sum() * 100.0) / 100.0);
+        }
 
         return new CustomerAnalytics(
-            UUID.randomUUID().toString(),
-            period,
-            sm.totalCustomers,
-            sm.newCustomers,
-            sm.churnedCustomers,
-            sm.churnRate * 100,
-            calculateCLV(sm),
-            450 + RANDOM.nextInt(200),
-            (1 - sm.churnRate) * 100,
-            sm.customersBySegment,
-            sm.revenueBySegment,
-            4.0 + RANDOM.nextDouble() * 0.8,
-            sm.activeCustomers,
-            sm.customersByRegion
+            period, total, newC, returning, churned, retention, churn, clv, repeatRate,
+            inactive, topCustomers, bySegment, revenueBySegment
         );
     }
 
-    public List<CustomerSegment> getCustomerSegments() {
-        SeedCustomerMonth latest = seedData.getLast();
-        List<CustomerSegment> segments = new ArrayList<>();
-
-        for (int i = 0; i < SEGMENT_NAMES.length; i++) {
-            String name = SEGMENT_NAMES[i];
-            int count = latest.customersBySegment.getOrDefault(name, 0);
-            double revenue = latest.revenueBySegment.getOrDefault(name, 0.0);
-            double avgRev = count > 0 ? revenue / count : 0;
-            double churn = 0.08 - (i * 0.015) + RANDOM.nextDouble() * 0.02;
-
-            segments.add(new CustomerSegment(
-                UUID.randomUUID().toString(),
-                name,
-                descriptionForSegment(name),
-                count,
-                revenue,
-                avgRev,
-                churn * 100,
-                characteristicsForSegment(name),
-                strategiesForSegment(name)
-            ));
+    public List<TrendDataPoint> getNewCustomers(int months) {
+        YearMonth end = YearMonth.now();
+        YearMonth start = end.minusMonths(months - 1);
+        var result = new ArrayList<TrendDataPoint>();
+        for (YearMonth ym = start; !ym.isAfter(end); ym = ym.plusMonths(1)) {
+            final YearMonth m = ym;
+            long count = customers.stream().filter(c -> c.firstPurchase().equals(m)).count();
+            result.add(new TrendDataPoint(ym, count, "New Customers"));
         }
-        return segments;
+        return result;
     }
 
-    public List<TrendDataPoint> getCustomerAcquisitionTrend(int months) {
-        int count = Math.min(months, seedData.size());
-        List<SeedCustomerMonth> slice = seedData.subList(seedData.size() - count, seedData.size());
-        List<TrendDataPoint> trends = new ArrayList<>();
-
-        for (int i = 0; i < slice.size(); i++) {
-            SeedCustomerMonth sm = slice.get(i);
-            double ma = i > 0
-                ? (sm.newCustomers + slice.get(i - 1).newCustomers) / 2.0
-                : sm.newCustomers;
-
-            trends.add(new TrendDataPoint(
-                UUID.randomUUID().toString(),
-                "acquisition",
-                sm.periodLabel,
-                sm.newCustomers,
-                ma,
-                1.0,
-                sm.newCustomers,
-                0,
-                sm.newCustomers >= ma ? "up" : "down",
-                i > 0 ? (sm.newCustomers - slice.get(i - 1).newCustomers) / slice.get(i - 1).newCustomers * 100 : 0,
-                OffsetDateTime.now()
-            ));
-        }
-        return trends;
-    }
-
-    public Map<String, Object> getChurnAnalysis(String period) {
-        SeedCustomerMonth sm = resolvePeriod(period);
-        if (sm == null) return Map.of();
-
-        Map<String, Object> analysis = new LinkedHashMap<>();
-        analysis.put("period", period);
-        analysis.put("churnRate", sm.churnRate * 100);
-        analysis.put("churnedCustomers", sm.churnedCustomers);
-        analysis.put("totalCustomers", sm.totalCustomers);
-        analysis.put("retentionRate", (1 - sm.churnRate) * 100);
-
-        Map<String, Double> churnBySegment = new LinkedHashMap<>();
-        for (int i = 0; i < SEGMENT_NAMES.length; i++) {
-            churnBySegment.put(SEGMENT_NAMES[i], (0.08 - i * 0.015 + RANDOM.nextDouble() * 0.01) * 100);
-        }
-        analysis.put("churnBySegment", churnBySegment);
-
-        List<String> reasons = List.of("Price sensitivity", "Quality concerns", "Competition", "Seasonal decline", "Logistics issues");
-        analysis.put("topChurnReasons", reasons);
-
-        return analysis;
-    }
-
-    public double getCustomerLifetimeValue(String period) {
-        SeedCustomerMonth sm = resolvePeriod(period);
-        if (sm == null) return 0;
-        return calculateCLV(sm);
-    }
-
-    public List<CustomerSegment> getCustomerSegmentation() {
-        return getCustomerSegments();
-    }
-
-    public int getActiveCustomerCount() {
-        return seedData.getLast().activeCustomers;
+    public int getReturningCustomers(String period) {
+        return (int) filterByPeriod(period).stream().filter(c -> c.orderCount() > 1).count();
     }
 
     public double getRetentionRate(String period) {
-        SeedCustomerMonth sm = resolvePeriod(period);
-        if (sm == null) return 0;
-        return (1 - sm.churnRate) * 100;
+        var all = filterByPeriod(period);
+        if (all.isEmpty()) return 0;
+        long returning = all.stream().filter(c -> c.orderCount() > 1).count();
+        return Math.round((double) returning / all.size() * 10000.0) / 100.0;
     }
 
-    public List<TrendDataPoint> getCustomerSatisfactionTrend(int months) {
-        int count = Math.min(months, seedData.size());
-        List<SeedCustomerMonth> slice = seedData.subList(seedData.size() - count, seedData.size());
-        List<TrendDataPoint> trends = new ArrayList<>();
+    public double getChurnRate(String period) {
+        var all = filterByPeriod(period);
+        if (all.isEmpty()) return 0;
+        long churned = all.stream().filter(c -> !c.active()).count();
+        return Math.round((double) churned / all.size() * 10000.0) / 100.0;
+    }
 
-        for (int i = 0; i < slice.size(); i++) {
-            SeedCustomerMonth sm = slice.get(i);
-            double satisfaction = 4.0 + RANDOM.nextDouble() * 0.8;
-            double ma = i > 0
-                ? (satisfaction + 4.0 + RANDOM.nextDouble() * 0.8) / 2.0
-                : satisfaction;
+    public double getCustomerLifetimeValue() {
+        return Math.round(customers.stream().mapToDouble(Customer::totalSpent).average().orElse(0) * 100.0) / 100.0;
+    }
 
-            trends.add(new TrendDataPoint(
-                UUID.randomUUID().toString(),
-                "satisfaction",
-                sm.periodLabel,
-                satisfaction,
-                ma,
-                1.0,
-                4.4,
-                satisfaction - 4.4,
-                satisfaction >= ma ? "up" : "down",
-                0,
-                OffsetDateTime.now()
-            ));
+    public double getRepeatPurchaseRate(String period) {
+        return getRetentionRate(period);
+    }
+
+    public int getInactiveCustomers(String period) {
+        return (int) filterByPeriod(period).stream().filter(c -> !c.active()).count();
+    }
+
+    public List<TopCustomer> getTopCustomers(int limit) {
+        return customers.stream()
+            .sorted((a, b) -> Double.compare(b.totalSpent(), a.totalSpent()))
+            .limit(limit)
+            .map(c -> new TopCustomer(c.customerId(), c.name(), c.totalSpent(), c.orderCount()))
+            .toList();
+    }
+
+    public Map<String, Object> getCustomerSegments() {
+        var map = new LinkedHashMap<String, Object>();
+        for (String seg : SEGMENTS) {
+            var segCusts = customers.stream().filter(c -> c.segment().equals(seg)).toList();
+            var segMap = new LinkedHashMap<String, Object>();
+            segMap.put("count", segCusts.size());
+            segMap.put("avgSpent", Math.round(segCusts.stream().mapToDouble(Customer::totalSpent).average().orElse(0) * 100.0) / 100.0);
+            segMap.put("activePct", Math.round((double) segCusts.stream().filter(Customer::active).count() / segCusts.size() * 10000.0) / 100.0);
+            map.put(seg, segMap);
         }
-        return trends;
+        return map;
     }
 
-    private double calculateCLV(SeedCustomerMonth sm) {
-        double avgRevenue = sm.totalCustomers > 0
-            ? sm.revenueBySegment.values().stream().mapToDouble(Double::doubleValue).sum() / sm.totalCustomers
-            : 0;
-        double churn = sm.churnRate;
-        double retention = 1 - churn;
-        if (retention <= 0 || retention >= 1) return avgRevenue;
-        return avgRevenue / (1 - retention);
-    }
-
-    private SeedCustomerMonth resolvePeriod(String period) {
-        if (period == null || period.isBlank()) return seedData.getLast();
-        for (SeedCustomerMonth sm : seedData) {
-            if (sm.periodLabel.equals(period)) return sm;
+    public Map<String, Double> getRevenueBySegment(String period) {
+        var all = filterByPeriod(period);
+        var map = new LinkedHashMap<String, Double>();
+        for (String seg : SEGMENTS) {
+            double rev = all.stream().filter(c -> c.segment().equals(seg)).mapToDouble(Customer::totalSpent).sum();
+            map.put(seg, Math.round(rev * 100.0) / 100.0);
         }
-        return null;
+        return map;
     }
 
-    private CustomerAnalytics emptyAnalytics(String period) {
-        return new CustomerAnalytics(UUID.randomUUID().toString(), period, 0, 0, 0, 0, 0, 0, 0,
-            Map.of(), Map.of(), 0, 0, Map.of());
-    }
-
-    private List<SeedCustomerMonth> generateSeedData() {
-        List<SeedCustomerMonth> data = new ArrayList<>();
-        LocalDate base = LocalDate.of(2025, 1, 1);
-        int runningCustomers = BASE_CUSTOMERS;
-
-        for (int i = 0; i < 12; i++) {
-            LocalDate monthStart = base.plusMonths(i);
-            String label = monthStart.format(PERIOD_FMT);
-            double churnRate = MONTHLY_CHURN_RATES[i] + RANDOM.nextDouble() * 0.003;
-            int newCust = (int) (MONTHLY_NEW_CUSTOMERS[i] + RANDOM.nextInt(15) - 5);
-            int churned = (int) (runningCustomers * churnRate);
-            int active = runningCustomers - churned + newCust;
-            runningCustomers = active;
-
-            Map<String, Integer> custBySegment = new LinkedHashMap<>();
-            Map<String, Double> revBySegment = new LinkedHashMap<>();
-            int totalSeg = 0;
-            for (int s = 0; s < SEGMENT_NAMES.length; s++) {
-                int segCount = (int) (active * SEGMENT_PERCENTS[s]);
-                custBySegment.put(SEGMENT_NAMES[s], segCount);
-                double low = SEGMENT_REVENUE_RANGES[s][0];
-                double high = SEGMENT_REVENUE_RANGES[s][1];
-                double segRev = segCount * (low + (high - low) * (0.3 + RANDOM.nextDouble() * 0.4));
-                revBySegment.put(SEGMENT_NAMES[s], Math.round(segRev * 100) / 100.0);
-                totalSeg += segCount;
-            }
-
-            Map<String, Integer> custByRegion = new LinkedHashMap<>();
-            String[] regions = {"North", "South", "East", "West", "Central"};
-            int regRemaining = active;
-            for (int r = 0; r < regions.length; r++) {
-                int regCount = r < regions.length - 1
-                    ? (int) (active * (0.15 + RANDOM.nextDouble() * 0.06))
-                    : regRemaining;
-                custByRegion.put(regions[r], regCount);
-                regRemaining -= regCount;
-            }
-
-            data.add(new SeedCustomerMonth(
-                i, label, active, newCust, churned, churnRate,
-                custBySegment, revBySegment, custByRegion
-            ));
+    public List<TrendDataPoint> getCustomerTrend(int months) {
+        YearMonth end = YearMonth.now();
+        YearMonth start = end.minusMonths(months - 1);
+        var result = new ArrayList<TrendDataPoint>();
+        for (YearMonth ym = start; !ym.isAfter(end); ym = ym.plusMonths(1)) {
+            final YearMonth m = ym;
+            long count = customers.stream().filter(c -> !c.firstPurchase().isAfter(m)).count();
+            result.add(new TrendDataPoint(ym, count, "Total Customers"));
         }
-        return data;
+        return result;
     }
 
-    private static String descriptionForSegment(String name) {
-        return switch (name) {
-            case "New Growers" -> "Hobbyists and small-scale growers starting their mushroom cultivation journey";
-            case "Active Enthusiasts" -> "Regular growers with established setups, purchasing supplies monthly";
-            case "Commercial Farmers" -> "Professional mushroom farmers operating at commercial scale";
-            case "Enterprise Buyers" -> "Large agricultural enterprises and institutional buyers";
-            default -> "";
-        };
+    public Map<String, Object> getBuyingPatterns(String segmentId) {
+        var segCusts = customers.stream()
+            .filter(c -> c.segment().equalsIgnoreCase(segmentId))
+            .toList();
+        var map = new LinkedHashMap<String, Object>();
+        map.put("segment", segmentId);
+        map.put("customerCount", segCusts.size());
+        map.put("avgOrderCount", Math.round(segCusts.stream().mapToInt(Customer::orderCount).average().orElse(0) * 100.0) / 100.0);
+        map.put("avgOrderValue", Math.round(segCusts.stream().mapToDouble(Customer::totalSpent).sum() /
+            Math.max(segCusts.stream().mapToInt(Customer::orderCount).sum(), 1) * 100.0) / 100.0);
+        map.put("avgLifespanMonths", Math.round(segCusts.stream()
+            .mapToLong(c -> java.time.temporal.ChronoUnit.MONTHS.between(c.firstPurchase(), c.lastPurchase()))
+            .average().orElse(0) * 100.0) / 100.0);
+        map.put("activePct", Math.round((double) segCusts.stream().filter(Customer::active).count() / segCusts.size() * 10000.0) / 100.0);
+        return map;
     }
 
-    private static List<String> characteristicsForSegment(String name) {
-        return switch (name) {
-            case "New Growers" -> List.of("Price sensitive", "High education needs", "Low order value", "High growth potential");
-            case "Active Enthusiasts" -> List.of("Regular purchasers", "Brand loyal", "Mid-order value", "Referral drivers");
-            case "Commercial Farmers" -> List.of("Volume buyers", "Bulk orders", "Negotiate pricing", "Long-term contracts");
-            case "Enterprise Buyers" -> List.of("High value contracts", "Quality focused", "Strategic partners", "Low churn");
-            default -> List.of();
-        };
+    private List<Customer> filterByPeriod(String period) {
+        YearMonth ym = resolveYearMonth(period);
+        return customers.stream()
+            .filter(c -> c.firstPurchase().equals(ym) || c.lastPurchase().equals(ym) ||
+                (!c.firstPurchase().isAfter(ym) && !c.lastPurchase().isBefore(ym)))
+            .toList();
     }
 
-    private static List<String> strategiesForSegment(String name) {
-        return switch (name) {
-            case "New Growers" -> List.of("Free starter kits", "Beginner workshops", "Bundle discounts", "Educational content");
-            case "Active Enthusiasts" -> List.of("Loyalty program", "Premium subscriptions", "Referral rewards", "Early access");
-            case "Commercial Farmers" -> List.of("Volume discounts", "Dedicated account manager", "Bulk shipping", "Custom formulations");
-            case "Enterprise Buyers" -> List.of("Strategic partnership", "Custom SLAs", "Dedicated support", "Revenue sharing");
-            default -> List.of();
-        };
+    private YearMonth resolveYearMonth(String period) {
+        if (period == null || "current".equalsIgnoreCase(period)) return YearMonth.now();
+        try { return YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM")); }
+        catch (Exception e) { return YearMonth.now(); }
     }
-
-    private record SeedCustomerMonth(
-        int monthIndex,
-        String periodLabel,
-        int totalCustomers,
-        int newCustomers,
-        int churnedCustomers,
-        double churnRate,
-        Map<String, Integer> customersBySegment,
-        Map<String, Double> revenueBySegment,
-        Map<String, Integer> customersByRegion
-    ) {}
 }

@@ -1,14 +1,13 @@
 package com.sporekart.bi.copilot.dto;
 
 import java.time.OffsetDateTime;
-import java.util.Map;
 
 public record ReportResponse(
     String reportId,
-    String name,
-    String status,
+    String title,
     String format,
+    String status,
     String downloadUrl,
-    Map<String, Object> summary,
+    int pageCount,
     OffsetDateTime generatedAt
 ) {}

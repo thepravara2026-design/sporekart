@@ -1,113 +1,103 @@
 package com.sporekart.bi.copilot.engine;
 
-import com.sporekart.bi.copilot.domain.ForecastResult;
-import com.sporekart.bi.copilot.domain.ForecastResult.ForecastPoint;
-import org.junit.jupiter.api.BeforeEach;
+import com.sporekart.bi.copilot.domain.BusinessForecast;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class ForecastingEngineTest {
 
+    @InjectMocks
     private ForecastingEngine engine;
-    private List<Double> sampleData;
-
-    @BeforeEach
-    void setUp() {
-        engine = new ForecastingEngine();
-        sampleData = List.of(100.0, 110.0, 120.0, 130.0, 140.0, 150.0,
-                160.0, 170.0, 180.0, 190.0, 200.0, 210.0);
-    }
 
     @Test
-    void movingAverageForecast_shouldReturnCorrectCount() {
-        List<ForecastPoint> points = engine.movingAverageForecast(new java.util.ArrayList<>(sampleData), 3, 4);
-        assertEquals(4, points.size());
-    }
-
-    @Test
-    void movingAverageForecast_shouldHaveBounds() {
-        List<ForecastPoint> points = engine.movingAverageForecast(new java.util.ArrayList<>(sampleData), 3, 2);
-        assertTrue(points.get(0).lowerBound() <= points.get(0).predictedValue());
-        assertTrue(points.get(0).upperBound() >= points.get(0).predictedValue());
-    }
-
-    @Test
-    void exponentialSmoothingForecast_shouldReturnCorrectCount() {
-        List<ForecastPoint> points = engine.exponentialSmoothingForecast(sampleData, 0.3, 5);
-        assertEquals(5, points.size());
-    }
-
-    @Test
-    void exponentialSmoothingForecast_shouldProduceStableForecast() {
-        List<ForecastPoint> points = engine.exponentialSmoothingForecast(sampleData, 0.3, 3);
-        assertTrue(points.get(0).predictedValue() > 0);
-    }
-
-    @Test
-    void linearRegressionForecast_shouldReturnCorrectCount() {
-        List<ForecastPoint> points = engine.linearRegressionForecast(sampleData, 3);
-        assertEquals(3, points.size());
-    }
-
-    @Test
-    void linearRegressionForecast_shouldShowUpwardTrend() {
-        List<ForecastPoint> points = engine.linearRegressionForecast(sampleData, 2);
-        assertTrue(points.get(1).predictedValue() > points.get(0).predictedValue());
-    }
-
-    @Test
-    void seasonalForecast_shouldReturnCorrectCount() {
-        List<ForecastPoint> points = engine.seasonalForecast(sampleData, 4, 6);
-        assertEquals(6, points.size());
-    }
-
-    @Test
-    void forecastRevenue_shouldReturnForecast() {
-        ForecastResult result = engine.forecastRevenue(3);
+    void autoForecastReturnsForecastForRevenue() {
+        BusinessForecast result = engine.autoForecast("revenue", "current", 6);
+        assertNotNull(result);
         assertEquals("revenue", result.metric());
-        assertEquals(3, result.horizon());
-        assertEquals(3, result.points().size());
+        assertNotNull(result.points());
+        assertFalse(result.points().isEmpty());
+        assertTrue(result.confidenceInterval() > 0);
     }
 
     @Test
-    void calculateAccuracy_shouldReturnPercentage() {
-        List<Double> actual = List.of(100.0, 110.0, 120.0);
-        List<Double> predicted = List.of(105.0, 108.0, 118.0);
-        double accuracy = engine.calculateAccuracy(actual, predicted);
-        assertTrue(accuracy > 0 && accuracy <= 100);
+    void autoForecastReturnsForecastForOrders() {
+        BusinessForecast result = engine.autoForecast("orders", "current", 6);
+        assertNotNull(result);
+        assertEquals("orders", result.metric());
     }
 
     @Test
-    void calculateAccuracy_shouldReturnZeroForEmptyLists() {
-        double accuracy = engine.calculateAccuracy(List.of(), List.of());
-        assertEquals(0, accuracy);
+    void autoForecastReturnsForecastForCustomerGrowth() {
+        BusinessForecast result = engine.autoForecast("customerGrowth", "current", 6);
+        assertNotNull(result);
+        assertEquals("customerGrowth", result.metric());
     }
 
     @Test
-    void recommendMethod_shouldReturnMovingAverageForSmallData() {
-        String method = engine.recommendMethod("test", List.of(1.0, 2.0, 3.0));
-        assertEquals("moving_average", method);
+    void autoForecastReturnsForecastForTraining() {
+        BusinessForecast result = engine.autoForecast("training", "current", 6);
+        assertNotNull(result);
+        assertEquals("training", result.metric());
     }
 
     @Test
-    void recommendMethod_shouldReturnSeasonalForPatternedData() {
-        List<Double> seasonalData = List.of(100.0, 80.0, 100.0, 80.0, 100.0, 80.0, 100.0, 80.0);
-        String method = engine.recommendMethod("test", seasonalData);
-        assertNotNull(method);
+    void movingAverageForecastReturnsForecast() {
+        BusinessForecast result = engine.movingAverageForecast("revenue", "current", 6, 3);
+        assertNotNull(result);
+        assertEquals("moving_average", result.method());
     }
 
     @Test
-    void forecast_shouldThrowForTooFewPoints() {
-        assertThrows(IllegalArgumentException.class,
-                () -> engine.forecast("test", "moving_average", 3, List.of(1.0, 2.0)));
+    void exponentialSmoothingReturnsForecast() {
+        BusinessForecast result = engine.exponentialSmoothing("revenue", "current", 6, 0.3);
+        assertNotNull(result);
+        assertEquals("exponential_smoothing", result.method());
     }
 
     @Test
-    void forecast_shouldThrowForUnknownMethod() {
-        assertThrows(IllegalArgumentException.class,
-                () -> engine.forecast("test", "unknown", 3, sampleData));
+    void linearRegressionReturnsForecast() {
+        BusinessForecast result = engine.linearRegression("revenue", "current", 6);
+        assertNotNull(result);
+        assertEquals("linear_regression", result.method());
+    }
+
+    @Test
+    void seasonalReturnsForecast() {
+        BusinessForecast result = engine.seasonal("revenue", "current", 6, 12);
+        assertNotNull(result);
+        assertEquals("seasonal", result.method());
+    }
+
+    @Test
+    void calculateAccuracyReturnsAccuracyScore() {
+        double accuracy = engine.calculateAccuracy("revenue", "current", "auto");
+        assertTrue(accuracy >= 0);
+        assertTrue(accuracy <= 100);
+    }
+
+    @Test
+    void detectSeasonalityReturnsSeasonalityDescription() {
+        String seasonality = engine.detectSeasonality("revenue");
+        assertNotNull(seasonality);
+        assertFalse(seasonality.isBlank());
+    }
+
+    @Test
+    void detectTrendReturnsTrendDescription() {
+        String trend = engine.detectTrend("revenue");
+        assertNotNull(trend);
+        assertFalse(trend.isBlank());
+    }
+
+    @Test
+    void autoForecastReturnsRecommendations() {
+        BusinessForecast result = engine.autoForecast("revenue", "current", 6);
+        assertNotNull(result.recommendations());
+        assertFalse(result.recommendations().isBlank());
     }
 }

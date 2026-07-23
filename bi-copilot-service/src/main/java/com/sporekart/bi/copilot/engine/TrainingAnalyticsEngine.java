@@ -1,229 +1,259 @@
 package com.sporekart.bi.copilot.engine;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
+import com.sporekart.bi.copilot.domain.TrainingAnalytics;
+import com.sporekart.bi.copilot.domain.TrainingAnalytics.TrainerPerformance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.sporekart.bi.copilot.domain.TrainingAnalytics;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class TrainingAnalyticsEngine {
 
     private static final Logger log = LoggerFactory.getLogger(TrainingAnalyticsEngine.class);
-    private static final Random RANDOM = new Random(202);
-    private static final DateTimeFormatter PERIOD_FMT = DateTimeFormatter.ofPattern("yyyy-MM");
 
-    private static final List<String> COURSES = List.of(
-        "Mushroom Cultivation Fundamentals",
-        "Advanced Spawn Production",
-        "Commercial Mushroom Farming"
-    );
+    private static final String[] COURSES = {
+        "Mushroom Cultivation 101", "Advanced Oyster Farming",
+        "Commercial Farming Program", "Disease Management Course",
+        "Spawn Production Workshop"
+    };
+    private static final double[] COURSE_PRICES = {5000, 12000, 25000, 8000, 15000};
+    private static final int[] COURSE_DURATIONS = {5, 10, 20, 7, 12};
 
-    private static final List<String> MODULES = List.of(
-        "Sterilization Techniques",
-        "Substrate Preparation",
-        "Inoculation Methods",
-        "Environmental Control",
-        "Harvesting & Storage",
-        "Quality Assurance",
-        "Business Planning",
-        "Marketing & Sales"
-    );
+    private static final String[] TRAINERS = {
+        "Dr. Anil Deshmukh", "Prof. Sunita Patil", "Mr. Rajendra Kulkarni",
+        "Dr. Meena Joshi", "Mr. Prakash Hegde", "Ms. Swati Naik",
+        "Dr. Kiran Thakur", "Mr. Mahesh Wagh", "Ms. Pooja Rane", "Dr. Sameer Khanna"
+    };
 
-    private static final double[] MONTHLY_STUDENTS = {45, 52, 48, 60, 58, 72};
-    private static final double[] MONTHLY_BATCHES = {3, 4, 3, 4, 4, 5};
-    private static final double[] MONTHLY_COMPLETION = {0.78, 0.80, 0.82, 0.84, 0.85, 0.87};
-    private static final double[] MONTHLY_REVENUE = {180000, 210000, 195000, 250000, 240000, 310000};
-    private static final double[] MONTHLY_COST = {95000, 110000, 102000, 130000, 125000, 160000};
-
-    private final List<SeedTrainingMonth> seedData = generateSeedData();
+    private final List<Batch> batches = new ArrayList<>();
+    private final List<Trainer> trainers = new ArrayList<>();
+    private static final int TOTAL_STUDENTS = 500;
+    private static final int BATCHES_PER_MONTH = 8;
 
     public TrainingAnalyticsEngine() {
-        log.info("TrainingAnalyticsEngine initialized with {} months of seed data", seedData.size());
+        generateSeedData();
+    }
+
+    record Trainer(String id, String name, String specialization, double rating) {}
+
+    record Batch(
+        String batchId, String course, String trainerId, YearMonth startMonth,
+        int capacity, int enrolled, int attended, int completed,
+        int certified, double avgScore
+    ) {}
+
+    private void generateSeedData() {
+        var rand = new Random(42);
+
+        for (int i = 0; i < TRAINERS.length; i++) {
+            String id = "TR" + String.format("%02d", i + 1);
+            String spec = COURSES[i % COURSES.length];
+            double rating = Math.round((3.5 + rand.nextDouble() * 1.5) * 100.0) / 100.0;
+            trainers.add(new Trainer(id, TRAINERS[i], spec, rating));
+        }
+
+        YearMonth start = YearMonth.now().minusMonths(11);
+        int batchCounter = 0;
+
+        for (int i = 0; i < 12; i++) {
+            YearMonth ym = start.plusMonths(i);
+            for (int b = 0; b < BATCHES_PER_MONTH; b++) {
+                String batchId = "BATCH" + String.format("%04d", ++batchCounter);
+                String course = COURSES[rand.nextInt(COURSES.length)];
+                String trainerId = trainers.get(rand.nextInt(trainers.size())).id();
+
+                int capacity = switch (course) {
+                    case "Mushroom Cultivation 101" -> 30;
+                    case "Advanced Oyster Farming" -> 25;
+                    case "Commercial Farming Program" -> 20;
+                    case "Disease Management Course" -> 25;
+                    case "Spawn Production Workshop" -> 20;
+                    default -> 25;
+                };
+
+                double enrollmentRate = 0.5 + rand.nextDouble() * 0.5;
+                int enrolled = Math.min(capacity, Math.max(5, (int) (capacity * enrollmentRate)));
+                int attended = (int) (enrolled * (0.7 + rand.nextDouble() * 0.25));
+                int completed = (int) (attended * (0.65 + rand.nextDouble() * 0.3));
+                int certified = (int) (completed * (0.6 + rand.nextDouble() * 0.35));
+                double avgScore = Math.round((50 + rand.nextDouble() * 45) * 100.0) / 100.0;
+
+                batches.add(new Batch(batchId, course, trainerId, ym, capacity, enrolled, attended, completed, certified, avgScore));
+            }
+        }
+        log.info("Generated {} training batches across {} months with {} trainers", batches.size(), 12, trainers.size());
+    }
+
+    private YearMonth resolveYearMonth(String period) {
+        if (period == null || "current".equalsIgnoreCase(period)) return YearMonth.now();
+        try { return YearMonth.parse(period, DateTimeFormatter.ofPattern("yyyy-MM")); }
+        catch (Exception e) { return YearMonth.now(); }
+    }
+
+    private List<Batch> filterByPeriod(String period) {
+        YearMonth ym = resolveYearMonth(period);
+        return batches.stream().filter(b -> b.startMonth().equals(ym)).toList();
     }
 
     public TrainingAnalytics getTrainingSummary(String period) {
-        SeedTrainingMonth sm = resolvePeriod(period);
-        if (sm == null) return emptyAnalytics(period);
+        var periodBatches = filterByPeriod(period);
+        var allBatches = batches;
+
+        int totalBatches = periodBatches.size();
+        int activeBatches = (int) periodBatches.stream().filter(b -> b.completed() < b.enrolled()).count();
+        int completedBatches = (int) periodBatches.stream().filter(b -> b.completed() == b.enrolled()).count();
+        int totalStudents = periodBatches.stream().mapToInt(Batch::enrolled).sum();
+        double avgAttendance = periodBatches.stream()
+            .mapToDouble(b -> b.enrolled() > 0 ? (double) b.attended() / b.enrolled() * 100 : 0)
+            .average().orElse(0);
+        avgAttendance = Math.round(avgAttendance * 100.0) / 100.0;
+        double avgScore = periodBatches.stream().mapToDouble(Batch::avgScore).average().orElse(0);
+        avgScore = Math.round(avgScore * 100.0) / 100.0;
+        double completionRate = periodBatches.stream()
+            .mapToDouble(b -> b.attended() > 0 ? (double) b.completed() / b.attended() * 100 : 0)
+            .average().orElse(0);
+        completionRate = Math.round(completionRate * 100.0) / 100.0;
+        int certifications = periodBatches.stream().mapToInt(Batch::certified).sum();
+
+        var trainerPerf = getTrainerPerformance();
+        var revenueByTraining = getRevenueByTraining(period);
+        var enrollmentByCourse = getEnrollmentByCourse(period);
 
         return new TrainingAnalytics(
-            UUID.randomUUID().toString(),
-            period,
-            sm.totalStudents,
-            sm.totalBatches,
-            sm.activeBatches,
-            sm.completedBatches,
-            84.0 + RANDOM.nextDouble() * 10,
-            sm.averageScore,
-            sm.certificationsIssued,
-            sm.pendingCertifications,
-            sm.completionRate * 100,
-            sm.scoreByModule,
-            sm.studentsByCourse,
-            sm.revenue,
-            sm.cost,
-            sm.cost > 0 ? (sm.revenue - sm.cost) / sm.revenue * 100 : 0
+            period, totalBatches, activeBatches, completedBatches, totalStudents,
+            avgAttendance, avgScore, completionRate, certifications,
+            trainerPerf, revenueByTraining, enrollmentByCourse
         );
     }
 
-    public Map<String, Object> getStudentPerformanceByCourse() {
-        Map<String, Object> result = new LinkedHashMap<>();
+    public Map<String, Object> getBatchPerformance(String batchId) {
+        var batch = batches.stream().filter(b -> b.batchId().equalsIgnoreCase(batchId))
+            .findFirst().orElse(null);
+        if (batch == null) return Map.of("error", "Batch not found");
 
+        var trainer = trainers.stream().filter(t -> t.id().equals(batch.trainerId())).findFirst().orElse(null);
+
+        var map = new LinkedHashMap<String, Object>();
+        map.put("batchId", batch.batchId());
+        map.put("course", batch.course());
+        map.put("trainer", trainer != null ? trainer.name() : "Unknown");
+        map.put("startMonth", batch.startMonth().toString());
+        map.put("capacity", batch.capacity());
+        map.put("enrolled", batch.enrolled());
+        map.put("attended", batch.attended());
+        map.put("completed", batch.completed());
+        map.put("certified", batch.certified());
+        map.put("avgScore", batch.avgScore());
+        map.put("attendanceRate", batch.enrolled() > 0
+            ? Math.round((double) batch.attended() / batch.enrolled() * 10000.0) / 100.0 : 0);
+        map.put("completionRate", batch.attended() > 0
+            ? Math.round((double) batch.completed() / batch.attended() * 10000.0) / 100.0 : 0);
+        map.put("certificationRate", batch.completed() > 0
+            ? Math.round((double) batch.certified() / batch.completed() * 10000.0) / 100.0 : 0);
+        return map;
+    }
+
+    public Map<String, Integer> getEnrollmentByCourse(String period) {
+        var periodBatches = filterByPeriod(period);
+        var map = new LinkedHashMap<String, Integer>();
         for (String course : COURSES) {
-            Map<String, Object> perf = new LinkedHashMap<>();
-            int students = 50 + RANDOM.nextInt(80);
-            double avgScore = 65 + RANDOM.nextDouble() * 30;
-            double passRate = 0.75 + RANDOM.nextDouble() * 0.2;
-            int certified = (int) (students * passRate);
-
-            perf.put("totalStudents", students);
-            perf.put("averageScore", Math.round(avgScore * 100) / 100.0);
-            perf.put("passRate", Math.round(passRate * 10000) / 100.0);
-            perf.put("certifiedStudents", certified);
-            perf.put("topScore", Math.round((avgScore + 15 + RANDOM.nextDouble() * 10) * 100) / 100.0);
-            perf.put("lowestScore", Math.round((avgScore - 20 + RANDOM.nextDouble() * 10) * 100) / 100.0);
-
-            result.put(course, perf);
+            int total = periodBatches.stream()
+                .filter(b -> b.course().equals(course))
+                .mapToInt(Batch::enrolled).sum();
+            map.put(course, total);
         }
-        return result;
+        return map;
     }
 
-    public double getCertificationRate() {
-        SeedTrainingMonth latest = seedData.getLast();
-        return latest.totalStudents > 0
-            ? (double) latest.certificationsIssued / latest.totalStudents * 100
-            : 0;
+    public double getAttendanceRate(String period) {
+        var periodBatches = filterByPeriod(period);
+        if (periodBatches.isEmpty()) return 0;
+        return Math.round(periodBatches.stream()
+            .mapToDouble(b -> b.enrolled() > 0 ? (double) b.attended() / b.enrolled() * 100 : 0)
+            .average().orElse(0) * 100.0) / 100.0;
     }
 
-    public double getTrainingRevenue() {
-        return seedData.stream().mapToDouble(s -> s.revenue).sum();
+    public double getCompletionRate(String period) {
+        var periodBatches = filterByPeriod(period);
+        if (periodBatches.isEmpty()) return 0;
+        return Math.round(periodBatches.stream()
+            .mapToDouble(b -> b.attended() > 0 ? (double) b.completed() / b.attended() * 100 : 0)
+            .average().orElse(0) * 100.0) / 100.0;
     }
 
-    public double getTrainingProfitMargin() {
-        double totalRevenue = seedData.stream().mapToDouble(s -> s.revenue).sum();
-        double totalCost = seedData.stream().mapToDouble(s -> s.cost).sum();
-        return totalRevenue > 0 ? (totalRevenue - totalCost) / totalRevenue * 100 : 0;
+    public double getCertificationRate(String period) {
+        var periodBatches = filterByPeriod(period);
+        if (periodBatches.isEmpty()) return 0;
+        return Math.round(periodBatches.stream()
+            .mapToDouble(b -> b.completed() > 0 ? (double) b.certified() / b.completed() * 100 : 0)
+            .average().orElse(0) * 100.0) / 100.0;
     }
 
-    public Map<String, Double> getScoreDistributionByModule() {
-        Map<String, Double> distribution = new LinkedHashMap<>();
-        for (String module : MODULES) {
-            distribution.put(module, Math.round((60 + RANDOM.nextDouble() * 35) * 100) / 100.0);
+    public List<TrainerPerformance> getTrainerPerformance() {
+        return trainers.stream().map(t -> {
+            var tBatches = batches.stream().filter(b -> b.trainerId().equals(t.id())).toList();
+            int batchCount = tBatches.size();
+            int studentCount = tBatches.stream().mapToInt(Batch::enrolled).sum();
+            double avgScore = tBatches.stream().mapToDouble(Batch::avgScore).average().orElse(0);
+            double compRate = tBatches.stream()
+                .filter(b -> b.attended() > 0)
+                .mapToDouble(b -> (double) b.completed() / b.attended() * 100)
+                .average().orElse(0);
+            return new TrainerPerformance(t.id(), t.name(), batchCount, studentCount,
+                Math.round(avgScore * 100.0) / 100.0, Math.round(compRate * 100.0) / 100.0);
+        }).toList();
+    }
+
+    public Map<String, Double> getRevenueByTraining(String period) {
+        var periodBatches = filterByPeriod(period);
+        var map = new LinkedHashMap<String, Double>();
+        for (int i = 0; i < COURSES.length; i++) {
+            String course = COURSES[i];
+            int enrolled = periodBatches.stream()
+                .filter(b -> b.course().equals(course))
+                .mapToInt(Batch::enrolled).sum();
+            map.put(course, Math.round(enrolled * COURSE_PRICES[i] * 100.0) / 100.0);
         }
-        return distribution;
+        return map;
     }
 
-    public double getStudentRetention() {
-        return 0.82 + RANDOM.nextDouble() * 0.12;
+    public Map<String, Object> getStudentProgress(String batchId) {
+        var batch = batches.stream().filter(b -> b.batchId().equalsIgnoreCase(batchId))
+            .findFirst().orElse(null);
+        if (batch == null) return Map.of("error", "Batch not found");
+
+        var map = new LinkedHashMap<String, Object>();
+        map.put("batchId", batch.batchId());
+        map.put("course", batch.course());
+        map.put("totalStudents", batch.enrolled());
+        map.put("attended", batch.attended());
+        map.put("completed", batch.completed());
+        map.put("certified", batch.certified());
+        map.put("droppedOut", batch.enrolled() - batch.completed());
+        map.put("avgScore", batch.avgScore());
+
+        var stages = new ArrayList<Map<String, Object>>();
+        stages.add(Map.of("stage", "Enrolled", "count", batch.enrolled(), "pct", 100.0));
+        stages.add(Map.of("stage", "Attended", "count", batch.attended(),
+            "pct", Math.round((double) batch.attended() / batch.enrolled() * 10000.0) / 100.0));
+        stages.add(Map.of("stage", "Completed", "count", batch.completed(),
+            "pct", Math.round((double) batch.completed() / batch.enrolled() * 10000.0) / 100.0));
+        stages.add(Map.of("stage", "Certified", "count", batch.certified(),
+            "pct", Math.round((double) batch.certified() / batch.enrolled() * 10000.0) / 100.0));
+        map.put("funnel", stages);
+
+        return map;
     }
 
-    public List<Map<String, Object>> getTopPerformingCourses() {
-        List<Map<String, Object>> topCourses = new ArrayList<>();
-
-        for (int i = 0; i < COURSES.size(); i++) {
-            String course = COURSES.get(i);
-            double avgScore = 75 + RANDOM.nextDouble() * 20 - (i * 3);
-            int enrollments = 55 + RANDOM.nextInt(60) - (i * 8);
-
-            Map<String, Object> entry = new LinkedHashMap<>();
-            entry.put("courseName", course);
-            entry.put("averageScore", Math.round(avgScore * 100) / 100.0);
-            entry.put("enrollments", enrollments);
-            entry.put("completionRate", Math.round((0.78 + RANDOM.nextDouble() * 0.18) * 10000) / 100.0);
-            entry.put("certificationRate", Math.round((0.70 + RANDOM.nextDouble() * 0.22) * 10000) / 100.0);
-
-            topCourses.add(entry);
-        }
-
-        topCourses.sort((a, b) -> Double.compare(
-            (Double) b.get("averageScore"),
-            (Double) a.get("averageScore")
-        ));
-        return topCourses;
+    public List<TrainerPerformance> getTopTrainers(int limit) {
+        return getTrainerPerformance().stream()
+            .sorted((a, b) -> Double.compare(b.avgScore(), a.avgScore()))
+            .limit(limit)
+            .toList();
     }
-
-    private SeedTrainingMonth resolvePeriod(String period) {
-        if (period == null || period.isBlank()) return seedData.getLast();
-        for (SeedTrainingMonth sm : seedData) {
-            if (sm.periodLabel.equals(period)) return sm;
-        }
-        return null;
-    }
-
-    private TrainingAnalytics emptyAnalytics(String period) {
-        return new TrainingAnalytics(
-            UUID.randomUUID().toString(), period, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            Map.of(), Map.of(), 0, 0, 0
-        );
-    }
-
-    private List<SeedTrainingMonth> generateSeedData() {
-        List<SeedTrainingMonth> data = new ArrayList<>();
-        LocalDate base = LocalDate.of(2025, 7, 1);
-
-        for (int i = 0; i < 6; i++) {
-            LocalDate monthStart = base.plusMonths(i);
-            String label = monthStart.format(PERIOD_FMT);
-            int totalStudents = (int) (MONTHLY_STUDENTS[i] + RANDOM.nextInt(10) - 3);
-            int totalBatches = (int) (MONTHLY_BATCHES[i] + RANDOM.nextInt(2) - 0);
-            int activeBatches = Math.max(1, totalBatches - RANDOM.nextInt(2));
-            int completedBatches = totalBatches - activeBatches;
-            double completionRate = MONTHLY_COMPLETION[i] + RANDOM.nextDouble() * 0.03 - 0.015;
-            double avgScore = 68 + RANDOM.nextDouble() * 12;
-            int certified = (int) (totalStudents * completionRate * (0.85 + RANDOM.nextDouble() * 0.1));
-            int pending = (int) (totalStudents * (1 - completionRate) * 0.5);
-
-            Map<String, Double> scoreByModule = new LinkedHashMap<>();
-            for (String module : MODULES) {
-                scoreByModule.put(module, Math.round((60 + RANDOM.nextDouble() * 35) * 100) / 100.0);
-            }
-
-            Map<String, Integer> studentsByCourse = new LinkedHashMap<>();
-            int remaining = totalStudents;
-            for (int c = 0; c < COURSES.size(); c++) {
-                int count = c < COURSES.size() - 1
-                    ? (int) (totalStudents * (0.25 + RANDOM.nextDouble() * 0.15))
-                    : remaining;
-                studentsByCourse.put(COURSES.get(c), count);
-                remaining -= count;
-            }
-
-            double revenue = MONTHLY_REVENUE[i] + RANDOM.nextDouble() * 30000 - 15000;
-            double cost = MONTHLY_COST[i] + RANDOM.nextDouble() * 15000 - 7500;
-
-            data.add(new SeedTrainingMonth(
-                i, label, totalStudents, totalBatches, activeBatches, completedBatches,
-                completionRate, avgScore, certified, pending,
-                scoreByModule, studentsByCourse, revenue, cost
-            ));
-        }
-        return data;
-    }
-
-    private record SeedTrainingMonth(
-        int monthIndex,
-        String periodLabel,
-        int totalStudents,
-        int totalBatches,
-        int activeBatches,
-        int completedBatches,
-        double completionRate,
-        double averageScore,
-        int certificationsIssued,
-        int pendingCertifications,
-        Map<String, Double> scoreByModule,
-        Map<String, Integer> studentsByCourse,
-        double revenue,
-        double cost
-    ) {}
 }

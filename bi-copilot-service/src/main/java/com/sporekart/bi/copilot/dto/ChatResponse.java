@@ -1,9 +1,9 @@
 package com.sporekart.bi.copilot.dto;
 
+import com.sporekart.copilot.domain.Suggestion;
+
 import java.util.List;
 import java.util.Map;
-
-import com.sporekart.bi.copilot.domain.Suggestion;
 
 public record ChatResponse(
     String sessionId,

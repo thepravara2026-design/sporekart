@@ -2,101 +2,166 @@
 
 ## Revenue Analytics Engine
 
-**Class:** `RevenueAnalyticsEngine`
+Provides comprehensive revenue analysis across multiple dimensions.
 
-Seeded with 12 months (Jan–Dec 2025) of synthetic revenue data generated with pseudo-random seed 42.
+### Supported Metrics
 
-| Method | Description |
+| Metric | Description |
 |--------|-------------|
-| `getRevenueSummary(period)` | Revenue, orders, AOV, revenue per customer, growth rate, product/category/region/channel breakdowns |
-| `getRevenueByProduct(period, category)` | Revenue per product, optional category filter |
-| `getRevenueByRegion(period)` | Revenue by 5 regions (North, South, East, West, Central) |
-| `getRevenueByChannel(period)` | Revenue by 4 channels (Online, Retail, Wholesale, Training) |
-| `getRevenueTrend(months)` | TrendDataPoints with moving average, seasonal factor, trend line, deviation |
-| `getAverageOrderValue(period)` | AOV for given period |
-| `getRevenuePerCustomer(period)` | RPC for given period |
-| `getGrowthRate(current, previous)` | Period-over-period growth |
-| `getTopProducts(limit, period)` | Top N products by revenue |
+| `grossRevenue` | Total revenue before refunds |
+| `netRevenue` | Revenue after refunds |
+| `refundAmount` | Total refund value |
+| `averageOrderValue` | Average revenue per order |
+| `revenueGrowth` | MoM growth percentage |
+| `orderCount` | Number of orders |
+| `refundCount` | Number of refund transactions |
+| `refundRate` | Refund amount as % of gross |
 
-**Seed data:** Monthly revenues range from Rs.250K to Rs.580K across 8 product categories.
+### Dimensions
+
+| Dimension | Values |
+|-----------|--------|
+| Category | Mushroom Products, Training, Equipment, Substrates, Services |
+| Product | 39 SKUs across all categories |
+| Region | Maharashtra, Karnataka, Tamil Nadu, Punjab, Himachal |
+| Customer Segment | Home Growers, Hobbyists, Commercial Farmers, Enterprise Buyers |
+| Channel | Online Direct, Online Marketplace, Retail, Wholesale, Training Center |
+| Training | Mushroom Cultivation 101, Advanced Oyster Farming, Commercial Farming Program, Disease Management Course, Spawn Production Workshop |
+
+### Seed Data
+
+- 24 months of monthly snapshots
+- Seasonal revenue patterns (peak Oct-Feb, moderate Jun-Sep, low Mar-May)
+- 5,000+ seed data points across all dimensions
+- Category-based revenue distribution with stochastic variation
 
 ---
 
 ## Customer Analytics Engine
 
-**Class:** `CustomerAnalyticsEngine`
+Provides customer behavior analysis, segmentation, and lifecycle metrics.
 
-Seeded with 12 months (Jan–Dec 2025) of synthetic customer data, seed 101.
+### Supported Metrics
 
-| Method | Description |
+| Metric | Description |
 |--------|-------------|
-| `getCustomerSummary(period)` | Total/new/churned customers, churn rate, CLV, CAC, retention, satisfaction |
-| `getCustomerSegments()` | 6 customer segments with characteristics and strategies |
-| `getCustomerAcquisitionTrend(months)` | Acquisition trend data points |
-| `getChurnAnalysis(period)` | Churn breakdown by segment with top reasons |
-| `getCustomerLifetimeValue(period)` | CLV calculation |
-| `getRetentionRate(period)` | Retention rate |
-| `getCustomerSatisfactionTrend(months)` | Satisfaction trend data points |
+| `totalCustomers` | Total active customer count |
+| `newCustomers` | Customers acquired in period |
+| `returningCustomers` | Repeat purchasers |
+| `churnedCustomers` | Customers with no activity in 3+ months |
+| `retentionRate` | % of customers who made >1 purchase |
+| `churnRate` | % of customers who churned |
+| `customerLifetimeValue` | Average total spend per customer |
+| `repeatPurchaseRate` | % of customers who purchased more than once |
+| `inactiveCustomers` | Customers with no recent activity |
 
-**Seed data:** Base 1000 customers growing to ~1350 over 12 months with churn rates declining from 3.5% to 1.2%.
+### Dimensions
 
-**Segments:** New Growers, Active Enthusiasts, Commercial Farmers, Enterprise Buyers.
+| Dimension | Values |
+|-----------|--------|
+| Segment | Home Growers, Hobbyists, Commercial Farmers, Enterprise Buyers |
+| Region | Maharashtra, Karnataka, Tamil Nadu, Punjab, Himachal |
+
+### Seed Data
+
+- 5,000 customer records with randomized purchase histories
+- 12 months of acquisition data
+- Segment-based average order values: Home Growers (1,500), Hobbyists (5,000), Commercial Farmers (25,000), Enterprise Buyers (75,000)
+- 5 regions with weighted distribution
+
+---
+
+## Product Analytics Engine
+
+Provides product performance analysis, profitability, and trend detection.
+
+### Supported Metrics
+
+| Metric | Description |
+|--------|-------------|
+| `topProducts` | Top N products by revenue |
+| `worstProducts` | Bottom N products by revenue |
+| `fastMovers` | Products with growth > 5% |
+| `slowMovers` | Products with low units or negative growth |
+| `conversionRate` | Estimated conversion rate |
+| `categoryPerformance` | Revenue, units, margin by category |
+
+### Dimensions
+
+| Dimension | Values |
+|-----------|--------|
+| Category | Mushroom Products, Training, Equipment, Substrates, Services |
+| Product | 39 products (18 mushroom products, 5 training courses, 7 equipment, 5 substrates, 4 services) |
+
+### Seed Data
+
+- 12 months of product performance data
+- Cost ratios per category (0.30 to 0.60)
+- Seasonal factors applied across months
+- Dynamic search trend and wishlist trend generation
+
+---
+
+## Inventory Analytics Engine
+
+Provides inventory health monitoring, stock level analysis, and restocking recommendations.
+
+### Supported Metrics
+
+| Metric | Description |
+|--------|-------------|
+| `totalStock` | Total units across all products |
+| `lowStockItems` | Items at or below reorder level |
+| `deadStockItems` | Items with no sales or turnover > 180 days |
+| `fastMoving` | Items with turnover < 30 days and > 10 units sold |
+| `slowMoving` | Items with turnover > 90 days or < 5 units sold |
+| `turnoverRate` | Sales-to-stock ratio |
+| `restockingPriority` | Ordered list of items needing restock (Critical, High, Medium) |
+| `inventoryRisk` | Composite risk score (0-100) |
+
+### Dimensions
+
+| Dimension | Values |
+|-----------|--------|
+| Category | Mushroom Products, Training Materials, Equipment, Substrates, Services |
+
+### Seed Data
+
+- 48 products across 5 categories
+- Per-product: current stock, reorder level, safety stock, max stock, lead time, unit price
+- 12 months of sales velocity data
+- Dynamic stock depletion and restock simulation
 
 ---
 
 ## Training Analytics Engine
 
-**Class:** `TrainingAnalyticsEngine`
+Provides training program analytics, batch performance, and trainer effectiveness.
 
-Seeded with 6 months (Jul–Dec 2025) of synthetic training data, seed 202.
+### Supported Metrics
 
-| Method | Description |
+| Metric | Description |
 |--------|-------------|
-| `getTrainingSummary(period)` | Students, batches, attendance, scores, certifications, revenue, profit |
-| `getStudentPerformanceByCourse()` | Performance breakdown per course |
-| `getCertificationRate()` | Overall certification rate |
-| `getTrainingRevenue()` | Total training revenue |
-| `getTrainingProfitMargin()` | Net training profit margin |
-| `getScoreDistributionByModule()` | Average scores across 8 modules |
-| `getStudentRetention()` | Student retention rate |
-| `getTopPerformingCourses()` | Courses ranked by average score |
+| `totalBatches` | Total batches in period |
+| `activeBatches` | Batches in progress |
+| `completedBatches` | Batches fully completed |
+| `totalStudents` | Total enrolled students |
+| `averageAttendance` | Average attendance rate |
+| `averageScore` | Average assessment score |
+| `completionRate` | % of attending students who completed |
+| `certificationsIssued` | Number of certifications granted |
 
-**Seed data:** 3 courses across 6 months, monthly students 45–72, revenue Rs.180K–310K, completion rates 78%–87%.
+### Dimensions
 
----
+| Dimension | Values |
+|-----------|--------|
+| Course | Mushroom Cultivation 101, Advanced Oyster Farming, Commercial Farming Program, Disease Management Course, Spawn Production Workshop |
+| Trainer | 10 trainers with specializations |
 
-## Cultivation Analytics Engine
+### Seed Data
 
-**Class:** `CultivationAnalyticsEngine`
-
-Seeded with 12 months (Jan–Dec 2025) of synthetic cultivation data, seed 303.
-
-| Method | Description |
-|--------|-------------|
-| `getCultivationSummary(period)` | Total yield, avg yield per batch/batch, yield by species/region, cycle time, contamination, disease, growers |
-| `getYieldBySpecies(period)` | Yield breakdown by 5 species |
-| `getYieldByRegion(period)` | Yield breakdown by region |
-| `getAverageCycleTime(species)` | Average cultivation cycle days |
-| `getContaminationRateTrend(months)` | Contamination rate trend data points |
-| `getDiseaseIncidenceRate()` | Disease incidence percentages |
-| `getGrowerSatisfaction()` | Average grower satisfaction |
-| `getTopGrowers(limit)` | Top N growers by revenue |
-
-**Seed data:** 5 species (Oyster 3200kg, Shiitake 2800kg, etc.), 5 regions, contamination rates 4%–6%.
-
----
-
-## Customer Segmentation Engine
-
-**Class:** `CustomerSegmentationEngine`
-
-6 pre-defined segments with marketing strategies:
-
-| Segment | Customers | Avg Revenue | Churn |
-|---------|-----------|-------------|-------|
-| High-Value Growers | 250 | Rs.5,000 | 3.2% |
-| New Growers | 850 | Rs.400 | 18.5% |
-| Hobbyist Cultivators | 1200 | Rs.400 | 8.1% |
-| Commercial Farms | 80 | Rs.22,500 | 1.8% |
-| Distributors | 120 | Rs.8,000 | 5.4% |
-| At-Risk Customers | 340 | Rs.600 | 45.0% |
+- 96 training batches across 12 months
+- 10 trainers with ratings (3.5-5.0)
+- Batch sizes: 20-30 students
+- Course prices: 5,000 - 25,000 INR
+- Enrollment, attendance, completion, and certification funnel tracking

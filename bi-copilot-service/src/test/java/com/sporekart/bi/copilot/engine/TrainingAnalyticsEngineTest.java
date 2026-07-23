@@ -1,6 +1,7 @@
 package com.sporekart.bi.copilot.engine;
 
 import com.sporekart.bi.copilot.domain.TrainingAnalytics;
+import com.sporekart.bi.copilot.domain.TrainingAnalytics.TrainerPerformance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,84 +20,89 @@ class TrainingAnalyticsEngineTest {
     }
 
     @Test
-    void getTrainingSummary_shouldReturnAnalyticsForValidPeriod() {
-        TrainingAnalytics analytics = engine.getTrainingSummary("2025-07");
-        assertNotNull(analytics);
-        assertEquals("2025-07", analytics.period());
-        assertTrue(analytics.totalStudents() > 0);
+    void getTrainingSummaryReturnsValidAnalytics() {
+        TrainingAnalytics result = engine.getTrainingSummary("current");
+        assertNotNull(result);
+        assertTrue(result.totalBatches() >= 0);
+        assertTrue(result.totalStudents() >= 0);
+        assertTrue(result.averageAttendance() >= 0);
+        assertTrue(result.completionRate() >= 0);
+        assertNotNull(result.trainerPerformance());
+        assertNotNull(result.enrollmentByCourse());
     }
 
     @Test
-    void getTrainingSummary_shouldReturnLatestForNullPeriod() {
-        TrainingAnalytics analytics = engine.getTrainingSummary(null);
-        assertNotNull(analytics);
-        assertTrue(analytics.totalStudents() > 0);
+    void getBatchPerformanceReturnsBatchDetails() {
+        Map<String, Object> result = engine.getBatchPerformance("BATCH0001");
+        assertNotNull(result);
+        assertTrue(result.containsKey("batchId"));
+        assertTrue(result.containsKey("course"));
+        assertTrue(result.containsKey("enrolled"));
+        assertTrue(result.containsKey("attendanceRate"));
     }
 
     @Test
-    void getTrainingSummary_shouldReturnEmptyForUnknownPeriod() {
-        TrainingAnalytics analytics = engine.getTrainingSummary("2099-01");
-        assertNotNull(analytics);
-        assertEquals(0, analytics.totalStudents());
+    void getBatchPerformanceReturnsErrorForInvalidBatch() {
+        Map<String, Object> result = engine.getBatchPerformance("INVALID");
+        assertTrue(result.containsKey("error"));
     }
 
     @Test
-    void getStudentPerformanceByCourse_shouldReturnThreeCourses() {
-        Map<String, Object> perf = engine.getStudentPerformanceByCourse();
-        assertEquals(3, perf.size());
+    void getEnrollmentByCourseReturnsAllCourses() {
+        Map<String, Integer> enrollment = engine.getEnrollmentByCourse("current");
+        assertNotNull(enrollment);
+        assertTrue(enrollment.containsKey("Mushroom Cultivation 101"));
+        assertTrue(enrollment.containsKey("Advanced Oyster Farming"));
     }
 
     @Test
-    void getStudentPerformanceByCourse_shouldHaveScoreKey() {
-        Map<String, Object> perf = engine.getStudentPerformanceByCourse();
-        assertTrue(perf.values().stream().allMatch(v -> v instanceof Map));
+    void getAttendanceRateReturnsPercentage() {
+        double rate = engine.getAttendanceRate("current");
+        assertTrue(rate >= 0);
+        assertTrue(rate <= 100);
     }
 
     @Test
-    void getCertificationRate_shouldReturnPositive() {
-        double rate = engine.getCertificationRate();
-        assertTrue(rate > 0);
+    void getCompletionRateReturnsPercentage() {
+        double rate = engine.getCompletionRate("current");
+        assertTrue(rate >= 0);
+        assertTrue(rate <= 100);
     }
 
     @Test
-    void getTrainingRevenue_shouldReturnPositive() {
-        double revenue = engine.getTrainingRevenue();
-        assertTrue(revenue > 0);
+    void getCertificationRateReturnsPercentage() {
+        double rate = engine.getCertificationRate("current");
+        assertTrue(rate >= 0);
+        assertTrue(rate <= 100);
     }
 
     @Test
-    void getTrainingProfitMargin_shouldReturnValidPercent() {
-        double margin = engine.getTrainingProfitMargin();
-        assertTrue(margin > 0);
+    void getTrainerPerformanceReturnsAllTrainers() {
+        List<TrainerPerformance> perf = engine.getTrainerPerformance();
+        assertNotNull(perf);
+        assertFalse(perf.isEmpty());
     }
 
     @Test
-    void getTopPerformingCourses_shouldBeSortedByScore() {
-        List<Map<String, Object>> top = engine.getTopPerformingCourses();
-        assertEquals(3, top.size());
-        assertTrue((Double) top.get(0).get("averageScore") >= (Double) top.get(1).get("averageScore"));
+    void getTopTrainersReturnsOrderedByScore() {
+        List<TrainerPerformance> top = engine.getTopTrainers(5);
+        assertEquals(5, top.size());
+        for (int i = 1; i < top.size(); i++) {
+            assertTrue(top.get(i - 1).avgScore() >= top.get(i).avgScore());
+        }
     }
 
     @Test
-    void getTopPerformingCourses_shouldHaveRequiredFields() {
-        List<Map<String, Object>> top = engine.getTopPerformingCourses();
-        Map<String, Object> course = top.get(0);
-        assertTrue(course.containsKey("courseName"));
-        assertTrue(course.containsKey("averageScore"));
-        assertTrue(course.containsKey("enrollments"));
-        assertTrue(course.containsKey("completionRate"));
-        assertTrue(course.containsKey("certificationRate"));
+    void getRevenueByTrainingReturnsRevenueMap() {
+        Map<String, Double> revenue = engine.getRevenueByTraining("current");
+        assertNotNull(revenue);
+        assertFalse(revenue.isEmpty());
     }
 
     @Test
-    void getScoreDistributionByModule_shouldReturnEightModules() {
-        Map<String, Double> dist = engine.getScoreDistributionByModule();
-        assertEquals(8, dist.size());
-    }
-
-    @Test
-    void getStudentRetention_shouldReturnBetweenZeroAndOne() {
-        double retention = engine.getStudentRetention();
-        assertTrue(retention > 0 && retention <= 1.0);
+    void getStudentProgressReturnsFunnelData() {
+        Map<String, Object> progress = engine.getStudentProgress("BATCH0001");
+        assertNotNull(progress);
+        assertTrue(progress.containsKey("funnel"));
     }
 }

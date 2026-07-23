@@ -1,59 +1,72 @@
 package com.sporekart.bi.copilot.service;
 
-import java.time.OffsetDateTime;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class BiContextService {
 
     private static final Logger log = LoggerFactory.getLogger(BiContextService.class);
+    private static final int MAX_ENTRIES_PER_SESSION = 100;
 
-    private final Map<String, BiUserContext> contextStore = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, LinkedHashMap<String, ContextEntry>> sessionContexts = new ConcurrentHashMap<>();
 
-    public BiContextService() {
-        log.info("BiContextService initialized");
+    public void put(String sessionId, String key, Object value) {
+        var context = sessionContexts.computeIfAbsent(sessionId, k -> new LinkedHashMap<>() {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, ContextEntry> eldest) {
+                return size() > MAX_ENTRIES_PER_SESSION;
+            }
+        });
+        context.put(key, new ContextEntry(key, value, OffsetDateTime.now()));
+        log.debug("Context updated for session {}: {}={}", sessionId, key, value);
     }
 
-    public void storeContext(String sessionId, String key, Object value) {
-        BiUserContext ctx = contextStore.computeIfAbsent(sessionId, k -> new BiUserContext(sessionId));
-        ctx.attributes().put(key, value);
-        log.debug("Stored context key={} for session={}", key, sessionId);
+    public Object get(String sessionId, String key) {
+        var context = sessionContexts.get(sessionId);
+        if (context == null) return null;
+        var entry = context.get(key);
+        return entry != null ? entry.value() : null;
     }
 
-    public Object getContext(String sessionId, String key) {
-        BiUserContext ctx = contextStore.get(sessionId);
-        return ctx != null ? ctx.attributes().get(key) : null;
+    public Map<String, Object> getAll(String sessionId) {
+        var context = sessionContexts.get(sessionId);
+        if (context == null) return Map.of();
+        return context.entrySet().stream()
+            .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().value()));
     }
 
-    public Map<String, Object> getAllContext(String sessionId) {
-        BiUserContext ctx = contextStore.get(sessionId);
-        return ctx != null ? Map.copyOf(ctx.attributes()) : Map.of();
+    public List<ContextEntry> getEntries(String sessionId) {
+        var context = sessionContexts.get(sessionId);
+        if (context == null) return List.of();
+        return List.copyOf(context.values());
     }
 
-    public void clearContext(String sessionId) {
-        contextStore.remove(sessionId);
-        log.debug("Cleared context for session={}", sessionId);
+    public void clear(String sessionId) {
+        sessionContexts.remove(sessionId);
+        log.debug("Context cleared for session {}", sessionId);
     }
 
-    public void updateLastActivity(String sessionId) {
-        BiUserContext ctx = contextStore.get(sessionId);
-        if (ctx != null) {
-            contextStore.put(sessionId, new BiUserContext(sessionId, ctx.attributes(), OffsetDateTime.now()));
+    public void remove(String sessionId, String key) {
+        var context = sessionContexts.get(sessionId);
+        if (context != null) {
+            context.remove(key);
+            log.debug("Context entry removed for session {}: {}", sessionId, key);
         }
     }
 
-    private record BiUserContext(
-        String sessionId,
-        Map<String, Object> attributes,
-        OffsetDateTime lastActivity
-    ) {
-        public BiUserContext(String sessionId) {
-            this(sessionId, new ConcurrentHashMap<>(), OffsetDateTime.now());
-        }
+    public int size(String sessionId) {
+        var context = sessionContexts.get(sessionId);
+        return context != null ? context.size() : 0;
     }
+
+    public record ContextEntry(String key, Object value, OffsetDateTime timestamp) {}
 }

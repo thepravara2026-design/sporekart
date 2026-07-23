@@ -13,9 +13,9 @@ public class OpenApiConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("SporeKart Enterprise Business Intelligence Copilot API")
-                        .version("1.0.0")
-                        .description("Enterprise Business Intelligence Copilot for Cross-Domain Analytics & Insights")
+                        .title("SporeKart Enterprise Business Intelligence Copilot API - Decision Intelligence Platform")
+                        .version("2.0")
+                        .description("Enterprise Business Intelligence Copilot — AI-powered decision intelligence, forecasting, executive reporting, KPI monitoring, and health scoring for SporeKart's enterprise operations.")
                         .contact(new Contact()
                                 .name("SporeKart Platform Team")));
     }

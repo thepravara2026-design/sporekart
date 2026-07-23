@@ -1,115 +1,143 @@
 package com.sporekart.bi.copilot.infrastructure.monitoring;
 
-import java.time.OffsetDateTime;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 public class BiMetricsService {
 
     private static final Logger log = LoggerFactory.getLogger(BiMetricsService.class);
 
-    private final AtomicLong messagesProcessed = new AtomicLong(0);
-    private final AtomicLong sessionsCreated = new AtomicLong(0);
-    private final AtomicLong sessionsEnded = new AtomicLong(0);
-    private final AtomicLong queriesExecuted = new AtomicLong(0);
-    private final AtomicLong reportsGenerated = new AtomicLong(0);
-    private final AtomicLong anomaliesDetected = new AtomicLong(0);
-    private final AtomicLong forecastsGenerated = new AtomicLong(0);
-    private final AtomicLong errorsEncountered = new AtomicLong(0);
+    private final AtomicLong totalQueryLatencyMs = new AtomicLong(0);
+    private final AtomicInteger queryCount = new AtomicInteger(0);
 
-    private final Map<String, AtomicLong> perEndpointHits = new ConcurrentHashMap<>();
-    private final Map<String, Long> latencyBuckets = new ConcurrentHashMap<>();
+    private final AtomicLong totalAnalyticsGenerationMs = new AtomicLong(0);
+    private final AtomicInteger analyticsGenerationCount = new AtomicInteger(0);
 
-    public BiMetricsService() {
-        log.info("BiMetricsService initialized");
+    private final AtomicLong totalForecastExecutionMs = new AtomicLong(0);
+    private final AtomicInteger forecastExecutionCount = new AtomicInteger(0);
+
+    private final AtomicInteger recommendationAccuracyHits = new AtomicInteger(0);
+    private final AtomicInteger recommendationAccuracyTotal = new AtomicInteger(0);
+
+    private final AtomicLong totalKnowledgeRetrievalMs = new AtomicLong(0);
+    private final AtomicInteger knowledgeRetrievalCount = new AtomicInteger(0);
+
+    private final AtomicInteger promptUsageCount = new AtomicInteger(0);
+    private final AtomicLong totalTokenCost = new AtomicLong(0);
+
+    private final ConcurrentHashMap<String, AtomicInteger> dashboardUsage = new ConcurrentHashMap<>();
+
+    public void recordQueryLatency(long durationMs) {
+        totalQueryLatencyMs.addAndGet(durationMs);
+        queryCount.incrementAndGet();
     }
 
-    public void incrementMessagesProcessed() {
-        messagesProcessed.incrementAndGet();
+    public void recordAnalyticsGeneration(long durationMs) {
+        totalAnalyticsGenerationMs.addAndGet(durationMs);
+        analyticsGenerationCount.incrementAndGet();
     }
 
-    public void incrementSessionsCreated() {
-        sessionsCreated.incrementAndGet();
+    public void recordForecastExecution(long durationMs) {
+        totalForecastExecutionMs.addAndGet(durationMs);
+        forecastExecutionCount.incrementAndGet();
     }
 
-    public void incrementSessionsEnded() {
-        sessionsEnded.incrementAndGet();
+    public void recordRecommendationAccuracy(boolean accurate) {
+        recommendationAccuracyTotal.incrementAndGet();
+        if (accurate) {
+            recommendationAccuracyHits.incrementAndGet();
+        }
     }
 
-    public void incrementQueriesExecuted() {
-        queriesExecuted.incrementAndGet();
+    public void recordKnowledgeRetrieval(long durationMs) {
+        totalKnowledgeRetrievalMs.addAndGet(durationMs);
+        knowledgeRetrievalCount.incrementAndGet();
     }
 
-    public void incrementReportsGenerated() {
-        reportsGenerated.incrementAndGet();
+    public void recordPromptUsage() {
+        promptUsageCount.incrementAndGet();
     }
 
-    public void incrementAnomaliesDetected() {
-        anomaliesDetected.incrementAndGet();
+    public void recordTokenCost(long tokens) {
+        totalTokenCost.addAndGet(tokens);
     }
 
-    public void incrementForecastsGenerated() {
-        forecastsGenerated.incrementAndGet();
+    public void recordDashboardUsage(String dashboardType) {
+        dashboardUsage.computeIfAbsent(dashboardType, k -> new AtomicInteger(0)).incrementAndGet();
     }
 
-    public void incrementErrors() {
-        errorsEncountered.incrementAndGet();
+    public double getAverageQueryLatencyMs() {
+        int count = queryCount.get();
+        return count > 0 ? (double) totalQueryLatencyMs.get() / count : 0;
     }
 
-    public void recordEndpointHit(String endpoint) {
-        perEndpointHits.computeIfAbsent(endpoint, k -> new AtomicLong(0)).incrementAndGet();
+    public double getAverageAnalyticsGenerationMs() {
+        int count = analyticsGenerationCount.get();
+        return count > 0 ? (double) totalAnalyticsGenerationMs.get() / count : 0;
     }
 
-    public void recordLatency(String operation, long durationMs) {
-        latencyBuckets.put(operation + "_last", durationMs);
-        latencyBuckets.merge(operation + "_total", durationMs, Long::sum);
+    public double getAverageForecastExecutionMs() {
+        int count = forecastExecutionCount.get();
+        return count > 0 ? (double) totalForecastExecutionMs.get() / count : 0;
     }
 
-    public long getMessagesProcessed() { return messagesProcessed.get(); }
-    public long getSessionsCreated() { return sessionsCreated.get(); }
-    public long getSessionsEnded() { return sessionsEnded.get(); }
-    public long getQueriesExecuted() { return queriesExecuted.get(); }
-    public long getReportsGenerated() { return reportsGenerated.get(); }
-    public long getAnomaliesDetected() { return anomaliesDetected.get(); }
-    public long getForecastsGenerated() { return forecastsGenerated.get(); }
-    public long getErrorsEncountered() { return errorsEncountered.get(); }
-
-    public long getActiveSessions() {
-        return sessionsCreated.get() - sessionsEnded.get();
+    public double getRecommendationAccuracy() {
+        int total = recommendationAccuracyTotal.get();
+        return total > 0 ? (double) recommendationAccuracyHits.get() / total * 100 : 0;
     }
 
-    public Map<String, Object> getMetricsSnapshot() {
+    public double getAverageKnowledgeRetrievalMs() {
+        int count = knowledgeRetrievalCount.get();
+        return count > 0 ? (double) totalKnowledgeRetrievalMs.get() / count : 0;
+    }
+
+    public int getPromptUsageCount() {
+        return promptUsageCount.get();
+    }
+
+    public long getTotalTokenCost() {
+        return totalTokenCost.get();
+    }
+
+    public Map<String, Integer> getDashboardUsage() {
+        var map = new java.util.LinkedHashMap<String, Integer>();
+        dashboardUsage.forEach((k, v) -> map.put(k, v.get()));
+        return map;
+    }
+
+    public Map<String, Object> getAllMetrics() {
         return Map.of(
-            "messagesProcessed", messagesProcessed.get(),
-            "sessionsCreated", sessionsCreated.get(),
-            "sessionsEnded", sessionsEnded.get(),
-            "activeSessions", getActiveSessions(),
-            "queriesExecuted", queriesExecuted.get(),
-            "reportsGenerated", reportsGenerated.get(),
-            "anomaliesDetected", anomaliesDetected.get(),
-            "forecastsGenerated", forecastsGenerated.get(),
-            "errorsEncountered", errorsEncountered.get(),
-            "timestamp", OffsetDateTime.now().toString()
+            "queryLatency", Map.of("avgMs", getAverageQueryLatencyMs(), "total", queryCount.get()),
+            "analyticsGeneration", Map.of("avgMs", getAverageAnalyticsGenerationMs(), "total", analyticsGenerationCount.get()),
+            "forecastExecution", Map.of("avgMs", getAverageForecastExecutionMs(), "total", forecastExecutionCount.get()),
+            "recommendationAccuracy", Map.of("accuracy", getRecommendationAccuracy(), "total", recommendationAccuracyTotal.get()),
+            "knowledgeRetrieval", Map.of("avgMs", getAverageKnowledgeRetrievalMs(), "total", knowledgeRetrievalCount.get()),
+            "promptUsage", Map.of("count", promptUsageCount.get()),
+            "tokenCost", Map.of("total", totalTokenCost.get()),
+            "dashboardUsage", getDashboardUsage()
         );
     }
 
     public void reset() {
-        messagesProcessed.set(0);
-        sessionsCreated.set(0);
-        sessionsEnded.set(0);
-        queriesExecuted.set(0);
-        reportsGenerated.set(0);
-        anomaliesDetected.set(0);
-        forecastsGenerated.set(0);
-        errorsEncountered.set(0);
-        perEndpointHits.clear();
-        latencyBuckets.clear();
-        log.info("BiMetricsService metrics reset");
+        totalQueryLatencyMs.set(0);
+        queryCount.set(0);
+        totalAnalyticsGenerationMs.set(0);
+        analyticsGenerationCount.set(0);
+        totalForecastExecutionMs.set(0);
+        forecastExecutionCount.set(0);
+        recommendationAccuracyHits.set(0);
+        recommendationAccuracyTotal.set(0);
+        totalKnowledgeRetrievalMs.set(0);
+        knowledgeRetrievalCount.set(0);
+        promptUsageCount.set(0);
+        totalTokenCost.set(0);
+        dashboardUsage.clear();
     }
 }

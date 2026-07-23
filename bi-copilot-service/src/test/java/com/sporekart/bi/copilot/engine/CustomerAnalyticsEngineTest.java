@@ -1,7 +1,6 @@
 package com.sporekart.bi.copilot.engine;
 
 import com.sporekart.bi.copilot.domain.CustomerAnalytics;
-import com.sporekart.bi.copilot.domain.CustomerSegment;
 import com.sporekart.bi.copilot.domain.TrendDataPoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,102 +20,94 @@ class CustomerAnalyticsEngineTest {
     }
 
     @Test
-    void getCustomerSummary_shouldReturnAnalyticsForValidPeriod() {
-        CustomerAnalytics analytics = engine.getCustomerSummary("2025-06");
-        assertNotNull(analytics);
-        assertEquals("2025-06", analytics.period());
-        assertTrue(analytics.totalCustomers() > 0);
+    void getCustomerSummaryReturnsValidAnalytics() {
+        CustomerAnalytics result = engine.getCustomerSummary("current");
+        assertNotNull(result);
+        assertTrue(result.totalCustomers() >= 0);
+        assertTrue(result.newCustomers() >= 0);
+        assertTrue(result.returningCustomers() >= 0);
+        assertTrue(result.retentionRate() >= 0);
     }
 
     @Test
-    void getCustomerSummary_shouldReturnLatestForNullPeriod() {
-        CustomerAnalytics analytics = engine.getCustomerSummary(null);
-        assertNotNull(analytics);
-        assertTrue(analytics.totalCustomers() > 0);
+    void getNewCustomersReturnsTrendData() {
+        List<TrendDataPoint> result = engine.getNewCustomers(6);
+        assertNotNull(result);
+        assertEquals(6, result.size());
+        result.forEach(p -> assertTrue(p.value() >= 0));
     }
 
     @Test
-    void getCustomerSegments_shouldReturnFourSegments() {
-        List<CustomerSegment> segments = engine.getCustomerSegments();
-        assertEquals(4, segments.size());
+    void getReturningCustomersReturnsCount() {
+        int count = engine.getReturningCustomers("current");
+        assertTrue(count >= 0);
     }
 
     @Test
-    void getCustomerSegments_shouldHaveNamesAndCounts() {
-        List<CustomerSegment> segments = engine.getCustomerSegments();
-        assertTrue(segments.stream().allMatch(s -> s.name() != null && !s.name().isBlank()));
-        assertTrue(segments.stream().allMatch(s -> s.customerCount() >= 0));
+    void getRetentionRateReturnsPercentage() {
+        double rate = engine.getRetentionRate("current");
+        assertTrue(rate >= 0);
+        assertTrue(rate <= 100);
     }
 
     @Test
-    void getChurnAnalysis_shouldReturnTopLevelKeys() {
-        Map<String, Object> analysis = engine.getChurnAnalysis("2025-06");
-        assertNotNull(analysis);
-        assertTrue(analysis.containsKey("churnRate"));
-        assertTrue(analysis.containsKey("churnedCustomers"));
-        assertTrue(analysis.containsKey("retentionRate"));
-        assertTrue(analysis.containsKey("churnBySegment"));
-        assertTrue(analysis.containsKey("topChurnReasons"));
+    void getChurnRateReturnsPercentage() {
+        double rate = engine.getChurnRate("current");
+        assertTrue(rate >= 0);
+        assertTrue(rate <= 100);
     }
 
     @Test
-    void getChurnAnalysis_shouldReturnEmptyForUnknownPeriod() {
-        Map<String, Object> analysis = engine.getChurnAnalysis("2099-01");
-        assertTrue(analysis.isEmpty());
-    }
-
-    @Test
-    void getCustomerLifetimeValue_shouldReturnPositive() {
-        double clv = engine.getCustomerLifetimeValue("2025-06");
+    void getCustomerLifetimeValueReturnsPositive() {
+        double clv = engine.getCustomerLifetimeValue();
         assertTrue(clv > 0);
     }
 
     @Test
-    void getCustomerLifetimeValue_shouldReturnZeroForUnknownPeriod() {
-        double clv = engine.getCustomerLifetimeValue("2099-01");
-        assertEquals(0, clv);
+    void getTopCustomersReturnsOrderedList() {
+        var top = engine.getTopCustomers(10);
+        assertNotNull(top);
+        assertEquals(10, top.size());
+        for (int i = 1; i < top.size(); i++) {
+            assertTrue(top.get(i - 1).totalSpent() >= top.get(i).totalSpent());
+        }
     }
 
     @Test
-    void getRetentionRate_shouldReturnBetweenZeroAndHundred() {
-        double rate = engine.getRetentionRate("2025-06");
-        assertTrue(rate > 0 && rate <= 100);
+    void getCustomerSegmentsReturnsAllSegments() {
+        Map<String, Object> segments = engine.getCustomerSegments();
+        assertNotNull(segments);
+        assertTrue(segments.containsKey("Home Growers"));
+        assertTrue(segments.containsKey("Commercial Farmers"));
     }
 
     @Test
-    void getRetentionRate_shouldReturnZeroForUnknownPeriod() {
-        double rate = engine.getRetentionRate("2099-01");
-        assertEquals(0, rate);
+    void getRevenueBySegmentReturnsSegmentRevenue() {
+        Map<String, Double> result = engine.getRevenueBySegment("current");
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
     }
 
     @Test
-    void getCustomerSatisfactionTrend_shouldReturnRequestedCount() {
-        List<TrendDataPoint> trend = engine.getCustomerSatisfactionTrend(5);
-        assertEquals(5, trend.size());
+    void getBuyingPatternsReturnsPatternDataForSegment() {
+        Map<String, Object> patterns = engine.getBuyingPatterns("Home Growers");
+        assertNotNull(patterns);
+        assertEquals("Home Growers", patterns.get("segment"));
+        assertTrue(patterns.containsKey("customerCount"));
+        assertTrue(patterns.containsKey("avgOrderCount"));
     }
 
     @Test
-    void getCustomerSatisfactionTrend_shouldHaveSatisfactionMetric() {
-        List<TrendDataPoint> trend = engine.getCustomerSatisfactionTrend(3);
-        assertTrue(trend.stream().allMatch(t -> "satisfaction".equals(t.metric())));
+    void getCustomerTrendReturnsDataPoints() {
+        List<TrendDataPoint> trend = engine.getCustomerTrend(6);
+        assertNotNull(trend);
+        assertEquals(6, trend.size());
     }
 
     @Test
-    void getActiveCustomerCount_shouldReturnPositive() {
-        int count = engine.getActiveCustomerCount();
-        assertTrue(count > 0);
-    }
-
-    @Test
-    void getCustomerAcquisitionTrend_shouldReturnRequestedCount() {
-        List<TrendDataPoint> trend = engine.getCustomerAcquisitionTrend(4);
-        assertEquals(4, trend.size());
-        assertTrue(trend.stream().allMatch(t -> "acquisition".equals(t.metric())));
-    }
-
-    @Test
-    void getCustomerSegmentation_shouldReturnSegments() {
-        List<CustomerSegment> segments = engine.getCustomerSegmentation();
-        assertFalse(segments.isEmpty());
+    void getRepeatPurchaseRateMatchesRetentionRate() {
+        double repeat = engine.getRepeatPurchaseRate("current");
+        double retention = engine.getRetentionRate("current");
+        assertEquals(repeat, retention, 0.01);
     }
 }

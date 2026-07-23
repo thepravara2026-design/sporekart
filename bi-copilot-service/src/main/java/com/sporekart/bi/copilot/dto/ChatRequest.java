@@ -7,9 +7,5 @@ public record ChatRequest(
     String sessionId,
     String pageUrl,
     String pageTitle,
-    String section,
-    String entityType,
-    String entityId,
-    String dashboardId,
-    String reportType
+    String section
 ) {}
