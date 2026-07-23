@@ -1,0 +1,43 @@
+server:
+  port: 8103
+
+spring:
+  application:
+    name: copilot-workspace-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+sporekart:
+  workspace:
+    enabled: true
+    max-sessions-per-user: 5
+    session-timeout-minutes: 60
+    streaming-buffer-size: 4096
+    routing:
+      enable-automatic-routing: true
+      confidence-threshold: 0.6
+      enable-fallback: true
+      fallback-copilot: admin
+    collaboration:
+      max-collaboration-depth: 3
+      timeout-seconds: 30
+    memory:
+      max-shared-entries: 1000
+      ttl-minutes: 1440
+    copilots:
+      customer:
+        url: http://localhost:8099
+        enabled: true
+      admin:
+        url: http://localhost:8100
+        enabled: true
+      trainer:
+        url: http://localhost:8101
+        enabled: true
+      grower:
+        url: http://localhost:8102
+        enabled: true
