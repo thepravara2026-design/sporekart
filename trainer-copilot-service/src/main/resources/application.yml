@@ -1,0 +1,50 @@
+server:
+  port: 8101
+
+spring:
+  application:
+    name: trainer-copilot-service
+  datasource:
+    url: jdbc:h2:mem:trainer-copilot;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+sporekart:
+  trainer:
+    copilot:
+      enabled: true
+      max-batch-size: 50
+      default-curriculum-length: 12
+      assessment-difficulty-levels: BEGINNER,INTERMEDIATE,ADVANCED,EXPERT
+      default-pass-threshold: 70
+      max-retries: 3
+      request-timeout: 30s
+      session-timeout-minutes: 60
+      auto-enrollment-enabled: true
+      certification-enabled: true
+      progress-tracking-enabled: true
+      practical-guide-generation-enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
