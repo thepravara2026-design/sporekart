@@ -1,0 +1,1095 @@
+openapi: 3.0.3
+info:
+  title: SporeKart Enterprise Copilot API
+  description: |
+    API for the SporeKart Enterprise Copilot Framework. Supports chat, streaming,
+    session management, persona configuration, tool registration, and context assembly
+    for AI-powered copilot experiences across the platform.
+  version: 0.2.0
+  contact:
+    name: SporeKart Platform Team
+    email: platform@sporekart.com
+  license:
+    name: Proprietary
+
+servers:
+  - url: http://localhost:8098/api/copilot
+    description: Local development
+  - url: https://gateway.sporekart.com/api/copilot
+    description: Production gateway
+
+security:
+  - bearerAuth: []
+
+paths:
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Health check
+      description: Returns the health status of the copilot service
+      tags:
+        - Health
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /chat:
+    post:
+      operationId: chat
+      summary: Send a chat message
+      description: Sends a message to the copilot and receives a response
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful chat response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /stream:
+    post:
+      operationId: streamChat
+      summary: Stream a chat response
+      description: Sends a message and streams the response token by token via SSE
+      tags:
+        - Chat
+        - Streaming
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+      responses:
+        '200':
+          description: SSE stream of tokens
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: Server-Sent Events stream of completion tokens
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /list:
+    get:
+      operationId: listCopilots
+      summary: List available copilots
+      description: Returns a list of all registered copilots and their metadata
+      tags:
+        - Copilot Management
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: List of copilots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CopilotListResponse'
+
+  /capabilities:
+    get:
+      operationId: listCapabilities
+      summary: List all capabilities
+      description: Returns all registered capabilities across the platform
+      tags:
+        - Capabilities
+      responses:
+        '200':
+          description: List of capabilities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilityListResponse'
+
+  /personas:
+    get:
+      operationId: listPersonas
+      summary: List available personas
+      description: Returns all registered personas for copilot interactions
+      tags:
+        - Personas
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [support, sales, admin, technical, custom]
+      responses:
+        '200':
+          description: List of personas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonaListResponse'
+
+  /register:
+    post:
+      operationId: registerCopilot
+      summary: Register a new copilot
+      description: Registers a new copilot instance with the framework
+      tags:
+        - Copilot Management
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopilotRegistrationRequest'
+      responses:
+        '201':
+          description: Copilot registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CopilotRegistrationResponse'
+        '400':
+          description: Invalid registration data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Copilot with this name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /context:
+    post:
+      operationId: assembleContext
+      summary: Assemble context for a copilot interaction
+      description: Assembles relevant context from multiple sources for a given session
+      tags:
+        - Context
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContextRequest'
+      responses:
+        '200':
+          description: Context assembled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextResponse'
+
+  /{id}:
+    get:
+      operationId: getCopilot
+      summary: Get copilot details
+      description: Returns detailed information about a registered copilot
+      tags:
+        - Copilot Management
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Copilot details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CopilotDetails'
+        '404':
+          description: Copilot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /{id}/health:
+    get:
+      operationId: getCopilotHealth
+      summary: Get copilot health status
+      description: Returns the health status of a specific copilot instance
+      tags:
+        - Health
+        - Copilot Management
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Copilot health details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CopilotHealthResponse'
+        '404':
+          description: Copilot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /{id}/enable:
+    put:
+      operationId: enableCopilot
+      summary: Enable a copilot
+      description: Enables a previously disabled copilot
+      tags:
+        - Copilot Management
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Copilot enabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '404':
+          description: Copilot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /{id}/disable:
+    put:
+      operationId: disableCopilot
+      summary: Disable a copilot
+      description: Disables a running copilot instance
+      tags:
+        - Copilot Management
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Copilot disabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '404':
+          description: Copilot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /session:
+    post:
+      operationId: createSession
+      summary: Create a new session
+      description: Creates a new copilot interaction session
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /session/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Get session details
+      description: Returns the details and history of a session
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: includeHistory
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Session details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionDetails'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      operationId: deleteSession
+      summary: Delete a session
+      description: Deletes a session and its history
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Session deleted
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the identity service
+
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN, DEGRADED]
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ComponentHealth'
+
+    ComponentHealth:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [UP, DOWN, DEGRADED]
+        details:
+          type: object
+          additionalProperties: true
+
+    ChatRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: User message
+        sessionId:
+          type: string
+          format: uuid
+          description: Session ID for conversation continuity
+        copilotId:
+          type: string
+          format: uuid
+          description: Specific copilot to route to
+        persona:
+          type: string
+          description: Persona override for this request
+        context:
+          $ref: '#/components/schemas/ContextOverride'
+        stream:
+          type: boolean
+          default: false
+          description: Enable streaming response
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ContextOverride:
+      type: object
+      properties:
+        includeOrderHistory:
+          type: boolean
+          default: false
+        includeProductCatalog:
+          type: boolean
+          default: false
+        includeUserProfile:
+          type: boolean
+          default: false
+        includeSupportTickets:
+          type: boolean
+          default: false
+        customContext:
+          type: object
+          additionalProperties: true
+
+    ChatResponse:
+      type: object
+      required:
+        - id
+        - message
+        - timestamp
+      properties:
+        id:
+          type: string
+          format: uuid
+        message:
+          type: string
+        sessionId:
+          type: string
+          format: uuid
+        copilotId:
+          type: string
+          format: uuid
+        persona:
+          type: string
+        finishReason:
+          type: string
+          enum: [stop, length, content_filter, tool_calls, error]
+        usage:
+          $ref: '#/components/schemas/UsageInfo'
+        metadata:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+
+    StreamRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        sessionId:
+          type: string
+          format: uuid
+        copilotId:
+          type: string
+          format: uuid
+        persona:
+          type: string
+        context:
+          $ref: '#/components/schemas/ContextOverride'
+        temperature:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 2
+          default: 0.7
+        maxTokens:
+          type: integer
+          minimum: 1
+          maximum: 8192
+          default: 2048
+        metadata:
+          type: object
+          additionalProperties: true
+
+    CopilotListResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/CopilotSummary'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+
+    CopilotSummary:
+      type: object
+      required:
+        - id
+        - name
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [ACTIVE, INACTIVE, DEGRADED, ERROR]
+        persona:
+          type: string
+        capabilities:
+          type: array
+          items:
+            type: string
+        version:
+          type: string
+        healthStatus:
+          $ref: '#/components/schemas/ComponentHealth'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CapabilityListResponse:
+      type: object
+      properties:
+        capabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Capability'
+
+    Capability:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [query, mutation, tool, integration, custom]
+        inputSchema:
+          type: object
+          additionalProperties: true
+        outputSchema:
+          type: object
+          additionalProperties: true
+        cost:
+          type: number
+          description: Estimated cost units per invocation
+        timeout:
+          type: string
+          description: Max execution time (e.g. 5s, 30s)
+        enabled:
+          type: boolean
+          default: true
+
+    PersonaListResponse:
+      type: object
+      properties:
+        personas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Persona'
+
+    Persona:
+      type: object
+      required:
+        - id
+        - name
+        - systemPrompt
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+          enum: [support, sales, admin, technical, custom]
+        systemPrompt:
+          type: string
+        temperature:
+          type: number
+          format: float
+          default: 0.7
+        maxTokens:
+          type: integer
+          default: 2048
+        allowedCapabilities:
+          type: array
+          items:
+            type: string
+        tools:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CopilotRegistrationRequest:
+      type: object
+      required:
+        - name
+        - persona
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+          pattern: '^[a-zA-Z0-9_-]+$'
+        description:
+          type: string
+          maxLength: 1000
+        persona:
+          type: string
+          description: Persona name or ID to associate
+        capabilities:
+          type: array
+          items:
+            type: string
+          description: List of capability names to enable
+        tools:
+          type: array
+          items:
+            type: string
+          description: List of tool names to enable
+        configuration:
+          type: object
+          additionalProperties: true
+          description: Custom configuration key-value pairs
+        maxConcurrency:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        rateLimitPerMinute:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          default: 60
+        metadata:
+          type: object
+          additionalProperties: true
+
+    CopilotRegistrationResponse:
+      type: object
+      required:
+        - id
+        - apiKey
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        apiKey:
+          type: string
+          description: API key for authenticating copilot-to-platform calls
+        status:
+          type: string
+          default: ACTIVE
+        createdAt:
+          type: string
+          format: date-time
+
+    CopilotDetails:
+      allOf:
+        - $ref: '#/components/schemas/CopilotSummary'
+        - type: object
+          properties:
+            configuration:
+              type: object
+              additionalProperties: true
+            tools:
+              type: array
+              items:
+                $ref: '#/components/schemas/ToolDefinition'
+            metrics:
+              $ref: '#/components/schemas/CopilotMetrics'
+            maxConcurrency:
+              type: integer
+            rateLimitPerMinute:
+              type: integer
+
+    ToolDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        inputSchema:
+          type: object
+          additionalProperties: true
+        outputSchema:
+          type: object
+          additionalProperties: true
+        enabled:
+          type: boolean
+
+    CopilotMetrics:
+      type: object
+      properties:
+        totalRequests:
+          type: integer
+        totalTokensUsed:
+          type: integer
+        averageLatencyMs:
+          type: integer
+        errorRate:
+          type: number
+          format: float
+        lastRequestAt:
+          type: string
+          format: date-time
+        uptimePercentage:
+          type: number
+          format: float
+
+    CopilotHealthResponse:
+      type: object
+      properties:
+        copilotId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [UP, DOWN, DEGRADED]
+        uptime:
+          type: string
+        latency:
+          type: string
+        memoryUsage:
+          type: string
+        activeSessions:
+          type: integer
+        lastError:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    StatusResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        status:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ContextRequest:
+      type: object
+      required:
+        - sessionId
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        copilotId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+        includeSources:
+          type: array
+          items:
+            type: string
+            enum: [orders, catalog, profile, support, cart, analytics, custom]
+        maxTokens:
+          type: integer
+          default: 4096
+        customFilters:
+          type: object
+          additionalProperties: true
+
+    ContextResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        context:
+          type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/ContextSource'
+            orders:
+              $ref: '#/components/schemas/ContextSource'
+            catalog:
+              $ref: '#/components/schemas/ContextSource'
+            support:
+              $ref: '#/components/schemas/ContextSource'
+            cart:
+              $ref: '#/components/schemas/ContextSource'
+            custom:
+              $ref: '#/components/schemas/ContextSource'
+        assembledAt:
+          type: string
+          format: date-time
+        tokenCount:
+          type: integer
+        sourcesUsed:
+          type: array
+          items:
+            type: string
+
+    ContextSource:
+      type: object
+      properties:
+        included:
+          type: boolean
+        summary:
+          type: string
+        tokenCount:
+          type: integer
+        sourceService:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        error:
+          type: string
+
+    CreateSessionRequest:
+      type: object
+      required:
+        - copilotId
+      properties:
+        copilotId:
+          type: string
+          format: uuid
+        persona:
+          type: string
+        userId:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        ttlMinutes:
+          type: integer
+          default: 60
+          description: Session time-to-live in minutes
+
+    SessionResponse:
+      type: object
+      required:
+        - sessionId
+        - copilotId
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        copilotId:
+          type: string
+          format: uuid
+        persona:
+          type: string
+        status:
+          type: string
+          enum: [ACTIVE, EXPIRED, CLOSED]
+        createdAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+
+    SessionDetails:
+      allOf:
+        - $ref: '#/components/schemas/SessionResponse'
+        - type: object
+          properties:
+            messageCount:
+              type: integer
+            history:
+              type: array
+              items:
+                $ref: '#/components/schemas/MessageEntry'
+            contextTokenCount:
+              type: integer
+            totalTokenUsage:
+              type: integer
+            lastActivityAt:
+              type: string
+              format: date-time
+
+    MessageEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [user, assistant, system, tool]
+        content:
+          type: string
+        toolCalls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolCall'
+        timestamp:
+          type: string
+          format: date-time
+        tokens:
+          type: integer
+
+    ToolCall:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        function:
+          type: object
+          properties:
+            name:
+              type: string
+            arguments:
+              type: string
+        result:
+          type: object
+          additionalProperties: true
+
+    UsageInfo:
+      type: object
+      properties:
+        promptTokens:
+          type: integer
+        completionTokens:
+          type: integer
+        totalTokens:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - status
+        - timestamp
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        status:
+          type: integer
+          description: HTTP status code
+        timestamp:
+          type: string
+          format: date-time
+        path:
+          type: string
+          description: Request path
+        traceId:
+          type: string
+          description: Distributed tracing ID
