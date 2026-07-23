@@ -1,0 +1,27 @@
+server:
+  port: 8104
+
+spring:
+  application:
+    name: bi-copilot-service
+
+sporekart:
+  bi:
+    copilot:
+      enabled: true
+      data-retention-days: 90
+      report-formats: PDF,EXCEL,CSV,HTML
+      dashboard-refresh-interval: 300s
+      forecast-horizon-days: 365
+      max-query-result-size: 10000
+      cache-ttl: 5m
+      audit-enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
