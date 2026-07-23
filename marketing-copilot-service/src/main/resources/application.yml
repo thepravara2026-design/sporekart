@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: marketing-copilot-service
+
+server:
+  port: 8107
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+sporekart:
+  marketing:
+    copilot:
+      streaming-timeout-seconds: 300
+      default-audience: home-growers,commercial-growers,enthusiasts
+      brand-voice: professional,creative,data-driven,persuasive,business-oriented
+      brand-guidelines-path: /etc/sporekart/brand-guidelines
+      seo-default-locale: en_IN
+      social-platforms: instagram,facebook,linkedin,youtube,threads,pinterest,twitter
+      email-from-name: SporeKart Marketing
+      email-from-address: marketing@sporekart.com
+      whatsapp-business-number: "+919999999999"
