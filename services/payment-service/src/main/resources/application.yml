@@ -2,13 +2,13 @@ spring:
   application:
     name: payment-service
   datasource:
-    url: jdbc:h2:mem:payment-service;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/CHANGE-ME}
+    username: ${SPRING_DATASOURCE_USERNAME:CHANGE-ME}
+    password: ${SPRING_DATASOURCE_PASSWORD:CHANGE-ME}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
