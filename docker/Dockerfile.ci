@@ -1,0 +1,8 @@
+# SporeKart — CI Runner Dockerfile
+
+FROM eclipse-temurin:21-jdk-alpine AS ci-runner
+RUN apk add --no-cache git curl wget bash
+RUN mkdir -p /workspace
+COPY . /workspace
+WORKDIR /workspace
+ENTRYPOINT ["sh", "/workspace/scripts/ci-build.sh"]

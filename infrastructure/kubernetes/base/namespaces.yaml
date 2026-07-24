@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-platform
+  labels:
+    name: sporekart-platform
+    environment: production
+    managed-by: terraform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-services
+  labels:
+    name: sporekart-services
+    environment: production
+    managed-by: terraform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-ai
+  labels:
+    name: sporekart-ai
+    environment: production
+    managed-by: terraform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-copilot
+  labels:
+    name: sporekart-copilot
+    environment: production
+    managed-by: terraform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-infra
+  labels:
+    name: sporekart-infra
+    environment: production
+    managed-by: terraform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sporekart-observability
+  labels:
+    name: sporekart-observability
+    environment: production
+    managed-by: terraform

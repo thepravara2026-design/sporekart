@@ -1,0 +1,70 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sporekart-app-reader
+  labels:
+    app: sporekart
+rules:
+  - apiGroups: [""]
+    resources: ["services", "endpoints", "pods"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sporekart-app-reader-binding
+  labels:
+    app: sporekart
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: sporekart-services
+  - kind: ServiceAccount
+    name: default
+    namespace: sporekart-platform
+  - kind: ServiceAccount
+    name: default
+    namespace: sporekart-ai
+roleRef:
+  kind: ClusterRole
+  name: sporekart-app-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sporekart-deployer
+  namespace: sporekart-platform
+  labels:
+    app: sporekart
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sporekart-deployer-role
+  namespace: sporekart-services
+  labels:
+    app: sporekart
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sporekart-deployer-binding
+  namespace: sporekart-services
+  labels:
+    app: sporekart
+subjects:
+  - kind: ServiceAccount
+    name: sporekart-deployer
+    namespace: sporekart-platform
+roleRef:
+  kind: Role
+  name: sporekart-deployer-role
+  apiGroup: rbac.authorization.k8s.io

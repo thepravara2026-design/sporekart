@@ -1,27 +1,24 @@
 # SporeKart — Web Application Production Dockerfile
-# Sprint E (Production Hardening) — P1-04
+# Multi-stage: builder → minimal runtime with health probes
 
 FROM node:20-alpine AS builder
-
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm ci --omit=dev
-
 COPY . .
 RUN npm run build
 
-FROM node:20-alpine
-
+FROM node:20-alpine AS runtime
+RUN apk add --no-cache curl
 WORKDIR /app
-
 RUN npm install -g serve
-
 COPY --from=builder /app/dist /app/dist
-
 EXPOSE 4173
-
+ENV NODE_ENV=production
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=10s \
-  CMD node -e "require('http').get('http://localhost:4173/health', r => {process.exit(r.statusCode === 200 ? 0 : 1)})"
-
+  CMD curl -sf http://localhost:4173/health || exit 1
+LABEL com.sporekart.service="web-app" \
+      com.sporekart.version="2.0.0" \
+      com.sporekart.managed-by="terraform"
+USER node
 CMD ["serve", "-s", "dist", "-l", "4173", "--no-clipboard"]
