@@ -17,3 +17,12 @@ spring:
 logging:
   level:
     root: WARN
+
+app:
+  security:
+    jwt:
+      secret: test-jwt-secret-key-for-hmac-signing-minimum-32-bytes!
+      issuer: https://identity.sporekart.test
+      expiration-minutes: 15
+      refresh-expiration-minutes: 10080
+      clock-skew-seconds: 5
