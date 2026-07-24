@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Base64;
 
 @Service
 public class IdentityService {
@@ -58,6 +59,8 @@ public class IdentityService {
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new BusinessException("Invalid credentials");
         }
-        return new AuthResponse("placeholder-access-token", "placeholder-refresh-token", "Bearer", 900L);
+        String accessToken = Base64.getUrlEncoder().encodeToString((user.getId() + ":" + Instant.now().toEpochMilli() + ":" + UUID.randomUUID()).getBytes());
+        String refreshToken = UUID.randomUUID().toString() + "-" + UUID.randomUUID().toString();
+        return new AuthResponse(accessToken, refreshToken, "Bearer", 900L);
     }
 }

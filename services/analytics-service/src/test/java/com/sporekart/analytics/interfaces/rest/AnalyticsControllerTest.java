@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,7 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
+@WithMockUser(roles = "ADMIN")
 class AnalyticsControllerTest {
 
     @Autowired
@@ -29,7 +31,9 @@ class AnalyticsControllerTest {
     void shouldExposeDashboardReportAndSeoEndpoints() throws Exception {
         mockMvc.perform(get("/analytics/dashboard"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasKey("revenueToday")));
+                .andExpect(jsonPath("$", hasKey("totalWidgets")))
+                .andExpect(jsonPath("$", hasKey("totalReports")))
+                .andExpect(jsonPath("$", hasKey("totalSeoEntries")));
 
         mockMvc.perform(post("/analytics/widgets")
                 .contentType(MediaType.APPLICATION_JSON)

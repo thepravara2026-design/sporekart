@@ -19,12 +19,47 @@ public class AnalyticsService {
     }
 
     public Map<String, Object> getDashboard() {
-        Map<String, Object> dashboard = new HashMap<>();
-        dashboard.put("revenueToday", 125000.0);
-        dashboard.put("ordersToday", 42);
-        dashboard.put("conversionRate", 3.8);
+        Map<String, Object> dashboard = repositoryPort.getDashboard();
+        if (dashboard == null) {
+            dashboard = new HashMap<>();
+        }
         dashboard.put("widgets", repositoryPort.findAllWidgets());
         return dashboard;
+    }
+
+    public Map<String, Object> getSalesMetrics() {
+        Map<String, Object> metrics = repositoryPort.getSalesMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getCustomerMetrics() {
+        Map<String, Object> metrics = repositoryPort.getCustomerMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getInventoryMetrics() {
+        Map<String, Object> metrics = repositoryPort.getInventoryMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getPaymentMetrics() {
+        Map<String, Object> metrics = repositoryPort.getPaymentMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getShipmentMetrics() {
+        Map<String, Object> metrics = repositoryPort.getShipmentMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getTrainingMetrics() {
+        Map<String, Object> metrics = repositoryPort.getTrainingMetrics();
+        return metrics != null ? metrics : new HashMap<>();
+    }
+
+    public Map<String, Object> getGrowerMetrics() {
+        Map<String, Object> metrics = repositoryPort.getGrowerMetrics();
+        return metrics != null ? metrics : new HashMap<>();
     }
 
     public List<DashboardWidget> getWidgets() {

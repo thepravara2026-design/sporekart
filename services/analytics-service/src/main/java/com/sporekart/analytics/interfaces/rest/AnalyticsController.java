@@ -30,43 +30,43 @@ public class AnalyticsController {
     @GetMapping("/sales")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> sales() {
-        return ResponseEntity.ok(Map.of("revenueTrend", "up", "topSellingProducts", List.of("SporeMix")));
+        return ResponseEntity.ok(analyticsService.getSalesMetrics());
     }
 
     @GetMapping("/customers")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> customers() {
-        return ResponseEntity.ok(Map.of("retention", 78.5, "repeatPurchases", 34));
+        return ResponseEntity.ok(analyticsService.getCustomerMetrics());
     }
 
     @GetMapping("/inventory")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> inventory() {
-        return ResponseEntity.ok(Map.of("lowStock", 11, "outOfStock", 2));
+        return ResponseEntity.ok(analyticsService.getInventoryMetrics());
     }
 
     @GetMapping("/payments")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> payments() {
-        return ResponseEntity.ok(Map.of("successRate", 98.4, "refundRate", 1.2));
+        return ResponseEntity.ok(analyticsService.getPaymentMetrics());
     }
 
     @GetMapping("/shipments")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> shipments() {
-        return ResponseEntity.ok(Map.of("delayed", 4, "successRate", 96.8));
+        return ResponseEntity.ok(analyticsService.getShipmentMetrics());
     }
 
     @GetMapping("/trainings")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> trainings() {
-        return ResponseEntity.ok(Map.of("enrollmentTrend", "up", "completionRate", 92));
+        return ResponseEntity.ok(analyticsService.getTrainingMetrics());
     }
 
     @GetMapping("/growers")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> growers() {
-        return ResponseEntity.ok(Map.of("activeGrowers", 128, "certificationRate", 87));
+        return ResponseEntity.ok(analyticsService.getGrowerMetrics());
     }
 
     @GetMapping("/widgets")

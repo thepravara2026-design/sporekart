@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS carts (
+    id VARCHAR(36) PRIMARY KEY,
+    customer_id VARCHAR(100) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'ACTIVE',
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS cart_items (
+    id VARCHAR(36) PRIMARY KEY,
+    cart_id VARCHAR(36) NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
+    product_id VARCHAR(100) NOT NULL,
+    sku VARCHAR(100) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    quantity INTEGER NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_cart_items_cart_id ON cart_items(cart_id);
+CREATE INDEX IF NOT EXISTS idx_carts_customer_id ON carts(customer_id);
