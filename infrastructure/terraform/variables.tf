@@ -28,3 +28,15 @@ variable "environment" {
   type        = string
   default     = "production"
 }
+
+variable "alert_email" {
+  description = "Email for CloudWatch alarm notifications"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}

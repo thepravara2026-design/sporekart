@@ -300,30 +300,6 @@ resource "aws_iam_role" "ecs_task" {
   })
 }
 
-# ---- Variables ----
-
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "container_registry" {
-  description = "ECR repository URL"
-  type        = string
-}
-
-variable "image_tag" {
-  description = "Container image tag"
-  type        = string
-  default     = "latest"
-}
-
-variable "ssl_certificate_arn" {
-  description = "ARN of ACM SSL certificate"
-  type        = string
-}
-
 # ---- Secrets Manager ----
 
 resource "aws_secretsmanager_secret" "supabase_url" {

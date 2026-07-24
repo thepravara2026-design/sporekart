@@ -35,3 +35,28 @@ output "secrets_manager_arns" {
     stripe_pk     = aws_secretsmanager_secret.stripe_pk.arn
   }
 }
+
+output "cloudfront_domain" {
+  description = "CloudFront distribution domain name"
+  value       = aws_cloudfront_distribution.sporekart.domain_name
+}
+
+output "waf_acl_arn" {
+  description = "WAF web ACL ARN"
+  value       = aws_wafv2_web_acl.sporekart.arn
+}
+
+output "staging_alb_dns" {
+  description = "Staging ALB DNS name"
+  value       = aws_lb.web_app_staging.dns_name
+}
+
+output "route53_zone_id" {
+  description = "Route53 hosted zone ID"
+  value       = aws_route53_zone.sporekart.zone_id
+}
+
+output "certificate_arn" {
+  description = "ACM certificate ARN"
+  value       = aws_acm_certificate.sporekart.arn
+}
