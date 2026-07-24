@@ -1,0 +1,131 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "title": "SporeKart AI Performance",
+  "uid": "sporekart-ai-perf",
+  "panels": [
+    {
+      "title": "AI Request Latency (P50, P95, P99)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {"expr": "histogram_quantile(0.50, rate(ai_request_duration_seconds_bucket[5m]))", "legendFormat": "p50"},
+        {"expr": "histogram_quantile(0.95, rate(ai_request_duration_seconds_bucket[5m]))", "legendFormat": "p95"},
+        {"expr": "histogram_quantile(0.99, rate(ai_request_duration_seconds_bucket[5m]))", "legendFormat": "p99"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "AI Request Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {"expr": "rate(ai_request_total[1m])", "legendFormat": "requests"}
+      ]
+    },
+    {
+      "title": "Prompt Processing Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 0, "y": 8},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(prompt_processing_duration_seconds_bucket[5m]))", "legendFormat": "p95"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Knowledge Retrieval Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 6, "y": 8},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(knowledge_retrieval_duration_seconds_bucket[5m]))", "legendFormat": "p95"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "RAG Retrieval Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 12, "y": 8},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(rag_retrieval_duration_seconds_bucket[5m]))", "legendFormat": "p95"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Context Build Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 18, "y": 8},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(context_build_duration_seconds_bucket[5m]))", "legendFormat": "p95"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Token Generation Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 16},
+      "targets": [
+        {"expr": "rate(ai_tokens_generated_total[1m])", "legendFormat": "tokens/s"}
+      ]
+    },
+    {
+      "title": "Provider Routing Distribution",
+      "type": "piechart",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 16},
+      "targets": [
+        {"expr": "rate(ai_provider_requests_total[5m])", "legendFormat": "{{provider}}"}
+      ]
+    },
+    {
+      "title": "AI Error Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 16},
+      "targets": [
+        {"expr": "rate(ai_errors_total[5m])", "legendFormat": "errors"}
+      ]
+    },
+    {
+      "title": "Memory Retrieval Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 24},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(memory_retrieval_duration_seconds_bucket[5m]))", "legendFormat": "p95"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Response Streaming Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 24},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(response_stream_duration_seconds_bucket[5m]))", "legendFormat": "p95 stream start"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Cache Hit Ratio (AI)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 24},
+      "targets": [
+        {"expr": "rate(ai_cache_hits[5m]) / (rate(ai_cache_hits[5m]) + rate(ai_cache_misses[5m]))", "legendFormat": "hit ratio"}
+      ],
+      "fieldConfig": {"unit": "percentunit"}
+    },
+    {
+      "title": "Concurrent AI Requests",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32},
+      "targets": [
+        {"expr": "ai_concurrent_requests", "legendFormat": "concurrent"}
+      ]
+    },
+    {
+      "title": "Prompt Size Distribution",
+      "type": "heatmap",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32},
+      "targets": [
+        {"expr": "rate(ai_prompt_tokens_bucket[5m])", "legendFormat": ""}
+      ]
+    }
+  ],
+  "schemaVersion": 30
+}

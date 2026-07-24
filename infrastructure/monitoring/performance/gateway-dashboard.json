@@ -1,0 +1,112 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "title": "SporeKart API Gateway Performance",
+  "uid": "sporekart-gateway-perf",
+  "panels": [
+    {
+      "title": "Gateway Throughput",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {"expr": "rate(gateway_requests_total[1m])", "legendFormat": "requests"}
+      ],
+      "fieldConfig": {"unit": "rps"}
+    },
+    {
+      "title": "Latency by Route",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(gateway_route_duration_seconds_bucket[5m]))", "legendFormat": "{{route}}"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Active Connections",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "targets": [
+        {"expr": "gateway_connections_active", "legendFormat": "active"},
+        {"expr": "gateway_connections_pending", "legendFormat": "pending"}
+      ]
+    },
+    {
+      "title": "Rate Limit Rejections",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+      "targets": [
+        {"expr": "rate(gateway_rate_limit_rejections[1m])", "legendFormat": "rejected"}
+      ]
+    },
+    {
+      "title": "Circuit Breaker Status",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+      "targets": [
+        {"expr": "gateway_circuit_breaker_state{state=\"open\"}", "legendFormat": "{{service}}"}
+      ]
+    },
+    {
+      "title": "Upstream Latency by Service",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, rate(gateway_upstream_duration_seconds_bucket[5m]))", "legendFormat": "{{upstream}}"}
+      ],
+      "fieldConfig": {"unit": "s"}
+    },
+    {
+      "title": "Upstream Error Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+      "targets": [
+        {"expr": "rate(gateway_upstream_errors_total[1m])", "legendFormat": "{{upstream}}"}
+      ]
+    },
+    {
+      "title": "Response Status Codes",
+      "type": "bargauge",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 24},
+      "targets": [
+        {"expr": "rate(gateway_response_status_total[5m])", "legendFormat": "{{status}}"}
+      ]
+    },
+    {
+      "title": "Request Size Distribution",
+      "type": "heatmap",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 24},
+      "targets": [
+        {"expr": "rate(gateway_request_size_bytes_bucket[5m])", "legendFormat": ""}
+      ]
+    },
+    {
+      "title": "Caching Performance",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 24},
+      "targets": [
+        {"expr": "rate(gateway_cache_hits[5m])", "legendFormat": "hits"},
+        {"expr": "rate(gateway_cache_misses[5m])", "legendFormat": "misses"}
+      ]
+    },
+    {
+      "title": "Route Traffic Distribution",
+      "type": "piechart",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32},
+      "targets": [
+        {"expr": "rate(gateway_requests_total[5m])", "legendFormat": "{{route}}"}
+      ]
+    },
+    {
+      "title": "Connection Pool (HTTP Client)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32},
+      "targets": [
+        {"expr": "gateway_http_client_pool_active", "legendFormat": "active"},
+        {"expr": "gateway_http_client_pool_idle", "legendFormat": "idle"},
+        {"expr": "gateway_http_client_pool_pending", "legendFormat": "pending"}
+      ]
+    }
+  ],
+  "schemaVersion": 30
+}

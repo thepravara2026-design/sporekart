@@ -1,0 +1,60 @@
+spring:
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000
+      cache-null-values: false
+      use-key-prefix: true
+      key-prefix: sporekart:
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+cache:
+  configs:
+    product-cache:
+      ttl: 300
+      max-size: 10000
+      eviction-policy: LRU
+    category-cache:
+      ttl: 600
+      max-size: 1000
+      eviction-policy: LRU
+    user-session:
+      ttl: 1800
+      max-size: 50000
+      eviction-policy: TTL
+    inventory-cache:
+      ttl: 60
+      max-size: 5000
+      eviction-policy: LRU
+    knowledge-cache:
+      ttl: 3600
+      max-size: 10000
+      eviction-policy: LFU
+    ai-response-cache:
+      ttl: 86400
+      max-size: 50000
+      eviction-policy: LFU
+    configuration-cache:
+      ttl: 300
+      max-size: 500
+      eviction-policy: LRU
+    rate-limit-cache:
+      ttl: 60
+      max-size: 100000
+      eviction-policy: TTL
+    idempotency-cache:
+      ttl: 86400
+      max-size: 100000
+      eviction-policy: TTL
+    event-dedupe-cache:
+      ttl: 3600
+      max-size: 50000
+      eviction-policy: TTL
+    token-cache:
+      ttl: 300
+      max-size: 50000
+      eviction-policy: LRU

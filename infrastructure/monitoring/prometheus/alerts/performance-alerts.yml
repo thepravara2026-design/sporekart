@@ -1,0 +1,223 @@
+groups:
+  - name: sporekart-performance
+    interval: 30s
+    rules:
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95,
+            rate(http_server_request_duration_seconds_bucket[5m])
+          ) > 0.5
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'P95 latency exceeds 500ms'
+          description: 'P95 latency is {{ $value }}s for the last 5 minutes'
+
+      - alert: HighLatencyP99
+        expr: |
+          histogram_quantile(0.99,
+            rate(http_server_request_duration_seconds_bucket[5m])
+          ) > 1.0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'P99 latency exceeds 1s'
+          description: 'P99 latency is {{ $value }}s for the last 5 minutes'
+
+      - alert: HighErrorRate
+        expr: |
+          rate(http_server_requests_seconds_count{status=~"5.."}[5m])
+          /
+          rate(http_server_requests_seconds_count[5m]) > 0.01
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'Error rate exceeds 1%'
+          description: 'Error rate is {{ $value | humanizePercentage }} for the last 5 minutes'
+
+      - alert: DatabaseQuerySlowness
+        expr: |
+          rate(hibernate_query_execution_total{slow=true}[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Slow database queries detected'
+          description: '{{ $value }} slow queries per second detected'
+
+      - alert: ConnectionPoolExhaustion
+        expr: |
+          hikaricp_connections_active / hikaricp_connections_max > 0.8
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Connection pool near capacity'
+          description: 'Connection pool is {{ $value | humanizePercentage }} utilized'
+
+      - alert: ConnectionPoolExhausted
+        expr: |
+          hikaricp_connections_pending > 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'Connection pool exhausted'
+          description: '{{ $value }} requests waiting for connection'
+
+      - alert: HighCPUUsage
+        expr: |
+          process_cpu_usage > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'High CPU usage'
+          description: 'CPU usage is {{ $value | humanizePercentage }}'
+
+      - alert: CriticalCPUUsage
+        expr: |
+          process_cpu_usage > 0.95
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'Critical CPU usage'
+          description: 'CPU usage is {{ $value | humanizePercentage }}'
+
+      - alert: HighMemoryUsage
+        expr: |
+          jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"} > 0.85
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'High heap memory usage'
+          description: 'Heap usage is {{ $value | humanizePercentage }}'
+
+      - alert: CriticalMemoryUsage
+        expr: |
+          jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"} > 0.95
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'Critical heap memory usage'
+          description: 'Heap usage is {{ $value | humanizePercentage }}'
+
+      - alert: FrequentGC
+        expr: |
+          rate(jvm_gc_pause_seconds_count[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Frequent garbage collection'
+          description: '{{ $value }} GC pauses per second'
+
+      - alert: LongGCPause
+        expr: |
+          rate(jvm_gc_pause_seconds_max[5m]) > 0.5
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: 'Long GC pause detected'
+          description: 'Max GC pause is {{ $value }}s'
+
+      - alert: HighGCOverhead
+        expr: |
+          rate(jvm_gc_pause_seconds_sum[5m]) / 300 > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'High GC overhead'
+          description: 'GC overhead is {{ $value | humanizePercentage }} of runtime'
+
+      - alert: ThreadPoolExhaustion
+        expr: |
+          jvm_threads_daemon / jvm_threads_peak > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Thread pool near capacity'
+          description: 'Thread usage is {{ $value | humanizePercentage }}'
+
+      - alert: ThroughputDrop
+        expr: |
+          rate(http_server_requests_seconds_count[5m]) <
+          rate(http_server_requests_seconds_count[30m]) * 0.5
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Throughput drop detected'
+          description: 'Current throughput is 50% below 30-minute average'
+
+      - alert: AIRequestLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(ai_request_duration_seconds_bucket[5m])
+          ) > 3.0
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'AI request latency exceeds 3s'
+          description: 'P95 AI latency is {{ $value }}s'
+
+      - alert: EventPublishLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(event_publish_duration_seconds_bucket[5m])
+          ) > 0.01
+        for: 2m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Event publish latency exceeds 10ms'
+          description: 'P95 event publish latency is {{ $value }}s'
+
+      - alert: CacheHitRatioDrop
+        expr: |
+          rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m])) < 0.8
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Cache hit ratio below 80%'
+          description: 'Cache hit ratio is {{ $value | humanizePercentage }}'
+
+      - alert: RateLimitThrottling
+        expr: |
+          rate(gateway_requests_rejected_total[5m]) > 10
+        for: 1m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: 'Rate limit throttling active'
+          description: '{{ $value }} requests rejected per second'

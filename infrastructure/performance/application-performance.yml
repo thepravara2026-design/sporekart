@@ -1,0 +1,191 @@
+spring:
+  threads:
+    virtual:
+      enabled: true
+
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 64
+        queue-capacity: 512
+        keep-alive: 60s
+      thread-name-prefix: perf-task-
+    scheduling:
+      pool:
+        size: 4
+
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 2000
+      max-lifetime: 1200000
+      pool-name: SporekartPool
+      connection-test-query: SELECT 1
+      validation-timeout: 500
+      leak-detection-threshold: 60000
+      register-mbeans: true
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+        generate_statistics: true
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+        query:
+          in_clause_parameter_padding: true
+          plan_cache_max_size: 2048
+          plan_parameter_metadata_max_size: 2048
+        connection:
+          provider_disables_autocommit: true
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 50
+
+  data:
+    redis:
+      timeout: 2000
+      connect-timeout: 1000
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+          max-wait: 500ms
+        shutdown-timeout: 200ms
+
+  jackson:
+    serialization:
+      write-durability: async
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    parser:
+      max-string-length: 10000
+    mapper:
+      sort-properties-alphabetically: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  tomcat:
+    threads:
+      min-spare: 10
+      max: 200
+    max-connections: 10000
+    accept-count: 100
+    connection-timeout: 5000
+    keep-alive-timeout: 30000
+    max-keep-alive-requests: 100
+    processor-cache: 200
+    relaxed-query-chars: '|,{,},[,]'
+    use-relative-redirects: true
+    redirect-context-root: false
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/json,application/javascript
+    min-response-size: 1024
+  undertow:
+    threads:
+      io: 4
+      worker: 64
+    buffer-size: 16384
+    direct-buffers: true
+
+  shutdown: graceful
+
+logging:
+  level:
+    org.hibernate.stat: INFO
+    org.hibernate.SQL: WARN
+    com.zaxxer.hikari: WARN
+    org.springframework.cache: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,threaddump,heapdump,env,info
+  metrics:
+    tags:
+      application: sporekart
+      environment: ${SPRING_PROFILES_ACTIVE:development}
+    export:
+      prometheus:
+        enabled: true
+        step: 15s
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+        jdbc: true
+        cache: true
+      slo:
+        http.server.requests: 10ms,50ms,100ms,200ms,500ms,1s,2s
+
+springdoc:
+  cache:
+    disabled: true
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 100
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 10
+        permitted-number-of-calls-in-half-open-state: 5
+        wait-duration-in-open-state: 10s
+        failure-rate-threshold: 50
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 2000ms
+        writable-stack-trace-enabled: true
+        record-exceptions:
+          - java.net.ConnectException
+          - java.net.SocketTimeoutException
+          - org.springframework.dao.DataAccessException
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 500ms
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - java.net.ConnectException
+          - java.net.SocketTimeoutException
+  bulkhead:
+    configs:
+      default:
+        max-concurrent-calls: 20
+        max-wait-duration: 100ms
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 5s
+        cancel-running-future: true
+  thread-pool-bulkhead:
+    configs:
+      default:
+        max-thread-pool-size: 8
+        core-thread-pool-size: 4
+        queue-capacity: 32
+        keepalive-duration: 60s

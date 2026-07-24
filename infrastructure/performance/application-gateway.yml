@@ -1,0 +1,116 @@
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 5s
+        pool:
+          type: elastic
+          max-idle-time: 30s
+          max-life-time: 60s
+          acquire-timeout: 3000
+          max-connections: 1000
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 500
+                redis-rate-limiter.burstCapacity: 1000
+            - name: CircuitBreaker
+              args:
+                name: productServiceCB
+                fallbackUri: forward:/fallback/products
+            - name: CacheRequestBody
+            - name: DedupeResponseHeader
+              args:
+                strategy: RETAIN_FIRST
+        - id: identity-service
+          uri: lb://identity-service
+          predicates:
+            - Path=/api/v1/auth/**,/api/v1/users/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 1000
+                redis-rate-limiter.burstCapacity: 2000
+            - name: CircuitBreaker
+              args:
+                name: identityServiceCB
+                fallbackUri: forward:/fallback/identity
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 100
+                redis-rate-limiter.burstCapacity: 200
+            - name: CircuitBreaker
+              args:
+                name: orderServiceCB
+                fallbackUri: forward:/fallback/orders
+        - id: ai-service
+          uri: lb://ai-service
+          predicates:
+            - Path=/api/v1/ai/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 50
+                redis-rate-limiter.burstCapacity: 100
+            - name: CircuitBreaker
+              args:
+                name: aiServiceCB
+                fallbackUri: forward:/fallback/ai
+            - name: Retry
+              args:
+                retries: 2
+                statuses: BAD_GATEWAY,SERVICE_UNAVAILABLE,GATEWAY_TIMEOUT
+              methods: GET,POST
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/api/v1/inventory/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 200
+                redis-rate-limiter.burstCapacity: 400
+            - name: CircuitBreaker
+              args:
+                name: inventoryServiceCB
+                fallbackUri: forward:/fallback/inventory
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/notifications/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddressKeyResolver}'
+                redis-rate-limiter.replenishRate: 500
+                redis-rate-limiter.burstCapacity: 1000
+
+  redis:
+    rate-limiter:
+      replenishRate: 1000
+      burstCapacity: 2000
+
+gateway:
+  performance:
+    prefetch-routes: true
+    warmup-enabled: true
+    route-cache-size: 1000
+    request-logging: false
+    response-buffering: true
+    buffer-size: 65536
