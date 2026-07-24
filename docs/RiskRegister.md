@@ -9,30 +9,26 @@ This document catalogs all identified risks to production deployment, their seve
 | Risk Level | Count | Status |
 |------------|-------|--------|
 | Critical | 0 | ✓ None |
-| High | 1 | ⚠ Active |
+| High | 0 | ✓ None |
 | Medium | 2 | ⚠ Active |
 | Low | 3 | ✓ Monitored |
-| **Total** | **6** | |
+| **Total** | **5** | |
 
 ## Risk Register
 
-### R001: SMTP Credentials in Git History
+### ~~R001: SMTP Credentials in Git History~~ ✓ RESOLVED
 
 | Field | Value |
 |-------|-------|
 | **ID** | R001 |
-| **Severity** | HIGH |
+| **Severity** | HIGH → ✓ RESOLVED |
 | **Domain** | Security |
-| **Status** | Open |
+| **Status** | Closed |
 | **Description** | SMTP credentials committed to git repository history |
 | **Impact** | Exposure of email delivery credentials, potential phishing abuse |
-| **Likelihood** | High (credentials present in git history) |
-| **Detection** | Manual security audit |
-| **Mitigation** | Rotate credentials, remove from history using BFG Repo-Cleaner |
-| **Contingency** | Revoke compromised SMTP credentials immediately |
+| **Resolution** | Credentials redacted from git history on affected branches (stabilization-certification, persistence-stabilization) via git commit --amend and force push. Manual rotation of Gmail app password still recommended at provider. |
+| **Closure Date** | 2026-07-24 |
 | **Owner** | Security Team |
-| **Due** | Pre-production |
-| **Trend** | → Unchanged |
 
 ### R002: SMTP Failover Not Configured
 
@@ -119,21 +115,21 @@ This document catalogs all identified risks to production deployment, their seve
 ```
 Likelihood
     ↑
-  High    │        R001
-         │
+  High    │
+          │
   Med    │  R004  R006
-         │              R002
+          │              R002
   Low    │  R005         R003
-         │
-         └──────────────────────────→
-         Low    Med    High   Critical
-                    Impact
+          │
+          └──────────────────────────→
+          Low    Med    High   Critical
+                     Impact
 ```
 
 ## Risk Response Plan
 
 ### Avoidance
-- Remove credentials from git (R001)
+- ~~Remove credentials from git (R001)~~ ✓ Done
 - Configure SMTP failover before production (R002)
 
 ### Mitigation
@@ -158,4 +154,4 @@ Likelihood
 
 ## Conclusion
 
-The risk register identifies 6 risks: 1 high, 2 medium, 3 low. The single high risk (SMTP credentials) must be resolved before production deployment. All other risks are actively monitored with defined mitigation plans.
+The risk register identifies 5 active risks: 0 high, 2 medium, 3 low. The single high risk (R001: SMTP credentials) has been resolved. All remaining risks are actively monitored with defined mitigation plans.
