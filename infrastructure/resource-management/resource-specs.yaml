@@ -1,0 +1,63 @@
+# SporeKart Enterprise Resource Management
+# CPU/Memory specifications and scaling parameters for all services
+
+## Service Resource Profiles
+
+| Service | Namespace | CPU Request | CPU Limit | Memory Request | Memory Limit | Min Replicas | Max Replicas |
+|---------|-----------|-------------|-----------|----------------|--------------|--------------|--------------|
+| gateway-service | sporekart-platform | 256m | 512m | 512Mi | 1Gi | 2 | 10 |
+| identity-service | sporekart-platform | 256m | 1 | 512Mi | 1Gi | 2 | 6 |
+| catalog-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 2 | 6 |
+| cart-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 2 | 6 |
+| order-service | sporekart-services | 256m | 512m | 512Mi | 1Gi | 2 | 8 |
+| payment-service | sporekart-services | 256m | 512m | 512Mi | 1Gi | 2 | 8 |
+| inventory-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 2 | 6 |
+| notification-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 2 | 4 |
+| fulfillment-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 2 | 4 |
+| ai-service | sporekart-ai | 512m | 2 | 1Gi | 4Gi | 2 | 20 |
+| training-service | sporekart-services | 256m | 512m | 512Mi | 1Gi | 1 | 4 |
+| admin-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 1 | 4 |
+| analytics-service | sporekart-services | 256m | 512m | 512Mi | 1Gi | 1 | 4 |
+| search-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 1 | 4 |
+| content-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 1 | 4 |
+| risk-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 1 | 4 |
+| support-service | sporekart-services | 128m | 256m | 256Mi | 512Mi | 1 | 4 |
+
+## Java JVM Tuning
+
+| Service | Heap (Initial) | Heap (Max) | GC Algorithm | Extra JVM Flags |
+|---------|---------------|------------|-------------|-----------------|
+| gateway-service | 256m | 512m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| identity-service | 256m | 512m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| order-service | 256m | 512m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| payment-service | 256m | 512m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| ai-service | 512m | 2g | G1GC | -XX:+ExitOnOutOfMemoryError, -XX:+UseStringDeduplication |
+| catalog-service | 128m | 256m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| cart-service | 128m | 256m | G1GC | -XX:+ExitOnOutOfMemoryError |
+| all others | 128m | 256m | G1GC | -XX:+ExitOnOutOfMemoryError |
+
+## Connection Pool Limits
+
+| Resource | Default | Max | Per Service |
+|----------|---------|-----|-------------|
+| Database connections (HikariCP) | 10 | 20 | Varies by service tier |
+| Redis connections | 8 | 16 | All services |
+| Kafka producers | 3 | 10 | ai-service only |
+| HTTP client connections | 50 | 200 | gateway-service |
+| Thread pool (task executor) | 10 | 50 | ai-service |
+
+## Autoscaling Thresholds
+
+| Metric | Scale Up | Scale Down | Cooldown |
+|--------|----------|------------|----------|
+| CPU Utilization | > 70% for 3 min | < 40% for 5 min | 3 min |
+| Memory Utilization | > 80% for 3 min | < 60% for 5 min | 3 min |
+| Request Rate (gateway) | > 1000 req/s | < 200 req/s for 10 min | 5 min |
+
+## Pod Disruption Budgets
+
+| Tier | minAvailable | Services |
+|------|-------------|----------|
+| Critical | 1 (with 2+ replicas) | gateway, identity, order, payment, ai |
+| Standard | 1 (with 2+ replicas) | catalog, cart, inventory, notification |
+| Background | 0 | training, admin, analytics, search, content, risk, support |

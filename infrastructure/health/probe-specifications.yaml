@@ -1,0 +1,152 @@
+# SporeKart Enterprise Docker Health Probes
+# Standardized health, readiness, liveness, and startup probes
+
+## Probe Specifications
+
+All services must expose Spring Boot Actuator endpoints:
+
+| Probe | Endpoint | Purpose | Failure Consequence |
+|-------|----------|---------|---------------------|
+| Startup | GET /actuator/health | Application initialized successfully | Container restarted |
+| Liveness | GET /actuator/health/liveness | Application is running | Container restarted |
+| Readiness | GET /actuator/health/readiness | Application ready to serve traffic | Removed from service |
+
+## Probe Configuration by Service Tier
+
+### Critical Tier (gateway, identity, order, payment, ai)
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 20
+  timeoutSeconds: 10
+  failureThreshold: 3
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+startupProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  failureThreshold: 36  # 6 minutes max startup time
+```
+
+### Standard Tier (catalog, cart, inventory, notification, fulfillment)
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8080
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 2
+startupProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  failureThreshold: 30  # 2.5 minutes max startup time
+```
+
+### Background Tier (training, admin, analytics, search, content, risk, support)
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 20
+  timeoutSeconds: 5
+  failureThreshold: 3
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+startupProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  failureThreshold: 24  # 2 minutes max startup time
+```
+
+## Graceful Shutdown
+
+All services must implement graceful shutdown:
+
+```yaml
+lifecycle:
+  preStop:
+    exec:
+      command: ["sh", "-c", "sleep 15"]
+```
+
+Spring Boot configuration:
+```yaml
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+server:
+  shutdown: graceful
+```
+
+## Health Indicator Dependencies
+
+| Health Indicator | Critical | Degraded on Failure | Services |
+|-----------------|----------|--------------------|----------|
+| Database | ✅ | No | All persistence services |
+| Redis | ✅ | No | identity, session, cache |
+| Kafka | ❌ | Yes | ai-service |
+| AI Providers | ❌ | Yes | ai-service |
+| Disk Space | ❌ | Yes | All services |
+| Ping | ✅ | No | All services |
+
+## Dockerfile HEALTHCHECK
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 --start-period=30s \
+  CMD wget -qO- http://localhost:8080/actuator/health/liveness || exit 1
+```
+
+## Verification
+
+```bash
+# Manual health check
+curl -s http://localhost:8080/actuator/health | jq
+
+# Detailed health with components
+curl -s http://localhost:8080/actuator/health | jq '.components'
+
+# Liveness
+curl -s http://localhost:8080/actuator/health/liveness | jq
+
+# Readiness
+curl -s http://localhost:8080/actuator/health/readiness | jq
+```

@@ -1,0 +1,28 @@
+# SporeKart — Gateway Service Production Dockerfile
+
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /build
+COPY . .
+RUN --mount=type=cache,target=/root/.m2 \
+    if [ -f "services/gateway-service/pom.xml" ]; then \
+      mvn package -DskipTests -q -f services/gateway-service/pom.xml -Pquality; \
+    fi
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+RUN addgroup -S sporekart && adduser -S sporekart -G sporekart && \
+    apk add --no-cache wget curl
+WORKDIR /app
+COPY --from=builder /build/services/gateway-service/target/*.jar app.jar
+RUN chown -R sporekart:sporekart /app
+USER sporekart
+EXPOSE 8080
+ENV SPRING_PROFILES_ACTIVE=prod \
+    JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError" \
+    MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=true \
+    MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS=always
+HEALTHCHECK --interval=20s --timeout=5s --retries=3 --start-period=30s \
+  CMD wget -qO- http://localhost:8080/actuator/health/liveness || exit 1
+LABEL com.sporekart.service="gateway-service" \
+      com.sporekart.version="2.0.0" \
+      com.sporekart.managed-by="terraform"
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
