@@ -1,0 +1,235 @@
+name: CD — Enterprise Deployment Pipeline
+
+on:
+  workflow_run:
+    workflows: [CI — Enterprise Validation Pipeline]
+    types: [completed]
+    branches: [sporetest]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+      image_tag:
+        description: Docker image tag (default: git sha)
+        required: false
+        default: ''
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+  MAVEN_OPTS: -Dmaven.wagon.http.retryHandler.count=3
+
+jobs:
+  analyze-changes:
+    name: Analyze Changes
+    runs-on: ubuntu-latest
+    outputs:
+      services: ${{ steps.changes.outputs.services }}
+      has-java: ${{ steps.changes.outputs.has-java }}
+      has-frontend: ${{ steps.changes.outputs.has-frontend }}
+      has-infra: ${{ steps.changes.outputs.has-infra }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changes
+        run: |
+          CHANGED=$(git diff --name-only ${{ github.event.before || 'HEAD~1' }} HEAD)
+          HAS_JAVA=$(echo "$CHANGED" | grep -c '\.java$' || true)
+          HAS_FRONTEND=$(echo "$CHANGED" | grep -c 'frontend/' || true)
+          HAS_INFRA=$(echo "$CHANGED" | grep -c 'infrastructure/' || true)
+          SERVICES=$(echo "$CHANGED" | grep -oP 'services/\K[^/]+' | sort -u | tr '\n' ',' | sed 's/,$//')
+          echo "has-java=$([ "$HAS_JAVA" -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "has-frontend=$([ "$HAS_FRONTEND" -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "has-infra=$([ "$HAS_INFRA" -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "services=$SERVICES" >> $GITHUB_OUTPUT
+
+  build-java-services:
+    name: Build Java Services
+    needs: analyze-changes
+    if: needs.analyze-changes.outputs.has-java == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - admin-service
+          - analytics-service
+          - cart-service
+          - catalog-service
+          - content-service
+          - fulfillment-service
+          - gateway-service
+          - identity-service
+          - inventory-service
+          - notification-service
+          - order-service
+          - payment-service
+          - risk-service
+          - search-service
+          - support-service
+          - training-service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build shared-platform
+        run: mvn -B -f shared-platform/pom.xml install -DskipTests
+        continue-on-error: true
+      - name: Build ${{ matrix.service }}
+        run: mvn -B -f services/${{ matrix.service }}/pom.xml package -DskipTests
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.service }}-jar
+          path: services/${{ matrix.service }}/target/*.jar
+          retention-days: 7
+
+  build-frontend:
+    name: Build Frontend
+    needs: analyze-changes
+    if: needs.analyze-changes.outputs.has-frontend == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build frontend
+        run: npm run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+          retention-days: 7
+
+  containerize:
+    name: Containerize
+    needs: [build-java-services, build-frontend]
+    if: always() && (needs.build-java-services.result == 'success' || needs.build-frontend.result == 'success')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Download all JAR artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: *-jar
+          path: artifacts/jars
+      - name: Download frontend build
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: artifacts/frontend
+        continue-on-error: true
+      - name: Build and push backend container
+        run: |
+          IMAGE_TAG="${{ github.event.inputs.image_tag || github.sha }}"
+          docker build -f docker/Dockerfile.backend \
+            -t ${{ env.ECR_REGISTRY }}/sporekart-backend:$IMAGE_TAG \
+            --build-arg JAR_DIR=artifacts/jars .
+          docker push ${{ env.ECR_REGISTRY }}/sporekart-backend:$IMAGE_TAG
+      - name: Build and push frontend container
+        if: needs.build-frontend.result == 'success'
+        run: |
+          IMAGE_TAG="${{ github.event.inputs.image_tag || github.sha }}"
+          docker build -f docker/Dockerfile.web-app \
+            -t ${{ env.ECR_REGISTRY }}/sporekart-web-app:$IMAGE_TAG .
+          docker push ${{ env.ECR_REGISTRY }}/sporekart-web-app:$IMAGE_TAG
+
+  deploy-staging:
+    name: Deploy to Staging
+    needs: containerize
+    if: github.event_name == 'workflow_run' || (github.event.inputs.environment == 'staging')
+    runs-on: ubuntu-latest
+    environment: staging
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Deploy to ECS staging
+        run: |
+          IMAGE_TAG="${{ github.event.inputs.image_tag || github.sha }}"
+          aws ecs update-service --cluster sporekart-staging --service sporekart-api \
+            --force-new-deployment --region ${{ env.AWS_REGION }}
+          aws ecs wait services-stable --cluster sporekart-staging --services sporekart-api \
+            --region ${{ env.AWS_REGION }}
+      - name: Run migration smoke test
+        run: |
+          curl -sSf -o /dev/null -w "%{http_code}" https://staging.sporekart.com/actuator/health \
+            || { echo "Staging health check failed"; exit 1; }
+
+  deploy-production:
+    name: Deploy to Production
+    needs: deploy-staging
+    if: github.event.inputs.environment == 'production'
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Manual approval gate
+        uses: trstringer/manual-approval@v1
+        timeout-minutes: 60
+        with:
+          secret: ${{ secrets.DEPLOY_APPROVAL_TOKEN }}
+          approvers: ${{ vars.PRODUCTION_APPROVERS }}
+          minimum-approvals: 2
+          issue-title: "Deploy ${{ github.sha }} to production"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Deploy to ECS production
+        run: |
+          aws ecs update-service --cluster sporekart-prod --service sporekart-api \
+            --force-new-deployment --region ${{ env.AWS_REGION }}
+          aws ecs wait services-stable --cluster sporekart-prod --services sporekart-api \
+            --region ${{ env.AWS_REGION }}
+      - name: Production smoke test
+        run: |
+          curl -sSf -o /dev/null -w "%{http_code}" https://sporekart.com/actuator/health \
+            || { echo "Production health check failed"; exit 1; }
+          curl -sSf -o /dev/null -w "%{http_code}" https://sporekart.com/auth/login \
+            || { echo "Auth page check failed"; exit 1; }
+
+  notify:
+    name: Notify
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_DEPLOY_WEBHOOK }}
+          SLACK_MESSAGE: "Deployment ${{ github.sha }}: staging=${{ needs.deploy-staging.result }}, production=${{ needs.deploy-production.result }}"
+        continue-on-error: true
