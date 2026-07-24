@@ -17,11 +17,12 @@ class IdentityServiceTest {
     void registerCreatesUserWhenEmailAvailable() {
         UserRepositoryPort repositoryPort = Mockito.mock(UserRepositoryPort.class);
         PasswordEncoder passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        JwtService jwtService = Mockito.mock(JwtService.class);
         when(repositoryPort.existsByEmail(any())).thenReturn(false);
         when(passwordEncoder.encode(any())).thenReturn("hashed");
         when(repositoryPort.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        IdentityService identityService = new IdentityService(repositoryPort, passwordEncoder);
+        IdentityService identityService = new IdentityService(repositoryPort, passwordEncoder, jwtService);
         UserAccount user = identityService
                 .register(new RegisterRequest("user@example.com", "secret123", "Ada", "Lovelace", "email", null));
 
