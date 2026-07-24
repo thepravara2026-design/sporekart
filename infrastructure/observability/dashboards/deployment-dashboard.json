@@ -1,0 +1,14 @@
+{"title":"SporeKart Deployments","uid":"sporekart-deploy","panels":[
+{"title":"Deployment Frequency","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":0},"targets":[{"expr":"count(changeset) by (service)","legendFormat":"{{service}}"}]},
+{"title":"Deployment Duration","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":0},"targets":[{"expr":"deployment_duration_seconds","legendFormat":"{{service}}"}]},
+{"title":"Deployment Success Rate","type":"stat","gridPos":{"h":4,"w":4,"x":16,"y":0},"targets":[{"expr":"sum(deployment_success) / count(deployment)"}],"fieldConfig":{"unit":"percentunit"}},
+{"title":"Current Versions","type":"table","gridPos":{"h":8,"w":8,"x":20,"y":0},"targets":[{"expr":"application_version_info","legendFormat":"{{service}}"}]},
+{"title":"Rollback Events","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":8},"targets":[{"expr":"rate(rollback_events_total[7d])","legendFormat":"{{service}}"}]},
+{"title":"Time to Deploy (TTD)","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":8},"targets":[{"expr":"avg(ttd_seconds) by (service)","legendFormat":"{{service}}"}]},
+{"title":"Post-Deploy Error Rate","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":8},"targets":[{"expr":"rate(http_server_requests_seconds_count{status=~\"5..\"}[5m]) / rate(http_server_requests_seconds_count[5m])","legendFormat":"{{service}}"}]},
+{"title":"Deployment Pipeline Status","type":"table","gridPos":{"h":8,"w":12,"x":0,"y":16},"targets":[{"expr":"pipeline_status","legendFormat":"{{pipeline}}"}]},
+{"title":"Changes by Author","type":"piechart","gridPos":{"h":8,"w":6,"x":12,"y":16},"targets":[{"expr":"count(changeset) by (author)","legendFormat":"{{author}}"}]},
+{"title":"Deploy by Environment","type":"bargauge","gridPos":{"h":8,"w":6,"x":18,"y":16},"targets":[{"expr":"count(deployment) by (env)","legendFormat":"{{env}}"}]},
+{"title":"GitHub Actions Queue","type":"graph","gridPos":{"h":8,"w":12,"x":0,"y":24},"targets":[{"expr":"github_actions_jobs_waiting","legendFormat":"waiting"},{"expr":"github_actions_jobs_running","legendFormat":"running"}]},
+{"title":"Release Cadence","type":"stat","gridPos":{"h":4,"w":4,"x":12,"y":24},"targets":[{"expr":"avg(release_interval_hours)"}],"fieldConfig":{"unit":"durationh"}},
+{"title":"MTTR by Deploy","type":"stat","gridPos":{"h":4,"w":4,"x":16,"y":24},"targets":[{"expr":"avg(post_deploy_mttr_seconds)"}],"fieldConfig":{"unit":"s"}}],"schemaVersion":30}

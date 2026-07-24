@@ -1,0 +1,88 @@
+sporekart:
+  security:
+    observability:
+      enabled: true
+      monitor:
+        auth:
+          failed_logins: true
+          password_resets: true
+          account_locks: true
+          mfa_failures: true
+        api:
+          permission_denied: true
+          unauthorized_access: true
+          rate_limit_triggers: true
+          csrf_violations: true
+          cors_violations: true
+        jwt:
+          expired_tokens: true
+          invalid_signatures: true
+          malformed_tokens: true
+          revoked_tokens: true
+        ai:
+          prompt_injections: true
+          abuse_patterns: true
+          unauthorized_models: true
+          token_exfiltration: true
+        secrets:
+          access_audit: true
+          rotation_events: true
+          exposure_detection: true
+        plugin:
+          policy_violations: true
+          overprivileged_calls: true
+          data_exfiltration: true
+        network:
+          blocked_ips: true
+          unusual_traffic: true
+          port_scans: true
+          dns_anomalies: true
+
+    alerting:
+      failed_login_threshold: 10
+      failed_login_window: 5m
+      permission_denied_threshold: 100
+      permission_denied_window: 5m
+      prompt_injection_threshold: 5
+      prompt_injection_window: 5m
+      rate_limit_trigger_threshold: 1000
+      rate_limit_trigger_window: 5m
+
+    metrics:
+      - name: sporekart.security.auth.failed_logins
+        type: counter
+        tags: [username, ip, user_agent]
+      - name: sporekart.security.auth.permission_denied
+        type: counter
+        tags: [resource, action, user]
+      - name: sporekart.security.auth.jwt_errors
+        type: counter
+        tags: [error_type, token_type]
+      - name: sporekart.security.ratelimit.triggers
+        type: counter
+        tags: [endpoint, ip]
+      - name: sporekart.security.ai.prompt_injections
+        type: counter
+        tags: [source, pattern, severity]
+      - name: sporekart.security.suspicious.activity
+        type: counter
+        tags: [type, ip, severity]
+
+    audit_logging:
+      enabled: true
+      include_headers: true
+      include_body: false
+      sensitive_fields:
+        - password
+        - token
+        - secret
+        - authorization
+        - credit_card
+        - ssn
+      max_body_size: 1024
+
+    reporting:
+      security_summary:
+        enabled: true
+        cron: "0 8 * * *"
+        channels: [slack, email]

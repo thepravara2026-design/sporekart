@@ -1,0 +1,95 @@
+sporekart:
+  reporting:
+    enabled: true
+
+    daily:
+      cron: "0 7 * * *"
+      title: "SporeKart Daily Operations Report"
+      channels: [slack-daily, email]
+      sections:
+        - health_summary
+        - error_rate
+        - latency_p95
+        - incident_summary
+        - deployment_status
+
+    weekly:
+      cron: "0 8 * * 1"
+      title: "SporeKart Weekly SRE Report"
+      channels: [slack-weekly, email]
+      sections:
+        - slo_compliance
+        - error_budget_consumption
+        - incident_report
+        - capacity_trends
+        - performance_trends
+        - ai_usage
+        - security_events
+        - cost_analysis
+
+    monthly:
+      cron: "0 9 1 * *"
+      title: "SporeKart Monthly Platform Report"
+      channels: [email, slack-monthly]
+      sections:
+        - slo_achievement
+        - availability_report
+        - incident_summary
+        - capacity_planning
+        - performance_report
+        - security_report
+        - ai_usage_report
+        - infrastructure_report
+        - cost_report
+        - recommendations
+
+    sections:
+      health_summary:
+        type: dashboard_snapshot
+        dashboard: platform-health
+        description: "Current platform health status"
+
+      error_rate:
+        type: metric_query
+        query: 'rate(http_server_requests_seconds_count{status=~"5.."}[1d]) / rate(http_server_requests_seconds_count[1d]) * 100'
+        description: "Error rate over last 24 hours"
+
+      latency_p95:
+        type: metric_query
+        query: 'histogram_quantile(0.95, rate(http_server_request_duration_seconds_bucket[1d]))'
+        description: "P95 latency over last 24 hours"
+
+      slo_compliance:
+        type: slo_report
+        description: "SLO compliance for all defined SLOs"
+
+      error_budget_consumption:
+        type: metric_query
+        query: '100 - (sum(rate(http_server_requests_seconds_count{status=~"5.."}[30d])) / sum(rate(http_server_requests_seconds_count[30d])) * 100)'
+        description: "Error budget consumption"
+
+      incident_report:
+        type: incident_summary
+        description: "Incidents during reporting period"
+
+      capacity_trends:
+        type: metric_query
+        query: 'avg(process_cpu_usage) by (service)'
+        description: "CPU usage trends by service"
+
+      ai_usage:
+        type: metric_query
+        query: 'rate(sporekart_ai_requests_total[7d])'
+        description: "AI request volume"
+      security_events:
+        type: security_summary
+        description: "Security events during reporting period"
+
+      cost_analysis:
+        type: cost_report
+        description: "Infrastructure and AI cost analysis"
+
+    export:
+      formats: [pdf, csv, json]
+      retention_days: 365
+      storage: s3://sporekart-reports/

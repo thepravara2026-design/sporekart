@@ -1,0 +1,162 @@
+# SporeKart Structured Logging Field Definitions
+# Every log entry must contain these standard fields
+
+required_fields:
+  '@timestamp':
+    type: datetime
+    format: ISO 8601 UTC
+    description: Event timestamp in UTC
+    example: "2026-07-24T12:00:00.000Z"
+
+  level:
+    type: string
+    values: [TRACE, DEBUG, INFO, WARN, ERROR, FATAL]
+    description: Log severity level
+
+  logger:
+    type: string
+    description: Fully qualified class name
+    example: com.sporekart.identity.service.AuthService
+
+  message:
+    type: string
+    description: Human-readable log message
+    example: "User login completed successfully"
+
+  thread:
+    type: string
+    description: Thread name
+    example: "http-nio-8080-exec-5"
+
+  service:
+    type: string
+    description: Service name from spring.application.name
+    example: identity-service
+
+  environment:
+    type: string
+    values: [development, staging, production]
+    description: Deployment environment
+
+  traceId:
+    type: string
+    format: 16-char hex
+    description: Distributed trace identifier
+    example: "a1b2c3d4e5f6g7h8"
+
+  spanId:
+    type: string
+    format: 16-char hex
+    description: Span identifier within trace
+    example: "h8g7f6e5d4c3b2a1"
+
+  correlationId:
+    type: string
+    format: UUID
+    description: Business transaction correlation ID
+    example: "550e8400-e29b-41d4-a716-446655440000"
+
+  requestId:
+    type: string
+    format: UUID
+    description: Unique request identifier
+    example: "660e8400-e29b-41d4-a716-446655440001"
+
+optional_fields:
+  userId:
+    type: string
+    description: Authenticated user identifier
+    PII: true
+
+  workspaceId:
+    type: string
+    description: Workspace/tenant identifier
+
+  method:
+    type: string
+    values: [GET, POST, PUT, DELETE, PATCH]
+    description: HTTP method
+
+  path:
+    type: string
+    description: Request URI path
+    example: "/api/v1/orders"
+
+  status:
+    type: integer
+    range: 100-599
+    description: HTTP response status code
+
+  duration:
+    type: integer
+    unit: ms
+    description: Request execution duration
+
+  remoteAddr:
+    type: string
+    format: IP address
+    description: Client IP address
+    PII: true
+
+  userAgent:
+    type: string
+    description: Client user-agent header
+
+  event_type:
+    type: string
+    values: [request, business_event, security_event, ai_event, system_event]
+    description: Category of log event
+
+  error_code:
+    type: string
+    description: Application error code
+
+  execution_time:
+    type: integer
+    unit: ms
+    description: Operation execution time
+
+  version:
+    type: string
+    description: Log format version
+
+PII_fields:
+  - userId
+  - remoteAddr
+  - email
+  - phone
+  - creditCard
+  - ssn
+  - password
+  - token
+  - secret
+
+sensitive_data_rules:
+  masking: "***MASKED***"
+  redaction: true
+  audit_access: true
+
+log_level_guide:
+  TRACE: "Detailed debugging - not used in production"
+  DEBUG: "Development debugging - disabled in production"
+  INFO: "Normal operations - service start/stop, request completion, state changes"
+  WARN: "Unexpected but handled - slow queries, retries, deprecated API usage"
+  ERROR: "Failed operations - exceptions, service degradation, data integrity issues"
+  FATAL: "Unrecoverable - process will terminate"
+
+environment_config:
+  development:
+    root_level: DEBUG
+    app_level: DEBUG
+    console: true
+    file: false
+  staging:
+    root_level: INFO
+    app_level: DEBUG
+    console: true
+    file: true
+  production:
+    root_level: WARN
+    app_level: INFO
+    console: true
+    file: true

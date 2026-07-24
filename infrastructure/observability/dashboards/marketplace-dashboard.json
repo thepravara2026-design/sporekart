@@ -1,0 +1,9 @@
+{"title":"SporeKart Marketplace","uid":"sporekart-marketplace","panels":[
+{"title":"Plugin Request Rate","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":0},"targets":[{"expr":"rate(sporekart_business_plugin_usage[5m])"}]},
+{"title":"Plugin Error Rate","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":0},"targets":[{"expr":"rate(sporekart_business_plugin_usage{status=\"error\"}[5m]) / rate(sporekart_business_plugin_usage[5m])"}]},
+{"title":"Plugin Latency","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":0},"targets":[{"expr":"histogram_quantile(0.95, rate(plugin_execution_duration_seconds_bucket[5m]))","legendFormat":"{{plugin}}"}]},
+{"title":"Top Plugins by Usage","type":"bargauge","gridPos":{"h":8,"w":8,"x":0,"y":8},"targets":[{"expr":"topk(10, rate(sporekart_business_plugin_usage[1d]))","legendFormat":"{{plugin}}"}]},
+{"title":"Plugin Violations","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":8},"targets":[{"expr":"rate(sporekart_security_plugin_violations[5m])"}]},
+{"title":"Copilot Queries","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":8},"targets":[{"expr":"rate(sporekart_business_copilot_queries[5m])"}]},
+{"title":"Plugin Health","type":"table","gridPos":{"h":8,"w":12,"x":0,"y":16},"targets":[{"expr":"plugin_health_status","legendFormat":"{{plugin}}"}]},
+{"title":"Marketplace Revenue","type":"graph","gridPos":{"h":8,"w":12,"x":12,"y":16},"targets":[{"expr":"rate(marketplace_revenue_total[1d])"}],"fieldConfig":{"unit":"currencyUSD"}}],"schemaVersion":30}

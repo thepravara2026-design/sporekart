@@ -1,0 +1,13 @@
+{"title":"SporeKart Security","uid":"sporekart-security","panels":[
+{"title":"Failed Logins","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":0},"targets":[{"expr":"rate(sporekart_security_auth_failed_logins[5m])"}]},
+{"title":"Permission Denied","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":0},"targets":[{"expr":"rate(sporekart_security_auth_permission_denied[5m])"}]},
+{"title":"JWT Errors","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":0},"targets":[{"expr":"rate(sporekart_security_auth_jwt_errors[5m])","legendFormat":"{{error}}"}]},
+{"title":"Rate Limit Triggers","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":8},"targets":[{"expr":"rate(sporekart_security_ratelimit_triggers[5m])","legendFormat":"{{endpoint}}"}]},
+{"title":"Suspicious Activity","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":8},"targets":[{"expr":"rate(sporekart_security_suspicious_activity[5m])","legendFormat":"{{type}}"}]},
+{"title":"Unauthorized Access","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":8},"targets":[{"expr":"rate(sporekart_security_unauthorized_access[5m])"}]},
+{"title":"AI Security Events","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":16},"targets":[{"expr":"rate(sporekart_security_ai_prompt_injections[5m])","legendFormat":"prompt injections"},{"expr":"rate(sporekart_security_ai_abuse_attempts[5m])","legendFormat":"abuse attempts"}]},
+{"title":"Secret Access Events","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":16},"targets":[{"expr":"rate(sporekart_security_secrets_access[5m])"}]},
+{"title":"Plugin Violations","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":16},"targets":[{"expr":"rate(sporekart_security_plugin_violations[5m])","legendFormat":"{{plugin}}"}]},
+{"title":"Failed Logins by User","type":"table","gridPos":{"h":8,"w":8,"x":0,"y":24},"targets":[{"expr":"topk(20, increase(sporekart_security_auth_failed_logins[24h]))","legendFormat":"{{username}}"}]},
+{"title":"Blocked IPs","type":"table","gridPos":{"h":8,"w":8,"x":8,"y":24},"targets":[{"expr":"blocked_ips","legendFormat":"{{ip}}"}]},
+{"title":"Security Score","type":"stat","gridPos":{"h":4,"w":8,"x":16,"y":24},"targets":[{"expr":"security_score"}],"fieldConfig":{"unit":"percent","max":100,"min":0}}],"schemaVersion":30}

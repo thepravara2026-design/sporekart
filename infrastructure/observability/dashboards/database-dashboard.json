@@ -1,0 +1,13 @@
+{"title":"SporeKart Database","uid":"sporekart-db","panels":[
+{"title":"Active Connections","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":0},"targets":[{"expr":"pg_stat_activity_count{state=\"active\"}","legendFormat":"active"},{"expr":"pg_stat_activity_count{state=\"idle\"}","legendFormat":"idle"},{"expr":"pg_stat_activity_count{state=\"idle in transaction\"}","legendFormat":"idle txn"}]},
+{"title":"Queries per Second","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":0},"targets":[{"expr":"rate(pg_stat_database_xact_commit[1m]) + rate(pg_stat_database_xact_rollback[1m])","legendFormat":"qps"}]},
+{"title":"Cache Hit Ratio","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":0},"targets":[{"expr":"rate(pg_stat_database_blks_hit[5m]) / (rate(pg_stat_database_blks_hit[5m]) + rate(pg_stat_database_blks_read[5m])) * 100","legendFormat":"hit %"}],"fieldConfig":{"unit":"percent"}},
+{"title":"Slow Queries (>50ms)","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":8},"targets":[{"expr":"rate(pg_stat_statements_mean_exec_time > 50)[5m]","legendFormat":"slow queries"}]},
+{"title":"Dead Tuples","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":8},"targets":[{"expr":"pg_stat_user_tables_n_dead_tup","legendFormat":"{{table}}"}]},
+{"title":"Index Usage","type":"bargauge","gridPos":{"h":8,"w":8,"x":16,"y":8},"targets":[{"expr":"topk(20, pg_stat_user_indexes_idx_scan)","legendFormat":"{{index}}"}]},
+{"title":"Transaction Rate","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":16},"targets":[{"expr":"rate(pg_stat_database_xact_commit[5m])","legendFormat":"commits"},{"expr":"rate(pg_stat_database_xact_rollback[5m])","legendFormat":"rollbacks"}]},
+{"title":"Read/Write Ratio","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":16},"targets":[{"expr":"rate(pg_stat_database_tup_fetched[5m])","legendFormat":"reads"},{"expr":"rate(pg_stat_database_tup_inserted[5m]) + rate(pg_stat_database_tup_updated[5m]) + rate(pg_stat_database_tup_deleted[5m])","legendFormat":"writes"}]},
+{"title":"Sequential Scans","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":16},"targets":[{"expr":"rate(pg_stat_user_tables_seq_scan[5m])","legendFormat":"{{table}}"}]},
+{"title":"Connection Pool Utilization","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":24},"targets":[{"expr":"hikaricp_connections_active / hikaricp_connections_max","legendFormat":"{{pool}}"}]},
+{"title":"Table Size","type":"bargauge","gridPos":{"h":8,"w":8,"x":8,"y":24},"targets":[{"expr":"pg_table_size_bytes","legendFormat":"{{table}}"}]},
+{"title":"Lock Contention","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":24},"targets":[{"expr":"rate(pg_locks_count[1m])","legendFormat":"locks"}]}],"schemaVersion":30}

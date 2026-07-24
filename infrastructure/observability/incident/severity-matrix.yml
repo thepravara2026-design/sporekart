@@ -1,0 +1,102 @@
+incident:
+  severity_matrix:
+    sev1_critical:
+      label: SEV1 - Critical
+      response_time: 15 minutes
+      resolution_time: 4 hours
+      impact: Complete platform outage, data loss, security breach
+      examples:
+        - Service completely down
+        - Database unreachable
+        - Security breach detected
+        - Data corruption
+        - AI platform completely unavailable
+      notification: PagerDuty + Slack + Email + Phone
+      escalation: Engineering Lead → VP Eng → CTO
+      reporting: Immediate postmortem within 24h
+      channels:
+        - '#sporekart-sev1'
+        - pagerduty-critical
+
+    sev2_high:
+      label: SEV2 - High
+      response_time: 30 minutes
+      resolution_time: 8 hours
+      impact: Major feature degradation, partial outage, significant latency
+      examples:
+        - Service degradation > 50%
+        - API latency > 1s P95
+        - AI responses failing > 5%
+        - Payment processing delayed
+        - Order processing backlog
+      notification: PagerDuty + Slack
+      escalation: Engineering Lead → VP Eng
+      reporting: Postmortem within 48h
+      channels:
+        - '#sporekart-sev2'
+        - pagerduty-critical
+
+    sev3_medium:
+      label: SEV3 - Medium
+      response_time: 2 hours
+      resolution_time: 24 hours
+      impact: Minor feature degradation, non-critical errors
+      examples:
+        - Error rate > 1% for non-critical endpoint
+        - Slow page load in admin panel
+        - Background job delays
+        - Non-critical alert fatigue
+      notification: Slack
+      escalation: Team Lead → Engineering Lead
+      reporting: Postmortem within 1 week
+      channels:
+        - '#sporekart-sev3'
+
+    sev4_low:
+      label: SEV4 - Low
+      response_time: 8 hours
+      resolution_time: 1 week
+      impact: Cosmetic issues, minor bugs, informational
+      examples:
+        - UI display issues
+        - Non-critical log noise
+        - Minor performance degradation
+        - Documentation updates needed
+      notification: JIRA ticket
+      escalation: Assignee → Team Lead
+      reporting: No postmortem required
+      channels:
+        - '#sporekart-sev4'
+
+  escalation_policy:
+    default:
+      - level: 1
+        name: Primary On-Call
+        notification: PagerDuty + Slack
+        timeout: 15m
+      - level: 2
+        name: Engineering Lead
+        notification: PagerDuty + Slack + Phone
+        timeout: 10m
+      - level: 3
+        name: VP Engineering
+        notification: Phone + Slack
+        timeout: 5m
+      - level: 4
+        name: CTO
+        notification: Phone only
+
+    business_hours:
+      - monday-friday: 09:00-18:00 IST
+      - on-call: Primary + Secondary
+
+    after_hours:
+      - all: 18:00-09:00 IST + weekends
+      - on-call: Primary + Secondary + Engineering Lead
+
+  communication_channels:
+    alert_channel: '#sporekart-alerts'
+    incident_channel: '#sporekart-incidents'
+    sev1_channel: '#sporekart-sev1'
+    postmortem_channel: '#sporekart-postmortems'
+    weekly_review: '#sporekart-sre-weekly'

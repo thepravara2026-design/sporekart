@@ -1,0 +1,102 @@
+slo:
+  platform:
+    availability:
+      target: 99.9
+      window: 30d
+      measurement: probe_success_rate
+      description: Platform overall availability
+    api_latency:
+      target_p95_ms: 200
+      target_p99_ms: 500
+      window: 7d
+      measurement: http_server_request_duration
+      description: API response time P95 < 200ms
+    authentication:
+      target_p95_ms: 100
+      target_p99_ms: 200
+      window: 7d
+      measurement: auth_request_duration
+      description: Authentication latency P95 < 100ms
+    ai_response:
+      target_p95_ms: 3000
+      target_p99_ms: 5000
+      window: 7d
+      measurement: ai_completion_duration
+      description: AI completion time P95 < 3s
+    database:
+      target_p95_ms: 50
+      target_p99_ms: 100
+      window: 7d
+      measurement: db_query_duration
+      description: Database query latency P95 < 50ms
+    gateway:
+      target_p95_ms: 100
+      target_p99_ms: 200
+      window: 7d
+      measurement: gateway_request_duration
+      description: Gateway latency P95 < 100ms
+    event_publish:
+      target_p95_ms: 5
+      target_p99_ms: 10
+      window: 7d
+      measurement: event_publish_duration
+      description: Event publish latency P95 < 5ms
+
+  business:
+    order_success:
+      target: 99.5
+      window: 30d
+      measurement: order_completion_rate
+      description: Order completion success rate
+    payment_success:
+      target: 99.9
+      window: 30d
+      measurement: payment_success_rate
+      description: Payment processing success rate
+    notification_delivery:
+      target: 99.0
+      window: 7d
+      measurement: notification_delivery_rate
+      description: Notification delivery success rate
+
+  ai:
+    completion_success:
+      target: 99.0
+      window: 7d
+      measurement: ai_completion_success_rate
+      description: AI completion success rate
+    provider_availability:
+      target: 99.5
+      window: 30d
+      measurement: ai_provider_availability
+      description: AI provider availability
+    knowledge_retrieval:
+      target_p95_ms: 200
+      target_p99_ms: 500
+      window: 7d
+      measurement: knowledge_retrieval_duration
+      description: Knowledge retrieval latency P95 < 200ms
+
+  error_budgets:
+    monthly:
+      availability_99_9: 43m 50s
+      availability_99_5: 3h 39m
+      availability_99_0: 7h 18m
+    weekly:
+      availability_99_9: 10m 5s
+      availability_99_5: 50m 24s
+      availability_99_0: 1h 40m
+
+  burn_rates:
+    critical:
+      window: 1h
+      multiplier: 10x
+      alert: critical
+    high:
+      window: 6h
+      multiplier: 5x
+      alert: warning
+    medium:
+      window: 3d
+      multiplier: 2x
+      alert: info
