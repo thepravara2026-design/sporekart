@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 const SELF = "'self'";
+const UNSAFE_INLINE = "'unsafe-inline'";
 const STRICT_DYNAMIC = "'strict-dynamic'";
+const isDev = process.env.NODE_ENV !== 'production';
 
 export default defineConfig({
   plugins: [react()],
@@ -16,7 +18,7 @@ export default defineConfig({
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
       'Content-Security-Policy': [
         `default-src ${SELF}`,
-        `script-src ${SELF} ${STRICT_DYNAMIC}`,
+        `script-src ${SELF}${isDev ? ` ${UNSAFE_INLINE}` : ` ${STRICT_DYNAMIC}`}`,
         `style-src ${SELF} 'unsafe-inline'`,
         `img-src ${SELF} data: blob: https:`,
         `font-src ${SELF} data:`,
