@@ -1,0 +1,115 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  jaeger:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:14250
+      thrift_binary:
+        endpoint: 0.0.0.0:6832
+      thrift_compact:
+        endpoint: 0.0.0.0:6831
+
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: sporekart-services
+          scrape_interval: 15s
+          metrics_path: /actuator/prometheus
+          kubernetes_sd_configs:
+            - role: pod
+              selectors:
+                - label: app.kubernetes.io/part-of
+                  value: sporekart
+
+        - job_name: sporekart-gateway
+          scrape_interval: 15s
+          metrics_path: /actuator/prometheus
+          kubernetes_sd_configs:
+            - role: pod
+              selectors:
+                - label: app.kubernetes.io/component
+                  value: gateway
+
+        - job_name: postgres-exporter
+          scrape_interval: 30s
+          static_configs:
+            - targets:
+                - postgres-exporter:9187
+
+        - job_name: redis-exporter
+          scrape_interval: 30s
+          static_configs:
+            - targets:
+                - redis-exporter:9121
+
+        - job_name: kafka-exporter
+          scrape_interval: 30s
+          static_configs:
+            - targets:
+                - kafka-exporter:9308
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+    spike_limit_mib: 128
+  attributes:
+    actions:
+      - key: environment
+        action: insert
+        value: ${ENVIRONMENT}
+      - key: platform
+        action: insert
+        value: sporekart
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  pprof:
+    endpoint: 0.0.0.0:1777
+
+exporters:
+  logging:
+    loglevel: debug
+
+  otlp:
+    endpoint: ${OTLP_ENDPOINT}
+    tls:
+      insecure: false
+    headers:
+      Authorization: Bearer ${OTLP_AUTH_TOKEN}
+
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    namespace: sporekart
+
+  jaeger:
+    endpoint: ${JAEGER_ENDPOINT}
+    tls:
+      insecure: false
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp, jaeger]
+      processors: [memory_limiter, batch, attributes]
+      exporters: [otlp, logging]
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [memory_limiter, batch, attributes]
+      exporters: [otlp, prometheus, logging]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, attributes]
+      exporters: [otlp, logging]
+
+  extensions: [health_check, pprof]

@@ -1,0 +1,13 @@
+{"title":"SporeKart SRE Monitoring","uid":"sporekart-sre","panels":[
+{"title":"SLO Compliance (7d)","type":"bargauge","gridPos":{"h":8,"w":12,"x":0,"y":0},"targets":[{"expr":"slo_compliance","legendFormat":"{{slo}}"}]},
+{"title":"Error Budget Remaining","type":"gauge","gridPos":{"h":8,"w":6,"x":12,"y":0},"targets":[{"expr":"100 - ((sum(rate(http_server_requests_seconds_count{status=~\"5..\"}[30d])) / sum(rate(http_server_requests_seconds_count[30d])) * 100))"}],"fieldConfig":{"unit":"percent","max":100,"min":0}},
+{"title":"Burn Rate (1h)","type":"graph","gridPos":{"h":8,"w":6,"x":18,"y":0},"targets":[{"expr":"(1 - (sum(rate(http_server_requests_seconds_count{status=~\"5..\"}[1h])) / sum(rate(http_server_requests_seconds_count[1h]))))","legendFormat":"1h burn"}]},
+{"title":"Active Incidents","type":"table","gridPos":{"h":8,"w":12,"x":0,"y":8},"targets":[{"expr":"ALERTS{alertstate=\"firing\"}"}]},
+{"title":"Alert History (24h)","type":"graph","gridPos":{"h":8,"w":12,"x":12,"y":8},"targets":[{"expr":"count(ALERTS) by (severity)","legendFormat":"{{severity}}"}]},
+{"title":"Uptime (30d)","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":16},"targets":[{"expr":"avg_over_time(probe_success[1d])"}],"fieldConfig":{"unit":"percentunit"}},
+{"title":"MTTR (Mean Time to Resolve)","type":"stat","gridPos":{"h":4,"w":4,"x":8,"y":16},"targets":[{"expr":"avg(incident_resolution_time)"}],"fieldConfig":{"unit":"s"}},
+{"title":"MTBF (Mean Time Between Failures)","type":"stat","gridPos":{"h":4,"w":4,"x":12,"y":16},"targets":[{"expr":"avg(incident_interval)"}],"fieldConfig":{"unit":"s"}},
+{"title":"Health Check Status","type":"table","gridPos":{"h":8,"w":8,"x":16,"y":16},"targets":[{"expr":"probe_success","legendFormat":"{{instance}}"}]},
+{"title":"Container Restarts (24h)","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":24},"targets":[{"expr":"increase(kube_pod_container_status_restarts_total[24h])","legendFormat":"{{pod}}"}]},
+{"title":"Pod Status","type":"table","gridPos":{"h":8,"w":8,"x":8,"y":24},"targets":[{"expr":"kube_pod_status_phase","legendFormat":"{{pod}}"}]},
+{"title":"On-Call Schedule","type":"text","gridPos":{"h":4,"w":8,"x":16,"y":24},"options":{"content":"## On-Call Rotation\n**Primary:** @sre-primary\n**Secondary:** @sre-secondary\n**Escalation:** @eng-lead"}}],"schemaVersion":30}

@@ -1,0 +1,93 @@
+sporekart:
+  observability:
+    enabled: true
+    metrics:
+      export-interval: 15s
+      percentiles: 0.5,0.95,0.99
+      histogram-buckets: 10ms,50ms,100ms,200ms,500ms,1s,2s,5s
+    tracing:
+      sampling-rate: 0.1
+      exporter: otlp
+    logging:
+      format: json
+      async-queue-size: 4096
+      max-file-size: 500MB
+      max-history: 30
+      total-size-cap: 10GB
+    health:
+      detail-enabled: true
+      show-components: true
+    slo:
+      enabled: true
+      evaluation-interval: 60s
+      burn-rate-alert-window: 1h
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,loggers,threaddump,heapdump,env,configprops
+      base-path: /actuator
+      cors:
+        allowed-origins: "*"
+  endpoint:
+    health:
+      show-details: when_authorized
+      show-components: when_authorized
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db,redis,kafka,ai,storage
+        liveness:
+          include: ping,livenessState
+        startup:
+          include: startup
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      environment: ${SPRING_PROFILES_ACTIVE:development}
+      node: ${HOSTNAME:unknown}
+    export:
+      prometheus:
+        enabled: true
+        step: 15s
+        descriptions: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+        spring.data.repository.operations: true
+        hibernate: true
+        cache: true
+      slo:
+        http.server.requests: 10ms,50ms,100ms,200ms,500ms,1s,2s,5s
+      minimum-expected-value:
+        http.server.requests: 1ms
+      maximum-expected-value:
+        http.server.requests: 10s
+  info:
+    env:
+      enabled: true
+    build:
+      enabled: true
+    git:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: ${LOG_PATH:logs}
+  level:
+    com.sporekart: INFO
+    io.micrometer: INFO
+    org.springframework.boot.actuate: INFO

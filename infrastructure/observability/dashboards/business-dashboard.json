@@ -1,0 +1,13 @@
+{"title":"SporeKart Business Metrics","uid":"sporekart-business","panels":[
+{"title":"Orders (Real-time)","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":0},"targets":[{"expr":"rate(sporekart_business_orders_created[5m])","legendFormat":"created"},{"expr":"rate(sporekart_business_orders_completed[5m])","legendFormat":"completed"},{"expr":"rate(sporekart_business_orders_cancelled[5m])","legendFormat":"cancelled"}]},
+{"title":"Revenue (Real-time)","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":0},"targets":[{"expr":"rate(sporekart_business_revenue_total[5m])"}],"fieldConfig":{"unit":"currencyUSD"}},
+{"title":"Order Processing Time","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":0},"targets":[{"expr":"rate(sporekart_business_order_processing_time_seconds_sum[5m]) / rate(sporekart_business_order_processing_time_seconds_count[5m])","legendFormat":"avg"},{"expr":"histogram_quantile(0.95, rate(sporekart_business_order_processing_time_seconds_bucket[5m]))","legendFormat":"p95"}]},
+{"title":"Payments","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":8},"targets":[{"expr":"rate(sporekart_business_payments_processed[5m])","legendFormat":"processed"},{"expr":"rate(sporekart_business_payments_failed[5m])","legendFormat":"failed"}]},
+{"title":"Notifications","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":8},"targets":[{"expr":"rate(sporekart_business_notifications_sent[5m])"}],"legendFormat":"sent"},
+{"title":"Product Views","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":8},"targets":[{"expr":"rate(sporekart_business_product_views[5m])"}]},
+{"title":"Training & Certificates","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":16},"targets":[{"expr":"rate(sporekart_business_training_registrations[5m])","legendFormat":"registrations"},{"expr":"rate(sporekart_business_certificates_issued[5m])","legendFormat":"certificates"}]},
+{"title":"Plugin & Copilot Usage","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":16},"targets":[{"expr":"rate(sporekart_business_plugin_usage[5m])","legendFormat":"plugin"},{"expr":"rate(sporekart_business_copilot_queries[5m])","legendFormat":"copilot"}]},
+{"title":"Order Value Distribution","type":"heatmap","gridPos":{"h":8,"w":8,"x":16,"y":16},"targets":[{"expr":"rate(sporekart_business_order_value_bucket[5m])"}]},
+{"title":"Inventory Updates","type":"graph","gridPos":{"h":8,"w":8,"x":0,"y":24},"targets":[{"expr":"rate(sporekart_business_inventory_updates[5m])"}]},
+{"title":"Coupons Applied","type":"graph","gridPos":{"h":8,"w":8,"x":8,"y":24},"targets":[{"expr":"rate(sporekart_business_coupons_applied[5m])"}]},
+{"title":"Active Users Over Time","type":"graph","gridPos":{"h":8,"w":8,"x":16,"y":24},"targets":[{"expr":"sporekart_business_users_active"}]}],"schemaVersion":30}
