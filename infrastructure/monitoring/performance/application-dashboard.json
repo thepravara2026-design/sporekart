@@ -1,0 +1,211 @@
+{
+  "__inputs": [],
+  "__requires": [],
+  "title": "SporeKart Application Performance",
+  "uid": "sporekart-app-perf",
+  "panels": [
+    {
+      "title": "Request Rate (RPS)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {
+          "expr": "rate(http_server_requests_seconds_count[1m])",
+          "legendFormat": "{{service}} {{method}} {{status}}",
+          "interval": "15s"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "rps",
+        "color": {"mode": "palette-classic"}
+      }
+    },
+    {
+      "title": "Latency (P50, P95, P99)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, rate(http_server_request_duration_seconds_bucket[5m]))",
+          "legendFormat": "p50"
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(http_server_request_duration_seconds_bucket[5m]))",
+          "legendFormat": "p95"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(http_server_request_duration_seconds_bucket[5m]))",
+          "legendFormat": "p99"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "s",
+        "color": {"mode": "palette-classic"}
+      }
+    },
+    {
+      "title": "Error Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "targets": [
+        {
+          "expr": "rate(http_server_requests_seconds_count{status=~\"5..\"}[5m]) / rate(http_server_requests_seconds_count[5m]) * 100",
+          "legendFormat": "error %"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "percent",
+        "color": {"mode": "palette-classic"}
+      }
+    },
+    {
+      "title": "Active Requests",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+      "targets": [
+        {
+          "expr": "http_server_requests_seconds_count - http_server_requests_seconds_sum",
+          "legendFormat": "active"
+        }
+      ]
+    },
+    {
+      "title": "Response Status Breakdown",
+      "type": "piechart",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+      "targets": [
+        {
+          "expr": "rate(http_server_requests_seconds_count[5m])",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "title": "CPU Usage",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 0, "y": 16},
+      "targets": [
+        {
+          "expr": "process_cpu_usage",
+          "legendFormat": "CPU {{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "percentunit"
+      }
+    },
+    {
+      "title": "Memory Usage",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 6, "y": 16},
+      "targets": [
+        {
+          "expr": "jvm_memory_used_bytes{area=\"heap\"} / jvm_memory_max_bytes{area=\"heap\"}",
+          "legendFormat": "heap {{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "percentunit"
+      }
+    },
+    {
+      "title": "GC Pause Duration",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 12, "y": 16},
+      "targets": [
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum[5m])",
+          "legendFormat": "GC pause {{service}}"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "s"
+      }
+    },
+    {
+      "title": "Thread Count",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 6, "x": 18, "y": 16},
+      "targets": [
+        {
+          "expr": "jvm_threads_live",
+          "legendFormat": "threads {{service}}"
+        }
+      ]
+    },
+    {
+      "title": "Connection Pool (HikariCP)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 24},
+      "targets": [
+        {
+          "expr": "hikaricp_connections_active",
+          "legendFormat": "active {{pool}}"
+        },
+        {
+          "expr": "hikaricp_connections_idle",
+          "legendFormat": "idle {{pool}}"
+        },
+        {
+          "expr": "hikaricp_connections_pending",
+          "legendFormat": "pending {{pool}}"
+        }
+      ]
+    },
+    {
+      "title": "Cache Hit Ratio",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 24},
+      "targets": [
+        {
+          "expr": "rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m]))",
+          "legendFormat": "hit ratio {{cache}}"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "percentunit"
+      }
+    },
+    {
+      "title": "Throughput by Service",
+      "type": "bargauge",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 24},
+      "targets": [
+        {
+          "expr": "topk(10, rate(http_server_requests_seconds_count[5m]))",
+          "legendFormat": "{{service}}"
+        }
+      ]
+    },
+    {
+      "title": "Slow Queries (>50ms)",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32},
+      "targets": [
+        {
+          "expr": "rate(hibernate_query_execution_total{slow=\"true\"}[5m])",
+          "legendFormat": "slow queries"
+        }
+      ]
+    },
+    {
+      "title": "Event Processing Latency",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, rate(event_publish_duration_seconds_bucket[5m]))",
+          "legendFormat": "p95 publish"
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(event_dispatch_duration_seconds_bucket[5m]))",
+          "legendFormat": "p95 dispatch"
+        }
+      ],
+      "fieldConfig": {
+        "unit": "s"
+      }
+    }
+  ],
+  "schemaVersion": 30
+}

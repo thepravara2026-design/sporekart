@@ -1,0 +1,278 @@
+name: Performance Tests
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  push:
+    branches: [sporetest, 'feature/**']
+    paths:
+      - 'shared-platform/**'
+      - 'services/**'
+      - 'pom.xml'
+      - 'testing/performance/**'
+      - '.github/workflows/performance-tests.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'ci'
+        type: choice
+        options:
+          - ci
+          - staging
+      vus:
+        description: 'Virtual users'
+        required: false
+        default: '20'
+      duration:
+        description: 'Test duration'
+        required: false
+        default: '2m'
+
+env:
+  K6_VERSION: 0.52.0
+
+jobs:
+  smoke-perf:
+    name: Smoke Performance Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: sporekart_test
+          POSTGRES_USER: sporekart
+          POSTGRES_PASSWORD: sporekart_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+          cache: maven
+
+      - name: Setup k6
+        run: |
+          curl -LO https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          tar xzf k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          sudo mv k6-v${{ env.K6_VERSION }}-linux-amd64/k6 /usr/local/bin/
+          k6 version
+
+      - name: Build application
+        run: |
+          mvn clean package -DskipTests -q
+          nohup java -jar services/gateway-service/target/gateway-service-*.jar --server.port=8080 &
+          sleep 30
+
+      - name: Smoke perf test
+        run: |
+          k6 run testing/performance/scenarios/constant-load.js \
+            --vus 10 \
+            --duration 30s \
+            --out json=reports/smoke-perf.json \
+            -e BASE_URL=http://localhost:8080
+
+      - name: Validate smoke results
+        run: |
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/smoke-perf.json \
+            --threshold-p95 500 \
+            --threshold-error-rate 0.05
+
+  benchmark:
+    name: Performance Benchmark Suite
+    needs: smoke-perf
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6
+        run: |
+          curl -LO https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          tar xzf k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          sudo mv k6-v${{ env.K6_VERSION }}-linux-amd64/k6 /usr/local/bin/
+
+      - name: Auth benchmark
+        run: |
+          k6 run testing/performance/scenarios/auth-benchmark.js \
+            --vus ${{ github.event.inputs.vus || 20 }} \
+            --duration ${{ github.event.inputs.duration || '2m' }} \
+            --out json=reports/auth-benchmark.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }} \
+            --tag test=auth
+
+      - name: API benchmark
+        run: |
+          k6 run testing/performance/scenarios/api-benchmark.js \
+            --vus ${{ github.event.inputs.vus || 20 }} \
+            --duration ${{ github.event.inputs.duration || '2m' }} \
+            --out json=reports/api-benchmark.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }} \
+            --tag test=api
+
+      - name: Database benchmark
+        run: |
+          k6 run testing/performance/scenarios/database-benchmark.js \
+            --vus ${{ github.event.inputs.vus || 20 }} \
+            --duration ${{ github.event.inputs.duration || '2m' }} \
+            --out json=reports/database-benchmark.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }} \
+            --tag test=database
+
+      - name: Event benchmark
+        run: |
+          k6 run testing/performance/scenarios/event-benchmark.js \
+            --vus ${{ github.event.inputs.vus || 10 }} \
+            --duration ${{ github.event.inputs.duration || '2m' }} \
+            --out json=reports/event-benchmark.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }} \
+            --tag test=events
+
+      - name: AI benchmark
+        run: |
+          k6 run testing/performance/scenarios/ai-benchmark.js \
+            --vus ${{ github.event.inputs.vus || 5 }} \
+            --duration ${{ github.event.inputs.duration || '2m' }} \
+            --out json=reports/ai-benchmark.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }} \
+            --tag test=ai
+
+      - name: Validate all benchmarks
+        run: |
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/auth-benchmark.json \
+            --threshold-p95 200 \
+            --threshold-error-rate 0.01
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/api-benchmark.json \
+            --threshold-p95 500 \
+            --threshold-error-rate 0.01
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/database-benchmark.json \
+            --threshold-p95 200 \
+            --threshold-error-rate 0.01
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/event-benchmark.json \
+            --threshold-p95 20 \
+            --threshold-error-rate 0.01
+          python3 testing/performance/scripts/validate-benchmark.py \
+            --input reports/ai-benchmark.json \
+            --threshold-p95 5000 \
+            --threshold-error-rate 0.05
+
+      - name: Upload benchmark reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-reports
+          path: reports/
+          retention-days: 30
+
+  load-test:
+    name: Load & Stress Tests
+    needs: benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6
+        run: |
+          curl -LO https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          tar xzf k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          sudo mv k6-v${{ env.K6_VERSION }}-linux-amd64/k6 /usr/local/bin/
+
+      - name: Spike test
+        run: |
+          k6 run testing/performance/scenarios/spike-test.js \
+            --out json=reports/spike-test.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }}
+
+      - name: Stress test
+        run: |
+          k6 run testing/performance/scenarios/stress-test.js \
+            --out json=reports/stress-test.json \
+            -e BASE_URL=${{ github.event.inputs.environment == 'staging' && 'https://staging.sporekart.com' || 'http://localhost:8080' }}
+
+      - name: Upload load test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-reports
+          path: reports/
+          retention-days: 30
+
+  regression:
+    name: Performance Regression Tests
+    needs: benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6
+        run: |
+          curl -LO https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          tar xzf k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz
+          sudo mv k6-v${{ env.K6_VERSION }}-linux-amd64/k6 /usr/local/bin/
+
+      - name: Regression exec
+        run: |
+          k6 run testing/performance/scenarios/constant-load.js \
+            --vus 50 \
+            --duration 5m \
+            --out json=reports/regression.json \
+            -e BASE_URL=http://localhost:8080
+
+      - name: Compare with baseline
+        run: |
+          python3 testing/performance/scripts/compare-baseline.py \
+            --current reports/regression.json \
+            --baseline .performance-baseline.json \
+            --max-degradation 15
+
+      - name: Update baseline
+        if: github.ref == 'refs/heads/sporetest'
+        run: |
+          python3 testing/performance/scripts/generate-baseline.py \
+            --input reports/regression.json \
+            --output .performance-baseline.json
+
+  certify:
+    name: Performance Certification
+    if: github.ref == 'refs/heads/sporetest'
+    needs: [load-test, regression]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all reports
+        uses: actions/download-artifact@v4
+        with:
+          path: reports/
+
+      - name: Generate certification
+        run: |
+          python3 testing/performance/scripts/generate-certification.py \
+            --reports reports/ \
+            --output docs/PerformanceCertification.ci.md
+
+      - name: Update performance badge
+        run: |
+          python3 testing/performance/scripts/update-badge.py \
+            --reports reports/
+
+      - name: Commit certification
+        run: |
+          git config user.name "sporekart-bot"
+          git config user.email "bot@sporekart.com"
+          git add docs/PerformanceCertification.ci.md
+          git commit -m "ci(perf): auto-update performance certification [skip ci]"
+          git push
