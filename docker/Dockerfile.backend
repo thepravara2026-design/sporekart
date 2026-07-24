@@ -1,0 +1,29 @@
+# SporeKart — Backend Service Production Dockerfile
+# Multi-stage: compile → package → minimal runtime
+
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /build
+COPY . .
+RUN --mount=type=cache,target=/root/.m2 \
+    if [ -d "shared-platform" ]; then \
+      cd shared-platform && ../apache-maven-3.9.9/bin/mvn install -DskipTests -q; \
+    fi; \
+    for svc in services/*/; do \
+      if [ -f "$${svc}pom.xml" ]; then \
+        cd "$${svc}" && ../../apache-maven-3.9.9/bin/mvn package -DskipTests -q; \
+        cd ../..; \
+      fi; \
+    done
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+RUN addgroup -S sporekart && adduser -S sporekart -G sporekart
+WORKDIR /app
+ARG SERVICE=gateway-service
+COPY --from=builder /build/services/${SERVICE}/target/*.jar app.jar
+RUN chown -R sporekart:sporekart /app
+USER sporekart
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=30s \
+  CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+ENV SPRING_PROFILES_ACTIVE=prod
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
