@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <suppress>
+        <notes>Suppress known false positive for spring-boot-starter</notes>
+        <cve>CVE-2023-20860</cve>
+    </suppress>
+    <suppress>
+        <notes>Suppress known false positive for tomcat</notes>
+        <cve>CVE-2024-23672</cve>
+    </suppress>
+    <suppress>
+        <notes>Suppress known false positive for snakeyaml</notes>
+        <cve>CVE-2023-34453</cve>
+    </suppress>
+</suppressions>

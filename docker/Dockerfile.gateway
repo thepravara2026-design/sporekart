@@ -1,0 +1,21 @@
+# SporeKart — Gateway Production Dockerfile
+
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /build
+COPY . .
+RUN --mount=type=cache,target=/root/.m2 \
+    if [ -f "services/gateway-service/pom.xml" ]; then \
+      mvn package -DskipTests -q -f services/gateway-service/pom.xml; \
+    fi
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+RUN addgroup -S sporekart && adduser -S sporekart -G sporekart
+WORKDIR /app
+COPY --from=builder /build/services/gateway-service/target/*.jar app.jar
+RUN chown -R sporekart:sporekart /app
+USER sporekart
+EXPOSE 8080
+HEALTHCHECK --interval=20s --timeout=5s --retries=3 --start-period=30s \
+  CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+ENV SPRING_PROFILES_ACTIVE=prod
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

@@ -1,1 +1,21 @@
 * @sporekart/engineering
+
+# CI/CD pipeline changes require DevOps review
+.github/workflows/ @sporekart/devops
+ci/ @sporekart/devops
+docker/Dockerfile* @sporekart/devops
+scripts/deploy.sh @sporekart/devops
+scripts/rollback.sh @sporekart/devops
+scripts/release.sh @sporekart/devops
+
+# Documentation review
+docs/CICDArchitecture.md @sporekart/devops
+docs/ReleaseEngineering.md @sporekart/devops
+docs/DeploymentGuide.md @sporekart/devops
+docs/RollbackGuide.md @sporekart/devops
+docs/QualityGateSpecification.md @sporekart/devops
+docs/PipelineFlow.md @sporekart/devops
+docs/ArtifactManagement.md @sporekart/devops
+
+# Root POM changes require architect review
+pom.xml @sporekart/architecture

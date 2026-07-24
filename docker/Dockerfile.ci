@@ -1,0 +1,8 @@
+# SporeKart — Build-time CI Dockerfile (ci-runner image)
+# Used in CI pipeline for consistent Maven builds
+
+FROM eclipse-temurin:21-jdk-alpine AS ci-runner
+RUN apk add --no-cache git curl wget bash
+WORKDIR /workspace
+COPY . .
+ENTRYPOINT ["./scripts/ci-build.sh"]

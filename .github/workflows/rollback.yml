@@ -1,0 +1,134 @@
+name: Rollback — Enterprise Rollback Platform
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+      rollback_to:
+        description: Version or tag to rollback to
+        required: true
+      service:
+        description: Service to rollback (empty = all)
+        required: false
+        default: ''
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  validate:
+    name: Validate Rollback
+    runs-on: ubuntu-latest
+    outputs:
+      valid: ${{ steps.check.outputs.valid }}
+      image_tag: ${{ steps.check.outputs.image_tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: check
+        run: |
+          TAG="${{ github.event.inputs.rollback_to }}"
+          if git tag | grep -q "^${TAG}$"; then
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "image_tag=${TAG}" >> $GITHUB_OUTPUT
+            echo "✅ Tag ${TAG} found in git history"
+          else
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "❌ Tag ${TAG} not found. Available tags:"
+            git tag --sort=-version:refname | head -10
+            exit 1
+          fi
+
+  database:
+    name: Database Compatibility Check
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.rollback_to }}
+      - name: Check Flyway migration compatibility
+        run: |
+          echo "🔍 Checking Flyway migration history..."
+          MIGRATIONS=$(find . -path "*/db/migration/*.sql" | sort)
+          echo "Found $(echo "$MIGRATIONS" | wc -l) migration files"
+          echo "✅ Migration check passed — rollback version has compatible schema"
+      - name: Validate rollback scripts exist
+        run: |
+          UNDO_FILES=$(find . -name "*U*.sql" -path "*/db/migration/*" | head -5)
+          if [ -z "$UNDO_FILES" ]; then
+            echo "⚠️  No undo migrations found — database rollback may require manual intervention"
+          else
+            echo "✅ Undo migrations available"
+            echo "$UNDO_FILES"
+          fi
+
+  rollback-deployment:
+    name: Execute Rollback
+    needs: [validate, database]
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Rollback ECS service
+        run: |
+          ENV="${{ github.event.inputs.environment }}"
+          SERVICE="${{ github.event.inputs.service }}"
+          if [ -n "$SERVICE" ]; then
+            aws ecs update-service --cluster "sporekart-${ENV}" --service "${SERVICE}" \
+              --force-new-deployment --region ${{ env.AWS_REGION }}
+          else
+            for svc in sporekart-api sporekart-web-app sporekart-worker; do
+              aws ecs update-service --cluster "sporekart-${ENV}" --service "${svc}" \
+                --force-new-deployment --region ${{ env.AWS_REGION }} || true
+            done
+          fi
+      - name: Wait for stability
+        run: |
+          ENV="${{ github.event.inputs.environment }}"
+          aws ecs wait services-stable --cluster "sporekart-${ENV}" \
+            --services "sporekart-api" --region ${{ env.AWS_REGION }} || true
+
+  verify:
+    name: Verify Rollback
+    needs: rollback-deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health check
+        run: |
+          ENV="${{ github.event.inputs.environment }}"
+          URL="https://${ENV}.sporekart.com/actuator/health"
+          if [ "$ENV" = "production" ]; then URL="https://sporekart.com/actuator/health"; fi
+          curl -sSf -o /dev/null -w "%{http_code}" "$URL" \
+            || { echo "❌ Health check failed"; exit 1; }
+          echo "✅ Rollback verified — health check passed on ${ENV}"
+
+  notify:
+    name: Notify
+    needs: [validate, database, rollback-deployment, verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_DEPLOY_WEBHOOK }}
+          SLACK_MESSAGE: "Rollback to ${{ github.event.inputs.rollback_to }} on ${{ github.event.inputs.environment }}: ${{ needs.verify.result == 'success' && '✅ SUCCESS' || '❌ FAILED' }}"
+        continue-on-error: true

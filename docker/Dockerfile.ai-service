@@ -1,0 +1,24 @@
+# SporeKart — AI Service Production Dockerfile
+# Multi-stage: compile → minimal JRE
+
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /build
+COPY . .
+RUN --mount=type=cache,target=/root/.m2 \
+    if [ -f "pom.xml" ]; then \
+      export MAVEN_HOME=$(ls -d apache-maven-* 2>/dev/null | head -1); \
+      if [ -z "$MAVEN_HOME" ]; then MAVEN_HOME=/usr/share/maven; fi; \
+      ${MAVEN_HOME}/bin/mvn package -DskipTests -q -pl services/ai-service -am; \
+    fi
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+RUN addgroup -S sporekart && adduser -S sporekart -G sporekart
+WORKDIR /app
+COPY --from=builder /build/services/ai-service/target/*.jar app.jar
+RUN chown -R sporekart:sporekart /app
+USER sporekart
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=60s \
+  CMD wget -qO- http://localhost:8080/actuator/health || exit 1
+ENV SPRING_PROFILES_ACTIVE=prod
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
