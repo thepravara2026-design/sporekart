@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: workflow-orchestrator-service
+  jackson:
+    visibility:
+      field: any
+
+server:
+  port: ${SERVER_PORT:8097}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+workflow:
+  engine:
+    enabled: true
+    default-type: ORDER
+    simulation: true
+  runtime:
+    enabled: true
+    max-concurrent: 100
+  queue:
+    enabled: true
+    max-size: 1000
+  retry:
+    enabled: true
+    max-attempts: 3
+    backoff-ms: 1000
+  cache:
+    enabled: true
+    ttl-seconds: 300
+    max-size: 500
+  telemetry:
+    enabled: true
+  approval:
+    enabled: true
+    require-all: true
+  audit:
+    enabled: true
+  debug: false
