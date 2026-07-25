@@ -10,6 +10,8 @@ const MODULE_ITEMS: NavItem[] = [
   { id: 'finance', label: 'Finance', icon: 'credit-card', href: '/admin/finance', roles: ['super_admin', 'administrator', 'finance_manager'] },
   { id: 'marketing', label: 'Marketing', icon: 'megaphone', href: '/admin/marketing', roles: ['super_admin', 'administrator', 'marketing_manager'] },
   { id: 'support', label: 'Support', icon: 'headphones', href: '/admin/support', roles: ['super_admin', 'administrator', 'support_executive'] },
+  { id: 'report-center', label: 'Report Center', icon: 'bar-chart', href: '/admin/report-center', roles: ['super_admin', 'administrator', 'manager'] },
+  { id: 'report-templates', label: 'Report Templates', icon: 'file-text', href: '/admin/report-templates', roles: ['super_admin', 'administrator', 'manager'] },
   { id: 'reports', label: 'Reports', icon: 'bar-chart', href: '/admin/reports', roles: ['super_admin', 'administrator', 'manager', 'finance_manager', 'marketing_manager'] },
   { id: 'shipping', label: 'Shipping', icon: 'truck', href: '/admin/shipping', roles: ['super_admin', 'administrator', 'manager', 'inventory_manager', 'support_executive'] },
   { id: 'analytics', label: 'Analytics', icon: 'trending-up', href: '/admin/analytics', roles: ['super_admin', 'administrator', 'manager', 'marketing_manager', 'finance_manager'] },

@@ -107,6 +107,26 @@ export const MODULE_KPIS: ModuleKPIs[] = [
       { id: 'analytics-bounce', title: 'Bounce Rate', value: '41.2%', trend: 'down', percentage: 3.4, comparison: 'vs last month', icon: 'trending-down', color: '#d97706' },
     ],
   },
+  {
+    moduleId: 'report-center',
+    moduleLabel: 'Report Center',
+    kpis: [
+      { id: 'rc-total', title: 'Total Reports', value: '1,284', trend: 'up', percentage: 28.4, comparison: 'vs last month', icon: 'bar-chart', color: '#2f6f4f' },
+      { id: 'rc-generated', title: 'Generated', value: '836', trend: 'up', percentage: 18.2, comparison: 'vs last month', icon: 'check-circle', color: '#1d9bf0' },
+      { id: 'rc-scheduled', title: 'Scheduled', value: '76', trend: 'up', percentage: 5.6, comparison: 'vs last month', icon: 'calendar', color: '#7c3aed' },
+      { id: 'rc-failed', title: 'Failed', value: '16', trend: 'down', percentage: 33.3, comparison: 'vs last month', icon: 'alert-triangle', color: '#ef4444' },
+    ],
+  },
+  {
+    moduleId: 'report-templates',
+    moduleLabel: 'Report Templates',
+    kpis: [
+      { id: 'rt-total', title: 'Total Templates', value: '8', trend: 'up', percentage: 14.3, comparison: 'vs last month', icon: 'file-text', color: '#2f6f4f' },
+      { id: 'rt-active', title: 'Active', value: '6', trend: 'neutral', percentage: 0, comparison: 'vs last month', icon: 'check-circle', color: '#1d9bf0' },
+      { id: 'rt-usage', title: 'Total Usage', value: '526', trend: 'up', percentage: 22.7, comparison: 'vs last month', icon: 'trending-up', color: '#7c3aed' },
+      { id: 'rt-sections', title: 'Total Sections', value: '34', trend: 'up', percentage: 9.7, comparison: 'vs last month', icon: 'layers', color: '#d97706' },
+    ],
+  },
 ];
 
 export function getAllModuleKPIs(): KPIData[] {

@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: reporting-service
+  jackson:
+    visibility:
+      field: any
+
+server:
+  port: ${SERVER_PORT:8096}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+report:
+  engine:
+    enabled: true
+    default-type: EXECUTIVE
+  template:
+    enabled: true
+  export:
+    enabled: true
+    default-format: PDF
+  scheduler:
+    enabled: true
+    max-schedules: 100
+  cache:
+    enabled: true
+    ttl-seconds: 300
+    max-size: 1000
+  telemetry:
+    enabled: true
+  bi:
+    enabled: true
+  debug: false

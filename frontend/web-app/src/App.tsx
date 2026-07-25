@@ -301,6 +301,8 @@ const CommunicationStatisticsPage = lazy(() => import('./admin/training-workspac
 const AdminShippingPage = lazy(() => import('./admin/modules/shipping/ShippingPage').then((m) => ({ default: m.ShippingPage })));
 const AdminFinancePage = lazy(() => import('./admin/modules/finance/FinancePage').then((m) => ({ default: m.FinancePage })));
 const AdminReportsPage = lazy(() => import('./admin/modules/reports/ReportsPage').then((m) => ({ default: m.ReportsPage })));
+const AdminReportCenterPage = lazy(() => import('./admin/modules/report-center/ReportCenterPage').then((m) => ({ default: m.ReportCenterPage })));
+const AdminReportTemplatesPage = lazy(() => import('./admin/modules/report-templates/ReportTemplatesPage').then((m) => ({ default: m.ReportTemplatesPage })));
 const AdminAnalyticsPage = lazy(() => import('./admin/modules/analytics/AnalyticsPage').then((m) => ({ default: m.AnalyticsPage })));
 
 // ---- Phase 9 · Sprint 24 · Part 5: Enterprise Media Management / DAM ----
@@ -695,6 +697,8 @@ export default function App() {
               <Route path="shipping" element={<AdminShippingPage />} />
               <Route path="finance" element={<AdminFinancePage />} />
               <Route path="reports" element={<AdminReportsPage />} />
+              <Route path="report-center" element={<AdminReportCenterPage />} />
+              <Route path="report-templates" element={<AdminReportTemplatesPage />} />
               <Route path="analytics" element={<AdminAnalyticsPage />} />
               <Route path="profile" element={<AdminProfile />} />
               <Route path="settings" element={<AdminSettings />} />

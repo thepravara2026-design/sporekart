@@ -1,0 +1,13 @@
+# Reporting Service — Docker Placeholder
+# Replace with production Dockerfile when containerizing.
+
+FROM openjdk:21-jdk-slim AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+FROM openjdk:21-jdk-slim
+COPY --from=build /app/target/reporting-service-*.jar app.jar
+EXPOSE 8096
+ENTRYPOINT ["java", "-jar", "/app.jar"]
