@@ -98,6 +98,36 @@ export const MODULE_KPIS: ModuleKPIs[] = [
     ],
   },
   {
+    moduleId: 'alert-center',
+    moduleLabel: 'Alert Center',
+    kpis: [
+      { id: 'alert-total', title: 'Total Alerts', value: '15', trend: 'up', percentage: 25.0, comparison: 'vs last week', icon: 'bell', color: '#ef4444' },
+      { id: 'alert-open', title: 'Open Alerts', value: '8', trend: 'up', percentage: 33.3, comparison: 'vs last week', icon: 'alert-triangle', color: '#f97316' },
+      { id: 'alert-critical', title: 'Critical Alerts', value: '3', trend: 'neutral', percentage: 0, comparison: 'vs last week', icon: 'shield', color: '#ef4444' },
+      { id: 'alert-resolved', title: 'Resolved', value: '4', trend: 'down', percentage: 20.0, comparison: 'vs last week', icon: 'check-circle', color: '#22c55e' },
+    ],
+  },
+  {
+    moduleId: 'risk-dashboard',
+    moduleLabel: 'Risk Dashboard',
+    kpis: [
+      { id: 'risk-total', title: 'Total Risks', value: '10', trend: 'up', percentage: 11.1, comparison: 'vs last month', icon: 'alert-triangle', color: '#f97316' },
+      { id: 'risk-critical', title: 'Critical Risks', value: '1', trend: 'neutral', percentage: 0, comparison: 'vs last month', icon: 'shield', color: '#ef4444' },
+      { id: 'risk-high', title: 'High Risks', value: '4', trend: 'up', percentage: 33.3, comparison: 'vs last month', icon: 'trending-up', color: '#f97316' },
+      { id: 'risk-score', title: 'Avg Risk Score', value: '67.8', trend: 'up', percentage: 5.2, comparison: 'vs last month', icon: 'activity', color: '#7c3aed' },
+    ],
+  },
+  {
+    moduleId: 'timeline-view',
+    moduleLabel: 'Timeline',
+    kpis: [
+      { id: 'timeline-events', title: 'Total Events', value: '24', trend: 'up', percentage: 41.2, comparison: 'vs last week', icon: 'activity', color: '#3b82f6' },
+      { id: 'timeline-today', title: 'Today\'s Events', value: '9', trend: 'up', percentage: 28.6, comparison: 'vs yesterday', icon: 'clock', color: '#1d9bf0' },
+      { id: 'timeline-alerts', title: 'Alert Events', value: '8', trend: 'up', percentage: 14.3, comparison: 'vs last week', icon: 'bell', color: '#ef4444' },
+      { id: 'timeline-risks', title: 'Risk Events', value: '5', trend: 'neutral', percentage: 0, comparison: 'vs last week', icon: 'alert-triangle', color: '#f97316' },
+    ],
+  },
+  {
     moduleId: 'analytics',
     moduleLabel: 'Analytics',
     kpis: [

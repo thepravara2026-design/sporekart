@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: alert-intelligence-service
+  jackson:
+    visibility:
+      field: any
+
+server:
+  port: ${SERVER_PORT:8095}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+alert:
+  engine:
+    enabled: true
+    default-severity: MEDIUM
+    default-priority: P2
+  risk:
+    enabled: true
+  anomaly:
+    enabled: true
+    detection-interval-seconds: 60
+  timeline:
+    enabled: true
+    max-events: 500
+  cache:
+    enabled: true
+    ttl-seconds: 300
+    max-size: 1000
+  telemetry:
+    enabled: true
+  debug: false

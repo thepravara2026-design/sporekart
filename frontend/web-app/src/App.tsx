@@ -302,6 +302,9 @@ const AdminShippingPage = lazy(() => import('./admin/modules/shipping/ShippingPa
 const AdminFinancePage = lazy(() => import('./admin/modules/finance/FinancePage').then((m) => ({ default: m.FinancePage })));
 const AdminReportsPage = lazy(() => import('./admin/modules/reports/ReportsPage').then((m) => ({ default: m.ReportsPage })));
 const AdminAnalyticsPage = lazy(() => import('./admin/modules/analytics/AnalyticsPage').then((m) => ({ default: m.AnalyticsPage })));
+const AdminAlertCenterPage = lazy(() => import('./admin/modules/alert-center').then((m) => ({ default: m.AlertCenterPage })));
+const AdminRiskDashboardPage = lazy(() => import('./admin/modules/risk-dashboard').then((m) => ({ default: m.RiskDashboardPage })));
+const AdminTimelineViewPage = lazy(() => import('./admin/modules/timeline-view').then((m) => ({ default: m.TimelineViewPage })));
 
 // ---- Phase 9 · Sprint 24 · Part 5: Enterprise Media Management / DAM ----
 const AdminMediaPage = lazy(() => import('./admin/modules/media/MediaPage').then((m) => ({ default: m.MediaPage })));
@@ -696,6 +699,9 @@ export default function App() {
               <Route path="finance" element={<AdminFinancePage />} />
               <Route path="reports" element={<AdminReportsPage />} />
               <Route path="analytics" element={<AdminAnalyticsPage />} />
+              <Route path="alert-center" element={<AdminAlertCenterPage />} />
+              <Route path="risk-dashboard" element={<AdminRiskDashboardPage />} />
+              <Route path="timeline-view" element={<AdminTimelineViewPage />} />
               <Route path="profile" element={<AdminProfile />} />
               <Route path="settings" element={<AdminSettings />} />
               <Route path="system" element={<AdminSystem />} />

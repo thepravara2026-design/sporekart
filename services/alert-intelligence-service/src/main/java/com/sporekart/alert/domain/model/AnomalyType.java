@@ -1,0 +1,6 @@
+package com.sporekart.alert.domain.model;
+
+public enum AnomalyType {
+    UNEXPECTED_GROWTH, UNEXPECTED_DECLINE, OUTLIER, TREND_BREAK,
+    SEASONALITY_CHANGE, VOLUME_SPIKE, PERFORMANCE_DROP, OPERATIONAL_FAILURE
+}
